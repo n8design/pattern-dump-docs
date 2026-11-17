@@ -1,0 +1,4 @@
+{
+  "site": { "title": "Pattern Dump", "footer": "Made with Pattern Dump." },
+  "nav": [{ "route": "/", "title": "Home", "current": true }, { "route": "/about/", "title": "About" }]
+}

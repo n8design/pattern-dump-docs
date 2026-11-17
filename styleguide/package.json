@@ -1,0 +1,17 @@
+{
+  "name": "styleguide",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pd dev",
+    "audit": "pd audit",
+    "typecheck": "tsc --noEmit",
+    "build:scripts": "tsc",
+    "build": "pd build"
+  },
+  "devDependencies": {
+    "pattern-dump": "^0.5.3",
+    "typescript": "^5.9.0"
+  }
+}

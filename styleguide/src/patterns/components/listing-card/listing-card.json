@@ -1,0 +1,20 @@
+{
+  "route": "/articles/hello/",
+  "title": "Hello, articles",
+  "date": "2026-11-14",
+  "description": "The example article. Copy it to start a new one.",
+  "tags": [
+    {
+      "key": "getting-started",
+      "label": "getting-started",
+      "description": null,
+      "route": "/tags/getting-started/"
+    },
+    {
+      "key": "notes",
+      "label": "notes",
+      "description": null,
+      "route": "/tags/notes/"
+    }
+  ]
+}
