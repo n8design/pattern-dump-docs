@@ -88,17 +88,22 @@ $max-ratio: math.sqrt(2);
   font-size: var(--font-size--1);
 }
 
-// Code: the system's monospace. Blocks on the dark code surface; inline code on the surface colour.
+// Code: Atkinson Hyperlegible Mono. Blocks on the dark code surface; inline code on a ground of its own.
 :where(code, kbd, samp) {
   font-family: tokens.$font-mono;
   font-size: 0.9em;
 }
 
 :where(:not(pre) > code) {
-  padding: 0.1em 0.35em;
-  // Long paths and package names break rather than push the page sideways when text is enlarged.
+  padding-inline: 0.25em;
+  // Long paths and package names break rather than push the page sideways when text is enlarged; where one wraps,
+  // each line keeps its padding (clone; Safari only knows the prefixed property, and without it only the wrap edges
+  // lose their padding).
   overflow-wrap: anywhere;
-  background: var(--color-surface-subtle);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  color: var(--color-heading);
+  background: var(--color-code-inline);
 }
 
 :where(pre) {

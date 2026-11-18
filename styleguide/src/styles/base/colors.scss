@@ -35,6 +35,8 @@ $colors: (
   "accent-ink":       (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
   // The logo mark follows the accent and switches with the mode
   "logo":             (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
+  // Inline code: its own ground, set apart from running text in both modes (not the accent: links use it)
+  "code-inline":      (light: oklch(87% 0.016 245),       dark: oklch(30% 0.032 245)),
   // Code blocks
   "code-surface":     (light: oklch(19.9% 0.026 247),     dark: oklch(15.4% 0.02 243)),
   "code-text":        (light: oklch(92.8% 0.006 223),     dark: oklch(92.8% 0.006 223)),
