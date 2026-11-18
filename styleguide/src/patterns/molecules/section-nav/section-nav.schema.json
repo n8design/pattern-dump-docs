@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "In this section",
+  "description": "The pages of the page's section, from page.section and nav, the current one marked; closed until opened.",
+  "type": "object",
+  "required": [
+    "nav"
+  ],
+  "properties": {
+    "page": {
+      "type": "object",
+      "properties": {
+        "section": {
+          "description": "The top-level nav entry the page is in: { route, title }, null when none holds it",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "route": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "nav": {
+      "type": "array",
+      "description": "The site's navigation: the storefront fills it from the pages, one level deep",
+      "items": {
+        "type": "object",
+        "required": [
+          "route",
+          "title"
+        ],
+        "properties": {
+          "route": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "current": {
+            "type": "boolean"
+          },
+          "children": {
+            "type": "array",
+            "description": "A section's pages",
+            "items": {
+              "type": "object",
+              "required": [
+                "route",
+                "title"
+              ],
+              "properties": {
+                "route": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "current": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

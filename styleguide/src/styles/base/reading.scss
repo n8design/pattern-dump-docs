@@ -1,3 +1,5 @@
+@use "tokens";
+
 // The reading page (layouts/doc, layouts/article): progress, then the table of contents and the article. Here, in
 // the base layer, because both layouts use it and neither owns it.
 .reading { padding: 3.5rem var(--site-gutter, 1.5rem) 5rem; }
@@ -24,7 +26,22 @@
 
 .reading-article { min-inline-size: 0; max-inline-size: var(--reading-column); }
 
+// A page in a section with no pages of its own, and no table of contents: the aside has nothing in it.
+.reading-aside:empty { display: none; }
+
+// The table of contents and "In this section" (molecules/section-nav): two blocks, separated by space alone.
+.reading-aside > * + * { margin-block-start: tokens.$space-lg; }
+
 // With the sticky bars (pages/frame, the same query): the table of contents stays in view just below the header.
+// It scrolls itself when it is taller than the room between the bars: a long table of contents, or a long section
+// opened. A little room at its end keeps the last link's focus outline inside it.
 @media (min-width: 64em) and (min-height: 40em) {
-  .reading-aside { position: sticky; top: var(--site-header-height); }
+  .reading-aside {
+    position: sticky;
+    top: var(--site-header-height);
+    max-block-size: calc(100dvh - var(--site-header-height) - var(--site-footer-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-block-end: tokens.$space-xs;
+  }
 }

@@ -13,6 +13,10 @@
     "prev": {
       "route": "/guide/install/",
       "title": "Install"
+    },
+    "section": {
+      "route": "/guide/",
+      "title": "Guide"
     }
   },
   "nav": [

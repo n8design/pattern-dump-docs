@@ -1,0 +1,10 @@
+{{~#each nav as |section|}}{{#if (and section.children.length (eq section.route ../page.section.route))}}
+<nav class="section-nav" aria-labelledby="section-nav-title">
+  <details class="section-nav-details">
+    <summary class="section-nav-title" id="section-nav-title"><svg class="section-nav-chevron" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"></path></svg>In this section</summary>
+    <ul class="section-nav-list">
+      {{#each section.children as |entry|}}<li><a class="section-nav-link" href="{{entry.route}}"{{#if entry.current}} aria-current="page"{{/if}}>{{entry.title}}</a></li>{{/each}}
+    </ul>
+  </details>
+</nav>
+{{/if}}{{/each~}}

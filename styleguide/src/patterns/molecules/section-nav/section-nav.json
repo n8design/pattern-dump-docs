@@ -1,0 +1,47 @@
+{
+  "page": {
+    "section": {
+      "route": "/reference/",
+      "title": "Reference"
+    }
+  },
+  "nav": [
+    {
+      "route": "/",
+      "title": "Home"
+    },
+    {
+      "route": "/guide/",
+      "title": "Guide",
+      "children": [
+        {
+          "route": "/guide/create-a-style-guide/",
+          "title": "Create a style guide"
+        }
+      ]
+    },
+    {
+      "route": "/reference/",
+      "title": "Reference",
+      "children": [
+        {
+          "route": "/reference/cli/",
+          "title": "Command line"
+        },
+        {
+          "route": "/reference/configuration/",
+          "title": "Configuration",
+          "current": true
+        },
+        {
+          "route": "/reference/component-files/",
+          "title": "Component files"
+        },
+        {
+          "route": "/reference/themes/",
+          "title": "Themes"
+        }
+      ]
+    }
+  ]
+}
