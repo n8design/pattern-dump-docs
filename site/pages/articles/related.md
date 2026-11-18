@@ -7,8 +7,7 @@ categories: [notes]
 ---
 
 Below every article is a short list of related articles: up to three from the same folder, the ones sharing most
-tags and categories first. It is a query the article layout declares (`src/patterns/layouts/article`), and the home
-page's latest articles are the same mechanism. An article changes the list in its frontmatter, under `related:`:
+tags and categories first. It is a query the article layout declares (`src/patterns/layouts/article`). An article changes the list in its frontmatter, under `related:`:
 
 ```yaml
 related:
