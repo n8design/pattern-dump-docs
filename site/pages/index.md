@@ -1,9 +1,9 @@
 ---
 title: Home
 layout: home
-headline: Everything on one page. Then just the page you need.
-description: Pattern Dump renders Handlebars and Mustache components with JSON data, checks accessibility by default and publishes sites like this one. This page is the whole map of the docs.
+headline: [Build the design system., Reuse it everywhere., Iterate in one place.]
+description: Pattern Dump renders Handlebars components with JSON data, checks accessibility in every build and publishes sites like this one. This page is the whole map of the docs.
 ---
 
-Note for authors, not shown on the site (the home layout renders no body): `headline` and `description` above are
-placeholder copy from the sketch, until Stefan writes the final text.
+Note for authors, not shown on the site (the home layout renders no body): `headline` is a list, one sentence per
+line of the hero.

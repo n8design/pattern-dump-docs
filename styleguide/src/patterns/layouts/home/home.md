@@ -2,8 +2,8 @@
 title: Home
 ---
 
-The home page (`layout: home` in `site/pages/index.md`): the eyebrow, the headline (`headline`, or the page's
-`title` without one), the lede (`description`), two actions, then the map of every page (`organisms/page-map`) on the
+The home page (`layout: home` in `site/pages/index.md`): the eyebrow, the headline (`headline`, a list with one
+sentence per line, or the page's `title` without one), the lede (`description`), two actions, then the map of every page (`organisms/page-map`) on the
 surface band.
 
 The actions are "Start the guide" (`/guide/`) and "Read the articles" (`/articles/`). The second becomes "Go to

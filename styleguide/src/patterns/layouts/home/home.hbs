@@ -2,7 +2,7 @@
 <div class="home">
   <div class="home-hero">
     <p class="home-eyebrow">Documentation</p>
-    <h1 class="home-title">{{#if headline}}{{headline}}{{else}}{{title}}{{/if}}</h1>
+    <h1 class="home-title">{{#if headline}}{{#each headline}}<span class="home-title-line">{{this}}</span> {{/each}}{{else}}{{title}}{{/if}}</h1>
     {{#if description}}<p class="home-lede">{{description}}</p>{{/if}}
     <div class="home-actions">
       <a class="home-action home-action-primary" href="/guide/">Start the guide</a>

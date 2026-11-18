@@ -16,15 +16,15 @@
 }
 
 // The hero: Archivo italic, fully expanded, like the site title (the wordmark and the hero share the logo's lean).
-// Its size is step 4, but never more than its column holds: the expanded face is wide, and with enlarged text on a
-// phone the longest word ("Everything", about 6.2 times the font size) would overflow and break mid-word or scroll
-// the page. 15.5cqi lets that word take about 96% of the column; at normal text sizes step 4 is the smaller one, so
-// the cap only acts once text is enlarged on a narrow screen. A longer word in the final copy needs a lower cap.
+// Its size is step 4, but never more than the column allows: the expanded face is wide. Each sentence of the headline
+// must fit in two lines on a phone, and "Build the design system." needs a line of 9.03 times the font size for that
+// ("design system."), the widest word "everywhere." 7.48. So the font is at most 1/9.03 of the column (11cqi); 10.5cqi
+// leaves about 5% for the italic's overhang. Measure again when the headline changes.
 .home-title {
   margin: 0;
   max-inline-size: 18ch;
   font-family: tokens.$font-display;
-  font-size: min(var(--font-size-4), 15.5cqi);
+  font-size: min(var(--font-size-4), 10.5cqi);
   font-style: italic;
   font-stretch: 125%;
   font-weight: var(--font-weight-heading-strong);
@@ -32,6 +32,10 @@
   letter-spacing: -0.01em;
   word-spacing: 0.02em;
 }
+
+// One sentence per line: block spans, not <br>, so each line is its own box and the space between them in the markup
+// keeps the sentences apart in the heading's accessible name.
+.home-title-line { display: block; }
 
 .home-lede {
   margin: 1.5rem 0 0;

@@ -1,7 +1,11 @@
 {
   "title": "Home",
-  "headline": "Everything on one page. Then just the page you need.",
-  "description": "Pattern Dump renders Handlebars and Mustache components with JSON data, checks accessibility by default and publishes sites like this one. This page is the whole map of the docs.",
+  "headline": [
+    "Build the design system.",
+    "Reuse it everywhere.",
+    "Iterate in one place."
+  ],
+  "description": "Pattern Dump renders Handlebars components with JSON data, checks accessibility in every build and publishes sites like this one. This page is the whole map of the docs.",
   "site": {
     "title": "Pattern Dump",
     "footer": "Pattern Dump. Built with Pattern Dump."
