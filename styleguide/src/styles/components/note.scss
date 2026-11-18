@@ -1,8 +1,8 @@
 @use "../base/tokens";
 
-.note { margin-block: tokens.$space-md; padding: tokens.$space-md; border-left: 0.25rem solid var(--color-border, #6b7280); background: #f3f4f6; }
-.note-tip { border-left-color: #0b7a3e; background: #ecf8f1; }
-.note-warning { border-left-color: #a15c00; background: #fdf4e7; }
+.note { margin-block: tokens.$space-md; padding: tokens.$space-md; border-left: 0.25rem solid var(--color-border); background: var(--color-surface-subtle); }
+.note-tip { border-left-color: var(--color-success); background: var(--color-success-surface); }
+.note-warning { border-left-color: var(--color-warning); background: var(--color-warning-surface); }
 .note-heading { margin: 0 0 tokens.$space-xs; font-weight: 700; }
 .note-text > :first-child { margin-top: 0; }
 .note-text > :last-child { margin-bottom: 0; }

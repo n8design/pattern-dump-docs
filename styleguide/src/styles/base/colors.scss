@@ -1,0 +1,92 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+
+// The color tokens: every color the style guide and the website use, each with its light and its dark value.
+// Part of the document base, so the workbench and the website both load it.
+//
+// Write a color here, in oklch(), and nowhere else; components use the custom properties (var(--color-text)).
+// The hsl() fallbacks are computed from these values when the styles compile.
+//
+// Which value shows follows color-scheme: the system setting (light dark, below), or a theme's
+// (themes/*.theme.scss set it for the workbench's theme switch).
+
+$colors: (
+  // "Deep gunmetal, Lime & Berry". One accent per mode: berry in light, lime in dark; neither appears in the other mode.
+  //
+  // Page and text
+  "surface":          (light: oklch(95% 0.006 240),       dark: oklch(19.9% 0.026 247)),
+  "surface-subtle":   (light: oklch(91.6% 0.009 243),     dark: oklch(23.7% 0.028 245)),
+  "heading":          (light: oklch(19.9% 0.026 247),     dark: oklch(96% 0.006 255)),
+  "text":             (light: oklch(27.9% 0.029 247),     dark: oklch(86.9% 0.014 248)),
+  "text-muted":       (light: oklch(45% 0.026 246),       dark: oklch(72% 0.02 248)),
+  // Lines: hairline separates and is decorative; border is the edge of a control, at 3:1
+  "hairline":         (light: oklch(85.1% 0.011 244),     dark: oklch(32.1% 0.029 243)),
+  "border":           (light: oklch(57% 0.02 246),        dark: oklch(60.1% 0.029 243)),
+  // Links
+  "primary":          (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
+  "primary-hover":    (light: oklch(41.3% 0.157 7),       dark: oklch(93.8% 0.15 120)),
+  // The accent: the fill of the main action (the home page's primary button, the pager's Next, atoms/button's
+  // primary) with on-accent for the text on it. accent-ink marks a position: the current nav item's underline,
+  // done progress segments, the guide's step numbers.
+  "accent":           (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
+  "on-accent":        (light: oklch(95% 0.006 240),       dark: oklch(19.9% 0.026 247)),
+  "accent-ink":       (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
+  // The logo mark follows the accent and switches with the mode
+  "logo":             (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
+  // Code blocks
+  "code-surface":     (light: oklch(19.9% 0.026 247),     dark: oklch(15.4% 0.02 243)),
+  "code-text":        (light: oklch(92.8% 0.006 223),     dark: oklch(92.8% 0.006 223)),
+  // A code block's edge: in light the same as its surface (no edge to see); in dark the hairline, where the block
+  // and the page are close in lightness
+  "code-edge":        (light: oklch(19.9% 0.026 247),     dark: oklch(32.1% 0.029 243)),  //
+  // The note's tones (components/note)
+  "success":         (light: oklch(50.9% 0.130 152.1),   dark: oklch(73.5% 0.136 159.3)),
+  "success-surface": (light: oklch(96.8% 0.016 160.6),   dark: oklch(26.2% 0.037 159.6)),
+  "warning":         (light: oklch(54.2% 0.124 62.5),    dark: oklch(77.4% 0.146 70.2)),
+  "warning-surface": (light: oklch(97.1% 0.020 77.3),    dark: oklch(26.4% 0.034 78.8)),
+);
+
+// The hsl() fallback of an oklch() color: the same color, mapped into sRGB if it lies outside it, written as
+// `hsl(H S% L%)` with one decimal, and `/ A` when it is translucent. A grey has no hue; old browsers don't know
+// `none`, so it is 0 there.
+@function -hsl($oklch) {
+  $c: color.to-gamut(color.to-space($oklch, hsl), $method: local-minde);
+  $h: 0;
+  @if not color.is-missing($c, "hue") {
+    $h: math.div(color.channel($c, "hue", $space: hsl), 1deg);
+  }
+  $s: math.div(color.channel($c, "saturation", $space: hsl), 1%);
+  $l: math.div(color.channel($c, "lightness", $space: hsl), 1%);
+  $a: color.alpha($c);
+  $alpha: "";
+  @if $a < 1 {
+    $alpha: " / #{$a}";
+  }
+  @return string.unquote("hsl(#{-round($h)} #{-round($s)}% #{-round($l)}%#{$alpha})");
+}
+
+@function -round($n) {
+  @return math.div(math.round($n * 10), 10);
+}
+
+:root {
+  color-scheme: light dark;
+
+  // Fallback for browsers without light-dark() or oklch(): hsl(), light, then dark by the system setting.
+  @each $name, $value in $colors {
+    --color-#{$name}: #{-hsl(map.get($value, light))};
+  }
+  @media (prefers-color-scheme: dark) {
+    @each $name, $value in $colors {
+      --color-#{$name}: #{-hsl(map.get($value, dark))};
+    }
+  }
+
+  @supports (color: light-dark(oklch(0% 0 0), oklch(0% 0 0))) {
+    @each $name, $value in $colors {
+      --color-#{$name}: light-dark(#{map.get($value, light)}, #{map.get($value, dark)});
+    }
+  }
+}

@@ -11,19 +11,19 @@
 }
 
 .button:focus-visible {
-  outline: 0.125rem solid var(--color-primary, #0b5cad);
+  outline: 0.125rem solid var(--color-primary);
   outline-offset: 0.125rem;
 }
 
 .button-primary {
-  background: var(--color-primary, #0b5cad);
-  color: var(--color-on-primary, #ffffff);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 .button-secondary {
   background: transparent;
-  border-color: var(--color-border, #6b7280);
-  color: var(--color-text, #1b1b1f);
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 .button-icon {

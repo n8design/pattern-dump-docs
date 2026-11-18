@@ -1,26 +1,24 @@
 {
   "customSyntax": "postcss-scss",
   "rules": {
-    "unit-disallowed-list": [
-      "px"
-    ],
-    "property-disallowed-list": [
-      "backdrop-filter",
-      "-webkit-backdrop-filter"
-    ],
+    "unit-disallowed-list": ["px"],
+    "color-no-hex": true,
+    "color-named": "never",
+    "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch", "color"],
+    "property-disallowed-list": ["backdrop-filter", "-webkit-backdrop-filter"],
     "declaration-property-value-disallowed-list": {
-      "box-shadow": [
-        "/.*/"
-      ],
-      "border-radius": [
-        "/.*/"
-      ],
-      "/^border-.*-radius$/": [
-        "/.*/"
-      ],
-      "/^background/": [
-        "/gradient/"
-      ]
+      "box-shadow": ["/.*/"],
+      "border-radius": ["/.*/"],
+      "/^border-.*-radius$/": ["/.*/"],
+      "/^background/": ["/gradient/"]
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/styles/base/colors.scss"],
+      "rules": {
+        "function-disallowed-list": ["rgb", "rgba", "hsla", "hwb", "lab", "lch", "oklab", "color"]
+      }
+    }
+  ]
 }

@@ -1,8 +1,5 @@
+// The dark theme, for the workbench's theme switch: it only fixes the color scheme.
+// The colors are the tokens in src/styles/base/colors.scss; light-dark() picks their dark values here.
 [data-theme="dark"] {
-  --color-surface: #16181d;
-  --color-text: #eceef2;
-  --color-text-muted: #b4bac4;
-  --color-primary: #7ab8ff;
-  --color-on-primary: #0b1220;
-  --color-border: #9aa1ad;
+  color-scheme: dark;
 }

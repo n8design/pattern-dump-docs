@@ -1,5 +1,5 @@
 // Sass tokens shared by every stylesheet. Emits no CSS; @use it where needed.
-// Colours are NOT here: they come from the active theme (themes/*.theme.scss) as custom properties.
+// Colors are not here: they are custom properties, in colors.scss.
 $space-xs: 0.25rem;
 $space-sm: 0.5rem;
 $space-md: 1rem;

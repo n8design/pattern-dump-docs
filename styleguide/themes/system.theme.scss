@@ -1,0 +1,5 @@
+// The default theme: it follows the system setting, as the website does (src/styles/base/colors.scss).
+// light and dark fix one scheme, for checking a component in each.
+[data-theme="system"] {
+  color-scheme: light dark;
+}

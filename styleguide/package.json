@@ -21,7 +21,7 @@
     },
     "themes": {
       "dir": "themes",
-      "default": "light",
+      "default": "system",
       "switch": "attribute"
     },
     "scripts": "src/scripts",

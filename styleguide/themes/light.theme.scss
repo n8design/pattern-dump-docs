@@ -1,8 +1,5 @@
+// The light theme, for the workbench's theme switch: it only fixes the color scheme.
+// The colors are the tokens in src/styles/base/colors.scss; light-dark() picks their light values here.
 [data-theme="light"] {
-  --color-surface: #ffffff;
-  --color-text: #1b1b1f;
-  --color-text-muted: #4b5563;
-  --color-primary: #0b5cad;
-  --color-on-primary: #ffffff;
-  --color-border: #6b7280;
+  color-scheme: light;
 }
