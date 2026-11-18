@@ -2,7 +2,18 @@
   "name": "pattern-dump-docs",
   "version": "0.0.0",
   "private": true,
+  "description": "The website (site/) and its style guide (styleguide/), as npm workspaces. The site is content only; its look comes from the style guide package.",
+  "workspaces": [
+    "styleguide",
+    "site"
+  ],
   "scripts": {
+    "dev": "npm run dev -w @pattern-dump-docs/site",
+    "dev:styleguide": "npm run dev -w @pattern-dump-docs/styleguide",
+    "build": "npm run build -w @pattern-dump-docs/site",
+    "audit": "npm run audit -w @pattern-dump-docs/styleguide",
+    "typecheck": "npm run typecheck -w @pattern-dump-docs/styleguide",
+    "pages": "npm run build -w @pattern-dump-docs/site && npm run build -w @pattern-dump-docs/styleguide -- --base /workbench/ && node scripts/assemble-pages.mjs",
     "prepare": "husky"
   },
   "devDependencies": {

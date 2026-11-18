@@ -1,6 +1,6 @@
 # Builds the website and the workbench, and publishes both to GitHub Pages: the website at the address in
-# storefront.url (your domain, or a project page's address with its path), the workbench inside it at
-# workbench/ (build.basePath gives its full path).
+# storefront.url in site/pattern-dump.config.ts (your domain, or a project page's address with its path), the workbench inside it at
+# workbench/ (build.basePath in site/pattern-dump.config.ts, and the style guide's --base in the root's "pages" script).
 # Before the first run: Settings → Pages → Source: "GitHub Actions", and your custom domain: see "Publish it" in the README.
 name: Pages
 
@@ -22,10 +22,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    # The Pattern Dump project (package.json, pattern-dump.config.ts) is styleguide/; the pages it builds are ../site/.
-    defaults:
-      run:
-        working-directory: styleguide
     steps:
       - uses: actions/checkout@v7
         with:
@@ -35,20 +31,15 @@ jobs:
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: styleguide/package-lock.json
       - run: npm ci
-      - run: npm run build
-      # pd build writes the website (styleguide/public/) and the workbench (styleguide/dist/) side by side;
-      # Pages takes one folder.
-      - run: |
-          mkdir _site
-          cp -R public/. _site/
-          cp -R dist _site/workbench
+      # npm workspaces: the site (site/) and the style guide package (styleguide/), installed and linked together.
+      # `npm run pages` builds the site, then the style guide's workbench for /workbench/, and copies both into
+      # _site/ (scripts/assemble-pages.mjs).
+      - run: npm run pages
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
-          # `with:` paths don't follow defaults.run.working-directory: this one is from the repository root.
-          path: styleguide/_site
+          path: _site
 
   deploy:
     needs: build

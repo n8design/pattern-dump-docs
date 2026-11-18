@@ -1,17 +1,43 @@
 {
-  "name": "styleguide",
+  "name": "@pattern-dump-docs/styleguide",
   "version": "0.1.0",
   "private": true,
+  "description": "The style guide: patterns, skin, styles and themes, packaged as a pattern package that the site installs.",
   "type": "module",
+  "files": [
+    "src/patterns",
+    "src/styles",
+    "src/scripts",
+    "themes",
+    "assets"
+  ],
+  "patternDump": {
+    "patterns": "src/patterns",
+    "styles": {
+      "dir": "src/styles",
+      "documentBase": [
+        "base"
+      ]
+    },
+    "themes": {
+      "dir": "themes",
+      "default": "light",
+      "switch": "attribute"
+    },
+    "scripts": "src/scripts",
+    "assets": [
+      "assets"
+    ]
+  },
   "scripts": {
-    "dev": "pd dev",
+    "dev": "pd dev --port 4300",
     "audit": "pd audit",
     "typecheck": "tsc --noEmit",
     "build:scripts": "tsc",
     "build": "pd build"
   },
   "devDependencies": {
-    "pattern-dump": "^0.5.3",
+    "pattern-dump": "0.5.3",
     "typescript": "^5.9.0"
   }
 }

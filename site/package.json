@@ -1,0 +1,15 @@
+{
+  "name": "@pattern-dump-docs/site",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The website: pages only. Its look comes from the style guide package (../styleguide).",
+  "type": "module",
+  "scripts": {
+    "dev": "pd dev",
+    "build": "pd build"
+  },
+  "devDependencies": {
+    "@pattern-dump-docs/styleguide": "file:../styleguide",
+    "pattern-dump": "0.5.3"
+  }
+}

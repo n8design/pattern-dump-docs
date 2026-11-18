@@ -159,3 +159,6 @@ vite.config.ts.timestamp-*
 # Local instructions for Claude Code and the taste rules: never committed
 [Cc][Ll][Aa][Uu][Dd][Ee].md
 [Tt][Aa][Ss][Tt][Ee].md
+
+# The assembled GitHub Pages artifact (npm run pages)
+_site
