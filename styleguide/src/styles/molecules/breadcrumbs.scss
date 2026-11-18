@@ -1,0 +1,8 @@
+@use "../base/tokens";
+
+.breadcrumbs { margin-block-end: tokens.$space-md; font-size: var(--font-size--1); }
+.breadcrumbs-list { display: flex; flex-wrap: wrap; align-items: center; gap: tokens.$space-xs; margin: 0; padding: 0; list-style: none; }
+.breadcrumbs-item { display: flex; align-items: center; gap: tokens.$space-xs; }
+// The separator is decoration: the empty text after the slash keeps it out of the accessibility tree.
+.breadcrumbs-item + .breadcrumbs-item::before { content: "/" / ""; color: var(--color-text-muted); }
+.breadcrumbs-item [aria-current="page"] { font-weight: var(--font-weight-semibold); }

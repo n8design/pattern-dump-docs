@@ -1,5 +1,6 @@
 {{#> pages-frame }}
 <article class="page listing">
+  {{#if page.breadcrumbs.length}}{{> molecules-breadcrumbs }}{{/if}}
   <h1 class="page-title">{{title}}</h1>
   {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
   <div class="page-body">{{{body}}}</div>

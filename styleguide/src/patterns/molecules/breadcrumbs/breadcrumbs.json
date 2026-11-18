@@ -1,0 +1,15 @@
+{
+  "title": "Hello, articles",
+  "page": {
+    "breadcrumbs": [
+      {
+        "route": "/",
+        "title": "Home"
+      },
+      {
+        "route": "/articles/",
+        "title": "Articles"
+      }
+    ]
+  }
+}

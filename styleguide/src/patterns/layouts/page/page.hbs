@@ -1,5 +1,6 @@
 {{#> pages-frame }}
 <article class="page">
+  {{#if page.breadcrumbs.length}}{{> molecules-breadcrumbs }}{{/if}}
   <h1 class="page-title">{{title}}</h1>
   {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
   {{#if page.date}}<div class="page-meta"><time datetime="{{page.date}}">{{page.date}}</time>{{#if page.tags.length}}<ul class="page-tags" aria-label="Tags">{{#each page.tags}}<li>{{#if route}}<a href="{{route}}">{{label}}</a>{{else}}{{label}}{{/if}}</li>{{/each}}</ul>{{/if}}</div>{{/if}}

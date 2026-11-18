@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Breadcrumbs",
+  "type": "object",
+  "required": [
+    "title",
+    "page"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The page's own title, the last step"
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "breadcrumbs": {
+          "type": "array",
+          "description": "The pages above this one, Home first: the layout's page.breadcrumbs",
+          "items": {
+            "type": "object",
+            "required": [
+              "route",
+              "title"
+            ],
+            "properties": {
+              "route": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
