@@ -21,6 +21,6 @@ render it and nothing on this page can restyle it:
 A `pd-` tag places a component with the values you give it. They are checked against the component's
 schema, `src/patterns/components/note/note.schema.json`, before the page is shown:
 
-<pd-components-note tone="tip" heading="Try breaking it">
-Change `tone="tip"` to `tone="tips"` and save. The page shows what is wrong, and where.
+<pd-components-note heading="Note">
+Delete `heading="Note"` from this tag and save: a note needs a heading. The page shows what is wrong, and where.
 </pd-components-note>
