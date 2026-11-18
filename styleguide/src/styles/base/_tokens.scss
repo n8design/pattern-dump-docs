@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Sass tokens shared by every stylesheet. Emits no CSS; @use it where needed.
 // Colors and font sizes are not here: they are custom properties, in colors.scss and typography.scss.
 $space-xs: 0.25rem;
@@ -13,3 +15,20 @@ $font-display: "Archivo", $font-system;
 $font-heading: "Archivo", $font-system;
 $font-body: "Atkinson Hyperlegible Next", $font-system;
 $font-mono: "Atkinson Hyperlegible Mono", $font-system-mono;
+
+// Font weights, lighter in dark mode: light text on a dark ground looks heavier than the same weight dark on light.
+// Written as the --font-weight-* custom properties by the mixin below: light in the base, dark in the base's
+// dark-mode query (base/typography.scss), and one scheme each in themes/light and themes/dark for the workbench.
+$font-weights: (
+  "body":           (light: 400, dark: 360),
+  "medium":         (light: 500, dark: 460),
+  "semibold":       (light: 600, dark: 560),
+  "heading":        (light: 800, dark: 720),
+  "heading-strong": (light: 900, dark: 820),
+);
+
+@mixin font-weights($scheme) {
+  @each $name, $value in $font-weights {
+    --font-weight-#{$name}: #{map.get($value, $scheme)};
+  }
+}

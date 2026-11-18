@@ -33,6 +33,11 @@ $max-ratio: math.sqrt(2);
 }
 
 :root {
+  @include tokens.font-weights(light);
+  @media (prefers-color-scheme: dark) {
+    @include tokens.font-weights(dark);
+  }
+
   // Small print (labels, the table of contents, captions) keeps the size it had before the retune.
   --font-size--1: #{-fluid(0.8333rem, 0.7955rem, 20rem, 105rem)};
   @each $n in (0, 1, 2, 3, 4) {
@@ -53,7 +58,7 @@ $max-ratio: math.sqrt(2);
 // h3 to h6 the body size, set apart by weight.
 :where(h1, h2, h3, h4, h5, h6) {
   font-family: tokens.$font-heading;
-  font-weight: 800;
+  font-weight: var(--font-weight-heading);
   letter-spacing: -0.01em;
   word-spacing: 0.08em;
   line-height: 1.2;
@@ -63,12 +68,16 @@ $max-ratio: math.sqrt(2);
 
 :where(h1) {
   font-size: var(--font-size-3);
-  font-weight: 900;
+  font-weight: var(--font-weight-heading-strong);
   line-height: 1.05;
 }
 
 :where(h2) { font-size: var(--font-size-1); }
 :where(h3, h4, h5, h6) { font-size: var(--font-size-0); }
+
+:where(strong, b, th) {
+  font-weight: var(--font-weight-semibold);
+}
 
 :where(small) {
   font-size: var(--font-size--1);

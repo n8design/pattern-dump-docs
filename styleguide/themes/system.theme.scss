@@ -1,4 +1,5 @@
-// The default theme: it follows the system setting, as the website does (src/styles/base/colors.scss).
+// The default theme: it follows the system setting, as the website does (src/styles/base/colors.scss), and leaves
+// the font weights to the base's dark-mode query (src/styles/base/typography.scss).
 // light and dark fix one scheme, for checking a component in each.
 [data-theme="system"] {
   color-scheme: light dark;

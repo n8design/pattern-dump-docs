@@ -2,7 +2,7 @@
 
 .search { display: block; margin-block: tokens.$space-md; }
 .search-form { display: grid; gap: tokens.$space-xs; max-inline-size: 40rem; }
-.search-label { font-weight: 700; }
+.search-label { font-weight: var(--font-weight-semibold); }
 .search-row { display: flex; gap: tokens.$space-sm; }
 .search-field { flex: 1; min-inline-size: 0; padding: tokens.$space-sm; border: 0.0625rem solid var(--color-border); font: inherit; }
 .search-button,

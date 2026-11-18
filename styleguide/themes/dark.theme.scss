@@ -1,5 +1,8 @@
-// The dark theme, for the workbench's theme switch: it only fixes the color scheme.
+@use "../src/styles/base/tokens";
+
+// The dark theme, for the workbench's theme switch: it fixes the color scheme and the font weights.
 // The colors are the tokens in src/styles/base/colors.scss; light-dark() picks their dark values here.
 [data-theme="dark"] {
   color-scheme: dark;
+  @include tokens.font-weights(dark);
 }

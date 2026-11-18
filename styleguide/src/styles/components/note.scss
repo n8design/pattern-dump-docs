@@ -3,6 +3,6 @@
 .note { margin-block: tokens.$space-md; padding: tokens.$space-md; border-left: 0.25rem solid var(--color-border); background: var(--color-surface-subtle); }
 .note-tip { border-left-color: var(--color-success); background: var(--color-success-surface); }
 .note-warning { border-left-color: var(--color-warning); background: var(--color-warning-surface); }
-.note-heading { margin: 0 0 tokens.$space-xs; font-weight: 700; }
+.note-heading { margin: 0 0 tokens.$space-xs; font-weight: var(--font-weight-semibold); }
 .note-text > :first-child { margin-top: 0; }
 .note-text > :last-child { margin-bottom: 0; }
