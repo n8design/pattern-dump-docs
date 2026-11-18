@@ -11,7 +11,8 @@
       "required": ["title"],
       "properties": {
         "title": { "type": "string", "description": "The site's name, in the header" },
-        "footer": { "type": "string", "description": "The line at the bottom of every page" }
+        "footer": { "type": "string", "description": "The line at the bottom of every page" },
+        "patternDumpVersion": { "type": "string", "description": "The installed Pattern Dump's version, which the docs describe: the home page's eyebrow" }
       }
     }
   }

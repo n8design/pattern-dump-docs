@@ -48,8 +48,8 @@
 
 .home-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 
-// Links that act as the page's two entry points. The secondary one is outlined with the border token (a control's
-// edge, 3:1); the primary one is filled in heading ink.
+// Links that act as the page's entry points. The primary one is filled with the accent; a secondary one (the reference,
+// once it exists) is outlined with the border token (a control's edge, 3:1).
 .home-action {
   display: inline-flex;
   align-items: center;

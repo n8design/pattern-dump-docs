@@ -1,12 +1,11 @@
 {{#> pages-frame }}
 <div class="home">
   <div class="home-hero">
-    <p class="home-eyebrow">Documentation</p>
+    <p class="home-eyebrow">Documentation{{#if site.patternDumpVersion}} for {{site.patternDumpVersion}}{{/if}}</p>
     <h1 class="home-title">{{#if headline}}{{#each headline}}<span class="home-title-line">{{this}}</span> {{/each}}{{else}}{{title}}{{/if}}</h1>
     {{#if description}}<p class="home-lede">{{description}}</p>{{/if}}
     <div class="home-actions">
       <a class="home-action home-action-primary" href="/guide/">Start the guide</a>
-      <a class="home-action" href="/articles/">Read the articles</a>
     </div>
   </div>
   {{> organisms-page-map }}

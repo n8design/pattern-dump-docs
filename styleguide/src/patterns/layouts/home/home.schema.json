@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Home",
-  "description": "The home page: the hero (eyebrow, headline, lede, two actions), then the map of every page. It renders no markdown body.",
+  "description": "The home page: the hero (eyebrow, headline, lede, the action), then the map of every page. It renders no markdown body.",
   "type": "object",
   "required": [
     "title"
