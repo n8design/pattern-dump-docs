@@ -4,8 +4,8 @@ title: Doc
 
 A reading page, `layout: doc` (and the same structure for `layouts/article`):
 
-1. **Progress** (`molecules/guide-progress`): on a page inside a section, the section, the step and a bar. Nothing on
-   a page outside one.
+1. **Progress** (`molecules/guide-progress`): on a page in the Guide, the section, the step and a bar. Nothing on a
+   page anywhere else.
 2. **The reading row**: the article, then the aside. The article: the title, the description as the lede, the text at
    42rem, and the previous and next page (`molecules/pager`) at its end. The aside holds the table of contents (the `sidebar` region,
    `components/toc` first, then anything a page places there with `region="sidebar"`) and below it "In this section"

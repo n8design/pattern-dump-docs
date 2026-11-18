@@ -4,7 +4,8 @@ title: Guide progress
 
 Where a page sits in its section: "Guide · Step 2 of 4", and a bar with one segment per page, the ones up to this
 page done. It is derived from `nav` (the section whose `children` include the current page), never written in a
-page's frontmatter, and it renders nothing on a page that isn't in a section.
+page's frontmatter. It shows only in the Guide (the nav entry at `/guide/`), which is read in order: Reference, Concepts
+and the other sections are looked up, not read step by step, so it renders nothing there, nor on a page in no section.
 
 **How it is built without a counting helper.** Handlebars can't add, so the number is a CSS counter: the line resets
 `guide-step` to the page's index and the number's `::before` adds one. The total is `children.length`; a segment is

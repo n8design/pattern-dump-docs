@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Guide progress",
-  "description": "Where the page sits in its section: the section, the step and the steps done, from nav.",
+  "description": "Where the page sits in the Guide (the nav entry at /guide/): the section, the step and the steps done, from nav.",
   "type": "object",
   "required": [
     "nav"
