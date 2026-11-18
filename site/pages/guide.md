@@ -14,8 +14,8 @@ order: 4
 
 ## Write a page
 
-Every markdown file in `site/` is a page. This one uses the doc layout, so it has a sidebar, and lists its table of
-contents itself with `<pd-toc>`: the links in it are checked, so an `#anchor` that is no heading of the page stops the
+Every markdown file in `site/pages/` is a page. This one uses the doc layout, so its table of contents sits beside the text, and it lists its
+table of contents itself with `<pd-toc>`: the links in it are checked, so an `#anchor` that is no heading of the page stops the
 build.
 
 ## Place a component
@@ -35,4 +35,4 @@ In the sidebar.
 This note is in the sidebar, under the table of contents.
 </pd-components-note>
 
-A page with nothing for the sidebar, such as the search page, has none: the layout is one column.
+A page with no table of contents and nothing placed beside the text, such as the search page, has just the text.
