@@ -1,4 +1,4 @@
-// The search component's behaviour (components/search). pd build writes the site's index with Pagefind to
+// The search component's behaviour (organisms/search). pd build writes the site's index with Pagefind to
 // _pd/search/ under the site's path, which <meta name="pd-base-path"> names; this loads it from there and searches in
 // the browser. Without the index (npm run dev, or a project without Pagefind) the status line says so.
 

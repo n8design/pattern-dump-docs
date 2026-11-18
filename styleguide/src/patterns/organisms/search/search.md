@@ -3,10 +3,10 @@ title: Search
 requireScript: site-search
 ---
 
-The site's search, on the search page (`site/search.md`):
+The site's search, on the search page (`site/pages/search.md`):
 
 ```md
-<pd-components-search></pd-components-search>
+<pd-organisms-search></pd-organisms-search>
 ```
 
 `pd build` indexes every page's own content with [Pagefind](https://pagefind.app/) when the project has it

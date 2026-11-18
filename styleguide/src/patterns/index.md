@@ -1,3 +1,3 @@
 ---
-order: [atoms, molecules, pages, ...]
+order: [atoms, molecules, organisms, pages, layouts, ...]
 ---
