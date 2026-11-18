@@ -36,6 +36,8 @@
 // One sentence per line: block spans, not <br>, so each line is its own box and the space between them in the markup
 // keeps the sentences apart in the heading's accessible name.
 .home-title-line { display: block; }
+// A gap between the sentences, so each reads as its own group where it wraps (on a phone).
+.home-title-line:not(:last-child) { margin-block-end: 0.2em; }
 
 .home-lede {
   margin: 1.5rem 0 0;
