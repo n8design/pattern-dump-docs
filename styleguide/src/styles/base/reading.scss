@@ -1,4 +1,5 @@
-// The reading page (layouts/doc, layouts/article): progress, then the table of contents and the article.
+// The reading page (layouts/doc, layouts/article): progress, then the table of contents and the article. Here, in
+// the base layer, because both layouts use it and neither owns it.
 .reading { padding: 3.5rem var(--site-gutter, 1.5rem) 5rem; }
 
 // Narrow: one column, the table of contents (first in the source) above the text. Wide: the text in a 42rem column
@@ -22,14 +23,6 @@
 }
 
 .reading-article { min-inline-size: 0; max-inline-size: 42rem; }
-.reading-article .page-title { margin: 0; }
-.reading-article .page-description { margin: 1.25rem 0 0; font-size: 1.1875rem; line-height: 1.6; color: var(--color-text); }
-.reading-article .page-meta { margin: 1rem 0 0; }
-.reading-article .page-body > h2 { margin: 3rem 0 0; }
-.reading-article .page-body > p { margin: 0.75rem 0 0; }
-.reading-article .page-body iframe { width: 100%; border: 0; }
-// A note that ends the text: the pager's hairline closes it, so it drops its own bottom line.
-.reading-article .page-body:has(+ .pager) > .note:last-child { border-block-end: 0; }
 
 // With the sticky bars (pages/frame, the same query): the table of contents stays in view just below the header.
 @media (min-width: 64em) and (min-height: 40em) {

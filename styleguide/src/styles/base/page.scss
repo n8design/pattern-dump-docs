@@ -1,0 +1,27 @@
+@use "tokens";
+
+// The page classes every layout shares (layouts/page, doc, article, listing, tag and category pages). Here, in the
+// base layer, so no layout owns them and none borrows another's stylesheet for them.
+
+// Inside the 72rem container (the frame's --site-gutter), the text at 42rem, as on a content page.
+.page { padding-block: 3.5rem 5rem; padding-inline: var(--site-gutter, 1.5rem); }
+.page-title,
+.page-description,
+.page-meta,
+.page-body { max-inline-size: 42rem; }
+.page-title { margin-block: 0 tokens.$space-sm; }
+.page-description { margin-block: 0 tokens.$space-lg; color: var(--color-text-muted); }
+.page-body iframe { width: 100%; border: 0; }
+.page-meta { margin-block: 0 tokens.$space-lg; color: var(--color-text-muted); }
+.page-tags { display: inline; margin: 0; padding: 0; list-style: none; }
+.page-tags li { display: inline; margin-inline-start: tokens.$space-sm; }
+
+// On the reading page (base/reading.scss).
+.reading-article .page-title { margin: 0; }
+.reading-article .page-description { margin: 1.25rem 0 0; font-size: 1.1875rem; line-height: 1.6; color: var(--color-text); }
+.reading-article .page-meta { margin: 1rem 0 0; }
+.reading-article .page-body > h2 { margin: 3rem 0 0; }
+.reading-article .page-body > p { margin: 0.75rem 0 0; }
+.reading-article .page-body iframe { width: 100%; border: 0; }
+// A note that ends the text: the pager's hairline closes it, so it drops its own bottom line.
+.reading-article .page-body:has(+ .pager) > .note:last-child { border-block-end: 0; }
