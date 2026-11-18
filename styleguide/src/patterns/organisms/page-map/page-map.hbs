@@ -1,0 +1,26 @@
+<section class="page-map" aria-label="All pages">
+  {{#each nav}}{{#if children.length}}
+  <div class="page-map-group{{#if (eq route "/guide/")}} page-map-guide{{/if}}">
+    <h2 class="page-map-title">{{title}}</h2>
+    {{#if description}}<p class="page-map-note">{{description}}</p>{{/if}}
+    {{#if (eq route "/guide/")}}
+    <ol class="page-map-steps">
+      {{#each children}}
+      <li class="page-map-step"><a class="page-map-step-link" href="{{route}}"><span class="page-map-step-number" aria-hidden="true"></span><span class="page-map-step-text"><span class="page-map-step-title">{{title}}</span>{{#if description}}<span class="page-map-step-description">{{description}}</span>{{/if}}</span></a></li>
+      {{/each}}
+    </ol>
+    {{else}}
+    <ul class="page-map-list">
+      {{#each children}}<li><a href="{{route}}">{{title}}</a></li>{{/each}}
+    </ul>
+    {{/if}}
+  </div>
+  {{/if}}{{/each}}
+  <div class="page-map-group">
+    <h2 class="page-map-title">Pages</h2>
+    <p class="page-map-note">Everything else.</p>
+    <ul class="page-map-list">
+      {{#each nav}}{{#unless children.length}}{{#unless (eq route "/")}}<li><a href="{{route}}">{{title}}</a></li>{{/unless}}{{/unless}}{{/each}}
+    </ul>
+  </div>
+</section>

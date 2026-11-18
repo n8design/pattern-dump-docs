@@ -1,0 +1,17 @@
+{
+  "nav": [
+    { "route": "/", "title": "Home" },
+    { "route": "/guide/", "title": "Guide", "description": "Read in order. About 20 minutes.", "children": [
+      { "route": "/guide/install/", "title": "Install", "description": "Add Pattern Dump to a project and start the workbench." },
+      { "route": "/guide/first-pattern/", "title": "Your first pattern", "description": "Template, sample data, schema and notes in one folder." },
+      { "route": "/guide/includes/", "title": "Compose with includes", "description": "Build organisms and pages from smaller patterns." },
+      { "route": "/guide/publish/", "title": "Publish the site", "description": "Build the storefront and deploy it with GitHub Pages." }
+    ] },
+    { "route": "/concepts/", "title": "Concepts", "description": "How the parts fit.", "children": [
+      { "route": "/concepts/patterns/", "title": "Patterns and categories" },
+      { "route": "/concepts/layouts/", "title": "Layouts, views and pages" }
+    ] },
+    { "route": "/about/", "title": "About" },
+    { "route": "/search/", "title": "Search" }
+  ]
+}

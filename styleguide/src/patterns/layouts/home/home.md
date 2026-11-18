@@ -2,7 +2,9 @@
 title: Home
 ---
 
-The layout of the home page (`layout: home` in `site/index.md`): its text, then the latest articles. They are
-`page.latest`, a query its schema declares with `x-pd-query`: the three newest pages of `site/articles/`, shown in
-the list view. The same mechanism lists an article's related articles (`layouts/article`); `latest:` with `limit: 5` indented under it in the
-home page's frontmatter shows five, and `latest: false` none.
+The home page (`layout: home` in `site/pages/index.md`): the eyebrow, the headline (`headline`, or the page's
+`title` without one), the lede (`description`), two actions, then the map of every page (`organisms/page-map`) on the
+surface band.
+
+The actions are "Start the guide" (`/guide/`) and "Read the articles" (`/articles/`). The second becomes "Go to
+reference" once a reference section exists. The layout renders no markdown body: the home page is the map.

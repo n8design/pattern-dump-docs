@@ -1,14 +1,65 @@
 {
   "title": "Home",
-  "description": "A website written in markdown, next to the design system it shows.",
-  "body": "<p>The home page's markdown, rendered.</p>",
-  "site": { "title": "Pattern Dump", "footer": "Made with Pattern Dump." },
-  "nav": [{ "route": "/", "title": "Home", "current": true }, { "route": "/about/", "title": "About" }],
-  "page": {
-    "next": { "route": "/about/", "title": "About" },
-    "latest": {
-      "entries": [{ "route": "/articles/second/", "title": "A second article", "date": "2026-11-15" }],
-      "listing": "<ul class=\"view-list\" role=\"list\"><li><article class=\"listing-card\"><h2 class=\"listing-card-title\"><a href=\"/articles/second/\">A second article</a></h2><p class=\"listing-card-date\"><time datetime=\"2026-11-15\">2026-11-15</time></p><p class=\"listing-card-teaser\">Its teaser: the page's description, or its first paragraph.</p></article></li></ul>"
+  "headline": "Everything on one page. Then just the page you need.",
+  "description": "Pattern Dump renders Handlebars and Mustache components with JSON data, checks accessibility by default and publishes sites like this one. This page is the whole map of the docs.",
+  "site": {
+    "title": "Pattern Dump",
+    "footer": "Pattern Dump. Built with Pattern Dump."
+  },
+  "nav": [
+    {
+      "route": "/",
+      "title": "Home"
+    },
+    {
+      "route": "/guide/",
+      "title": "Guide",
+      "description": "Read in order. About 20 minutes.",
+      "children": [
+        {
+          "route": "/guide/install/",
+          "title": "Install",
+          "description": "Add Pattern Dump to a project and start the workbench."
+        },
+        {
+          "route": "/guide/first-pattern/",
+          "title": "Your first pattern",
+          "description": "Template, sample data, schema and notes in one folder."
+        },
+        {
+          "route": "/guide/includes/",
+          "title": "Compose with includes",
+          "description": "Build organisms and pages from smaller patterns."
+        },
+        {
+          "route": "/guide/publish/",
+          "title": "Publish the site",
+          "description": "Build the storefront and deploy it with GitHub Pages."
+        }
+      ]
+    },
+    {
+      "route": "/concepts/",
+      "title": "Concepts",
+      "description": "How the parts fit.",
+      "children": [
+        {
+          "route": "/concepts/patterns/",
+          "title": "Patterns and categories"
+        },
+        {
+          "route": "/concepts/layouts/",
+          "title": "Layouts, views and pages"
+        }
+      ]
+    },
+    {
+      "route": "/about/",
+      "title": "About"
+    },
+    {
+      "route": "/search/",
+      "title": "Search"
     }
-  }
+  ]
 }

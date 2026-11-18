@@ -1,3 +1,63 @@
 @use "../base/tokens";
 
-.home-latest { margin-top: tokens.$space-lg; }
+.home-hero {
+  // A container, so the headline can be capped to the column it sits in (cqi, below).
+  container-type: inline-size;
+  padding: 5rem var(--site-gutter, 1.5rem) 3.5rem;
+}
+
+.home-eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+// The hero: Archivo italic, fully expanded, like the site title (the wordmark and the hero share the logo's lean).
+// Its size is step 4, but never more than its column holds: the expanded face is wide, and with enlarged text on a
+// phone the longest word ("Everything", about 6.2 times the font size) would overflow and break mid-word or scroll
+// the page. 15.5cqi lets that word take about 96% of the column; at normal text sizes step 4 is the smaller one, so
+// the cap only acts once text is enlarged on a narrow screen. A longer word in the final copy needs a lower cap.
+.home-title {
+  margin: 0;
+  max-inline-size: 18ch;
+  font-family: tokens.$font-display;
+  font-size: min(var(--font-size-4), 15.5cqi);
+  font-style: italic;
+  font-stretch: 125%;
+  font-weight: var(--font-weight-heading-strong);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  word-spacing: 0.02em;
+}
+
+.home-lede {
+  margin: 1.5rem 0 0;
+  max-inline-size: 38rem;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+}
+
+.home-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+
+// Links that act as the page's two entry points. The secondary one is outlined with the border token (a control's
+// edge, 3:1); the primary one is filled in heading ink.
+.home-action {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  padding-inline: 1.25rem;
+  border: 0.0625rem solid var(--color-border);
+  color: var(--color-heading);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+.home-action:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+
+.home-action-primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
