@@ -19,7 +19,7 @@ export default defineConfig({
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    site: { title: "Pattern Dump", footer: "Made with Pattern Dump." },
+    site: { title: "Pattern Dump", footer: "Pattern Dump. Built with Pattern Dump." },
   },
   // pd build requires the site's own workbench to be built for the same address as workbenchUrl, even though that
   // workbench isn't published.

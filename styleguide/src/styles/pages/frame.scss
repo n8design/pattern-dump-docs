@@ -1,0 +1,25 @@
+// The frame: the header, the main content, the footer, one column. At least the viewport's height, so a short page
+// keeps its footer at the bottom (100vh first, for browsers without dvh).
+//
+// The bars and the bands inside main run the full width; their content lines up in a 72rem container with 1.5rem
+// inside it. --site-gutter is that inline padding: a percentage, so it resolves against whichever full-width
+// element uses it.
+.site {
+  --site-gutter: max(1.5rem, (100% - 72rem) / 2 + 1.5rem);
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+.site > .site-header,
+.site > .site-footer {
+  padding-inline: var(--site-gutter);
+}
+
+.site-skip { position: absolute; left: -100vw; }
+.site-skip:focus { left: 1.5rem; top: 0.5rem; z-index: 2; padding: 0.5rem; background: var(--color-surface); }
+.site-main { min-inline-size: 0; }
+.site img { max-inline-size: 100%; block-size: auto; }

@@ -1,0 +1,21 @@
+@use "../base/tokens";
+
+// One row: the site's line, then the links. They wrap on a narrow screen.
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding-block: tokens.$footer-padding-block;
+  border-top: tokens.$hairline solid var(--color-hairline);
+  background: var(--color-surface);
+  font-size: tokens.$footer-font-size;
+  line-height: tokens.$footer-line-height;
+  color: var(--color-text-muted);
+}
+
+.site-footer-text { margin: 0; line-height: inherit; }
+
+.site-footer-links { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
+// The separator is decoration: the empty text after the slash keeps it from being read.
+.site-footer-links li + li::before { content: "\00a0·\00a0" / ""; }

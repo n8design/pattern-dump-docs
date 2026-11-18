@@ -1,0 +1,93 @@
+@use "../base/tokens";
+
+// One row on a wide screen: the name, the sections, the search. It wraps on a narrow one.
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  padding-block: tokens.$header-padding-block;
+  border-bottom: tokens.$hairline solid var(--color-hairline);
+  background: var(--color-surface);
+}
+
+.site-title {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  min-block-size: tokens.$touch-target;
+  // The wordmark: set like the hero (layouts/home), Archivo italic, fully expanded.
+  font-family: tokens.$font-display;
+  font-size: 1.125rem;
+  font-style: italic;
+  font-stretch: 125%;
+  font-weight: var(--font-weight-heading-strong);
+  letter-spacing: -0.01em;
+  word-spacing: 0.02em;
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+// The logo mark, in the logo token: the accent of the mode.
+.site-logo {
+  flex: none;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  background: var(--color-logo);
+}
+
+// The field is a control: its edge is the border token (3:1), not a hairline.
+.site-search { max-inline-size: 100%; }
+.site-search-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  // 15rem where there is room; never wider than the header (enlarged text on a phone).
+  min-inline-size: min(15rem, 100%);
+  min-block-size: tokens.$touch-target;
+  padding-inline: 0.75rem;
+  border: 0.0625rem solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
+
+// Named for screen readers; the field, its placeholder and the icon say what it is on screen.
+.site-search-label {
+  position: absolute;
+  inline-size: 0.0625rem;
+  block-size: 0.0625rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.site-search-icon {
+  flex: none;
+  inline-size: 1rem;
+  block-size: 1rem;
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.site-search-input {
+  flex: 1;
+  min-inline-size: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9375rem;
+}
+.site-search-input:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.25rem; }
+
+.site-search-key {
+  padding: 0.0625rem 0.375rem;
+  border: 0.0625rem solid var(--color-hairline);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-family: tokens.$font-mono;
+  font-size: 0.75rem;
+}
+// Empty without JavaScript: nothing to show.
+.site-search-key:empty { display: none; }

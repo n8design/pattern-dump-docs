@@ -32,3 +32,12 @@ $font-weights: (
     --font-weight-#{$name}: #{map.get($value, $scheme)};
   }
 }
+
+// The bars (organisms/site-header, organisms/site-footer). Their heights are derived from these in pages/frame, for
+// the sticky offsets and scroll-padding, so the numbers live in one place.
+$hairline: 0.0625rem;
+$touch-target: 2.75rem;
+$header-padding-block: 1rem;
+$footer-padding-block: 1.75rem;
+$footer-font-size: 0.875rem;
+$footer-line-height: 1.5;

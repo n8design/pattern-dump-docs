@@ -1,0 +1,11 @@
+{
+  "nav": [
+    { "route": "/", "title": "Home" },
+    { "route": "/about/", "title": "About" },
+    { "route": "/articles/", "title": "Articles", "children": [
+      { "route": "/articles/hello/", "title": "Hello, articles", "current": true },
+      { "route": "/articles/related/", "title": "Related articles" }
+    ] },
+    { "route": "/guide/", "title": "Guide" }
+  ]
+}

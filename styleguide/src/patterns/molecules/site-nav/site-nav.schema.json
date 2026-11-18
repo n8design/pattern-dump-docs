@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site navigation",
+  "type": "object",
+  "required": ["nav"],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": ["route", "title"],
+      "properties": {
+        "route": { "type": "string", "description": "The page's address" },
+        "title": { "type": "string", "description": "The page's title" },
+        "description": { "type": "string" },
+        "current": { "type": "boolean", "description": "The page being shown: marked with aria-current" },
+        "children": { "type": "array", "description": "A folder's pages, listed under its entry", "items": { "$ref": "#/$defs/entry" } }
+      }
+    }
+  },
+  "properties": {
+    "nav": {
+      "type": "array",
+      "description": "The site's navigation: the storefront fills it from the pages, one level deep",
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  }
+}

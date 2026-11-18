@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site header",
+  "type": "object",
+  "required": [
+    "site",
+    "nav"
+  ],
+  "properties": {
+    "site": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The site's name, linking to the home page"
+        }
+      }
+    },
+    "nav": {
+      "type": "array",
+      "description": "The navigation, passed on to molecules/site-nav"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Frame",
+  "description": "The frame every layout fills: the header with the site's name, its sections and the search, the main content, the footer.",
+  "type": "object",
+  "required": [
+    "site"
+  ],
+  "properties": {
+    "site": {
+      "type": "object",
+      "description": "Values every page shares: storefront.site in the config",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The site's name, in the header"
+        },
+        "footer": {
+          "type": "string",
+          "description": "The line at the bottom of every page"
+        }
+      }
+    },
+    "nav": {
+      "type": "array",
+      "description": "The site's navigation, in the header: passed on to molecules/site-nav",
+      "items": {
+        "type": "object",
+        "required": [
+          "route",
+          "title"
+        ],
+        "properties": {
+          "route": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "current": {
+            "type": "boolean"
+          },
+          "children": {
+            "type": "array",
+            "description": "A folder's pages, under its entry"
+          }
+        }
+      }
+    }
+  }
+}

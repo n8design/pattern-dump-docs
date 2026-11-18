@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site footer",
+  "type": "object",
+  "required": ["site"],
+  "properties": {
+    "site": {
+      "type": "object",
+      "properties": { "footer": { "type": "string", "description": "The line at the bottom of every page: storefront.site.footer" } }
+    }
+  }
+}

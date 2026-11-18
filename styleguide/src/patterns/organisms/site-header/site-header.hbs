@@ -1,0 +1,12 @@
+<header class="site-header">
+  <a class="site-title" href="/"><span class="site-logo" aria-hidden="true"></span>{{site.title}}</a>
+  {{> molecules-site-nav }}
+  <search class="site-search">
+    <form class="site-search-form" action="/search/" method="get">
+      <label class="site-search-label" for="site-search-input">Search the docs</label>
+      <svg class="site-search-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input class="site-search-input" id="site-search-input" type="search" name="q" placeholder="Search" autocomplete="off">
+      <kbd class="site-search-key" aria-hidden="true" data-search-key></kbd>
+    </form>
+  </search>
+</header>

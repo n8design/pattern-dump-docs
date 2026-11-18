@@ -2,13 +2,67 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Example page",
   "type": "object",
-  "required": ["title", "intro", "ctaLabel"],
+  "required": [
+    "title",
+    "intro",
+    "ctaLabel",
+    "site"
+  ],
   "properties": {
-    "title":       { "type": "string" },
-    "intro":       { "type": "string" },
-    "ctaLabel":    { "type": "string" },
-    "inputLabel":  { "type": "string" },
-    "placeholder": { "type": "string" },
-    "buttonLabel": { "type": "string" }
+    "title": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "string"
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "inputLabel": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "buttonLabel": {
+      "type": "string"
+    },
+    "site": {
+      "type": "object",
+      "description": "The site's name and footer, for the frame (pages/frame)",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "footer": {
+          "type": "string"
+        }
+      }
+    },
+    "nav": {
+      "type": "array",
+      "description": "The navigation in the frame's header",
+      "items": {
+        "type": "object",
+        "required": [
+          "route",
+          "title"
+        ],
+        "properties": {
+          "route": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "current": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
   }
 }

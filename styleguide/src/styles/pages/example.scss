@@ -1,12 +1,14 @@
 @use "../base/tokens";
 
+// Inside the site's frame (partials/base), which sets the column and its side padding: only space above and below.
+
 .page-header {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: tokens.$space-md;
-  padding: tokens.$space-lg;
+  padding-block: tokens.$space-lg;
   border-bottom: 0.0625rem solid var(--color-border);
 }
 
@@ -19,7 +21,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: tokens.$space-md;
-  padding: tokens.$space-lg;
+  padding-block: tokens.$space-lg;
 }
 
 .page-content p {
