@@ -1,7 +1,7 @@
 ---
 title: Home
 layout: home
-headline: [Build the design system., Reuse it everywhere., Iterate in one place.]
+headline: [Build your design system., Reuse it everywhere., Iterate in one place.]
 description: Pattern Dump renders Handlebars components with JSON data, checks accessibility in every build and publishes sites like this one. This page is the whole map of the docs.
 ---
 

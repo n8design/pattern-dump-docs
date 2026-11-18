@@ -17,9 +17,9 @@
 
 // The hero: Archivo italic, fully expanded, like the site title (the wordmark and the hero share the logo's lean).
 // Its size is step 4, but never more than the column allows: the expanded face is wide. Each sentence of the headline
-// must fit in two lines on a phone, and "Build the design system." needs a line of 9.03 times the font size for that
-// ("design system."), the widest word "everywhere." 7.48. So the font is at most 1/9.03 of the column (11cqi); 10.5cqi
-// leaves about 5% for the italic's overhang. Measure again when the headline changes.
+// must fit in two lines on a phone, and "Build your design system." needs a line of 8.71 times the font size for that
+// ("design system."), the widest word "everywhere." 7.48. So the font is at most 1/8.71 of the column (11.5cqi);
+// 10.5cqi leaves about 9% for the italic's overhang. Measure again when the headline changes.
 .home-title {
   margin: 0;
   max-inline-size: 18ch;
