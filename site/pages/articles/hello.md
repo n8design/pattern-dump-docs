@@ -6,6 +6,6 @@ tags: [getting-started, notes]
 categories: [notes]
 ---
 
-An article is a page in `site/articles/` with a `date` (`YYYY-MM-DD`), which orders the listing and is the page's
+An article is a page in `site/pages/articles/` with a `date` (`YYYY-MM-DD`), which orders the listing and is the page's
 publication date for search engines. `tags` are lowercase words for grouping. A page with `draft: true` shows while
 you work and is left out of `pd build`.
