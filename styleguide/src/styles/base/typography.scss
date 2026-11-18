@@ -106,6 +106,12 @@ $max-ratio: math.sqrt(2);
   background: var(--color-code-inline);
 }
 
+// Inside a link the code is the link: its colour (and hover), no ground of its own.
+:where(a code) {
+  background: none;
+  color: inherit;
+}
+
 :where(pre) {
   margin: 1.25rem 0 0;
   padding: 1.25rem 1.5rem;
