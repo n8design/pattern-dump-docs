@@ -2,12 +2,12 @@
 // the base layer, because both layouts use it and neither owns it.
 .reading { padding: 3.5rem var(--site-gutter, 1.5rem) 5rem; }
 
-// Narrow: one column, the table of contents (first in the source) above the text. Wide: the text in a 42rem column
+// Narrow: one column, the table of contents (first in the source) above the text. Wide: the text in the reading column
 // and the table of contents to its right, placed by grid areas. The source order stays the reading and focus order.
 .reading-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 3rem 4rem;
+  gap: 3rem var(--reading-gap);
   align-items: start;
   margin-top: 2.5rem;
 }
@@ -16,13 +16,13 @@
 @media (min-width: 56em) {
   .reading-row {
     grid-template-areas: "article aside";
-    grid-template-columns: minmax(0, 42rem) minmax(13rem, 1fr);
+    grid-template-columns: minmax(0, var(--reading-column)) minmax(13rem, 1fr);
   }
   .reading-aside { grid-area: aside; }
   .reading-article { grid-area: article; }
 }
 
-.reading-article { min-inline-size: 0; max-inline-size: 42rem; }
+.reading-article { min-inline-size: 0; max-inline-size: var(--reading-column); }
 
 // With the sticky bars (pages/frame, the same query): the table of contents stays in view just below the header.
 @media (min-width: 64em) and (min-height: 40em) {

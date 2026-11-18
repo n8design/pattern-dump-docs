@@ -1,18 +1,22 @@
 @use "sass:math";
 @use "tokens";
 
-// The type scale: fluid between a 20rem and an 80rem window, fixed beyond them.
+// The type scale.
 //
-// The body text is 1.0625rem at every width. The steps above it are 1.25 times the one before (a major third) in a
-// 20rem window and 1.414 times (√2, an augmented fourth) in an 80rem one; in between, every step grows in a straight
-// line with the window's width. Sizes are rem plus vw, so they follow the reader's text size and zoom, and no
+// The body text grows from 1.0625rem (17px) in a 20rem window to 1.1875rem (19px) in a 40rem one, and stays there:
+// from 40rem up it is fixed, so browser zoom doubles it at 200% (zoom narrows the window in CSS pixels, and a size
+// that still grew with the window would shrink back). The headings (steps 1 to 4) keep growing to a 120rem window:
+// 1.25 times the step below (a major third) at 20rem, 1.414 times (√2, an augmented fourth) at 120rem, from the body
+// sizes at either end. In between, every size grows in a straight line with the window's width. Sizes are rem plus vw, so they follow the reader's text size and zoom, and no
 // maximum is more than 2.5 times its minimum, so text can still be enlarged to 200%.
 //
 // Components use the custom properties (var(--font-size-2)), not fixed sizes.
 
 $min-viewport: 20rem;
-$max-viewport: 80rem;
-$base: 1.0625rem;
+$max-viewport: 120rem;
+$body-max-viewport: 40rem;
+$base-min: 1.0625rem;
+$base-max: 1.1875rem;
 $min-ratio: 1.25;
 $max-ratio: math.sqrt(2);
 
@@ -29,7 +33,7 @@ $max-ratio: math.sqrt(2);
 }
 
 @function -step($n) {
-  @return -fluid($base * math.pow($min-ratio, $n), $base * math.pow($max-ratio, $n));
+  @return -fluid($base-min * math.pow($min-ratio, $n), $base-max * math.pow($max-ratio, $n));
 }
 
 :root {
@@ -40,7 +44,8 @@ $max-ratio: math.sqrt(2);
 
   // Small print (labels, the table of contents, captions) keeps the size it had before the retune.
   --font-size--1: #{-fluid(0.8333rem, 0.7955rem, 20rem, 105rem)};
-  @each $n in (0, 1, 2, 3, 4) {
+  --font-size-0: #{-fluid($base-min, $base-max, $min-viewport, $body-max-viewport)};
+  @each $n in (1, 2, 3, 4) {
     --font-size-#{$n}: #{-step($n)};
   }
 }

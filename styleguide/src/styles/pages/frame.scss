@@ -3,11 +3,17 @@
 // The frame: the header, the main content, the footer, one column. At least the viewport's height, so a short page
 // keeps its footer at the bottom (100vh first, for browsers without dvh).
 //
-// The bars and the bands inside main run the full width; their content lines up in a 72rem container with 1.5rem
-// inside it. --site-gutter is that inline padding: a percentage, so it resolves against whichever full-width
-// element uses it.
+// The bars and the bands inside main run the full width; their content lines up in a container with 1.5rem inside
+// it. --site-gutter is that inline padding: a percentage, so it resolves against whichever full-width element uses it.
+//
+// The container is as wide as a reading page needs: the reading column, the gap and the table of contents. The column
+// holds 70 to 75 characters of body text, so it is a multiple of the body size and grows with it (base/typography).
 .site {
-  --site-gutter: max(1.5rem, (100% - 72rem) / 2 + 1.5rem);
+  --reading-column: calc(36 * var(--font-size-0));
+  --reading-gap: 4rem;
+  --reading-toc: 15rem;
+  --site-container: calc(var(--reading-column) + var(--reading-gap) + var(--reading-toc) + 3rem);
+  --site-gutter: max(1.5rem, (100% - var(--site-container)) / 2 + 1.5rem);
 
   display: grid;
   grid-template-rows: auto 1fr auto;
