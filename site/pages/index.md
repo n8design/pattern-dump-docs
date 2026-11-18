@@ -1,25 +1,9 @@
 ---
 title: Home
 layout: home
-description: A website written in markdown, next to the design system it shows.
+headline: Everything on one page. Then just the page you need.
+description: Pattern Dump renders Handlebars and Mustache components with JSON data, checks accessibility by default and publishes sites like this one. This page is the whole map of the docs.
 ---
 
-This page is `site/index.md`. Every markdown file in `site/` is a page, at the address its path
-names: `site/about.md` is [/about/](/about/).
-
-## A live example
-
-A `pattern` fence shows a component from the workbench, in a frame of its own, so its own styles
-render it and nothing on this page can restyle it:
-
-```pattern components/note
-```
-
-## A component with your values
-
-A `pd-` tag places a component with the values you give it. They are checked against the component's
-schema, `src/patterns/components/note/note.schema.json`, before the page is shown:
-
-<pd-components-note tone="tip" heading="Try breaking it">
-Change `tone="tip"` to `tone="tips"` and save. The page shows what is wrong, and where.
-</pd-components-note>
+Note for authors, not shown on the site (the home layout renders no body): `headline` and `description` above are
+placeholder copy from the sketch, until Stefan writes the final text.
