@@ -4,4 +4,12 @@ $space-xs: 0.25rem;
 $space-sm: 0.5rem;
 $space-md: 1rem;
 $space-lg: 2rem;
-$font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+// Fonts, self-hosted (base/fonts.scss). Display: the hero and the site title, Archivo set italic and expanded (the
+// rules that use it set font-style and font-stretch). Heading: Archivo upright. Body: text and UI. Mono: code, the
+// guide's step numbers, the search key hint.
+$font-system: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-system-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+$font-display: "Archivo", $font-system;
+$font-heading: "Archivo", $font-system;
+$font-body: "Atkinson Hyperlegible Next", $font-system;
+$font-mono: "Atkinson Hyperlegible Mono", $font-system-mono;

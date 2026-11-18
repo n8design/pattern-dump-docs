@@ -1,0 +1,41 @@
+// The faces, self-hosted from assets/fonts/ (from @fontsource-variable 5.3.0, OFL; licences beside them; how the
+// Archivo files are cut down is in assets/fonts/README.md). Latin only:
+// - Archivo upright, width pinned at 100%, weight 700–900: headings (the heading tokens: 720–900);
+// - Archivo italic, width pinned at 125%, weight 800–900: the hero and the site title (heading-strong: 820, 900);
+// - Atkinson Hyperlegible Next, weight 200–800: body text and UI;
+// - Atkinson Hyperlegible Mono, weight 200–800: code, the guide's step numbers and the search key hint.
+// swap shows the fallback until a face loads.
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 700 900;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/archivo-latin-normal-wdth100-wght700-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: italic;
+  font-weight: 800 900;
+  font-stretch: 125%;
+  font-display: swap;
+  src: url("/assets/fonts/archivo-latin-italic-wdth125-wght800-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/assets/fonts/atkinson-hyperlegible-mono-latin-wght-normal.woff2") format("woff2");
+}

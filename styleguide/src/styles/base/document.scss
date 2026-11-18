@@ -15,7 +15,9 @@
 
 :where(body) {
   margin: 0;
-  font-family: tokens.$font-family;
+  font-family: tokens.$font-body;
+  // Scales a fallback face to the x-height of the first available face (font-size-adjust: from-font).
+  font-size-adjust: from-font;
   line-height: 1.5;
   color: var(--color-text);
   background: var(--color-surface);
