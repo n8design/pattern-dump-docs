@@ -10,6 +10,6 @@
 .search-status { margin-block: tokens.$space-md; }
 .search-results { margin: 0; padding: 0; list-style: none; }
 .search-result { margin-block: tokens.$space-md; }
-.search-result-title { margin: 0; font-size: 1.125rem; }
-.search-result-section { margin: 0; color: var(--color-text-muted); font-size: 0.875rem; }
+.search-result-title { margin: 0; font-size: var(--font-size-1); }
+.search-result-section { margin: 0; color: var(--color-text-muted); font-size: var(--font-size--1); }
 .search-result-teaser { margin: tokens.$space-xs 0 0; }

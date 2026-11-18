@@ -1,6 +1,6 @@
 @use "../base/tokens";
 
-.listing-card-title { margin: 0; font-size: 1.125rem; }
+.listing-card-title { margin: 0; font-size: var(--font-size-1); }
 .listing-card-date { margin: tokens.$space-xs 0 0; color: var(--color-text-muted); }
 .listing-card-teaser {
   margin: tokens.$space-xs 0 0;

@@ -1,0 +1,108 @@
+@use "sass:math";
+@use "tokens";
+
+// The type scale: fluid between a 20rem and an 80rem window, fixed beyond them.
+//
+// The body text is 1.0625rem at every width. The steps above it are 1.25 times the one before (a major third) in a
+// 20rem window and 1.414 times (√2, an augmented fourth) in an 80rem one; in between, every step grows in a straight
+// line with the window's width. Sizes are rem plus vw, so they follow the reader's text size and zoom, and no
+// maximum is more than 2.5 times its minimum, so text can still be enlarged to 200%.
+//
+// Components use the custom properties (var(--font-size-2)), not fixed sizes.
+
+$min-viewport: 20rem;
+$max-viewport: 80rem;
+$base: 1.0625rem;
+$min-ratio: 1.25;
+$max-ratio: math.sqrt(2);
+
+@function -round($n) {
+  @return math.div(math.round($n * 10000), 10000);
+}
+
+// clamp(size in the small window, the line between them, size in the large window). The bounds are ordered, since
+// a step below 0 can be smaller in the large window.
+@function -fluid($min, $max, $min-vp: $min-viewport, $max-vp: $max-viewport) {
+  $slope: math.div($max - $min, $max-vp - $min-vp);
+  $intercept: $min - $slope * $min-vp;
+  @return clamp(#{-round(math.min($min, $max))}, #{-round($intercept)} + #{-round($slope * 100)}vw, #{-round(math.max($min, $max))});
+}
+
+@function -step($n) {
+  @return -fluid($base * math.pow($min-ratio, $n), $base * math.pow($max-ratio, $n));
+}
+
+:root {
+  // Small print (labels, the table of contents, captions) keeps the size it had before the retune.
+  --font-size--1: #{-fluid(0.8333rem, 0.7955rem, 20rem, 105rem)};
+  @each $n in (0, 1, 2, 3, 4) {
+    --font-size-#{$n}: #{-step($n)};
+  }
+}
+
+:where(body) {
+  font-size: var(--font-size-0);
+}
+
+:where(p) {
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+// Headings: Archivo, the hierarchy in size and weight. h1 is step 3 (the home page's hero is step 4); h2 step 1;
+// h3 to h6 the body size, set apart by weight.
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: tokens.$font-heading;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  word-spacing: 0.08em;
+  line-height: 1.2;
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+:where(h1) {
+  font-size: var(--font-size-3);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+:where(h2) { font-size: var(--font-size-1); }
+:where(h3, h4, h5, h6) { font-size: var(--font-size-0); }
+
+:where(small) {
+  font-size: var(--font-size--1);
+}
+
+// Code: the system's monospace. Blocks on the dark code surface; inline code on the surface colour.
+:where(code, kbd, samp) {
+  font-family: tokens.$font-mono;
+  font-size: 0.9em;
+}
+
+:where(:not(pre) > code) {
+  padding: 0.1em 0.35em;
+  // Long paths and package names break rather than push the page sideways when text is enlarged.
+  overflow-wrap: anywhere;
+  background: var(--color-surface-subtle);
+}
+
+:where(pre) {
+  margin: 1.25rem 0 0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  border: 0.0625rem solid var(--color-code-edge);
+  background: var(--color-code-surface);
+  color: var(--color-code-text);
+  font-family: tokens.$font-mono;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+:where(pre code) { font-size: inherit; }
+
+// A block that scrolls sideways is focusable (pd gives it tabindex="0"): show where focus is.
+:where(pre:focus-visible) {
+  outline: 0.125rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
