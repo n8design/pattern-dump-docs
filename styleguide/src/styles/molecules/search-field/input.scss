@@ -13,8 +13,7 @@
 
 .input-control {
   padding: tokens.$space-sm;
-  border: 1px solid var(--color-border, #6b7280);
-  border-radius: tokens.$radius;
+  border: 0.0625rem solid var(--color-border, #6b7280);
   font: inherit;
   color: inherit;
   background: var(--color-surface, #ffffff);

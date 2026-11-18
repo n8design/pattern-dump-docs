@@ -30,6 +30,7 @@
     ]
   },
   "scripts": {
+    "lint:css": "stylelint \"src/styles/**/*.scss\" \"themes/**/*.scss\"",
     "dev": "pd dev --port 4300",
     "audit": "pd audit",
     "typecheck": "tsc --noEmit",
@@ -38,6 +39,8 @@
   },
   "devDependencies": {
     "pattern-dump": "0.5.3",
+    "postcss-scss": "4.0.9",
+    "stylelint": "17.16.0",
     "typescript": "^5.9.0"
   }
 }

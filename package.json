@@ -10,10 +10,11 @@
   "scripts": {
     "dev": "npm run dev -w @pattern-dump-docs/site",
     "dev:styleguide": "npm run dev -w @pattern-dump-docs/styleguide",
-    "build": "npm run build -w @pattern-dump-docs/site",
+    "build": "npm run lint:css && npm run build -w @pattern-dump-docs/site",
     "audit": "npm run audit -w @pattern-dump-docs/styleguide",
     "typecheck": "npm run typecheck -w @pattern-dump-docs/styleguide",
-    "pages": "npm run build -w @pattern-dump-docs/site && npm run build -w @pattern-dump-docs/styleguide -- --base /workbench/ && node scripts/assemble-pages.mjs",
+    "pages": "npm run lint:css && npm run build -w @pattern-dump-docs/site && npm run build -w @pattern-dump-docs/styleguide -- --base /workbench/ && node scripts/assemble-pages.mjs",
+    "lint:css": "npm run lint:css -w @pattern-dump-docs/styleguide",
     "prepare": "husky"
   },
   "devDependencies": {

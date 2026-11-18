@@ -6,7 +6,7 @@
 .doc-sidebar { grid-area: sidebar; }
 body[data-pd-regions~="sidebar"] .doc { grid-template-areas: "content" "sidebar"; }
 
-@media (width >= 56rem) {
+@media (width >= 56em) {
   body[data-pd-regions~="sidebar"] .doc { grid-template-areas: "content sidebar"; grid-template-columns: minmax(0, 1fr) 14rem; }
 }
 .doc-content .page-title { margin-block: 0 tokens.$space-sm; line-height: 1.2; }
