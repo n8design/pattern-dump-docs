@@ -2,13 +2,13 @@
 <div class="reading">
   {{> molecules-guide-progress }}
   <div class="reading-row">
-    {{#if (or page.regions.sidebar page.section)}}<div class="reading-aside">{{{page.regions.sidebar}}}{{> molecules-section-nav }}</div>{{/if}}
     <article class="reading-article">
       <h1 class="page-title">{{title}}</h1>
       {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
       <div class="page-body">{{{body}}}</div>
       {{> molecules-pager }}
     </article>
+    {{#if (or page.regions.sidebar page.section)}}<div class="reading-aside">{{{page.regions.sidebar}}}{{> molecules-section-nav }}</div>{{/if}}
   </div>
 </div>
 {{/pages-frame}}

@@ -1,11 +1,11 @@
 @use "tokens";
 
-// The reading page (layouts/doc, layouts/article): progress, then the table of contents and the article. Here, in
+// The reading page (layouts/doc, layouts/article): progress, then the article and the aside. Here, in
 // the base layer, because both layouts use it and neither owns it.
 .reading { padding: 3.5rem var(--site-gutter, 1.5rem) 5rem; }
 
-// Narrow: one column, the table of contents (first in the source) above the text. Wide: the text in the reading column
-// and the table of contents to its right, placed by grid areas. The source order stays the reading and focus order.
+// Narrow: one column, the text first, then the aside (the table of contents and the section's pages), as the source
+// has them. Wide: the text in the reading column and the aside to its right, placed by grid areas in the same order.
 .reading-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

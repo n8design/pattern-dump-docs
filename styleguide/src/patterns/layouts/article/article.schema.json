@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Article",
-  "description": "A reading page: the section's progress, the text at 42rem with the previous and next page at its end, and the table of contents beside it on a wide screen (above it on a narrow one). An article adds its date, tags and related articles.",
+  "description": "A reading page: the section's progress, the text at 42rem with the previous and next page at its end, and the table of contents beside it on a wide screen (after it on a narrow one). An article adds its date, tags and related articles.",
   "type": "object",
   "x-pd-prose-images": {
     "widths": [

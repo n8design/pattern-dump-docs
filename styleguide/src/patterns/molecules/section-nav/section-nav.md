@@ -9,8 +9,7 @@ an underline in the accent. It renders nothing on a page whose section has no pa
 such as Search) or that is in no section.
 
 **A native `<details>`, closed on every page.** No script and no stored state: it opens and closes like any
-disclosure and starts closed on each page. The sidebar sits above the text on a narrow screen, so an open list of a
-long section (Reference has 18 pages) would push the article down on a phone.
+disclosure and starts closed on each page.
 
 **The chevron** is an inline SVG before the label, hidden from assistive tech: it points to the inline end while
 closed and down while open. The summary's text is the disclosure's name, and the `nav` is labelled by it.

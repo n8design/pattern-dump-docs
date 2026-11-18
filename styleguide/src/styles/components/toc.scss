@@ -1,4 +1,4 @@
-// "On this page": beside the text on a wide screen, above it on a narrow one (layouts/doc), separated from the text by
+// "On this page": beside the text on a wide screen, after it on a narrow one (layouts/doc), separated from the text by
 // a hairline. scroll-target-group lets the browser find the link of the section in view (:target-current); the
 // scrollspy script mirrors it into aria-current, or does both where the property isn't supported.
 .toc {

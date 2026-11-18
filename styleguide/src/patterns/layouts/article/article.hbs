@@ -2,7 +2,6 @@
 <div class="reading">
   {{> molecules-guide-progress }}
   <div class="reading-row">
-    {{#if page.regions.sidebar}}<div class="reading-aside">{{{page.regions.sidebar}}}</div>{{/if}}
     <article class="reading-article">
       <h1 class="page-title">{{title}}</h1>
       {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
@@ -16,6 +15,7 @@
       {{/if}}
       {{> molecules-pager }}
     </article>
+    {{#if page.regions.sidebar}}<div class="reading-aside">{{{page.regions.sidebar}}}</div>{{/if}}
   </div>
 </div>
 {{/pages-frame}}
