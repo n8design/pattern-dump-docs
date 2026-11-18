@@ -28,6 +28,8 @@
 .reading-article .page-body > h2 { margin: 3rem 0 0; }
 .reading-article .page-body > p { margin: 0.75rem 0 0; }
 .reading-article .page-body iframe { width: 100%; border: 0; }
+// A note that ends the text: the pager's hairline closes it, so it drops its own bottom line.
+.reading-article .page-body:has(+ .pager) > .note:last-child { border-block-end: 0; }
 
 // With the sticky bars (pages/frame, the same query): the table of contents stays in view just below the header.
 @media (min-width: 64em) and (min-height: 40em) {

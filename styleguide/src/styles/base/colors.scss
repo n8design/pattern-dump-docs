@@ -40,12 +40,7 @@ $colors: (
   "code-text":        (light: oklch(92.8% 0.006 223),     dark: oklch(92.8% 0.006 223)),
   // A code block's edge: in light the same as its surface (no edge to see); in dark the hairline, where the block
   // and the page are close in lightness
-  "code-edge":        (light: oklch(19.9% 0.026 247),     dark: oklch(32.1% 0.029 243)),  //
-  // The note's tones (components/note)
-  "success":         (light: oklch(50.9% 0.130 152.1),   dark: oklch(73.5% 0.136 159.3)),
-  "success-surface": (light: oklch(96.8% 0.016 160.6),   dark: oklch(26.2% 0.037 159.6)),
-  "warning":         (light: oklch(54.2% 0.124 62.5),    dark: oklch(77.4% 0.146 70.2)),
-  "warning-surface": (light: oklch(97.1% 0.020 77.3),    dark: oklch(26.4% 0.034 78.8)),
+  "code-edge":        (light: oklch(19.9% 0.026 247),     dark: oklch(32.1% 0.029 243)),
 );
 
 // The hsl() fallback of an oklch() color: the same color, mapped into sRGB if it lies outside it, written as
