@@ -1,0 +1,12 @@
+{
+  "page": {
+    "prev": {
+      "route": "/about/",
+      "title": "About"
+    },
+    "next": {
+      "route": "/guide/",
+      "title": "Guide"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "nav": [
+    { "route": "/", "title": "Home" },
+    { "route": "/guide/", "title": "Guide", "children": [
+      { "route": "/guide/install/", "title": "Install" },
+      { "route": "/guide/first-pattern/", "title": "Your first pattern", "current": true },
+      { "route": "/guide/includes/", "title": "Compose with includes" },
+      { "route": "/guide/publish/", "title": "Publish the site" }
+    ] },
+    { "route": "/about/", "title": "About" }
+  ]
+}

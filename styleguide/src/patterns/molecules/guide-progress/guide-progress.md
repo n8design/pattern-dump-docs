@@ -1,0 +1,15 @@
+---
+title: Guide progress
+---
+
+Where a page sits in its section: "Guide · Step 2 of 4", and a bar with one segment per page, the ones up to this
+page done. It is derived from `nav` (the section whose `children` include the current page), never written in a
+page's frontmatter, and it renders nothing on a page that isn't in a section.
+
+**How it is built without a counting helper.** Handlebars can't add, so the number is a CSS counter: the line resets
+`guide-step` to the page's index and the number's `::before` adds one. The total is `children.length`; a segment is
+done when its index is at most the page's (`lte`).
+
+**For screen readers** the bar is an ordered list of the section's pages, the current one marked
+`aria-current="step"`, so the list's own position ("2 of 4") says what the visible line says. The visible
+"· Step 2 of 4" repeats it in generated text and is hidden from assistive tech; the section's link stays readable.

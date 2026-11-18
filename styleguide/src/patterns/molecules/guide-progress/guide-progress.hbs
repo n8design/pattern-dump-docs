@@ -1,0 +1,8 @@
+{{#each nav as |section|}}{{#each section.children as |step k|}}{{#if step.current}}
+<nav class="guide-progress" aria-label="Progress in {{section.title}}">
+  <p class="guide-progress-line" style="counter-reset: guide-step {{k}}"><a href="{{section.route}}">{{section.title}}</a><span aria-hidden="true"> · Step <span class="guide-progress-number"></span> of {{section.children.length}}</span></p>
+  <ol class="guide-progress-steps">
+    {{#each section.children as |page j|}}<li class="guide-progress-step{{#if (lte j k)}} guide-progress-done{{/if}}"{{#if page.current}} aria-current="step"{{/if}}><span class="guide-progress-title">{{page.title}}</span></li>{{/each}}
+  </ol>
+</nav>
+{{/if}}{{/each}}{{/each}}

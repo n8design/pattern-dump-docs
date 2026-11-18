@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pager",
+  "type": "object",
+  "properties": {
+    "page": {
+      "type": "object",
+      "properties": {
+        "prev": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "route": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "description": "The page before this one in the navigation: the layout's page.prev"
+        },
+        "next": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "route": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "description": "The page after this one in the navigation: the layout's page.next"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.guide-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-inline-size: 42rem;
+}
+
+.guide-progress-line { margin: 0; font-size: 0.875rem; line-height: 1.5; color: var(--color-text-muted); }
+
+// n = the page's index (reset on the line) plus one.
+.guide-progress-number::before {
+  counter-increment: guide-step;
+  content: counter(guide-step);
+}
+
+// One segment per page of the section: done in heading ink, pending in the hairline.
+.guide-progress-steps {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-progress-step { block-size: 0.25rem; background: var(--color-hairline); }
+.guide-progress-done { background: var(--color-accent-ink); }
+
+// Each segment's page title, for screen readers only.
+.guide-progress-title {
+  position: absolute;
+  inline-size: 0.0625rem;
+  block-size: 0.0625rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Forced colours drop backgrounds: draw each segment's edge, and fill the done ones with the text colour.
+@media (forced-colors: active) {
+  .guide-progress-step { border: 0.0625rem solid; }
+  .guide-progress-done { background: currentColor; forced-color-adjust: none; }
+}

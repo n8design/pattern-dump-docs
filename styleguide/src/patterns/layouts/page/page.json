@@ -36,6 +36,10 @@
         "route": "/",
         "title": "Home"
       }
-    ]
+    ],
+    "prev": {
+      "route": "/",
+      "title": "Home"
+    }
   }
 }

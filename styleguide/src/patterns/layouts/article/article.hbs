@@ -1,14 +1,21 @@
 {{#> pages-frame }}
-<article class="page">
-  <h1 class="page-title">{{title}}</h1>
-  {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
-  {{#if page.date}}<div class="page-meta"><time datetime="{{page.date}}">{{page.date}}</time>{{#if page.tags.length}}<ul class="page-tags" aria-label="Tags">{{#each page.tags}}<li>{{#if route}}<a href="{{route}}">{{label}}</a>{{else}}{{label}}{{/if}}</li>{{/each}}</ul>{{/if}}</div>{{/if}}
-  <div class="page-body">{{{body}}}</div>
-  {{#if page.related.listing}}
-  <section class="article-related" aria-labelledby="article-related-title">
-    <h2 id="article-related-title">Related articles</h2>
-    {{{page.related.listing}}}
-  </section>
-  {{/if}}
-</article>
+<div class="reading">
+  {{> molecules-guide-progress }}
+  <div class="reading-row">
+    {{#if page.regions.sidebar}}<div class="reading-aside">{{{page.regions.sidebar}}}</div>{{/if}}
+    <article class="reading-article">
+      <h1 class="page-title">{{title}}</h1>
+      {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
+      {{#if page.date}}<div class="page-meta"><time datetime="{{page.date}}">{{page.date}}</time>{{#if page.tags.length}}<ul class="page-tags" aria-label="Tags">{{#each page.tags}}<li>{{#if route}}<a href="{{route}}">{{label}}</a>{{else}}{{label}}{{/if}}</li>{{/each}}</ul>{{/if}}</div>{{/if}}
+      <div class="page-body">{{{body}}}</div>
+      {{#if page.related.listing}}
+      <section class="article-related" aria-labelledby="article-related-title">
+        <h2 id="article-related-title">Related articles</h2>
+        {{{page.related.listing}}}
+      </section>
+      {{/if}}
+      {{> molecules-pager }}
+    </article>
+  </div>
+</div>
 {{/pages-frame}}

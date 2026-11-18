@@ -1,14 +1,30 @@
-@use "../base/tokens";
+// The reading page (layouts/doc, layouts/article): progress, then the table of contents and the article.
+.reading { padding: 3.5rem var(--site-gutter, 1.5rem) 5rem; }
 
-// One column; a second beside it when the page fills the sidebar (<body data-pd-regions="sidebar">).
-.doc { display: grid; gap: tokens.$space-lg; grid-template-areas: "content"; grid-template-columns: minmax(0, 1fr); }
-.doc-content { grid-area: content; }
-.doc-sidebar { grid-area: sidebar; }
-body[data-pd-regions~="sidebar"] .doc { grid-template-areas: "content" "sidebar"; }
-
-@media (width >= 56em) {
-  body[data-pd-regions~="sidebar"] .doc { grid-template-areas: "content sidebar"; grid-template-columns: minmax(0, 1fr) 14rem; }
+// Narrow: one column, the table of contents (first in the source) above the text. Wide: the text in a 42rem column
+// and the table of contents to its right, placed by grid areas. The source order stays the reading and focus order.
+.reading-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3rem 4rem;
+  align-items: start;
+  margin-top: 2.5rem;
 }
-.doc-content .page-title { margin-block: 0 tokens.$space-sm; line-height: 1.2; }
-.doc-content .page-description { margin-block: 0 tokens.$space-lg; color: var(--color-text-muted); }
-.doc-content .page-body iframe { width: 100%; border: 0; }
+.reading > .reading-row:first-child { margin-top: 0; }
+
+@media (min-width: 56em) {
+  .reading-row {
+    grid-template-areas: "article aside";
+    grid-template-columns: minmax(0, 42rem) minmax(13rem, 1fr);
+  }
+  .reading-aside { grid-area: aside; }
+  .reading-article { grid-area: article; }
+}
+
+.reading-article { min-inline-size: 0; max-inline-size: 42rem; }
+.reading-article .page-title { margin: 0; }
+.reading-article .page-description { margin: 1.25rem 0 0; font-size: 1.1875rem; line-height: 1.6; color: var(--color-text); }
+.reading-article .page-meta { margin: 1rem 0 0; }
+.reading-article .page-body > h2 { margin: 3rem 0 0; }
+.reading-article .page-body > p { margin: 0.75rem 0 0; }
+.reading-article .page-body iframe { width: 100%; border: 0; }

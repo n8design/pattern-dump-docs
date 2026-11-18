@@ -1,0 +1,28 @@
+// At the end of the article: a hairline above, then the two pages side by side while they fit.
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block-start: 4rem;
+  padding-block-start: 1.5rem;
+  border-top: 0.0625rem solid var(--color-hairline);
+}
+
+.pager-link {
+  display: flex;
+  flex: 1 1 14rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+}
+.pager-link:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+
+// Previous: outlined with the hairline (the design's one outlined link). Next: filled with the accent, at the end.
+.pager-prev { border: 0.0625rem solid var(--color-hairline); color: var(--color-text); }
+.pager-next { align-items: flex-end; background: var(--color-accent); color: var(--color-on-accent); }
+
+.pager-label { font-size: 0.8125rem; color: var(--color-text-muted); }
+.pager-next .pager-label { color: inherit; }
+.pager-title { font-weight: var(--font-weight-semibold); color: var(--color-heading); }
+.pager-next .pager-title { color: inherit; }

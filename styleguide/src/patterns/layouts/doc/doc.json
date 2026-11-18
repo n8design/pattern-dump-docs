@@ -3,9 +3,49 @@
   "description": "What a page with a sidebar looks like.",
   "body": "<h2 id=\"install\">Install</h2><p>Text of the page.</p><h2 id=\"configure\">Configure</h2><p>More text.</p>",
   "page": {
-    "next": null,
+    "next": {
+      "route": "/guide/includes/",
+      "title": "Compose with includes"
+    },
     "regions": {
-      "sidebar": "<nav class=\"toc\" aria-label=\"On this page\"><ul class=\"toc-list\"><li class=\"toc-level-2\"><a href=\"#install\">Install</a></li><li class=\"toc-level-2\"><a href=\"#configure\">Configure</a></li></ul></nav>"
+      "sidebar": "<nav class=\"toc\" aria-labelledby=\"toc-title\"><p class=\"toc-title\" id=\"toc-title\">On this page</p><ul class=\"toc-list\"><li class=\"toc-level-2\"><a href=\"#install\">Install</a></li><li class=\"toc-level-2\"><a href=\"#configure\">Configure</a></li></ul></nav>"
+    },
+    "prev": {
+      "route": "/guide/install/",
+      "title": "Install"
     }
-  }
+  },
+  "nav": [
+    {
+      "route": "/",
+      "title": "Home"
+    },
+    {
+      "route": "/guide/",
+      "title": "Guide",
+      "children": [
+        {
+          "route": "/guide/install/",
+          "title": "Install"
+        },
+        {
+          "route": "/guide/first-pattern/",
+          "title": "Your first pattern",
+          "current": true
+        },
+        {
+          "route": "/guide/includes/",
+          "title": "Compose with includes"
+        },
+        {
+          "route": "/guide/publish/",
+          "title": "Publish the site"
+        }
+      ]
+    },
+    {
+      "route": "/about/",
+      "title": "About"
+    }
+  ]
 }

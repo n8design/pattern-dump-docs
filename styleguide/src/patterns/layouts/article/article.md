@@ -2,7 +2,7 @@
 title: Article
 ---
 
-The layout of an article, which the pages in `site/articles/` take from their folder (`childLayout: article` on its
+The layout of an article, which the pages in `site/pages/articles/` take from their folder (`childLayout: article` on its
 `index.md`). It shows the article's date and tags, and below its text the related articles: `page.related`, a query
 its schema declares with `x-pd-query`. Up to three articles of the same folder, the ones sharing most tags and
 categories with this one first, shown in the compact view.

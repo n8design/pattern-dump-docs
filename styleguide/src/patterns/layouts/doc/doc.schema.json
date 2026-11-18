@@ -1,19 +1,45 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Doc",
-  "description": "A page with a sidebar beside it: the table of contents, and whatever the page places there. Without either, one column.",
+  "description": "A reading page: the section's progress, the text at 42rem with the previous and next page at its end, and the table of contents beside it on a wide screen (above it on a narrow one).",
   "type": "object",
-  "x-pd-prose-images": { "widths": [480, 672, 1344], "sizes": "(min-width: 44rem) 42rem, calc(100vw - 2rem)" },
-  "required": ["title"],
+  "x-pd-prose-images": {
+    "widths": [
+      480,
+      672,
+      1344
+    ],
+    "sizes": "(min-width: 44rem) 42rem, calc(100vw - 2rem)"
+  },
+  "required": [
+    "title"
+  ],
   "properties": {
-    "title": { "type": "string", "description": "The page's heading, its title in the navigation and in search results" },
-    "description": { "type": "string", "description": "One sentence under the heading, and the page's description for search results" },
+    "title": {
+      "type": "string",
+      "description": "The page's heading, its title in the navigation and in search results"
+    },
+    "description": {
+      "type": "string",
+      "description": "One sentence under the heading, and the page's description for search results"
+    },
     "page": {
       "type": "object",
       "description": "What the storefront works out for the page",
       "properties": {
-        "next": { "description": "The page after this one in the navigation" },
-        "regions": { "description": "The layout's regions: the sidebar, empty when the page puts nothing there", "x-pd-regions": ["sidebar"] }
+        "next": {
+          "description": "The page after this one in the navigation"
+        },
+        "regions": {
+          "description": "The layout's regions: the sidebar, with the table of contents first, empty when the page has neither",
+          "x-pd-regions": [
+            "sidebar"
+          ],
+          "x-pd-toc": true
+        },
+        "prev": {
+          "description": "The page before this one in the navigation"
+        }
       }
     }
   }

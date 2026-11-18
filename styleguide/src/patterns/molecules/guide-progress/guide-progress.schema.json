@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Guide progress",
+  "description": "Where the page sits in its section: the section, the step and the steps done, from nav.",
+  "type": "object",
+  "required": [
+    "nav"
+  ],
+  "properties": {
+    "nav": {
+      "type": "array",
+      "description": "The site's navigation: the storefront fills it from the pages, one level deep",
+      "items": {
+        "type": "object",
+        "required": [
+          "route",
+          "title"
+        ],
+        "properties": {
+          "route": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "description": "A section's muted line; a guide step's line under its title"
+          },
+          "current": {
+            "type": "boolean"
+          },
+          "children": {
+            "type": "array",
+            "description": "A section's pages",
+            "items": {
+              "type": "object",
+              "required": [
+                "route",
+                "title"
+              ],
+              "properties": {
+                "route": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "current": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -38,6 +38,9 @@
         },
         "breadcrumbs": {
           "description": "The pages above this one, Home first: the breadcrumbs"
+        },
+        "prev": {
+          "description": "The page before this one in the navigation"
         }
       }
     }

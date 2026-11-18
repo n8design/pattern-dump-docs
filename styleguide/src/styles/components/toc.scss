@@ -1,6 +1,32 @@
-@use "../base/tokens";
+// "On this page": beside the text on a wide screen, above it on a narrow one (layouts/doc), separated from the text by
+// a hairline. scroll-target-group lets the browser find the link of the section in view (:target-current); the
+// scrollspy script mirrors it into aria-current, or does both where the property isn't supported.
+.toc {
+  padding-inline-start: 1.25rem;
+  border-inline-start: 0.0625rem solid var(--color-hairline);
+  font-size: 0.9375rem;
+  scroll-target-group: auto;
+}
 
-.toc { position: sticky; top: tokens.$space-md; font-size: 0.875rem; }
-.toc-list { margin: 0; padding: 0; list-style: none; }
-.toc-list li { margin-block: tokens.$space-xs; }
-.toc-level-3 { padding-inline-start: tokens.$space-md; }
+.toc-title {
+  margin: 0 0 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.toc-level-3 { padding-inline-start: 1rem; }
+
+.toc-list a { color: var(--color-text); text-decoration: none; }
+.toc-list a:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+.toc-list a:is(:target-current, [aria-current="true"]) { font-weight: var(--font-weight-semibold); color: var(--color-heading); }
