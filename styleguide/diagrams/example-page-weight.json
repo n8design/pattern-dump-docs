@@ -1,0 +1,11 @@
+{
+  "title": "Transfer size per page",
+  "note": "kB, compressed. Example values.",
+  "highlight": "Reference page",
+  "rows": [
+    { "label": "Landing page", "value": 42 },
+    { "label": "Guide page", "value": 18 },
+    { "label": "Reference page", "value": 21 },
+    { "label": "Configuration", "value": 24 }
+  ]
+}
