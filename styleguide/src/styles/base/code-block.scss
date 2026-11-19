@@ -19,7 +19,8 @@
   inset-inline-end: 0.75rem;
   padding: 0.25rem 0.625rem;
   border: 0.0625rem solid var(--color-code-text);
-  background: transparent;
+  // The block's own ground, so a long line scrolled under the button doesn't show through it
+  background: var(--color-code-surface);
   color: var(--color-code-text);
   font-family: tokens.$font-mono;
   font-size: 0.75rem;
