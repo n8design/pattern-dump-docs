@@ -29,4 +29,34 @@
 
 .toc-list a { color: var(--color-text); text-decoration: none; }
 .toc-list a:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
-.toc-list a:is(:target-current, [aria-current="true"]) { font-weight: var(--font-weight-semibold); color: var(--color-heading); }
+// The section in view: its link in the accent, as accent-ink marks a position elsewhere (the current nav item, the
+// guide's step), and a mark on the hairline beside it, so the place on the page shows at a glance.
+// One source only, so two links are never marked at once: where the browser has scroll-target-group, :target-current,
+// which follows the scroll as it happens; elsewhere aria-current, which the scrollspy script sets. The script also sets
+// aria-current where :target-current exists, but only once scrolling ends, for assistive tech; styling it there too
+// would mark the old link and the new one while a slow scroll is under way.
+.toc-list li { position: relative; }
+
+@mixin toc-current {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent-ink);
+}
+
+@mixin toc-current-mark {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -1.34375rem;
+  inline-size: 0.125rem;
+  background: var(--color-accent-ink);
+}
+
+@supports (scroll-target-group: auto) {
+  .toc-list a:target-current { @include toc-current; }
+  .toc-list li:has(> a:target-current)::before { @include toc-current-mark; }
+}
+
+@supports not (scroll-target-group: auto) {
+  .toc-list a[aria-current="true"] { @include toc-current; }
+  .toc-list li:has(> a[aria-current="true"])::before { @include toc-current-mark; }
+}
