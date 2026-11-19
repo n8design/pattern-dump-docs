@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 382">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="label" x="24" y="48"><tspan class="on">1</tspan>  source</text>
+  <text class="strong" x="24" y="84">atoms/button/</text>
+  <path class="hair" d="M 32 92 V 156 M 32 108 H 40 M 32 132 H 40 M 32 156 H 40"/>
+  <text class="label" x="48" y="112">button.hbs</text>
+  <text class="label" x="48" y="136">button.json</text>
+  <text class="label" x="48" y="160">button.schema.json</text>
+
+  <text class="label" x="264" y="48"><tspan class="on">2</tspan>  workbench</text>
+  <rect class="solid" x="264" y="94" width="120" height="44"/>
+  <text class="on-solid" x="324" y="122" text-anchor="middle">Save</text>
+  <path class="hair" d="M 264 170 H 384 M 264 162 V 178 M 384 162 V 178"/>
+  <text class="small" x="324" y="194" text-anchor="middle">120</text>
+
+  <text class="label" x="516" y="48"><tspan class="on">3</tspan>  site</text>
+  <rect class="line" x="516.5" y="62.5" width="190" height="240"/>
+  <path class="hair" d="M 516 90 H 707"/>
+  <path class="rule" d="M 536 114 H 640"/>
+  <path class="hair" d="M 536 138 H 688 M 536 152 H 676 M 536 166 H 610"/>
+  <rect class="solid" x="536" y="188" width="56" height="20"/>
+  <path class="hair" d="M 536 234 H 688 M 536 248 H 664 M 536 262 H 632"/>
+
+  <path class="link" d="M 206 132 H 232 L 237 116 H 254"/>
+  <path class="head" d="M 262 116 l -10 -5 v 10 z"/>
+  <path class="link" d="M 392 116 H 440 L 461 198 H 518"/>
+  <path class="head" d="M 526 198 l -10 -5 v 10 z"/>
+
+  <circle class="detail" cx="564" cy="198" r="40"/>
+  <path class="hair" d="M 564 238 V 328"/>
+  <text class="label" x="572" y="348"><tspan class="on">4</tspan>  same markup</text>
+
+  <rect class="line" x="24.5" y="312.5" width="340" height="36"/>
+  <path class="line" d="M200 312V348M264 312V348"/>
+  <text class="small" x="36" y="325">Title</text>
+  <text class="title" x="36" y="342">Component to site</text>
+  <text class="small" x="212" y="325">Scale</text>
+  <text class="label" x="212" y="342">1 : 1</text>
+  <text class="small" x="276" y="325">Version</text>
+  <text class="label" x="276" y="342">PD 0.7.0</text>
+</svg>

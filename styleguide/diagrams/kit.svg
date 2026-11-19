@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <!--
+    The drawing kit for the site's diagrams and charts. Copy the style block into a new symbol in assets/symbols/
+    unchanged, and draw with these classes only. Pattern Dump turns each rule into attributes when it inlines the
+    symbol, so a rule here may set presentation properties only, and colours only as var(--color-*).
+    Every symbol is 732 wide: 684 for the drawing (the text column) and 24 on either side, which the page
+    pulls back into the gutter (base/doc-image.scss). Labels set no font-weight, so the page can make them bolder.
+    Fonts: labels in Atkinson Hyperlegible Mono, titles in Archivo upright, as the page's headings.
+    A chart opens with a header (title, then a note in .small). A drawing keeps its name in a title block
+    instead, bottom left: one compact row in a .line box, names in .small above the values, left to right:
+      Title    the thing drawn, a short name ("Component to site"), not a sentence: that is the caption's job
+      Scale    1 : 1, since every drawing is made at the column's width
+      Version  the Pattern Dump version the drawing is true for ("PD 0.7.0"), so a release can find what to check
+    Keep it small: it is there to name the drawing, not to take room from it.
+    It is what the drawing keeps when it leaves the page (pd build writes each symbol as a file of its own).
+    No figure number in either: the page numbers captioned images itself.
+    The page puts the plate behind it (base/doc-image.scss): no background in here.
+    scripts/chart.mjs reads this style block, so a chart always uses the current kit.
+  -->
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <rect class="frame" x="0.5" y="0.5" width="639" height="319"/>
+  <text class="title" x="24" y="40">title</text>
+  <text class="label" x="24" y="72"><tspan class="on">1</tspan>  label with a callout</text>
+  <text class="strong" x="24" y="100">strong</text>
+  <text class="small" x="24" y="124">small</text>
+  <path class="line" d="M24 156H200"/>
+  <path class="hair" d="M24 172H200"/>
+  <path class="rule" d="M24 192H200"/>
+  <path class="link" d="M24 216H120L125 236H192"/>
+  <path class="head" d="M200 236l-10 -5v10z"/>
+  <rect class="solid" x="260" y="140" width="120" height="40"/>
+  <text class="on-solid" x="320" y="166" text-anchor="middle">solid</text>
+  <circle class="detail" cx="460" cy="160" r="36"/>
+  <path class="bar" d="M24 270H240"/>
+  <path class="bar-on" d="M24 296H160"/>
+  <path class="bar-muted" d="M260 270H420"/>
+  <path class="bar" d="M260 296H600"/>
+  <path class="cut" d="M560 306L568 286M568 306L576 286"/>
+</svg>
