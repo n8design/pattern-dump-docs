@@ -1,9 +1,10 @@
 <nav class="site-nav" aria-label="Site">
   <ul class="site-nav-list">
-    {{!-- Home and Credits are left out: Home is the site title's link, Credits is linked from the footer. Pattern Dump
+    {{!-- Home, Credits and Search are left out: Home is the site title's link, Credits is linked from the footer, and
+    Search is the header's search field, which shows its results on /search/. Pattern Dump
     has no way to keep a page out of nav (frontmatter like nav: false); until it does, the route is named here. See
     [PD-GAP] "No way to keep a page out of the nav" in pattern-dump-internal/docs/PD-GAPS-docs-site.md. --}}
-    {{#each nav}}{{#unless (or (eq route "/") (eq route "/credits/"))}}
+    {{#each nav}}{{#unless (or (eq route "/") (or (eq route "/credits/") (eq route "/search/")))}}
     <li class="site-nav-item"><a class="site-nav-link" href="{{route}}"{{#if current}} aria-current="page"{{else}}{{#each children}}{{#if current}} aria-current="true"{{/if}}{{/each}}{{/if}}>{{title}}</a></li>
     {{/unless}}{{/each}}
   </ul>
