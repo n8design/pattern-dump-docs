@@ -1,0 +1,62 @@
+@use "tokens";
+
+// Symbol images (assets/symbols/, drawn with diagrams/kit.svg).
+//
+// Every symbol is 732 wide: 684 for the drawing and 24 on either side, so it has a margin when opened on its own.
+// On the page that margin is pulled back into the gutter, by the same share of the width, so the drawing lines up
+// with the text at any column width (24 / 684 = 3.509 %; a percentage margin is a share of the column).
+//
+// The plate sets the image apart from the text: the 24 margin is its padding, so the plate reaches into the gutter as
+// far as the drawing's margin, and the drawing itself lines up with the text.
+//
+// A symbol inherits font properties through its <use>. The kit's labels set no font-weight, so the page decides it:
+// bolder on narrow screens, where the drawing is shown small.
+.doc-image {
+  display: block;
+  inline-size: calc(100% * 732 / 684);
+  max-inline-size: none;
+  block-size: auto;
+  margin-inline: calc(-100% * 24 / 684);
+  background: var(--color-surface-subtle);
+}
+
+@media (width < 40rem) {
+  .doc-image { font-weight: var(--font-weight-semibold); }
+}
+
+// A phone held sideways: the screen is wide, the column isn't, so the drawing takes the whole width, clear of the
+// notch. The height keeps desktop windows out. The column starts one gutter in from the screen's edge (.reading), so
+// that is how far the drawing moves out.
+@media (orientation: landscape) and (height < 30rem) {
+  .doc-image {
+    inline-size: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+    margin-inline-start: calc(env(safe-area-inset-left) - var(--site-gutter, 1.5rem));
+  }
+}
+
+// A symbol image with a caption (`![Alt](#stem "Caption")`) is a figure, numbered on its own: the counter starts
+// with each article, so the numbers follow the page's order and never need writing by hand. An image without a
+// caption isn't numbered. The caption breaks the site's type on purpose, in Georgia (tokens.$font-caption): the look
+// of a figure in a paper or a textbook. Upright, for legibility; the weights are the site's, light and dark.
+.reading-article {
+  counter-reset: figure;
+}
+
+.doc-figure {
+  margin-inline: 0;
+  counter-increment: figure;
+}
+
+.doc-figure figcaption {
+  margin-block-start: 0.875rem;
+  color: var(--color-text-muted);
+  font-family: tokens.$font-caption;
+  font-size: 0.9375em;
+  font-weight: var(--font-weight-body);
+}
+
+.doc-figure figcaption::before {
+  content: "Fig. " counter(figure) ": ";
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}

@@ -8,13 +8,16 @@ $space-md: 1rem;
 $space-lg: 2rem;
 // Fonts, self-hosted (base/fonts.scss). Display: the hero and the site title, Archivo set italic and expanded (the
 // rules that use it set font-style and font-stretch). Heading: Archivo upright. Body: text and UI. Mono: code, the
-// guide's step numbers, the search key hint.
+// guide's step numbers, the search key hint. Caption: a figure's caption, the one place the site breaks its type on
+// purpose. Georgia is a system font (nothing loads) and comes in 400 and 700 only, so it can't follow the dark-mode
+// weights below exactly: 360 falls back to 400, 560 rounds up to 700. Its colour does the dark-mode work instead.
 $font-system: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 $font-system-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 $font-display: "Archivo", $font-system;
 $font-heading: "Archivo", $font-system;
 $font-body: "Atkinson Hyperlegible Next", $font-system;
 $font-mono: "Atkinson Hyperlegible Mono", $font-system-mono;
+$font-caption: Georgia, "Times New Roman", serif;
 
 // Font weights, lighter in dark mode: light text on a dark ground looks heavier than the same weight dark on light.
 // Written as the --font-weight-* custom properties by the mixin below: light in the base, dark in the base's
