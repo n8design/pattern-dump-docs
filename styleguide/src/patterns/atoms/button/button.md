@@ -19,3 +19,8 @@ Two kinds of variant live next to the base component:
 
 ```pattern atoms/button~icon
 ```
+
+The base button's markup:
+
+```src-template atoms/button
+```
