@@ -11,6 +11,9 @@
 }
 
 .page-map-group { flex: 1 1 14rem; }
+
+// A group with no pages left (every page in it has nav: false, as Pages can) isn't shown, heading and note included.
+.page-map-group:not(:has(li)) { display: none; }
 .page-map-guide { flex: 1.3 1 20rem; }
 
 .page-map-title { margin: 0; }

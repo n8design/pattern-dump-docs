@@ -5,6 +5,7 @@ date: 2026-11-19
 categories: [notes]
 tags: [components]
 draft: true
+nav: false
 ---
 
 This page is `site/pages/articles/examples.md`, a draft: `pd dev` shows it, `pd build` leaves it out. It keeps the

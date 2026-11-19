@@ -4,6 +4,7 @@ description: The fonts, tools and references this site is built with.
 layout: doc
 toc: true
 order: 9
+nav: false
 ---
 
 ## Fonts

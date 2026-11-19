@@ -4,6 +4,7 @@ description: How an article lists the articles like it, and how to change the li
 date: 2026-11-15
 tags: [notes]
 categories: [notes]
+nav: false
 ---
 
 Below every article is a short list of related articles: up to three from the same folder, the ones sharing most
