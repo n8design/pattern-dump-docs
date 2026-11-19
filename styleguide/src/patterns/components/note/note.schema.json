@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Note",
-  "description": "A short aside. On a page: <pd-components-note heading=\"…\">text</pd-components-note>.",
+  "description": "A short aside. On a page: <pd-components-note heading=\"\u2026\">text</pd-components-note>.",
   "type": "object",
   "required": [
     "heading",
@@ -17,6 +17,15 @@
       "type": "string",
       "contentMediaType": "text/markdown",
       "description": "The note itself: the tag's content, as markdown"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "note",
+        "warning"
+      ],
+      "default": "note",
+      "description": "What kind of note: \"warning\" marks it with the warning colour"
     }
   }
 }

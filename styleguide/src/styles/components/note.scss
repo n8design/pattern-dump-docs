@@ -1,6 +1,7 @@
 @use "../base/tokens";
 
-// A note: set apart by a hairline above and below, and named by its heading ("Note", "Warning"). No colour, no ground.
+// A note: set apart by a hairline above and below, and named by its heading ("Note", "Warning"). No ground.
+// A warning (kind "warning") turns the line above into a rule in the warning colour, and its heading with it.
 .note {
   margin-block: tokens.$space-md;
   padding-block: tokens.$space-md;
@@ -9,3 +10,5 @@
 .note-heading { margin: 0 0 tokens.$space-xs; font-weight: var(--font-weight-semibold); color: var(--color-heading); }
 .note-text > :first-child { margin-top: 0; }
 .note-text > :last-child { margin-bottom: 0; }
+.note[data-kind="warning"] { border-block-start: 0.125rem solid var(--color-warning); }
+.note[data-kind="warning"] .note-heading { color: var(--color-warning); }

@@ -43,6 +43,9 @@ $colors: (
   // A code block's edge: in light the same as its surface (no edge to see); in dark the hairline, where the block
   // and the page are close in lightness
   "code-edge":        (light: oklch(19.9% 0.026 247),     dark: oklch(32.1% 0.029 243)),
+  // A warning (components/note with kind "warning"): amber, not red (red is for real errors) and not the accent (that
+  // marks the one thing). Text in it reaches 4.5:1 on the page in both modes (5.4:1 light, 9.5:1 dark).
+  "warning":          (light: oklch(50% 0.11 55),         dark: oklch(80% 0.13 65)),
   // Diagrams and charts (symbol images, styleguide/diagrams/kit.svg). The accent stays the one value an image is
   // about; these are for the rest, at most three hues in one image, accent included, and never colour alone (each
   // also gets a dash pattern, a marker or a label). Every one is 3:1 or more on the image's plate (surface-subtle).
