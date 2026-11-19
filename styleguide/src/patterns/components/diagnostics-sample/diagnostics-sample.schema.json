@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Diagnostics sample",
+  "description": "Kept for the workbench-diagnostics-tab screenshot. Not for pages.",
+  "type": "object",
+  "required": [
+    "heading",
+    "text"
+  ],
+  "properties": {
+    "heading": {
+      "type": "string",
+      "description": "The aside's heading"
+    },
+    "text": {
+      "type": "string",
+      "description": "One sentence of plain text"
+    }
+  }
+}
