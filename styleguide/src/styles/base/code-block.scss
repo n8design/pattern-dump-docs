@@ -1,0 +1,39 @@
+@use "tokens";
+
+// A code block as Pattern Dump writes it: .shiki-container around the <pre>, and, where the browser can write to the
+// clipboard, a .copy-btn that pd's script puts in front of the <pre>. The container carries the block's space, so
+// the button can sit in the block's top right corner; the <pre> leaves room for it on the right.
+.shiki-container {
+  position: relative;
+  margin-block-start: 1.25rem;
+}
+
+.shiki-container > pre {
+  margin-block-start: 0;
+  padding-inline-end: 5.5rem;
+}
+
+.copy-btn {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border: 0.0625rem solid var(--color-code-text);
+  background: transparent;
+  color: var(--color-code-text);
+  font-family: tokens.$font-mono;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-body);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: var(--color-code-text);
+  color: var(--color-code-surface);
+}
+
+.copy-btn:focus-visible {
+  outline: 0.125rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
