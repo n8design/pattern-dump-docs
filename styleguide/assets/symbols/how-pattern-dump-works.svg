@@ -28,10 +28,10 @@
   <text class="label" x="48" y="160">button.schema.json</text>
 
   <text class="label" x="264" y="48"><tspan class="on">2</tspan>  workbench</text>
-  <rect class="solid" x="264" y="94" width="120" height="44"/>
-  <text class="on-solid" x="324" y="122" text-anchor="middle">Save</text>
-  <path class="hair" d="M 264 170 H 384 M 264 162 V 178 M 384 162 V 178"/>
-  <text class="small" x="324" y="194" text-anchor="middle">120</text>
+  <rect class="solid" x="264" y="106" width="120" height="44"/>
+  <text class="on-solid" x="324" y="134" text-anchor="middle">Save</text>
+  <path class="hair" d="M 264 182 H 384 M 264 174 V 190 M 384 174 V 190"/>
+  <text class="small" x="324" y="206" text-anchor="middle">120</text>
 
   <text class="label" x="516" y="48"><tspan class="on">3</tspan>  site</text>
   <rect class="line" x="516.5" y="62.5" width="190" height="240"/>
@@ -41,9 +41,10 @@
   <rect class="solid" x="536" y="188" width="56" height="20"/>
   <path class="hair" d="M 536 234 H 688 M 536 248 H 664 M 536 262 H 632"/>
 
-  <path class="link" d="M 206 132 H 232 L 237 116 H 254"/>
-  <path class="head" d="M 262 116 l -10 -5 v 10 z"/>
-  <path class="link" d="M 392 116 H 440 L 461 198 H 518"/>
+  <path class="link" d="M218 88H226V168H218"/>
+  <path class="link" d="M 226 128 H 254"/>
+  <path class="head" d="M 262 128 l -10 -5 v 10 z"/>
+  <path class="link" d="M 392 128 H 440 L 459 198 H 518"/>
   <path class="head" d="M 526 198 l -10 -5 v 10 z"/>
 
   <circle class="detail" cx="564" cy="198" r="40"/>
