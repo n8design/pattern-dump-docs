@@ -15,12 +15,15 @@
     "typecheck": "npm run typecheck -w @pattern-dump-docs/styleguide",
     "pages": "npm run lint:css && npm run build -w @pattern-dump-docs/site && npm run build -w @pattern-dump-docs/styleguide -- --base /workbench/ && node scripts/assemble-pages.mjs",
     "lint:css": "npm run lint:css -w @pattern-dump-docs/styleguide",
-    "prepare": "husky"
+    "prepare": "husky",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "21.0.2",
     "@commitlint/config-conventional": "21.0.2",
-    "husky": "9.1.7"
+    "husky": "9.1.7",
+    "playwright": "1.60.0",
+    "sharp": "0.35.5"
   },
   "allowScripts": {
     "esbuild": true,
