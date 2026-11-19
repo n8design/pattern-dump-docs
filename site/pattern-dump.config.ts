@@ -8,7 +8,7 @@ import patternDumpPackage from "pattern-dump/package.json" with { type: "json" }
 export default defineConfig({
   outDir: "./dist/workbench",
   packages: ["@pattern-dump-docs/styleguide"],
-  storefront: {
+  site: {
     pagesDir: "./pages",
     outDir: "./dist/site",
     // The style guide's own workbench, published beside the site under /workbench/ (the root's "pages" script).
@@ -22,7 +22,7 @@ export default defineConfig({
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    site: { title: "Pattern Dump", footer: "Pattern Dump. Built with Pattern Dump.", patternDumpVersion: patternDumpPackage.version },
+    globals: { title: "Pattern Dump", footer: "Pattern Dump. Built with Pattern Dump.", patternDumpVersion: patternDumpPackage.version },
   },
   // pd build requires the site's own workbench to be built for the same address as workbenchUrl, even though that
   // workbench isn't published.

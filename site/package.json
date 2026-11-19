@@ -10,6 +10,6 @@
   },
   "devDependencies": {
     "@pattern-dump-docs/styleguide": "file:../styleguide",
-    "pattern-dump": "0.7.0"
+    "pattern-dump": "0.8.0"
   }
 }

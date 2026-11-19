@@ -1,5 +1,5 @@
 # Builds the website and the workbench, and publishes both to GitHub Pages: the website at the address in
-# storefront.url in site/pattern-dump.config.ts (your domain, or a project page's address with its path), the workbench inside it at
+# site.url in site/pattern-dump.config.ts (your domain, or a project page's address with its path), the workbench inside it at
 # workbench/ (build.basePath in site/pattern-dump.config.ts, and the style guide's --base in the root's "pages" script).
 # Before the first run: Settings → Pages → Source: "GitHub Actions", and your custom domain: see "Publish it" in the README.
 name: Pages
