@@ -36,18 +36,21 @@
 
 // A symbol image with a caption (`![Alt](#stem "Caption")`) is a figure, numbered on its own: the counter starts
 // with each article, so the numbers follow the page's order and never need writing by hand. An image without a
-// caption isn't numbered. The caption breaks the site's type on purpose, in Georgia (tokens.$font-caption): the look
+// caption isn't numbered. A live example (.doc-example, base/doc-example.scss) is a figure too, and is numbered with
+// the images. The caption breaks the site's type on purpose, in Georgia (tokens.$font-caption): the look
 // of a figure in a paper or a textbook. Upright, for legibility; the weights are the site's, light and dark.
 .reading-article {
   counter-reset: figure;
 }
 
-.doc-figure {
+.doc-figure,
+.doc-example {
   margin-inline: 0;
   counter-increment: figure;
 }
 
-.doc-figure figcaption {
+.doc-figure figcaption,
+.doc-example figcaption {
   margin-block-start: 0.875rem;
   color: var(--color-text-muted);
   font-family: tokens.$font-caption;
@@ -55,7 +58,8 @@
   font-weight: var(--font-weight-body);
 }
 
-.doc-figure figcaption::before {
+.doc-figure figcaption::before,
+.doc-example figcaption::before {
   content: "Fig. " counter(figure) ": ";
   color: var(--color-text);
   font-weight: var(--font-weight-semibold);

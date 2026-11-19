@@ -1,0 +1,54 @@
+@use "tokens";
+
+// A live example: a `pattern` fence, which Pattern Dump writes as <figure class="doc-example"> with the component's
+// preview in an <iframe>, its variants as a list, and a caption that names it and links to the workbench.
+//
+// The preview brings its own page and ground, so the frame adds no fill of its own: a hairline marks where the
+// other page starts, with a little room inside it, at the column's width. Pattern Dump sets the iframe's height to
+// fit the preview, so the padding and the border go outside that height (content-box), never into it, and the width
+// leaves room for them.
+.doc-example iframe {
+  display: block;
+  box-sizing: content-box;
+  inline-size: calc(100% - 2rem - 0.125rem);
+  padding: 1rem;
+  border: 0.0625rem solid var(--color-hairline);
+}
+
+// The variants: a row of names under the frame, the one shown marked as the current nav item is.
+.doc-example-variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.625rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: tokens.$font-mono;
+  font-size: 0.8125rem;
+}
+
+.doc-example-variants a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.doc-example-variants a:hover {
+  color: var(--color-text);
+}
+
+.doc-example-variants a[aria-current="true"] {
+  color: var(--color-text);
+  text-decoration: underline 0.125rem var(--color-accent-ink);
+  text-underline-offset: 0.3em;
+}
+
+.doc-example-variants a:focus-visible {
+  outline: 0.125rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+// The caption names the component in code, as the workbench does.
+.doc-example-id {
+  font-family: tokens.$font-mono;
+  font-size: 0.875em;
+}
