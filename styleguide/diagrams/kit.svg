@@ -13,6 +13,10 @@
       Version  the Pattern Dump version the drawing is true for ("PD 0.7.0"), so a release can find what to check
     Keep it small: it is there to name the drawing, not to take room from it.
     It is what the drawing keeps when it leaves the page (pd build writes each symbol as a file of its own).
+    Connectors run straight wherever source and target can line up: move the parts, not the line. Only a real
+    height difference gets a lean, as one long segment at 15 degrees, like the logo; never a small step.
+    Several sources into one target: a bracket across them, in .link like the arrow it starts, and the arrow
+    leaves from its middle.
     No figure number in either: the page numbers captioned images itself.
     The page puts the plate behind it (base/doc-image.scss): no background in here.
     scripts/chart.mjs reads this style block, so a chart always uses the current kit.
@@ -29,6 +33,13 @@
     .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
     .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
     .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
     .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
     .muted { fill: var(--color-text-muted) }
     .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }

@@ -43,6 +43,17 @@ $colors: (
   // A code block's edge: in light the same as its surface (no edge to see); in dark the hairline, where the block
   // and the page are close in lightness
   "code-edge":        (light: oklch(19.9% 0.026 247),     dark: oklch(32.1% 0.029 243)),
+  // Diagrams and charts (symbol images, styleguide/diagrams/kit.svg). The accent stays the one value an image is
+  // about; these are for the rest, at most three hues in one image, accent included, and never colour alone (each
+  // also gets a dash pattern, a marker or a label). Every one is 3:1 or more on the image's plate (surface-subtle).
+  // fill marks a region, a step from the plate, with text on it at 9:1. 2 and 3 tell series apart, away from the
+  // accent's hue in each mode. pass and fail show a state: fail leans orange, because berry, the light accent, is
+  // already red, and pass isn't lime, the dark accent.
+  "diagram-fill":     (light: oklch(87.5% 0.012 243),     dark: oklch(28% 0.03 245)),
+  "diagram-2":        (light: oklch(50% 0.15 255),        dark: oklch(78% 0.11 295)),
+  "diagram-3":        (light: oklch(56% 0.12 70),         dark: oklch(82% 0.11 210)),
+  "diagram-pass":     (light: oklch(52% 0.13 150),        dark: oklch(80% 0.14 165)),
+  "diagram-fail":     (light: oklch(55% 0.15 45),         dark: oklch(75% 0.15 50)),
 );
 
 // The hsl() fallback of an oklch() color: the same color, mapped into sRGB if it lies outside it, written as
