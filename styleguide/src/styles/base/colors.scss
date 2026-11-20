@@ -38,9 +38,9 @@ $colors: (
   // Inline code: its own ground, set apart from running text in both modes (not the accent: links use it)
   "code-inline":      (light: oklch(87% 0.016 245),       dark: oklch(30% 0.032 245)),
   // Code blocks: light in light mode, dark in dark mode, so Pattern Dump's own token colours (/_pd/code.css, one
-  // palette per mode) sit on the ground they were made for. Its light colours reach 4.5:1 on white only (about 4.75:1;
-  // 4.4:1 on a 97% ground), so the light surface is white.
-  "code-surface":     (light: oklch(100% 0 0),            dark: oklch(15.4% 0.02 243)),
+  // palette per mode) sit on the ground they were made for. Its light colours were made for white (about 4.75:1); the
+  // light surface takes the page's tint as far as they allow: at 99% the weakest is 4.62:1 (at 98%, 4.49:1, too low).
+  "code-surface":     (light: oklch(99% 0.004 243),       dark: oklch(15.4% 0.02 243)),
   "code-text":        (light: oklch(27.9% 0.029 247),     dark: oklch(92.8% 0.006 223)),
   // A code block's edge: the hairline in both modes, where the block and the page are close in lightness
   "code-edge":        (light: oklch(85.1% 0.011 244),     dark: oklch(32.1% 0.029 243)),
