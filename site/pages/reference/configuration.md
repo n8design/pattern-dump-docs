@@ -295,6 +295,7 @@ One folder inside another
 `site.url`
 : An absolute http(s) URL.
 : No query, no fragment and no empty path segment, except doubled slashes at the very end, which are collapsed. It is stored as origin and path with one trailing slash, and its path is the site's base path. With it, pages get a canonical URL and Open Graph tags (the 404 page gets neither), and only with it does Pattern Dump write JSON-LD and `sitemap.xml`. Without it, the only search engine tag is `noindex` on a page that isn't indexed.
+: Any other value: `"site.url" must be the site's absolute http(s) address, with no query or fragment, such as "https://example.com/", or "https://example.github.io/project/" for a site published under a path`.
 
 `site.lang`
 : A language tag. Default `en`.
