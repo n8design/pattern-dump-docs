@@ -22,7 +22,7 @@ export default defineConfig({
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "n8d", href: "https://n8d.at" }, patternDumpVersion: patternDumpPackage.version },
+    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "n8d", href: "https://n8d.at" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version },
   },
   // The site only: its pages link into the style guide's own workbench at workbenchUrl.
   build: { workbench: false },
