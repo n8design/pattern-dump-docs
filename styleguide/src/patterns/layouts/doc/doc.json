@@ -1,22 +1,32 @@
 {
-  "title": "Getting started",
-  "description": "What a page with a sidebar looks like.",
+  "title": "Configuration",
+  "description": "What a reading page looks like outside the Guide: the trail above the heading, a sidebar beside the text.",
   "body": "<h2 id=\"install\">Install</h2><p>Text of the page.</p><h2 id=\"configure\">Configure</h2><p>More text.</p>",
   "page": {
+    "breadcrumbs": [
+      {
+        "route": "/",
+        "title": "Home"
+      },
+      {
+        "route": "/reference/",
+        "title": "Reference"
+      }
+    ],
     "next": {
-      "route": "/guide/includes/",
-      "title": "Compose with includes"
+      "route": "/reference/themes/",
+      "title": "Themes"
     },
     "regions": {
       "sidebar": "<nav class=\"toc\" aria-labelledby=\"toc-title\"><p class=\"toc-title\" id=\"toc-title\">On this page</p><ul class=\"toc-list\"><li class=\"toc-level-2\"><a href=\"#install\">Install</a></li><li class=\"toc-level-2\"><a href=\"#configure\">Configure</a></li></ul></nav>"
     },
     "prev": {
-      "route": "/guide/install/",
-      "title": "Install"
+      "route": "/reference/",
+      "title": "Reference"
     },
     "section": {
-      "route": "/guide/",
-      "title": "Guide"
+      "route": "/reference/",
+      "title": "Reference"
     }
   },
   "nav": [
@@ -34,16 +44,22 @@
         },
         {
           "route": "/guide/first-pattern/",
-          "title": "Your first pattern",
+          "title": "Your first pattern"
+        }
+      ]
+    },
+    {
+      "route": "/reference/",
+      "title": "Reference",
+      "children": [
+        {
+          "route": "/reference/configuration/",
+          "title": "Configuration",
           "current": true
         },
         {
-          "route": "/guide/includes/",
-          "title": "Compose with includes"
-        },
-        {
-          "route": "/guide/publish/",
-          "title": "Publish the site"
+          "route": "/reference/themes/",
+          "title": "Themes"
         }
       ]
     },

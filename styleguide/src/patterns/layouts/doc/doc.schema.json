@@ -39,6 +39,9 @@
       "type": "object",
       "description": "What the storefront works out for the page",
       "properties": {
+        "breadcrumbs": {
+          "description": "Home, then each folder above the page: the trail above the heading (molecules/breadcrumbs). Not shown on the Guide's steps, where molecules/guide-progress says where the reader is"
+        },
         "next": {
           "description": "The page after this one in the navigation"
         },

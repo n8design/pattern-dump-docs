@@ -51,7 +51,8 @@ returns by itself. How `pd-` tags work:
 | `src/patterns/pages/frame/` | the frame around every page, at least the viewport's height: header, main, footer, no rail. The header and footer stick on a wide screen with room to spare (64em by 40em), with `scroll-padding` for both; layouts fill it with `{{#> pages-frame }}` |
 | `src/patterns/organisms/site-header/`, `site-footer/` | the header (the site's name, the sections in `molecules/site-nav`, and a search field) and the footer |
 | `src/patterns/molecules/guide-progress/`, `pager/` | a page's section and step (from `nav`), and its previous and next page: the reading layouts include them |
-| `src/patterns/molecules/breadcrumbs/` | a breadcrumb trail, in the workbench only: the reading pages show their section instead |
+| `src/patterns/molecules/breadcrumbs/` | the breadcrumb trail above a page's heading: on the articles, the listings and every doc page except the Guide's steps |
+| `src/helpers/` | Handlebars helpers the templates call, in JavaScript (Pattern Dump loads a package's helpers with Node as they are, and stops at startup on TypeScript); `package.json` names the folder (`"patternDump.helpers"`). `guide.js` has `onGuideStep nav`, the one test for "is this page a Guide step", which `molecules/guide-progress` and `layouts/doc` share |
 | `src/styles/base/colors.scss` | every colour, as tokens with a light and a dark value ("Deep gunmetal, Lime & Berry": berry in light, lime in dark) |
 | `.stylelintrc.json` | the style rules `npm run build` checks first: no `px`, colours only from the tokens, no radius, shadows, gradients or `backdrop-filter` |
 | `src/patterns/organisms/search/` | the site's search, on the search page |

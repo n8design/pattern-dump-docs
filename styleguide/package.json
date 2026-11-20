@@ -8,6 +8,7 @@
     "src/patterns",
     "src/styles",
     "src/scripts",
+    "src/helpers",
     "themes",
     "assets"
   ],
@@ -25,6 +26,7 @@
       "switch": "attribute"
     },
     "scripts": "src/scripts",
+    "helpers": "src/helpers",
     "assets": [
       "assets"
     ]

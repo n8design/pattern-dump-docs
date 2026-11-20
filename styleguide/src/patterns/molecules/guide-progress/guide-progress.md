@@ -7,6 +7,11 @@ page done. It is derived from `nav` (the section whose `children` include the cu
 page's frontmatter. It shows only in the Guide (the nav entry at `/guide/`), which is read in order: Reference, Concepts
 and the other sections are looked up, not read step by step, so it renders nothing there, nor on a page in no section.
 
+**Whether it shows** is one test, `onGuideStep nav` (`src/helpers/guide.js`): true when a page under the nav entry
+at `/guide/` is the current one. `layouts/doc` asks the same helper and shows its breadcrumbs only when the answer is
+no, so a page has the progress or the trail, never both. The loop inside only finds the step's position and the
+section's title once the helper has said yes.
+
 **How it is built without a counting helper.** Handlebars can't add, so the number is a CSS counter: the line resets
 `guide-step` to the page's index and the number's `::before` adds one. The total is `children.length`; a segment is
 done when its index is at most the page's (`lte`).
