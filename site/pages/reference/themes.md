@@ -92,7 +92,7 @@ Until 0.8.0, tokens had generated classes such as `__shiki_17h8wv`, and `/_pd/sh
 
 ## Themes on site pages
 
-Pattern Dump never sets a theme on a site page: that is the skin's. Pattern Dump writes a theme-sync script into a page with a live example (`class="doc-example"`) when the project has themes, and none into a page without one or a project without themes.
+Pattern Dump never sets a theme on a site page, which is the skin's job, but it writes a theme-sync script into a page with a live example (`class="doc-example"`) when the project has themes, and none into a page without one or a project without themes.
 
 The page's theme is `data-theme` on `<html>`, else on `<body>`. Only a value that names a known theme reaches the examples. Any other value, or none, puts each example back on the theme it was built with.
 
