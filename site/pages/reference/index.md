@@ -6,3 +6,4 @@ order: 6
 ---
 
 - [Configuration](/reference/configuration/): every key of `pattern-dump.config.ts`.
+- [Themes](/reference/themes/): theme files, the switch modes, swatches, themes on site pages.
