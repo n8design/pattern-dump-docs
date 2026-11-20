@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 452">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .knock { stroke: var(--color-surface-subtle); stroke-width: 8; stroke-linejoin: round; paint-order: stroke }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="small" x="24" y="58">site/pages/articles/hello.md</text>
+  <text class="small" x="24" y="112">frontmatter</text>
+  <text class="label" x="24" y="140">title</text>
+  <text class="label" x="24" y="164">description</text>
+  <text class="label" x="24" y="204">date</text>
+  <text class="label" x="24" y="228">tags</text>
+  <text class="label" x="24" y="252">categories</text>
+  <text class="small" x="24" y="282">markdown</text>
+  <text class="label" x="24" y="300">body</text>
+  <path class="link" d="M132 128H144V170H132"/>
+  <path class="link" d="M144 147H424"/>
+  <path class="head" d="M432 147l-10 -5v10z"/>
+  <text class="small" x="272" y="139" text-anchor="middle">declared by the layout</text>
+  <path class="link" d="M132 190H144V258H132"/>
+  <path class="link" d="M144 223H424"/>
+  <path class="head" d="M432 223l-10 -5v10z"/>
+  <text class="small" x="272" y="215" text-anchor="middle">reserved, for Pattern Dump</text>
+  <path class="link" d="M72 295H424"/>
+  <path class="head" d="M432 295l-10 -5v10z"/>
+  <rect class="line" x="400.5" y="36.5" width="308" height="340"/>
+  <text class="small" x="416" y="56">pages/frame</text>
+  <text class="label" x="416" y="82">organisms/site-header</text>
+  <path class="hair" d="M400 94H709"/>
+  <rect class="line" x="416.5" y="104.5" width="276" height="212"/>
+  <text class="small" x="432" y="122">layouts/article</text>
+  <path class="hair" d="M416 132H693"/>
+  <text class="label" x="436" y="152">title, description</text>
+  <text class="label" x="436" y="228">page.date, page.tags</text>
+  <text class="label" x="436" y="264">page.related</text>
+  <text class="small" x="548" y="264">a query's result</text>
+  <text class="label" x="436" y="300">body</text>
+  <path class="hair" d="M400 330H709"/>
+  <text class="label" x="416" y="358">organisms/site-footer</text>
+  <rect class="line" x="24.5" y="396.5" width="360" height="36"/>
+  <path class="line" d="M220 396V432M284 396V432"/>
+  <text class="small" x="36" y="409">Title</text>
+  <text class="title" x="36" y="426">A page and its layout</text>
+  <text class="small" x="232" y="409">Scale</text>
+  <text class="label" x="232" y="426">1 : 1</text>
+  <text class="small" x="296" y="409">Version</text>
+  <text class="label" x="296" y="426">PD 0.8.0</text>
+</svg>
