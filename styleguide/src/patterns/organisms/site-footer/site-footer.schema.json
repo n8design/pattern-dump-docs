@@ -6,7 +6,18 @@
   "properties": {
     "site": {
       "type": "object",
-      "properties": { "footer": { "type": "string", "description": "The line at the bottom of every page: storefront.site.footer" } }
+      "properties": {
+        "footer": { "type": "string", "description": "The line at the bottom of every page: site.globals.footer" },
+        "author": {
+          "type": "object",
+          "description": "Who the site is by, linked after the line: site.globals.author",
+          "required": ["name", "href"],
+          "properties": {
+            "name": { "type": "string", "description": "The link's text" },
+            "href": { "type": "string", "description": "Where it links" }
+          }
+        }
+      }
     }
   }
 }

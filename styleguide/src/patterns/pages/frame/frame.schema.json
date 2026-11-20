@@ -21,6 +21,24 @@
         "footer": {
           "type": "string",
           "description": "The line at the bottom of every page"
+        },
+        "author": {
+          "type": "object",
+          "description": "Who the site is by: \"A project by\" and a link, after the footer line",
+          "required": [
+            "name",
+            "href"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The link's text"
+            },
+            "href": {
+              "type": "string",
+              "description": "Where it links"
+            }
+          }
         }
       }
     },
