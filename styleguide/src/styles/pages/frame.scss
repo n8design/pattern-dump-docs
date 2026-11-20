@@ -55,3 +55,36 @@
   .site > .site-header { top: 0; }
   .site > .site-footer { bottom: 0; }
 }
+
+// Moving between pages: the browser crossfades the old page into the new one (a cross-document view transition, both
+// pages opt in). Where the bars are sticky they are in the same place on both pages, so each gets a name of its own and
+// stands still while only the content fades. Where they scroll away (phones, short windows, enlarged text) they could
+// be off screen in the old picture and would slide in, so there they fade with the rest. The scroll position is the
+// browser's: a new page starts at its top or its anchor, Back returns to where you were. Progressive enhancement: a
+// browser without view transitions changes pages as before. Off when the reader asks for reduced motion.
+@view-transition { navigation: auto; }
+
+// The same width on every page: with classic scrollbars (Windows, or "always show" on macOS), a short page without a
+// scrollbar was 15px wider than a long one, so the column, the header and the footer shifted between pages. The gutter
+// is kept whether the page scrolls or not. Newly available (Safari 18.2); an older browser keeps the shift.
+html { scrollbar-gutter: stable; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+@media (min-width: 64em) and (min-height: 40em) {
+  .site > .site-header { view-transition-name: site-header; }
+  .site > .site-footer { view-transition-name: site-footer; }
+}
+
+// The bars don't animate at all: no move, no resize, no crossfade of old and new. By default the browser would morph
+// each bar from its old picture to its new one, and the header does change between pages (the current section's
+// underline moves, the width can differ by a scrollbar), which reads as a jump. The new bar is shown at once instead.
+::view-transition-group(site-header),
+::view-transition-group(site-footer),
+::view-transition-new(site-header),
+::view-transition-new(site-footer) { animation: none; }
+
+::view-transition-old(site-header),
+::view-transition-old(site-footer) { display: none; }
