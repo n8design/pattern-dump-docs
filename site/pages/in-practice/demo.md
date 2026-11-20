@@ -3,6 +3,9 @@ title: The demo
 description: The first website built with Pattern Dump, read in the order a visitor would: its landing page, its articles, an article, and the style guide behind them, with a recorded tour.
 layout: doc
 order: -3
+liveSite: https://lab.n8d.studio/pattern-dump-demo/
+repository: https://github.com/n8design/pattern-dump-demo
+styleGuide: https://lab.n8d.studio/pattern-dump-demo/styleguide/
 ---
 
 [The demo](https://lab.n8d.studio/pattern-dump-demo/) is a short tour of what Pattern Dump is, and the first website built with it. Its site holds pages and images only: how it looks comes from its style guide, a pattern package the site names in its config. Read it in the order a visitor would, from the landing page to the style guide behind it.
