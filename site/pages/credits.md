@@ -1,11 +1,17 @@
 ---
 title: Credits
-description: The fonts, tools and references this site is built with.
+description: Who sponsors Pattern Dump, and the fonts, tools and references this site is built with.
 layout: doc
 toc: true
 order: 9
 nav: false
 ---
+
+## Sponsors
+
+[n8d](https://n8d.at) sponsors the development of Pattern Dump and these docs.
+
+Anyone can sponsor Pattern Dump too, through [GitHub Sponsors](https://github.com/sponsors/StfBauer).
 
 ## Fonts
 
