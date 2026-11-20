@@ -7,5 +7,5 @@ order: 7
 
 This site is built with Pattern Dump. The pages here show how, from the files in its repository. Each page says what a file holds, what it sets and why, and what the build checks before anything is published.
 
-- [This site](/in-practice/this-site/): one repository, one pin, two builds published together.
+- [This site](/in-practice/this-site/): one repository, one pin, two builds published together, and [how the home page's map is built](/in-practice/this-site/#how-the-home-pages-map-is-built) from the pages.
 - [This style guide](/in-practice/this-style-guide/): how its components, layouts, tokens and themes are organised in the workbench.
