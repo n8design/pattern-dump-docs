@@ -21,6 +21,9 @@
 // Previous: outlined with the hairline (the design's one outlined link). Next: filled with the accent, at the end.
 .pager-prev { border: 0.0625rem solid var(--color-hairline); color: var(--color-text); }
 .pager-next { align-items: flex-end; background: var(--color-accent); color: var(--color-on-accent); }
+// Hover: the outlined one takes the border token and the subtle surface; the filled one the primary's hover shade.
+.pager-prev:hover { border-color: var(--color-border); background: var(--color-surface-subtle); }
+.pager-next:hover { background: var(--color-primary-hover); }
 
 .pager-label { font-size: 0.8125rem; color: var(--color-text-muted); }
 .pager-next .pager-label { color: inherit; }

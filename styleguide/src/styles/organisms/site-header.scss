@@ -50,6 +50,12 @@
   text-decoration: none;
 }
 .site-header-link:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+.site-header-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-ink);
+  text-decoration-thickness: 0.0625rem;
+  text-underline-offset: 0.4em;
+}
 
 // The field is a control: its edge is the border token (3:1), not a hairline.
 .site-search { max-inline-size: 100%; }
