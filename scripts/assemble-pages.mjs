@@ -1,6 +1,6 @@
 // Puts the two builds together as one GitHub Pages artifact in _site/: the website (site/dist/site) at the root,
 // and the style guide's own workbench (styleguide/dist) under workbench/. Both are built for their addresses
-// already (storefront.workbenchUrl and --base), so this only copies them.
+// already (site.workbenchUrl and --base), so this only copies them.
 // Run by `npm run pages`, locally and in .github/workflows/pages.yml.
 import { cpSync, existsSync, rmSync } from "node:fs";
 import { join } from "node:path";
