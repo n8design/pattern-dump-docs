@@ -2,6 +2,7 @@
 title: This style guide
 description: How this site's style guide is organised in the Pattern Dump workbench: its folders, the layouts, partials and views of the site, its tokens and base layer, and its three themes.
 layout: doc
+order: -1
 ---
 
 How this site looks is decided in `styleguide/`, a pattern package in the same repository. It holds the components, the layouts the pages render with, the tokens and the themes. The style guide runs in a workbench of its own. [Its published workbench](/workbench/) sits beside this site and shows the components this page describes.
