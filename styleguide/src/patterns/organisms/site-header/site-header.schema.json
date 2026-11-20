@@ -16,6 +16,19 @@
         "title": {
           "type": "string",
           "description": "The site's name, linking to the home page"
+        },
+        "repository": {
+          "type": "object",
+          "description": "The project's code repository: a GitHub link in the header",
+          "required": [
+            "href"
+          ],
+          "properties": {
+            "href": {
+              "type": "string",
+              "description": "The repository's address"
+            }
+          }
         }
       }
     },

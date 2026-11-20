@@ -39,6 +39,18 @@
   color: var(--color-logo);
 }
 
+// The repository link, set like a section in the nav: between the sections and the search.
+.site-header-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: tokens.$touch-target;
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-decoration: none;
+}
+.site-header-link:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+
 // The field is a control: its edge is the border token (3:1), not a hairline.
 .site-search { max-inline-size: 100%; }
 .site-search-form {

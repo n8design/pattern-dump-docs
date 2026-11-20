@@ -4,7 +4,8 @@ requireScript: [site-header]
 ---
 
 The bar at the top of every page: the logo mark and the site's name, linking home; the sections
-(`molecules/site-nav`); and a search field. The field sends its words to the search page (`/search/?q=…`), which shows
+(`molecules/site-nav`); a link to the project's code on GitHub, when `site.globals.repository` is set; and a
+search field. The field sends its words to the search page (`/search/?q=…`), which shows
 the results (`organisms/search`).
 
 **The shortcut.** `src/scripts/site-header.ts` focuses the field on ⌘K (Apple platforms) or Ctrl K (others), and

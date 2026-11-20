@@ -39,6 +39,19 @@
               "description": "Where it links"
             }
           }
+        },
+        "repository": {
+          "type": "object",
+          "description": "The project's code repository: a GitHub link in the header",
+          "required": [
+            "href"
+          ],
+          "properties": {
+            "href": {
+              "type": "string",
+              "description": "The repository's address"
+            }
+          }
         }
       }
     },

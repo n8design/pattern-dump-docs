@@ -1,6 +1,9 @@
 {
   "site": {
-    "title": "Pattern Dump"
+    "title": "Pattern Dump",
+    "repository": {
+      "href": "https://github.com/n8design/pattern-dump"
+    }
   },
   "nav": [
     {

@@ -21,6 +21,14 @@
             "href": { "type": "string", "description": "Where it links" }
           }
         },
+        "repository": {
+          "type": "object",
+          "description": "The project's code repository: a GitHub link in the header",
+          "required": ["href"],
+          "properties": {
+            "href": { "type": "string", "description": "The repository's address" }
+          }
+        },
         "patternDumpVersion": { "type": "string", "description": "The installed Pattern Dump's version, which the docs describe: the home page's eyebrow" }
       }
     }
