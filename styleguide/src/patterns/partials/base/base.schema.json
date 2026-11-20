@@ -29,6 +29,14 @@
             "href": { "type": "string", "description": "The repository's address" }
           }
         },
+        "sponsor": {
+          "type": "object",
+          "description": "Where to sponsor the project: \"Sponsor\" among the footer's links",
+          "required": ["href"],
+          "properties": {
+            "href": { "type": "string", "description": "The sponsor page's address" }
+          }
+        },
         "patternDumpVersion": { "type": "string", "description": "The installed Pattern Dump's version, which the docs describe: the home page's eyebrow" }
       }
     }

@@ -16,6 +16,14 @@
             "name": { "type": "string", "description": "The link's text" },
             "href": { "type": "string", "description": "Where it links" }
           }
+        },
+        "sponsor": {
+          "type": "object",
+          "description": "Where to sponsor the project: \"Sponsor\" among the footer's links",
+          "required": ["href"],
+          "properties": {
+            "href": { "type": "string", "description": "The sponsor page's address" }
+          }
         }
       }
     }
