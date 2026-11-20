@@ -14,13 +14,14 @@
   color: var(--color-text-muted);
 }
 
-// The secondary logo ("<pd>"), left, before the site's line, in the logo token: the accent of the mode.
+// The secondary logo ("<pd>"), left, before the site's line, in the logo token: the accent of the mode. Its viewBox is
+// centred on the brackets, so they sit on the line's middle; the p's descender and the d's ascender reach out of it.
 .site-footer-brand { display: flex; gap: 0.75rem; align-items: center; }
 .site-footer-logo {
   flex: none;
   inline-size: auto;
   block-size: 1.5rem;
-  aspect-ratio: 444 / 208;
+  aspect-ratio: 444 / 214;
   fill: currentColor;
   color: var(--color-logo);
 }
