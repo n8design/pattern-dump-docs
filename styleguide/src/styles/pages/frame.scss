@@ -40,11 +40,16 @@
   --site-footer-height: #{tokens.$footer-padding-block * 2 + tokens.$footer-font-size * tokens.$footer-line-height + tokens.$hairline};
 }
 
+// Without the sticky bars, a heading an anchor jumps to still lands a little below the top of the window. The sticky
+// bars' rule below adds the header's height to it.
+html { scroll-padding-block-start: tokens.$space-lg; }
+
 // Sticky bars on a wide screen with room to spare. In em, so enlarged text (200%) stops matching and both bars scroll
 // away with the page; on phones and short windows they always do. One row each, on an opaque background.
 // scroll-padding keeps anchor jumps and focused elements clear of both bars (WCAG 2.4.11).
 @media (min-width: 64em) and (min-height: 40em) {
-  html { scroll-padding-block: var(--site-header-height) var(--site-footer-height); }
+  // The heading an anchor jumps to keeps a gap below the header (space-lg), not touching it.
+  html { scroll-padding-block: calc(var(--site-header-height) + #{tokens.$space-lg}) var(--site-footer-height); }
 
   .site > .site-header,
   .site > .site-footer {
@@ -68,6 +73,12 @@
 // scrollbar was 15px wider than a long one, so the column, the header and the footer shifted between pages. The gutter
 // is kept whether the page scrolls or not. Newly available (Safari 18.2); an older browser keeps the shift.
 html { scrollbar-gutter: stable; }
+
+// Jumps within a page (the table of contents, "Skip to the content", a link to a heading) scroll instead of cutting,
+// unless the reader asks for reduced motion.
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
