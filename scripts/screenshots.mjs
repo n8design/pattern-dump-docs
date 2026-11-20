@@ -14,9 +14,26 @@
 //
 // It uses the workbench at http://localhost:4300 and the site at http://live.localhost:4000 if they are running, and
 // starts (and stops again) the ones that are not.
+//
+// The demo shots are the one exception to "this repo's own style guide": they photograph the demo (the
+// pattern-dump-demo repository, on its 0.8.0 branch), for the In practice index: three of its site's pages and two
+// components in its site's workbench, all light only. The demo has no dark mode, so a -dark shot of its pages would be
+// the same picture; they get a dark pair (in schemesFor) once the demo has one. The script doesn't start the demo:
+// start it yourself, on its own port (DEMO_PORT), because this site's `pd dev` holds 4000:
+//
+//   cd ../pattern-dump-demo && PD_PORT=4100 npm run dev:site
+//
+// If the demo isn't running, or one of its pages or patterns doesn't answer, that shot is not taken and is listed as
+// missing, like a missing pattern.
+//
+// One demo shot is a video: demo-tour, the deck's tour of the landing page (recordTour). It takes a minute and is never
+// the same bytes twice, so it is recorded only when named, `npm run screenshots -- demo-tour`, never in a full run. It
+// writes styleguide/assets/videos/demo-tour.mp4 (H.264) and demo-tour.webm (VP9), with ffmpeg; its poster is the
+// demo-home still.
 
-import { spawn } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { spawn, spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
@@ -24,10 +41,15 @@ import sharp from "sharp";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = join(root, "styleguide/assets/screenshots");
+const videoDir = join(root, "styleguide/assets/videos");
 
 const WORKBENCH = "http://localhost:4300";
 const SITE = "http://live.localhost:4000";
 const SITE_PAGE = { url: "/reference/configuration/", file: "site/pages/reference/configuration.md" };
+// The demo's `pd dev`: its site, and its site's workbench (the style guide's components, from the package), on one port.
+const DEMO_PORT = 4100;
+const DEMO_SITE = `http://live.localhost:${DEMO_PORT}`;
+const DEMO_WORKBENCH = `http://pd.localhost:${DEMO_PORT}`;
 // 2024-01-01 00:00 UTC: pins Date for everything the pages compute. Dates in sample data are in the data already.
 const PINNED_TIME = new Date("2024-01-01T00:00:00Z");
 
@@ -49,8 +71,8 @@ const clickTab = (name) => async (page) => {
   await page.getByRole("tab", { name, exact: true }).click();
 };
 
-// The shots. `pattern` is the id the workbench must have in its tree (checked first). `setup` gets the page after it
-// loaded and the fonts are ready.
+// The shots. `pattern` is the id the workbench must have in its tree (checked first); `demoPattern` the same in the
+// demo's workbench; `demoPage` a path on the demo's site. `setup` gets the page after it loaded and the fonts are ready.
 const SHOTS = [
   {
     name: "workbench-overview",
@@ -133,7 +155,56 @@ const SHOTS = [
     window: { width: 1280, height: 800 },
     setup: async () => {},
   },
+  // The demo's site, light only (it has no dark mode yet, see the top of this file), in the order the In practice
+  // index tells it: the landing page, the articles, one article.
+  {
+    name: "demo-home",
+    demoPage: "/pattern-dump-demo/",
+    window: { width: 1280, height: 800 },
+    setup: async () => {},
+  },
+  {
+    name: "demo-articles",
+    demoPage: "/pattern-dump-demo/articles/",
+    window: { width: 1280, height: 800 },
+    setup: async () => {},
+  },
+  {
+    name: "demo-article",
+    demoPage: "/pattern-dump-demo/articles/why-style-guides-matter/",
+    window: { width: 1280, height: 800 },
+    setup: async () => {},
+  },
+  // The style guide behind it, in the demo's workbench; light only, as the other workbench shots.
+  {
+    // the landing page's layout, with its docs
+    name: "demo-layout-deck",
+    demoPattern: "layouts/deck",
+    window: { width: 1280, height: 800 },
+    setup: clickTab("Docs"),
+  },
+  {
+    name: "demo-colors-sunset",
+    demoPattern: "foundations/colors/sunset",
+    window: { width: 1280, height: 800 },
+    setup: async () => {},
+  },
+  // The landing page as a video, the deck's tour from the cover to the last card (recordTour). Only when named.
+  {
+    name: "demo-tour",
+    demoTour: "/pattern-dump-demo/",
+    named: true,
+  },
 ];
+
+// The tour: the window and the video at the same size, and how long it rests on the cover, on each card and on the last.
+const TOUR_SIZE = { width: 1280, height: 800 };
+const TOUR_HOLD = { cover: 2000, card: 2500, last: 2000 };
+// The tour ends on the card with this eyebrow.
+const TOUR_LAST = "11 · Try it";
+// Quality: lower is better and bigger. Checked for banding in the waves' gradients, the hardest part of the picture.
+const H264_CRF = 23;
+const VP9_CRF = 33;
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -189,6 +260,114 @@ function write(file, buffer) {
   writeFileSync(file, buffer);
 }
 
+// The deck's tour, recorded the way a visitor sees it: motion on (no reducedMotion), the waves drawn, "Learn more"
+// clicked. The deck's own tour waits as long as reading each card takes, so it is stopped once it reaches the first
+// card, and the script moves on from card to card itself, to each card's resting place (data-waves-rest, which the
+// waves record) with the deck's glide: --learn-more-duration, ease-in-out (deck.ts in the demo's style guide).
+async function recordTour(browser, shot, missing) {
+  if (spawnSync("ffmpeg", ["-version"]).status !== 0) {
+    missing.push(`${shot.name}: ffmpeg is not installed`);
+    return;
+  }
+  const raw = mkdtempSync(join(tmpdir(), "pd-tour-"));
+  const context = await browser.newContext({
+    viewport: TOUR_SIZE,
+    recordVideo: { dir: raw, size: TOUR_SIZE },
+    locale: "en-US",
+    timezoneId: "UTC",
+  });
+  const page = await context.newPage();
+  const started = Date.now();
+  let ready = started;
+  try {
+    const response = await page.goto(`${DEMO_SITE}${shot.demoTour}`, { waitUntil: "networkidle" });
+    if (!response?.ok()) throw new Error(`${DEMO_SITE}${shot.demoTour} answered ${response?.status()}`);
+    await settle(page);
+    // The waves have drawn once the canvas is in and has faded in: waves.ts adds .waves-live a frame after the first draw.
+    await page.locator(".waves-live .waves-canvas").first().waitFor({ timeout: 10000 });
+    await page.evaluate(() =>
+      Promise.all(document.querySelector(".waves-canvas").getAnimations().map((a) => a.finished)),
+    );
+    ready = Date.now();
+    await page.waitForTimeout(TOUR_HOLD.cover);
+
+    await page.getByRole("link", { name: "Learn more" }).click();
+    // No hover state left on a link the page scrolls under; moving the mouse doesn't stop the tour.
+    await page.mouse.move(TOUR_SIZE.width - 2, TOUR_SIZE.height / 2);
+    // The deck puts the first card's anchor in the address once it has arrived there.
+    await page.waitForURL(/#./, { timeout: 15000 });
+    // A wheel event stops the deck's tour where it is (any input does), without a key that would show focus.
+    await page.evaluate(() => dispatchEvent(new WheelEvent("wheel")));
+    await page.evaluate(() => document.activeElement?.blur());
+    await page.waitForTimeout(TOUR_HOLD.card);
+
+    const rests = await page.evaluate((last) => {
+      const sections = [...document.querySelectorAll("section[data-waves-rest]")];
+      // pushState doesn't move :target, so the first card is found by the address.
+      const anchor = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      const first = sections.findIndex((s) => s.contains(anchor));
+      return sections.slice(first + 1).map((s) => ({
+        top: Number(s.dataset.wavesRest),
+        last: s.querySelector(".slide-eyebrow")?.textContent.trim() === last,
+      }));
+    }, TOUR_LAST);
+    const end = rests.findIndex((r) => r.last);
+    if (end < 0) throw new Error(`no card with the eyebrow "${TOUR_LAST}"`);
+    for (const rest of rests.slice(0, end + 1)) {
+      await page.evaluate(glide, rest.top);
+      await page.waitForTimeout(rest.last ? TOUR_HOLD.last : TOUR_HOLD.card);
+    }
+    const inView = await page.evaluate((last) => {
+      const eyebrow = [...document.querySelectorAll(".slide-eyebrow")].find((e) => e.textContent.trim() === last);
+      const r = eyebrow.closest("section").querySelector("h2").getBoundingClientRect();
+      return r.top >= 0 && r.bottom <= innerHeight;
+    }, TOUR_LAST);
+    if (!inView) throw new Error(`the heading of "${TOUR_LAST}" is not in view at the end`);
+  } catch (error) {
+    missing.push(`${shot.name}: ${error.message.split("\n")[0]}`);
+    await context.close();
+    rmSync(raw, { recursive: true, force: true });
+    return;
+  }
+  await context.close();
+  const recorded = await page.video().path();
+
+  // The recording starts with the page; the video starts once the waves have drawn.
+  const from = ((ready - started) / 1000).toFixed(2);
+  mkdirSync(videoDir, { recursive: true });
+  const encode = (file, codec) => {
+    const run = spawnSync("ffmpeg", ["-y", "-v", "error", "-i", recorded, "-ss", from, "-an", ...codec, file]);
+    if (run.status !== 0) throw new Error(`ffmpeg: ${run.stderr.toString().trim().split("\n").pop()}`);
+    console.log(`wrote ${file.replace(`${root}/`, "")}`);
+  };
+  encode(join(videoDir, `${shot.name}.mp4`), [
+    "-c:v", "libx264", "-preset", "veryfast", "-crf", String(H264_CRF), "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+  ]);
+  encode(join(videoDir, `${shot.name}.webm`), [
+    "-c:v", "libvpx-vp9", "-crf", String(VP9_CRF), "-b:v", "0", "-row-mt", "1", "-pix_fmt", "yuv420p",
+  ]);
+  rmSync(raw, { recursive: true, force: true });
+}
+
+// The deck's glide (deck.ts): to `to` over --learn-more-duration, ease-in-out. Runs in the page.
+function glide(to) {
+  const css = getComputedStyle(document.documentElement).getPropertyValue("--learn-more-duration");
+  const m = /^\s*([\d.]+)\s*(ms|s)\s*$/.exec(css);
+  const duration = m ? Number(m[1]) * (m[2] === "s" ? 1000 : 1) : 1800;
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  const end = Math.min(document.documentElement.scrollHeight - innerHeight, Math.max(0, to));
+  const from = scrollY;
+  const start = performance.now();
+  return new Promise((resolve) => {
+    requestAnimationFrame(function step(now) {
+      const t = Math.min(1, (now - start) / duration);
+      scrollTo({ top: from + (end - from) * ease(t), behavior: "instant" });
+      if (t < 1) requestAnimationFrame(step);
+      else resolve();
+    });
+  });
+}
+
 async function main() {
   mkdirSync(outDir, { recursive: true });
   sharp.concurrency(1);
@@ -201,22 +380,31 @@ async function main() {
   const missing = [];
 
   // 1. Which patterns exist? The workbench's tree names them; a shot with a pattern that isn't there is skipped.
-  const probe = await browser.newPage({ viewport: WINDOW });
-  await probe.goto(`${WORKBENCH}/`, { waitUntil: "networkidle" });
-  await probe.locator('a[href^="/"]').first().waitFor();
-  const present = new Set(
-    await probe.evaluate(() =>
+  const patternsIn = async (workbench) => {
+    const probe = await browser.newPage({ viewport: WINDOW });
+    await probe.goto(`${workbench}/`, { waitUntil: "networkidle" });
+    await probe.locator('a[href^="/"]').first().waitFor();
+    const ids = await probe.evaluate(() =>
       [...document.querySelectorAll("a[href^='/']")].map((a) => a.getAttribute("href").replace(/^\//, "")),
-    ),
-  );
-  await probe.close();
+    );
+    await probe.close();
+    return new Set(ids);
+  };
+  const present = await patternsIn(WORKBENCH);
+  // The demo isn't started here (see the top of this file): if it isn't running, its shots are missing.
+  const demoRunning = await reachable(`${DEMO_WORKBENCH}/`);
+  const demoPresent = demoRunning ? await patternsIn(DEMO_WORKBENCH) : new Set();
 
   // `npm run screenshots -- name [name ...]` takes only those shots.
   const only = process.argv.slice(2);
   const todo = [];
-  for (const shot of SHOTS.filter((s) => only.length === 0 || only.includes(s.name))) {
+  for (const shot of SHOTS.filter((s) => (only.length === 0 ? !s.named : only.includes(s.name)))) {
     if (shot.pattern && !present.has(shot.pattern)) {
       missing.push(`${shot.name}: the pattern "${shot.pattern}" is not in the style guide`);
+    } else if ((shot.demoPage || shot.demoPattern || shot.demoTour) && !demoRunning) {
+      missing.push(`${shot.name}: the demo is not running at ${DEMO_WORKBENCH}/ (PD_PORT=${DEMO_PORT} npm run dev:site)`);
+    } else if (shot.demoPattern && !demoPresent.has(shot.demoPattern)) {
+      missing.push(`${shot.name}: the pattern "${shot.demoPattern}" is not in the demo's style guide`);
     } else if (shot.site && !existsSync(join(root, shot.site.file))) {
       missing.push(`${shot.name}: the page ${shot.site.file} does not exist`);
     } else {
@@ -226,7 +414,17 @@ async function main() {
 
   // 2. Each shot at 2x, in light, and for the site page in dark too (schemesFor).
   for (const shot of todo) {
-    const url = shot.site ? `${SITE}${shot.site.url}` : `${WORKBENCH}/${shot.pattern}`;
+    if (shot.demoTour) {
+      await recordTour(browser, shot, missing);
+      continue;
+    }
+    const url = shot.demoPage
+      ? `${DEMO_SITE}${shot.demoPage}`
+      : shot.demoPattern
+        ? `${DEMO_WORKBENCH}/${shot.demoPattern}`
+        : shot.site
+          ? `${SITE}${shot.site.url}`
+          : `${WORKBENCH}/${shot.pattern}`;
     for (const scheme of schemesFor(shot)) {
       {
         const context = await browser.newContext({
@@ -268,7 +466,7 @@ async function main() {
         // The Inspector's tab marker is placed from the width of the tab's label, which can be measured before the
         // font has arrived and then differs by a hairline between runs. Selecting the tab again places it for good.
         const relationships = page.getByRole("tab", { name: "Relationships", exact: true });
-        if (!shot.site && (await relationships.count()) > 0) {
+        if (!shot.site && !shot.demoPage && (await relationships.count()) > 0) {
           await relationships.click();
           await page.getByRole("tab", { name: shot.inspector ?? "Docs", exact: true }).click();
         }
