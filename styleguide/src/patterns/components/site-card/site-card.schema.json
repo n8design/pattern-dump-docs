@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site card",
+  "description": "A site built with Pattern Dump, as a card: its name, a picture across the card, one short line and one link to the page about it. On a page, inside <pd-components-site-cards>: <pd-components-site-card title=\"…\" image=\"/assets/…\" line=\"…\" href=\"…\" link-label=\"…\" />.",
+  "type": "object",
+  "required": [
+    "title",
+    "image",
+    "line",
+    "href",
+    "linkLabel"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The site's name, as the card's heading (not a link), above the picture"
+    },
+    "image": {
+      "type": "string",
+      "description": "A picture of the site, a raster image in the assets: across the card's width under the name, as decoration (the name says what it is). On a phone the slot asks for half the card's width: a smaller file, at a little less sharpness, so the home page's load stays as light as without the cards",
+      "x-pd-image": {
+        "widths": [
+          320,
+          480,
+          640,
+          960,
+          1280
+        ],
+        "sizes": "(min-width: 64em) 20rem, (min-width: 48em) calc(50vw - 3.5rem), calc(50vw - 1.5rem)"
+      }
+    },
+    "line": {
+      "type": "string",
+      "description": "One short line about the site, under ten words: what makes someone want to see it"
+    },
+    "href": {
+      "type": "string",
+      "description": "Where the link leads: the page about the site"
+    },
+    "linkLabel": {
+      "type": "string",
+      "description": "The link's text: say where it leads (\"See how the demo is built\"), never \"Read more\""
+    },
+    "level": {
+      "type": "integer",
+      "enum": [
+        2,
+        3,
+        4
+      ],
+      "default": 3,
+      "description": "The name's heading level: one below the heading the cards sit under. The list's level, when it sets one, wins"
+    }
+  }
+}

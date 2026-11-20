@@ -1,0 +1,19 @@
+{
+  "level": 3,
+  "sites": [
+    {
+      "title": "The demo",
+      "image": "/assets/screenshots/demo-home.webp",
+      "line": "A Pattern Dump tour in eleven slides, on Sunset waves.",
+      "href": "/in-practice/demo/",
+      "linkLabel": "See how the demo is built"
+    },
+    {
+      "title": "This site",
+      "image": "/assets/screenshots/site-page.webp",
+      "line": "These docs, and the style guide they're built from.",
+      "href": "/in-practice/this-site/",
+      "linkLabel": "See how this site is built"
+    }
+  ]
+}

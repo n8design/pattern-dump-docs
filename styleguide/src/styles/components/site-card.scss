@@ -1,0 +1,36 @@
+@use "../base/tokens";
+
+// A site as a card, top to bottom: the name, the picture, the line, the link. The sizes are the page map's
+// (organisms/page-map): the name a Guide step title's, one step below the section's heading; the line a note's; the
+// link a group link's weight. Written here so the card looks the same on In practice, where the map's stylesheet
+// isn't loaded. The link sits at the card's foot, so cards side by side end level. Square corners; a hairline frames the picture, a screenshot often light at its
+// edges.
+.site-card { display: flex; flex-direction: column; block-size: 100%; }
+.site-card-name { margin: 0; font-size: var(--font-size-0); }
+.site-card img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  margin-block-start: 0.75rem;
+  border: tokens.$hairline solid var(--color-hairline);
+}
+.site-card-line { margin: 0.75rem 0 0; font-size: 0.9375rem; color: var(--color-text-muted); }
+.site-card-link { margin-block-start: auto; padding-block-start: 0.75rem; font-weight: var(--font-weight-medium); }
+
+// The list (components/site-cards), here so a page that places both loads one stylesheet. Stacked by default; from
+// 32em of its own width (in a container query, em is the list's own text size) two equal columns with the page map's
+// gap, so in the home page's map each card takes one column of the groups above. Grid items stretch, so the cards in a
+// row are equally tall.
+.site-cards { container-type: inline-size; margin-block-start: 1rem; }
+.site-cards-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3rem 4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@container (min-width: 32em) {
+  .site-cards-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

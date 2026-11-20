@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site cards",
+  "description": "Sites built with Pattern Dump, as cards: two side by side, equal in width and height, where the list has room; stacked where it hasn't. On a page: <pd-components-site-cards> holding one <pd-components-site-card> per site.",
+  "type": "object",
+  "required": [
+    "sites"
+  ],
+  "properties": {
+    "level": {
+      "type": "integer",
+      "enum": [
+        2,
+        3,
+        4
+      ],
+      "default": 3,
+      "description": "The heading level of every card's name: one below the heading the list sits under. It wins over a card's own level"
+    },
+    "sites": {
+      "type": "array",
+      "description": "The sites, one site card each, in page order",
+      "minItems": 1,
+      "items": {
+        "x-pd-component": "components/site-card"
+      }
+    }
+  }
+}
