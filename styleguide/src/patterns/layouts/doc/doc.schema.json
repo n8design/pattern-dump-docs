@@ -21,7 +21,19 @@
     },
     "description": {
       "type": "string",
-      "description": "One sentence under the heading, and the page's description for search results"
+      "description": "One sentence under the heading (under the links line on a case page), and the page's description for search results"
+    },
+    "liveSite": {
+      "type": "string",
+      "description": "A case page's links line, under the heading: the site's address, shown as \"Live site\". The line is always Live site, Repository, Style guide, in that order, each only when set"
+    },
+    "repository": {
+      "type": "string",
+      "description": "A case page's links line: the site's public repository, shown as \"Repository\""
+    },
+    "styleGuide": {
+      "type": "string",
+      "description": "A case page's links line: the site's published style guide, shown as \"Style guide\""
     },
     "page": {
       "type": "object",

@@ -20,6 +20,10 @@
 .reading-article .page-title { margin: 0; }
 .reading-article .page-description { margin: 1.25rem 0 0; font-size: 1.12em; line-height: 1.6; color: var(--color-text); }
 .reading-article .page-meta { margin: 1rem 0 0; }
+// A case page's links line (layouts/doc: liveSite, repository, styleGuide), right under the heading, at body size.
+// The dots between the links are decoration, hidden from assistive tech as in the footer.
+.page-links { display: flex; flex-wrap: wrap; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.page-links li + li::before { content: "\00a0·\00a0" / ""; }
 .reading-article .page-body > h2 { margin: 3rem 0 0; }
 .reading-article .page-body > p { margin: 0.75rem 0 0; }
 :where(.reading-article .page-body) iframe { width: 100%; border: 0; }

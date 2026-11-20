@@ -4,6 +4,7 @@
   <div class="reading-row">
     <article class="reading-article">
       <h1 class="page-title">{{title}}</h1>
+      {{#if (or liveSite (or repository styleGuide))}}<ul class="page-links" role="list">{{#if liveSite}}<li><a href="{{liveSite}}">Live site</a></li>{{/if}}{{#if repository}}<li><a href="{{repository}}">Repository</a></li>{{/if}}{{#if styleGuide}}<li><a href="{{styleGuide}}">Style guide</a></li>{{/if}}</ul>{{/if}}
       {{#if description}}<p class="page-description">{{description}}</p>{{/if}}
       <div class="page-body">{{{body}}}</div>
       {{> molecules-pager }}

@@ -12,6 +12,11 @@ A reading page, `layout: doc` (and the same structure for `layouts/article`):
    `components/toc` first, then anything a page places there with `region="sidebar"`) and below it "In this section"
    (`molecules/section-nav`), the pages of the page's section, closed until opened.
 
+**A case page** (a site built with Pattern Dump, under In practice) gets a links line right under its heading,
+before the description: `liveSite`, `repository` and `styleGuide` in its frontmatter, each an address. The layout
+writes the labels and the order, always Live site · Repository · Style guide, so every case page reads the same; a key
+left out leaves its link out. `repository` only for a repository that is public.
+
 The text comes first in the source, so it is first in reading and focus order, and on a narrow screen the aside follows
 it. On a wide one (56em and up) a grid puts the aside in the column to the right of the text, the order the source has.
 On a wide screen with room to spare
