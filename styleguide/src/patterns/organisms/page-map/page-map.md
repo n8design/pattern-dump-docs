@@ -5,7 +5,8 @@ title: Page map
 Every page of the site, on the home page (`layouts/home`), built from `nav`: nothing is listed by hand.
 
 - **A section** (a folder: a top-level entry with pages under it) is a group: its title as the heading, its
-  `description` as the line under it, then its pages.
+  `description` as the line under it, then its first three pages, in the section's order (each page's `order`, lower
+  first, then by name). The map stays a map: the section's own page lists them all. The Guide's steps are not cut.
 - **The guide** (the section at `/guide/`) is read in order, so it is an ordered list: a two-digit number, the title,
   and each page's `description`. The number is drawn by CSS and hidden from screen readers, which announce the list's
   own position.

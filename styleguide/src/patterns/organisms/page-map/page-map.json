@@ -48,6 +48,29 @@
       ]
     },
     {
+      "route": "/in-practice/",
+      "title": "In practice",
+      "description": "Sites built with Pattern Dump: their repositories, style guides and how they are published.",
+      "children": [
+        {
+          "route": "/in-practice/demo/",
+          "title": "The demo"
+        },
+        {
+          "route": "/in-practice/this-site/",
+          "title": "This site"
+        },
+        {
+          "route": "/in-practice/this-style-guide/",
+          "title": "This style guide"
+        },
+        {
+          "route": "/in-practice/on-a-page/",
+          "title": "On a page"
+        }
+      ]
+    },
+    {
       "route": "/about/",
       "title": "About"
     },

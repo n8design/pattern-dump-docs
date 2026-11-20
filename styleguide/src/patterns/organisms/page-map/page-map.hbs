@@ -16,7 +16,7 @@
       <h2 class="page-map-title">{{title}}</h2>
       {{#if description}}<p class="page-map-note">{{description}}</p>{{/if}}
       <ul class="page-map-list" role="list">
-        {{#each children}}<li><a href="{{route}}">{{title}}</a></li>{{/each}}
+        {{#each children}}{{#if (lt @index 3)}}<li><a href="{{route}}">{{title}}</a></li>{{/if}}{{/each}}
       </ul>
     </div>
     {{/unless}}{{/if}}{{/each}}
