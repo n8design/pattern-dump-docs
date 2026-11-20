@@ -141,6 +141,9 @@ A project with no assets folder
 A missing file
 : `image "<path>" does not exist in the assets`
 
+A file that can't be read
+: `image "<path>" cannot be read: <error>`, where `<error>` is the file system's message.
+
 An SVG
 : `image "<path>" is an SVG; link previews need a raster image (PNG, JPEG, GIF or WebP)`
 
