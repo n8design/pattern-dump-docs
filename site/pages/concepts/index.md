@@ -6,3 +6,5 @@ order: 5
 ---
 
 The guide shows what to type. The pages here explain what Pattern Dump does when you type it, and why it works that way, so you can predict what it will do with your own files. Read them in any order, when a question comes up.
+
+Every feature on one line, with a link where a page explains it, is on [What it does](/idea/features/).
