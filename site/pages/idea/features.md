@@ -32,7 +32,7 @@ Documentation from the component
 : Live examples and source in a component's docs, rendered from the component itself. [Live examples and source](/guide/add-a-component/#live-examples-and-source)
 
 Relationships
-: Which components a component includes, and which include it.
+: Which components a component includes, and which include it. [Relationships](/concepts/relationships/)
 
 Your helpers
 : Handlebars helpers of your own, also in the form Pattern Lab uses.
@@ -77,7 +77,7 @@ Navigation
 : Worked out from the pages, with `nav: false` for a page that stays out of it.
 
 Collections and queries
-: A folder's pages as a listing, and queries a layout declares for pages by folder, category or tag.
+: A folder's pages as a listing, and queries a layout declares for pages by folder, category or tag. [Collections and queries](/concepts/collections-and-queries/)
 
 Tag and category pages
 : A page for each tag and category in use, and an index of them, when the layouts are there.
