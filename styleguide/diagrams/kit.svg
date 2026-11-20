@@ -17,6 +17,9 @@
     height difference gets a lean, as one long segment at 15 degrees, like the logo; never a small step.
     Several sources into one target: a bracket across them, in .link like the arrow it starts, and the arrow
     leaves from its middle.
+    A label that names a lean (the 15-degree segment) sits on it, centred, and adds .knock (class="small knock"):
+    a halo in the plate's colour breaks the lean around the text, so the label never touches it. Labels on
+    straight connectors stay beside them.
     No figure number in either: the page numbers captioned images itself.
     The page puts the plate behind it (base/doc-image.scss): no background in here.
     scripts/chart.mjs reads this style block, so a chart always uses the current kit.
@@ -41,6 +44,7 @@
     .pass { fill: var(--color-diagram-pass) }
     .fail { fill: var(--color-diagram-fail) }
     .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .knock { stroke: var(--color-surface-subtle); stroke-width: 8; stroke-linejoin: round; paint-order: stroke }
     .muted { fill: var(--color-text-muted) }
     .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
     .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
