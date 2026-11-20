@@ -32,7 +32,8 @@ A missing required key
 
 An unknown key, at any depth
 : `unknown key "<path>"`.
-: When a known key is within 2 edits, or 3 when the first three letters match (case-insensitive), it ends with `: did you mean "<path>"?`.
+: Free-form objects such as `site.globals` are not checked for unknown keys.
+: When a known key is within 2 edits, or 3 when the first three letters match, it ends with `: did you mean "<path>"?`. Both are counted without regard to case.
 
 A wrong type
 : `"<path>" must be a string`, `"<path>" must be true or false`, `"<path>" must be a list of strings`, `"<path>" must be a string or a list of strings` or `"<path>" must be an object`.
@@ -120,7 +121,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 `themes.swatch.slots`
 : A list of strings. Default `["--bodyBackground", "--themePrimary", "--accent"]`. `slots` is required in a `themes.swatch` object.
 : Applies to the project's own themes.
-: A package's themes always use the default slots, whatever the config says.
+: At startup a package's themes use the default slots, whatever the config says. When a theme file of a linked package changes while `pd dev` runs, its swatches are read again with the project's slots.
 
 ## Assets
 
@@ -223,7 +224,10 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 
 `build.outDir`
 : A string. Default `outDir`.
-: `pd build --out` overrides it. Resolved against the root. The folder is deleted and written again at every build. It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap the patterns, styles, theme or asset folders: `pd build: --out <dir> overlaps <src>, which Pattern Dump reads: choose another folder`.
+: `pd build --out` overrides it. Resolved against the root.
+: The folder is replaced as a whole, and only at the end of a build that passed every check. The build writes into a hidden folder beside it, `.<folder name>.pd-build-<process id>`, and renames that into the folder's place. The earlier folder is moved aside first and put back if the rename fails. A build that stops before that step leaves the folder as it was.
+: The workbench takes its place before the site. When the site then can't take its own, the build stops with the workbench folder already replaced: `pd build: the workbench in <dir> is this build's, but the site could not take its place in <dir>: the two are out of step. The site in it is the earlier one; run pd build again.`, with the underlying error on a line of its own.
+: It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap the patterns, styles, theme or asset folders: `pd build: --out <dir> overlaps <src>, which Pattern Dump reads: choose another folder`.
 
 `build.basePath`
 : A string. Default `/`.
@@ -241,151 +245,154 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 `build.workbench`
 : True or false. Default `true`.
 : `false` makes `pd build` write the site only.
-: `false` without a site stops: `pd build: build.workbench is false and the project has no storefront, so there is nothing to build`.
-: With `false`, the workbench folder is neither emptied nor written, and a file already there stays. With `false`, the workbench folder's overlap checks and the same-host base path check are skipped. With `false`, `pd build` prints `[pd build] workbench: not built (build.workbench: false); the pages link to it at <workbenchUrl>`. It has no command-line flag.
+: `false` without a site stops: `pd build: build.workbench is false and the project has no site, so there is nothing to build`.
+: With `false`, the workbench folder is neither replaced nor written, and a file already there stays. With `false`, the workbench folder's overlap checks and the same-host base path check are skipped. With `false`, `pd build` prints `[pd build] workbench: not built (build.workbench: false); the pages link to it at <workbenchUrl>`. It has no command-line flag.
 
 ## Site
 
-`storefront`
+`site`
 : An object.
-: `storefront.pagesDir` and `storefront.outDir` are required, both strings. Accepts only `pagesDir`, `outDir`, `host`, `workbenchUrl`, `site`, `url`, `lang`, `index`, `image`, `images`, `head`, `categories`, `tags`, `tagPages`, `categoryPages`, `search`, `llms` and `checks`. Any other key, such as `layouts`, is an unknown key. Without a `storefront` object, every host `pd dev` answers serves the workbench.
+: `site.pagesDir` and `site.outDir` are required, both strings. Accepts only `pagesDir`, `outDir`, `host`, `workbenchUrl`, `globals`, `url`, `lang`, `index`, `image`, `images`, `head`, `categories`, `tags`, `tagPages`, `categoryPages`, `search`, `llms` and `checks`. Any other key, such as `layouts`, is an unknown key.
 
-`storefront.pagesDir`
+`site.pagesDir`
 : A string.
-: Every `.md` file in it is a page. A page's route is its path without `.md`, `index` dropped, slash-wrapped: `guides/setup.md` is `/guides/setup/`.
+: Every `.md` file in it is a page, except a name starting with `.`, which is skipped, and `404.md`, which is the 404 page. A file or folder name is lowercase letters, digits and hyphens: any other is a problem, and such a folder isn't read. A page's route is its path without `.md`, `index` dropped, slash-wrapped: `guides/setup.md` is `/guides/setup/`.
 
-`storefront.outDir`
+`site.outDir`
 : A string.
-: `pd build` writes the site there. It may not contain the project: `pd build: storefront.outDir <dir> would contain the project itself: choose a folder inside or beside it`. It may not overlap the patterns, styles, pages, theme or asset folders: `pd build: storefront.outDir <dir> overlaps <src>, which Pattern Dump reads: choose another folder`. It may not overlap the workbench folder: `pd build: storefront.outDir <a> and --out <b> overlap: the storefront and the workbench each need a folder of their own`.
+: `pd build` writes the site there. It may not contain the project: `pd build: site.outDir <dir> would contain the project itself: choose a folder inside or beside it`. It may not overlap the patterns, styles, pages, theme or asset folders: `pd build: site.outDir <dir> overlaps <src>, which Pattern Dump reads: choose another folder`. It may not overlap the workbench folder: `pd build: site.outDir <a> and --out <b> overlap: the site and the workbench each need a folder of their own`.
 
-- `storefront.pagesDir`, `patternsDir` and `storefront.outDir` are three separate folders, none inside another.
-  - The same folder twice: `"<a>" ("<x>") and "<b>" ("<y>") are the same folder: each needs a folder of its own`.
-  - One inside another: `"<a>" ("<x>") is inside "<b>" ("<y>"): each needs a folder of its own, outside the other`.
-  - Only the values the config writes are compared.
-  - A key left out is not checked: with no `patternsDir`, its default `<sourceDir>/patterns` is not compared.
-  - Checked only when validation found no other problem.
+`site.pagesDir`, `patternsDir` and `site.outDir` are three separate folders, none inside another. The check compares the config before the defaults are filled in: the values the config file writes, with the project's own `package.json` `patternDump` manifest merged in. A key left out of both is not checked: with no `patternsDir`, its default `<sourceDir>/patterns` is not compared, but a `patternsDir` the manifest names is. A pair is skipped when either value is not a string. The check runs only when validation found no other problem. In the messages, `<a>` and `<b>` are the keys, `<x>` and `<y>` their values as written.
+
+The same folder twice
+: `"<a>" ("<x>") and "<b>" ("<y>") are the same folder: each needs a folder of its own`.
+
+One folder inside another
+: `"<a>" ("<x>") is inside "<b>" ("<y>"): each needs a folder of its own, outside the other`.
 
 ### Addresses
 
-`storefront.host`
+`site.host`
 : A host name. Default `live.localhost`.
 : The host `pd dev` serves the site on. A bare host name, with no scheme, port or path, stored lower-cased.
-: Any other value: `"storefront.host" must be a host name with no scheme, port or path, such as "live.localhost"`.
-: `pd dev` serves the workbench on `pd.localhost`.
+: Any other value: `"site.host" must be a host name with no scheme, port or path, such as "live.localhost"`.
+: `pd dev` serves the workbench on `pd.localhost`, `localhost` and `127.0.0.1`. Without a `site` object, all three serve the workbench and no host serves a site. A request for any other host name is refused with 403: `Forbidden: this server answers only to its own host names`.
 : `pd dev` listens on `--port`, else `PD_PORT`, else port 4000. Live reload listens on `--ws-port`, else `PD_WS_PORT`, else the HTTP port plus one.
 
-`storefront.workbenchUrl`
+`site.workbenchUrl`
 : An absolute http(s) URL, or a root-relative path.
-: A URL has no query or fragment. A path is plain segments: no `.` or `..` segment, and not `//host`. Stored with exactly one trailing slash.
-: `pd build` of a project with a site requires it: `pd build: storefront.workbenchUrl is required to build the storefront: its pages link into the workbench at that address`.
-: A workbench on the site's host (a path, or an absolute URL on the origin of `storefront.url`) must be built for that path. Otherwise: `pd build: storefront.workbenchUrl is <url>, so the workbench must be built for <path> (build.basePath or --base); it is being built for <base>`.
+: A URL has no query or fragment. A path has at least one segment, each of letters, digits, `.`, `_`, `~` or `-`: no `.` or `..` segment, not `//host`, and not `/` alone. Stored with exactly one trailing slash.
+: Any other value: `"site.workbenchUrl" must be an absolute http(s) URL for a workbench on its own host, such as "https://workbench.example.com/", or a path for one on the site's host, such as "/workbench/"`.
+: `pd build` of a project with a site requires it: `pd build: site.workbenchUrl is required to build the site: its pages link into the workbench at that address`.
+: When the build writes the workbench, a workbench on the site's host (a path, or an absolute URL on the origin of `site.url`) must be built for that path. Otherwise: `pd build: site.workbenchUrl is <url>, so the workbench must be built for <path> (build.basePath or --base); it is being built for <base>`.
 
-`storefront.url`
+`site.url`
 : An absolute http(s) URL.
-: No query, no fragment, no empty path segment. Stored as origin and path, with one trailing slash. Its path is the site's base path. With it, pages get a canonical URL and Open Graph tags. The 404 page gets neither. JSON-LD is written only with it. `sitemap.xml` is written only with it. Without it, the only search engine tag is `noindex` on a page that isn't indexed.
+: No query, no fragment and no empty path segment, except doubled slashes at the very end, which are collapsed. Stored as origin and path, with one trailing slash. Its path is the site's base path. With it, pages get a canonical URL and Open Graph tags. The 404 page gets neither. JSON-LD is written only with it. `sitemap.xml` is written only with it. Without it, the only search engine tag is `noindex` on a page that isn't indexed.
 
-`storefront.lang`
+`site.lang`
 : A language tag. Default `en`.
 : The `lang` of every page's `<html>`.
-: Any other value: `"storefront.lang" must be a language tag, such as "en", "de-AT" or "zh-Hant-TW"`.
+: Any other value: `"site.lang" must be a language tag, such as "en", "de-AT" or "zh-Hant-TW"`.
 
 ### Search engines and link previews
 
-`storefront.index`
+`site.index`
 : True or false. Default `true`.
 : `false` gives every page `noindex`. `false` leaves out `sitemap.xml` and `llms.txt`.
 
-`storefront.image`
+`site.image`
 : A path in the assets.
-: The link-preview image of every page that names none. Must match `/assets/<file>`, with no query or fragment, not ending in `/`.
-: Any other value: `"storefront.image" must be a path to a file in the assets, such as "/assets/images/share.png"`.
+: The link-preview image of every page that names none. Must match `/assets/<file>`, with at least two characters after `/assets/`, no query or fragment, and not ending in `/`.
+: Any other value: `"site.image" must be a path to a file in the assets, such as "/assets/images/share.png"`.
 : The file must exist and be PNG, JPEG, GIF or WebP, read from its bytes.
 
-`storefront.images`
+`site.images`
 : An object with `quality` and `effort`.
 : Both are checked as in `images`. Merged over the project's `images`.
 
-`storefront.llms`
+`site.llms`
 : True or false.
-: On unless `storefront.index` or `storefront.llms` is `false`. With `storefront.index: false`, `llms: true` doesn't turn it on. `pd build` writes `llms.txt` at the root of the site's output.
+: On unless `site.index` or `site.llms` is `false`. With `site.index: false`, `llms: true` doesn't turn it on. `pd build` writes `llms.txt` at the root of the site's output.
 
 ### Head
 
-`storefront.head`
+`site.head`
 : A path to a Handlebars file.
 : Relative to the project root, ending in `.hbs`, not absolute.
-: Any other value: `"storefront.head" must be a Handlebars file relative to the project's root, such as "./head.hbs"`.
+: Any other value: `"site.head" must be a Handlebars file relative to the project's root, such as "./head.hbs"`.
 : Whether the file exists is checked when a page is built. Rendered into every page's head after the skin's `partials/head`, before the stylesheets.
 
-`storefront.site`
-: An object.
-: Any keys. Checked against the `site` property of the schema of `partials/base`, at every depth, with no coercion. A key that schema declares and the config doesn't set is passed as `null`.
+`site.globals`
+: A plain object, with any keys.
+: The values every page shares. Layouts read them as `{{site.…}}`.
+: Checked against the `site` property of the schema of `partials/base`, at every depth, with no coercion. `navigations`, `collections` and `categories` have checks of their own. A top-level key that schema declares and the config doesn't set is passed as `null`.
 
 ### Categories and tags
 
-`storefront.categories`
+`site.categories`
 : An object of categories by key.
 : The categories a page's `categories:` may name.
 
-`storefront.tags`
+`site.tags`
 : An object of tags by key.
 : The tags a page's `tags:` may name. Without it, a page may name any tag of lowercase letters, digits and hyphens. An undeclared tag's label is its key.
 
-- A category or a tag, in either object:
-  - Its key is lowercase letters, digits and hyphens.
-  - Its value is `{ label, description?, aliases? }`, `label` required.
-  - An alias is an old key.
-  - An alias may not be a key of its own.
-  - An alias may not be claimed by two terms.
-  - A wrong key: `"storefront.categories.<key>": a category's key is part of a URL, so it is lowercase letters, digits and hyphens only`.
-  - An alias that is a key: `"storefront.categories.<key>.aliases": "<alias>" is a category of its own, so it can't be an old key of "<key>"`.
-  - An alias claimed twice: `"storefront.categories.<key>.aliases": "<alias>" is an old key of "<other>" already: one old key leads to one category`.
-  - For tags the messages say `storefront.tags` and `tag`.
+A category or a tag, in either object, has a key of lowercase letters, digits and hyphens. Its value is `{ label, description?, aliases? }`, with `label` required. An alias is an old key: it may not be a key of its own, and two terms may not claim the same alias. The messages below are for categories. For tags they say `site.tags` and `tag`. `<alias>` is the old key, `<other>` the term that claimed it first.
 
-`storefront.tagPages`
+A key with other characters
+: `"site.categories.<key>": a category's key is part of a URL, so it is lowercase letters, digits and hyphens only`.
+
+An alias that is a key of its own
+: `"site.categories.<key>.aliases": "<alias>" is a category of its own, so it can't be an old key of "<key>"`.
+
+An alias claimed twice
+: `"site.categories.<key>.aliases": "<alias>" is an old key of "<other>" already: one old key leads to one category`.
+
+`site.tagPages`
 : `true`, `false` or `{ path?, title? }`.
-: Tag pages are at `/tags/<key>/`. The index of the tags is at `/tags/`, only when the skin also has the layout `tags` and at least one tag has a page.
+: A tag that a published page names gets a page at `/tags/<key>/`. The index of the tags is at `/tags/`, only when the skin also has the layout `tags` and at least one tag has a page.
 
-`storefront.categoryPages`
+`site.categoryPages`
 : `true`, `false` or `{ path?, title? }`.
-: Category pages are at `/categories/<key>/`. The index of the categories is at `/categories/`, only when the skin also has the layout `categories` and at least one category has a page.
+: A category that a published page names gets a page at `/categories/<key>/`. The index of the categories is at `/categories/`, only when the skin also has the layout `categories` and at least one category has a page.
 
-`storefront.tagPages` and `storefront.categoryPages`
+`site.tagPages` and `site.categoryPages`
 : Left out: on when the skin has the term's layout (`tag`, `category`).
 : The index needs its own layout too (`tags`, `categories`).
 : Left out, without that layout: off, with no message.
-: `false`: off. `true` or an object: on, and a missing layout is a problem. `path` changes the first segment of the routes. `path` is lowercase letters, digits and hyphens. `title` is the index's title, default `"Tags"` or `"Categories"`. Both on the same path: `"storefront.tagPages.path" and "storefront.categoryPages.path" are both "<p>": tag pages and category pages need a path each`. That path check runs only when validation found no other problem.
+: `false`: off. `true` or an object: on, and a missing layout is a problem. `path` changes the first segment of the routes. `path` is lowercase letters, digits and hyphens. `title` is the index's title, default `"Tags"` or `"Categories"`. Both on the same path: `"site.tagPages.path" and "site.categoryPages.path" are both "<p>": tag pages and category pages need a path each`. That path check runs only when validation found no other problem.
 
 ### Search
 
-`storefront.search`
+`site.search`
 : True or false.
 : Left out: on when the project has Pagefind, off otherwise. `pd build` writes the index to `_pd/search/` in the site's output.
-: `true` without Pagefind stops `pd build` before anything is built.
+: `true` without Pagefind stops `pd build` before anything is built: `pd build: site.search is on, and this project has no Pagefind to build the index with: npm install --save-dev pagefind (or set site.search to false)`.
 : `false` never loads Pagefind.
 
 ### Checks
 
-`storefront.checks.classes`
+`site.checks.classes`
 : `"warning"`, `"error"` or `"off"`. Default `"warning"`.
 : `"warning"` lists a class outside the style guide in the report. `"error"` stops the build.
 : `"off"` skips the class check.
 
-`storefront.checks.allowClasses`
+`site.checks.allowClasses`
 : A list of strings. Default `[]`.
 : Classes a page may carry anyway, a trailing `*` matching a prefix.
 
-`storefront.checks.allowProperties`
+`site.checks.allowProperties`
 : A list of strings. Default `[]`.
 : Custom properties a fallback-less `var()` may read without a definition in CSS.
 
 ## Changes while `pd dev` runs
 
 - `pd dev` watches the config file, not the modules it imports.
-- A change to `storefront.site` alone is taken live: every page reloads.
-  - Log: `[dev-server] Config changed: <file>, storefront.site → page-changed (every page)`.
+- A change to `site.globals` alone is taken live: every page reloads.
+  - Log: `[dev-server] Config changed: <file>, site.globals → page-changed (every page)`.
 - Any other change isn't taken.
-  - Terminal: `[dev-server] <file> changed: restart pd dev to load it (only storefront.site is taken without a restart)`.
+  - Terminal: `[dev-server] <file> changed: restart pd dev to load it (only site.globals is taken without a restart)`.
   - The workbench shows the same message, without `[dev-server] `, as an error notice.
 - A save that changes nothing `pd dev` reads (comments, whitespace, key order): `[dev-server] Config saved: <file>, nothing pd dev reads changed`.
 - A config that no longer loads leaves `pd dev` running with the config it has.
