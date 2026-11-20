@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 424">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="label" x="24" y="72"><tspan class="on">1</tspan>  base layer</text>
+  <text class="small" x="48" y="90">/_pd/base.css, when documentBase is set</text>
+  <text class="label" x="24" y="120"><tspan class="on">2</tspan>  assets.css</text>
+  <text class="small" x="48" y="138">each entry, as written or /assets/&lt;entry&gt;</text>
+  <text class="label" x="24" y="168"><tspan class="on">3</tspan>  themes</text>
+  <text class="small" x="48" y="186">every theme, or only the active one</text>
+  <text class="label" x="24" y="216"><tspan class="on">4</tspan>  component CSS</text>
+  <text class="small" x="48" y="234">the component’s stylesheets</text>
+  <text class="label" x="24" y="282"><tspan class="on">5</tspan>  markup</text>
+  <text class="small" x="48" y="300">the rendered component</text>
+  <text class="label" x="24" y="330"><tspan class="on">6</tspan>  scripts</text>
+  <text class="small" x="48" y="348">&lt;script type="module"&gt;, after the markup</text>
+  <rect class="line" x="456.5" y="40.5" width="252" height="320"/>
+  <text class="small" x="472" y="60">head</text>
+  <path class="hair" d="M 456 240 H 709"/>
+  <text class="small" x="472" y="258">body</text>
+  <path class="hair" d="M 372 68 H 460"/>
+  <path class="bar" d="M 476 68 H 620"/>
+  <path class="hair" d="M 372 116 H 460"/>
+  <path class="bar" d="M 476 116 H 620"/>
+  <path class="hair" d="M 372 164 H 460"/>
+  <path class="bar" d="M 476 164 H 620"/>
+  <path class="hair" d="M 372 212 H 460"/>
+  <path class="bar-on" d="M 476 212 H 620"/>
+  <path class="hair" d="M 372 278 H 460"/>
+  <rect class="region" x="476" y="266" width="212" height="28"/>
+  <path class="hair" d="M 372 326 H 460"/>
+  <path class="bar-muted" d="M 476 326 H 580"/>
+  <rect class="line" x="24.5" y="376.5" width="340" height="36"/>
+  <path class="line" d="M200 376V412M264 376V412"/>
+  <text class="small" x="36" y="389">Title</text>
+  <text class="title" x="36" y="406">Preview contents</text>
+  <text class="small" x="212" y="389">Scale</text>
+  <text class="label" x="212" y="406">1 : 1</text>
+  <text class="small" x="276" y="389">Version</text>
+  <text class="label" x="276" y="406">PD 0.8.0</text>
+</svg>
