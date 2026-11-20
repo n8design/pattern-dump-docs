@@ -139,6 +139,16 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 : A list.
 : An entry containing `://` is linked as written. Any other entry is linked as `/assets/<entry>`. Linked after the base layer, before themes and component CSS.
 
+`assets`
+: An object.
+: Accepts only `strategy`, `dir`, `css` and `symbols`.
+
+`assets.symbols.currentColor`
+: A colour token's name. Default `--color-text`.
+: The colour token that `currentColor` becomes in a symbol image's standalone file. `assets.symbols` accepts only `currentColor`.
+: The name is `--color-` followed by letters, digits, `_` or `-`. Any other value: `"assets.symbols.currentColor" must be a colour token's name, such as "--color-text"`.
+: Whether the base layer declares the token is checked only when a standalone file of a symbol that uses `currentColor` is made: by `pd build`, or by `pd dev` when its `/_pd/symbols/<stem>.svg` route is asked for one, which then answers 500 naming the token. `<stem>` is the symbol's file name without `.svg`.
+
 ## Images
 
 A raster image in an image slot is written as WebP variants. A raster image in a page's markdown is written as WebP variants only when its path starts with `/assets/`. An image outside `/assets/` is left as the markdown writes it. When the layout declares no slot for prose images (`x-pd-prose-images`), such an image is a problem, not a variant. `images.quality` and `images.effort` set how the variants are encoded.
@@ -380,6 +390,27 @@ An alias claimed twice
 `site.checks.allowProperties`
 : A list of strings. Default `[]`.
 : Custom properties a fallback-less `var()` may read without a definition in CSS.
+
+## Names before 0.8.0
+
+Until 0.8.0 the site's key was `storefront`, and `site.globals` was `storefront.site`. A config with the old names still loads, read as the new ones. Before validation, Pattern Dump prints one warning per old key: `[pd] warning: <file>: storefront.<key> is now site.<key>`. The old names load until 1.0, which removes them.
+
+The old shared values
+: `[pd] warning: <file>: storefront.site is now site.globals`.
+
+An old `storefront` with no keys, or not an object
+: `[pd] warning: <file>: storefront is now site`.
+
+Both names set
+: `both "site" and "storefront" are set: storefront is the old name of site, keep site only`.
+: It is the only problem reported, and no warning is printed.
+
+`globals` under the old name
+: `"storefront.globals" is not a key of the old storefront: write the website under site, and its globals there`.
+
+The config's types are named `Site…`: `SiteConfig` (the `site` key, with `globals`), `SiteChecks`, `SiteTermPages`, `SiteTag`, `SiteCategory` and `SiteNavEntry`, exported from `pattern-dump`. Each `Storefront…` name is a deprecated alias of the same type, removed in 1.0. `StorefrontConfig` is deprecated but not an alias: it is the shape of the old `storefront` key, whose globals key is `site`.
+
+`defineConfig` takes `PatternDumpConfigInput`, with `site`: that is the type to write a config against. The exported `PatternDumpConfig` type is the loaded config, and it still has `storefront?: StorefrontConfig`.
 
 ## Changes while `pd dev` runs
 
