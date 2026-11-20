@@ -103,3 +103,5 @@ Without JavaScript an example keeps its built theme, the default. The default fo
 ## Starter themes
 
 The starter's `light` and `dark` themes declare `color-scheme: light` and `color-scheme: dark`. `pd init` with a site (`--with-site`) and the system-theme answer (yes by default) adds `themes/system.theme.scss`, with `color-scheme: light dark` and its values in `light-dark()`, and sets `themes.default: "system"`. Without a site, or with a no to the system theme, the default is `"light"`.
+
+The guide's [styling step](/guide/style-a-component/) gives the starter's themes the values of a component of your own.
