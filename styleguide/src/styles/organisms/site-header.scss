@@ -28,12 +28,15 @@
   text-decoration: none;
 }
 
-// The logo mark, in the logo token: the accent of the mode.
+// The logo mark (the "pd" monogram, without its shield), in the logo token: the accent of the mode. Its viewBox is the
+// shield's, so the mark sits in it with the shield's margin; the size is the shield's, the mark about 1.1rem.
 .site-logo {
   flex: none;
-  inline-size: 0.875rem;
-  block-size: 0.875rem;
-  background: var(--color-logo);
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  margin-inline: -0.25rem -0.125rem;
+  fill: currentColor;
+  color: var(--color-logo);
 }
 
 // The field is a control: its edge is the border token (3:1), not a hairline.

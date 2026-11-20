@@ -1,2 +1,15 @@
-<!-- Drawn by Stefan Bauer, part of this repository, MIT. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0b5cad"/><path d="M9 9h14v4H9zm0 6h14v4H9zm0 6h9v4H9z" fill="#fff"/></svg>
+<!-- The Pattern Dump mark on its shield, drawn by Stefan Bauer, part of this repository, MIT. A favicon doesn't see
+     the page's custom properties, so its colours are written here: they are the colors.scss tokens surface and accent,
+     light (berry on light) and, with the system's dark setting, dark (lime on dark). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 699.52 699">
+  <style>
+    .shield { fill: #ebeff2 }
+    .mark { fill: #b0124e }
+    @media (prefers-color-scheme: dark) {
+      .shield { fill: #0c1721 }
+      .mark { fill: #c8f13b }
+    }
+  </style>
+  <path class="shield" d="M580.1,689.36c-153.56,12.85-307.12,12.85-460.68,0-54.61-4.91-104.86-55.15-109.78-109.76C-3.21,426.2-3.21,272.8,9.64,119.4,14.56,64.8,64.81,14.55,119.42,9.64c153.56-12.85,307.12-12.85,460.68,0,54.6,4.91,104.86,55.15,109.78,109.76,12.86,153.4,12.86,306.8,0,460.2-4.91,54.61-55.17,104.86-109.78,109.76Z"/>
+  <path class="mark" d="M524.47,396.31l65.53-244.58-69.88-18.72-28.09,104.82c-23.32-29.76-56.13-52.49-95.46-63.03-96.49-25.85-195.66,31.41-221.52,127.89h0l-65.54,244.59,69.88,18.72,28.09-104.82c23.32,29.76,56.13,52.49,95.46,63.03,96.49,25.85,195.66-31.41,221.52-127.89h0ZM321.67,454.33c-57.89-15.51-92.25-75.02-76.74-132.91,15.51-57.89,75.02-92.25,132.91-76.74,57.89,15.51,92.24,75.01,76.74,132.9h0c-15.51,57.9-75.02,92.26-132.91,76.74Z"/>
+</svg>
