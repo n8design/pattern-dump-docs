@@ -18,3 +18,6 @@ other sections two by two). The breakpoints are in `em`, so at 200% text the map
 reading order at every width.
 
 `nav` is one level deep, so a folder inside a section shows as one entry, its `index.md`.
+
+Every list has `role="list"`: with `list-style: none`, Safari drops a list's semantics, so VoiceOver would announce
+neither the list nor a step's position in it.
