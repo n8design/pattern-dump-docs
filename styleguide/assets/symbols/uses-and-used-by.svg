@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 448">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="label" x="160" y="56" text-anchor="middle">layouts/doc</text>
+  <text class="label" x="160" y="152" text-anchor="middle">pages/frame</text>
+  <text class="label" x="160" y="248" text-anchor="middle">organisms/site-header</text>
+  <text class="label" x="160" y="344" text-anchor="middle">molecules/site-nav</text>
+  <path class="link" d="M154 70V124"/>
+  <path class="head" d="M154 132l-5 -10h10z"/>
+  <path class="line" d="M166 132V78"/>
+  <path class="solid" d="M166 70l-5 10h10z"/>
+  <text class="small" x="144" y="106" text-anchor="end">uses</text>
+  <text class="small" x="176" y="106">used by</text>
+  <path class="link" d="M154 166V220"/>
+  <path class="head" d="M154 228l-5 -10h10z"/>
+  <path class="line" d="M166 228V174"/>
+  <path class="solid" d="M166 166l-5 10h10z"/>
+  <path class="link" d="M154 262V316"/>
+  <path class="head" d="M154 324l-5 -10h10z"/>
+  <path class="line" d="M166 324V270"/>
+  <path class="solid" d="M166 262l-5 10h10z"/>
+  <path class="hair" d="M260 244H372"/>
+  <rect class="line" x="372.5" y="196.5" width="336" height="96"/>
+  <text class="small" x="388" y="218">Relationships of organisms/site-header</text>
+  <path class="hair" d="M372 230H709"/>
+  <text class="label" x="388" y="256">Uses</text>
+  <text class="label" x="484" y="256">molecules/site-nav</text>
+  <text class="label" x="388" y="280">Used by</text>
+  <text class="label" x="484" y="280">pages/frame</text>
+  <rect class="line" x="24.5" y="392.5" width="340" height="36"/>
+  <path class="line" d="M200 392V428M264 392V428"/>
+  <text class="small" x="36" y="405">Title</text>
+  <text class="title" x="36" y="422">Uses and used by</text>
+  <text class="small" x="212" y="405">Scale</text>
+  <text class="label" x="212" y="422">1 : 1</text>
+  <text class="small" x="276" y="405">Version</text>
+  <text class="label" x="276" y="422">PD 0.8.0</text>
+</svg>
