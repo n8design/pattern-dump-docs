@@ -182,4 +182,16 @@ The build ends with its report. Among its summary lines, from a build of this re
 [pd build] llms.txt: 19 pages
 ```
 
-The notes after them are the missing `site.url` and the sixteen external links. How the style guide behind all this is organised is on [This style guide](/in-practice/this-style-guide/).
+The notes after them are the missing `site.url` and the sixteen external links.
+
+## How the home page's map is built
+
+Nobody writes the home page's map by hand. It is the [page map](pattern:organisms/page-map), placed by the [home layout](pattern:layouts/home), and Pattern Dump fills it from `nav`. That navigation comes from the pages, one level deep: the top-level pages and folders, and each folder's pages as its `children`. Each entry has the page's route and title, and its `description` when the page has one.
+
+Each folder with pages in `nav` becomes a group, headed by the `title` of its `index.md`, with its `description` as the line under it. You read the Guide in order, so its group is a numbered list. The pages come in their `order`, each with its `description` under the title. CSS draws the numbers, and the markup hides them from screen readers.
+
+A page with `nav: false` is not in `nav`, so the map leaves it out. On this site, that is Credits and Search, and the Articles folder, whose `index.md` takes its pages out with it. The map also leaves out a group with nothing in it. With Credits and Search gone, no top-level page outside a folder remains, Home aside, so their group stays hidden.
+
+Articles lists its pages without `nav`: a listing on its index, and a query (`x-pd-query`) in the article layout for related articles.
+
+How the style guide behind all this is organised is on [This style guide](/in-practice/this-style-guide/).
