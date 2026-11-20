@@ -6,14 +6,14 @@ import patternDumpPackage from "pattern-dump/package.json" with { type: "json" }
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
 export default defineConfig({
+  // Required by every config. This site builds no workbench of its own (build.workbench below), so nothing is
+  // written here.
   outDir: "./dist/workbench",
   packages: ["@pattern-dump-docs/styleguide"],
   site: {
     pagesDir: "./pages",
     outDir: "./dist/site",
     // The style guide's own workbench, published beside the site under /workbench/ (the root's "pages" script).
-    // The site's build also writes a workbench of its own (dist/workbench, the same components from the package);
-    // it isn't published.
     workbenchUrl: "/workbench/",
     // The site's address, once you know it: canonical URLs, link previews and the sitemap are built from it.
     // url: "https://www.example.com/",
@@ -24,7 +24,6 @@ export default defineConfig({
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
     globals: { title: "Pattern Dump", footer: "Pattern Dump. Built with Pattern Dump.", patternDumpVersion: patternDumpPackage.version },
   },
-  // pd build requires the site's own workbench to be built for the same address as workbenchUrl, even though that
-  // workbench isn't published.
-  build: { basePath: "/workbench/" },
+  // The site only: its pages link into the style guide's own workbench at workbenchUrl.
+  build: { workbench: false },
 });

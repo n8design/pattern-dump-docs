@@ -79,7 +79,7 @@ engines. All of it is in the [storefront guide](https://github.com/n8design/patt
 `npm run pages` at the root builds the website (`site/dist/site/`), this style guide's workbench for
 `/workbench/` (`styleguide/dist/`), and copies both into `_site/` (`scripts/assemble-pages.mjs`): the website
 at the root of its host, the workbench under `/workbench/`. That is what the GitHub Pages workflow publishes. The
-site's build also writes a workbench of its own (`site/dist/workbench/`); it isn't published.
+site's build writes the site only (`build.workbench: false`).
 
 ### Publish it
 
@@ -87,8 +87,8 @@ site's build also writes a workbench of its own (`site/dist/workbench/`); it isn
 GitHub Pages on every push to `main`, at a custom domain or as a project page.
 
 **As a project page** (`https://<owner>.github.io/<repository>/`, no domain needed): in
-`site/pattern-dump.config.ts`, set `storefront.url` to that address, and `storefront.workbenchUrl` and
-`build.basePath` to `/<repository>/workbench/`; in the root's `pages` script, the style guide's `--base` too. Then **Settings → Pages → Source:** "GitHub Actions".
+`site/pattern-dump.config.ts`, set `site.url` to that address, and `site.workbenchUrl` to
+`/<repository>/workbench/`; in the root's `pages` script, the style guide's `--base` too. Then **Settings → Pages → Source:** "GitHub Actions".
 
 **At a custom domain**, once, in the repository on GitHub:
 
