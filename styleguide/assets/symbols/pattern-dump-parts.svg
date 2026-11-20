@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 470">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="label" x="24" y="48"><tspan class="on">1</tspan>  your project</text>
+  <rect class="hair" x="31.5" y="69.5" width="148" height="292"/>
+  <rect class="line" x="24.5" y="62.5" width="148" height="292"/>
+  <text class="label" x="40" y="94">config</text>
+  <text class="label" x="40" y="128">components</text>
+  <text class="label" x="40" y="162">styles</text>
+  <text class="label" x="40" y="196">themes</text>
+  <text class="label" x="40" y="230">assets</text>
+  <text class="label" x="40" y="264">scripts</text>
+  <text class="label" x="40" y="298">data, helpers</text>
+  <text class="label" x="40" y="332">pages, layouts</text>
+  <text class="small" x="24" y="384">+ pattern packages</text>
+  <path class="line" d="M 180 208 H 212"/>
+  <path class="solid" d="M 220 208 l -9 -4.5 v 9 z"/>
+  <text class="small" x="182" y="200">reads</text>
+  <text class="label" x="220" y="48"><tspan class="on">2</tspan>  Pattern Dump</text>
+  <rect class="line" x="220.5" y="62.5" width="268" height="292"/>
+  <rect class="frame" x="236.5" y="78.5" width="236" height="44"/>
+  <text class="label" x="248" y="98">discovery</text>
+  <text class="small" x="248" y="114">finds the components</text>
+  <rect class="frame" x="236.5" y="190.5" width="236" height="44"/>
+  <text class="label" x="248" y="210">checks</text>
+  <text class="small" x="248" y="226">HTML, schema, accessibility</text>
+  <rect class="frame" x="236.5" y="246.5" width="236" height="44"/>
+  <text class="label" x="248" y="266">site</text>
+  <text class="small" x="248" y="282">pages, layouts, navigation</text>
+  <rect class="solid" x="236" y="134" width="236" height="44"/>
+  <text class="on-solid" x="248" y="161">renderer</text>
+  <rect class="frame" x="236.5" y="302.5" width="236" height="36"/>
+  <text class="small" x="248" y="325">watcher and reload: pd dev only</text>
+  <path class="link" d="M 472 156 H 508"/>
+  <path class="link" d="M 508 90 V 334"/>
+  <path class="link" d="M 508 90 H 520"/>
+  <path class="head" d="M 528 90 l -10 -5 v 10 z"/>
+  <path class="link" d="M 508 130 H 520"/>
+  <path class="head" d="M 528 130 l -10 -5 v 10 z"/>
+  <path class="link" d="M 508 212 H 520"/>
+  <path class="head" d="M 528 212 l -10 -5 v 10 z"/>
+  <path class="link" d="M 508 252 H 520"/>
+  <path class="head" d="M 528 252 l -10 -5 v 10 z"/>
+  <path class="link" d="M 508 334 H 520"/>
+  <path class="head" d="M 528 334 l -10 -5 v 10 z"/>
+  <text class="label" x="528" y="48"><tspan class="on">3</tspan>  live: pd dev</text>
+  <rect class="line" x="528.5" y="74.5" width="180" height="32"/>
+  <text class="label" x="540" y="95">workbench</text>
+  <rect class="line" x="528.5" y="114.5" width="180" height="32"/>
+  <text class="label" x="540" y="135">site</text>
+  <text class="label" x="528" y="178"><tspan class="on">4</tspan>  static: pd build</text>
+  <rect class="line" x="528.5" y="196.5" width="180" height="32"/>
+  <text class="label" x="540" y="217">workbench folder</text>
+  <rect class="line" x="528.5" y="236.5" width="180" height="32"/>
+  <text class="label" x="540" y="257">site folder</text>
+  <text class="small" x="528" y="286">checked, then written</text>
+  <text class="label" x="528" y="308"><tspan class="on">5</tspan>  pd audit</text>
+  <rect class="line" x="528.5" y="318.5" width="180" height="32"/>
+  <text class="label" x="540" y="339">report</text>
+  <rect class="line" x="24.5" y="410.5" width="372" height="36"/>
+  <path class="line" d="M232 410V446M296 410V446"/>
+  <text class="small" x="36" y="423">Title</text>
+  <text class="title" x="36" y="440">Pattern Dump&#8217;s parts</text>
+  <text class="small" x="244" y="423">Scale</text>
+  <text class="label" x="244" y="440">1 : 1</text>
+  <text class="small" x="308" y="423">Version</text>
+  <text class="label" x="308" y="440">PD 0.8.0</text>
+</svg>
