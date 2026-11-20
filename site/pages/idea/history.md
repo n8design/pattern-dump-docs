@@ -53,6 +53,8 @@ The site feature showed me that Pattern Dump can build websites too, such as [th
 
 I see Pattern Dump as a design system tool for anyone who wants reliable design and style documentation of a website, an application or a customisation of enterprise software. Or simply an easy-to-use, designed static site generator.
 
+![Stefan Bauer under the lamps of a dim office at night, leaning over his laptop and looking up, deep in thought.](/assets/images/stefan-bauer-at-work.jpg "Stefan Bauer. Photo: Philipp Schuster")
+
 If Pattern Dump helps you, you can [sponsor it](https://github.com/sponsors/StfBauer).
 
 [Stefan Bauer](https://www.linkedin.com/in/stfbauer/), [n8d](https://n8d.at)
