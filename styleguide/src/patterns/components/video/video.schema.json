@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Video",
+  "description": "A video that loads only when it is played: its poster first, the video after a click. On a page: <pd-components-video src=\"/assets/videos/…\" poster=\"/assets/…\" width=\"…\" height=\"…\" />.",
+  "type": "object",
+  "required": [
+    "src",
+    "poster",
+    "width",
+    "height"
+  ],
+  "properties": {
+    "src": {
+      "type": "string",
+      "description": "The video's path in the assets, without the extension: <src>.av1.mp4 (AV1, played where the browser can) and <src>.mp4 (H.264, everywhere else) sit side by side"
+    },
+    "poster": {
+      "type": "string",
+      "description": "The poster, a raster image in the assets: the video's first picture, shown until it plays",
+      "x-pd-image": {
+        "widths": [
+          480,
+          672,
+          1344
+        ],
+        "sizes": "(min-width: 44rem) 42rem, calc(100vw - 2rem)"
+      }
+    },
+    "label": {
+      "type": "string",
+      "default": "Play video",
+      "description": "What the poster does, as its accessible name: say what plays (\"Play the tour of the landing page\")"
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The video's width in pixels, as encoded"
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The video's height in pixels, as encoded"
+    }
+  }
+}

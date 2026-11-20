@@ -1,0 +1,59 @@
+@use "../base/tokens";
+
+// A video behind its poster: a closed <details> whose summary is the poster with a play button in the middle, a
+// square plate in the accent. Once open, the summary goes and the video takes its place, at the same size.
+.video {
+  margin-block: tokens.$space-lg;
+}
+
+.video-poster {
+  position: relative;
+  display: block;
+  list-style: none;
+  cursor: pointer;
+}
+.video-poster::-webkit-details-marker { display: none; }
+.video-poster:focus-visible {
+  outline: 0.125rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+.video-poster img,
+.video video {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+// The play button: the pd mark as an outline, with a play triangle over its inner circle, on a die-cut edge like a
+// sticker (assets/logo/logo-play-sticker.svg). The edge is the surface, the mark the logo token: the header's pairing,
+// so it reads in both themes on any poster. Outline, gap and edge are filled shapes, with no mask and no id, so a page
+// can hold any number of videos. A soft shadow lifts the sticker off the picture.
+.video-play {
+  position: absolute;
+  inset: 0;
+  inline-size: min(10rem, 40%);
+  block-size: min(10rem, 40%);
+  margin: auto;
+  color: var(--color-logo);
+  filter: drop-shadow(0 0.25rem 0.5rem var(--color-shadow));
+}
+.video-play svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+.video-play-sticker { fill: var(--color-surface); }
+.video-play-mark { fill: currentColor; }
+
+// The accessible name of the summary: read, not shown (the play button says it).
+.video-label {
+  position: absolute;
+  inline-size: 0.0625rem;
+  block-size: 0.0625rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.video[open] > .video-poster { display: none; }
