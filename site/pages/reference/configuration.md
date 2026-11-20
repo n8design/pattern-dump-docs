@@ -24,7 +24,7 @@ Every folder path in the config resolves against the project root (`--root`). A 
 
 ## Problems in the config
 
-The config is validated when it is loaded. All problems are listed at once. The first line is `<file>: invalid config`. Then one line per problem: two spaces, then `- <problem>`. The command line prints a config problem without a stack trace.
+The config is validated when it is loaded. All problems are listed at once. The first line is `<file>: invalid config`. Then one line per problem: two spaces, then `- <problem>`. `<file>` is the config file, and in the problem lines `<path>` is the key's full path, such as `styles.dir`. The command line prints a config problem without a stack trace.
 
 A missing required key
 : `missing required "<path>"`.
@@ -83,7 +83,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 : The folder whose `.scss` files are compiled.
 
 `styles.strategy`
-: `"parallel"`. `"parallel"` is the only value accepted.
+: `"parallel"`, the only value accepted.
 : `"co-located"` is refused: `"styles.strategy": "co-located" is not supported yet: use "parallel", or leave it out`.
 
 `styles.entry`
@@ -126,7 +126,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 ## Assets
 
 `assets.strategy`
-: `"central"`. `"central"` is the only value accepted.
+: `"central"`, the only value accepted.
 : `"component-relative"` is refused as not supported yet.
 
 `assets.dir`
@@ -141,11 +141,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 
 ## Images
 
-- A raster image in an image slot is written as WebP variants.
-- A raster image in a page's markdown is written as WebP variants only when its path starts with `/assets/`.
-- An image outside `/assets/` is left as the markdown writes it.
-- When the layout declares no slot for prose images (`x-pd-prose-images`), such an image is a problem, not a variant.
-- `images.quality` and `images.effort` set how the variants are encoded.
+A raster image in an image slot is written as WebP variants. A raster image in a page's markdown is written as WebP variants only when its path starts with `/assets/`. An image outside `/assets/` is left as the markdown writes it. When the layout declares no slot for prose images (`x-pd-prose-images`), such an image is a problem, not a variant. `images.quality` and `images.effort` set how the variants are encoded.
 
 `images.quality`
 : A whole number from 1 to 100. Default `75`.
@@ -216,7 +212,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 
 ## Build
 
-- `pd build` takes `--root`, `--config`, `--out`, `--base`, `--audit`, `--no-audit`, `--browser`, `--check-workers` and `--skip-checks`.
+`pd build` takes `--root`, `--config`, `--out`, `--base`, `--audit`, `--no-audit`, `--browser`, `--check-workers` and `--skip-checks`.
 
 `build`
 : An object.
@@ -226,7 +222,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 : A string. Default `outDir`.
 : `pd build --out` overrides it. Resolved against the root.
 : The folder is replaced as a whole, and only at the end of a build that passed every check. The build writes into a hidden folder beside it, `.<folder name>.pd-build-<process id>`, and renames that into the folder's place. The earlier folder is moved aside first and put back if the rename fails. A build that stops before that step leaves the folder as it was.
-: The workbench takes its place before the site. When the site then can't take its own, the build stops with the workbench folder already replaced: `pd build: the workbench in <dir> is this build's, but the site could not take its place in <dir>: the two are out of step. The site in it is the earlier one; run pd build again.`, with the underlying error on a line of its own.
+: The workbench takes its place before the site. When the site then can't take its own, the build stops with the workbench folder already replaced: `pd build: the workbench in <dir> is this build's, but the site could not take its place in <dir>: the two are out of step. The site in it is the earlier one; run pd build again.`, with the underlying error on a line of its own. The first `<dir>` is the workbench's folder, the second the site's.
 : It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap the patterns, styles, theme or asset folders: `pd build: --out <dir> overlaps <src>, which Pattern Dump reads: choose another folder`.
 
 `build.basePath`
@@ -351,17 +347,16 @@ An alias claimed twice
 
 `site.tagPages`
 : `true`, `false` or `{ path?, title? }`.
-: A tag that a published page names gets a page at `/tags/<key>/`. The index of the tags is at `/tags/`, only when the skin also has the layout `tags` and at least one tag has a page.
+: A tag that a published page names gets a page at `/tags/<key>/`. The index of the tags is at `/tags/`, only when at least one tag has a page.
 
 `site.categoryPages`
 : `true`, `false` or `{ path?, title? }`.
-: A category that a published page names gets a page at `/categories/<key>/`. The index of the categories is at `/categories/`, only when the skin also has the layout `categories` and at least one category has a page.
+: A category that a published page names gets a page at `/categories/<key>/`. The index of the categories is at `/categories/`, only when at least one category has a page.
 
 `site.tagPages` and `site.categoryPages`
-: Left out: on when the skin has the term's layout (`tag`, `category`).
-: The index needs its own layout too (`tags`, `categories`).
-: Left out, without that layout: off, with no message.
-: `false`: off. `true` or an object: on, and a missing layout is a problem. `path` changes the first segment of the routes. `path` is lowercase letters, digits and hyphens. `title` is the index's title, default `"Tags"` or `"Categories"`. Both on the same path: `"site.tagPages.path" and "site.categoryPages.path" are both "<p>": tag pages and category pages need a path each`. That path check runs only when validation found no other problem.
+: Left out, the pages are on when the skin has the term's layout (`tag`, `category`), and the index only when the skin also has its own layout (`tags`, `categories`). Without the layout they are off, with no message.
+: `false` turns them off. `true` or an object turns them on, and then a missing layout is a problem. In the object, `path` changes the first segment of the routes and is lowercase letters, digits and hyphens. `title` is the index's title, default `"Tags"` or `"Categories"`.
+: Both on the same path: `"site.tagPages.path" and "site.categoryPages.path" are both "<p>": tag pages and category pages need a path each`, where `<p>` is the path. That check runs only when validation found no other problem.
 
 ### Search
 
@@ -388,13 +383,16 @@ An alias claimed twice
 
 ## Changes while `pd dev` runs
 
-- `pd dev` watches the config file, not the modules it imports.
-- A change to `site.globals` alone is taken live: every page reloads.
-  - Log: `[dev-server] Config changed: <file>, site.globals → page-changed (every page)`.
-- Any other change isn't taken.
-  - Terminal: `[dev-server] <file> changed: restart pd dev to load it (only site.globals is taken without a restart)`.
-  - The workbench shows the same message, without `[dev-server] `, as an error notice.
-- A save that changes nothing `pd dev` reads (comments, whitespace, key order): `[dev-server] Config saved: <file>, nothing pd dev reads changed`.
-- A config that no longer loads leaves `pd dev` running with the config it has.
-  - Terminal: `[dev-server] <file> cannot be loaded, so pd dev keeps running with the config it has: <error>`.
-  - The workbench shows the same message, without `[dev-server] `, as an error notice.
+`pd dev` watches the config file, not the modules it imports. A change to `site.globals` alone is taken live, and every page reloads. Any other change, with or without `site.globals`, isn't taken until `pd dev` restarts. A config that no longer loads leaves `pd dev` running with the config it has. A change that needs a restart and a config that no longer loads also show in the workbench as an error notice: the same message, without `[dev-server] `.
+
+A change to `site.globals` alone
+: `[dev-server] Config changed: <file>, site.globals → page-changed (every page)`.
+
+Any other change
+: `[dev-server] <file> changed: restart pd dev to load it (only site.globals is taken without a restart)`.
+
+A save that changes nothing `pd dev` reads
+: Comments, whitespace or key order: `[dev-server] Config saved: <file>, nothing pd dev reads changed`.
+
+A config that no longer loads
+: `[dev-server] <file> cannot be loaded, so pd dev keeps running with the config it has: <error>`.
