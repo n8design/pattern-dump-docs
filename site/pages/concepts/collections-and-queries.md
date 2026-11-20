@@ -89,3 +89,5 @@ related:
 A problem in a query's options, such as an option that doesn't exist or a folder that isn't there, makes the query list nothing and fails the page, so a mistyped option can't pass as an empty list.
 
 [Related articles](/articles/related/) shows the query at work on this site.
+
+Every key, option and message is listed in the [Collections and queries reference](/reference/collections-and-queries/).
