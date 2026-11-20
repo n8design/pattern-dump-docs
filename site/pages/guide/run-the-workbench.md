@@ -74,7 +74,7 @@ Once the project has a site, a later step of this guide, one `pd dev` runs both,
 `http://localhost:4000/`, `http://127.0.0.1:4000/`
 : The workbench too.
 
-At startup it then prints a `Website:` line with the site's address and `Workbench: http://pd.localhost:<port>/`, in place of the `localhost` line above. With site search on, it adds that the search index is built by `pd build`, so the site's search finds nothing in `pd dev`. Without a site, `live.localhost` is not one of its names.
+At startup it then prints a `Website:` line with the site's address and `Workbench: http://pd.localhost:<port>/`, in place of the `localhost` line above. With site search on, it adds `[dev-server] Search: the index is built by pd build, so the site's search finds nothing in pd dev`. Without a site, `live.localhost` is not one of its names.
 
 ## Find your way around
 
