@@ -29,5 +29,10 @@
 .site-footer-text { margin: 0; line-height: inherit; }
 
 .site-footer-links { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
+// A list of links, clear as one without underlines (WCAG 1.4.1 asks for them in running text, not here): the underline
+// comes back on hover and focus. The link in the line beside the logo sits in text, so it keeps its underline.
+.site-footer-links a { text-decoration: none; }
+.site-footer-links a:hover,
+.site-footer-links a:focus-visible { text-decoration: underline; }
 // The separator is decoration: the empty text after the slash keeps it from being read.
 .site-footer-links li + li::before { content: "\00a0·\00a0" / ""; }
