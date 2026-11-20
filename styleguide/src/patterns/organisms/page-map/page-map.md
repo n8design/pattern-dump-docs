@@ -12,4 +12,9 @@ Every page of the site, on the home page (`layouts/home`), built from `nav`: not
 - **Pages** collects the top-level pages that aren't in a section, Home aside. With none left (every one has
   `nav: false`), the group isn't shown.
 
+**Layout.** The guide comes first; every other section follows in `.page-map-side`. One column on a narrow screen,
+two from `48em` (the other sections stacked beside the guide), three equal columns from `64em` (the guide, then the
+other sections two by two). The breakpoints are in `em`, so at 200% text the map drops a step. Source order is
+reading order at every width.
+
 `nav` is one level deep, so a folder inside a section shows as one entry, its `index.md`.
