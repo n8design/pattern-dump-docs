@@ -1,17 +1,68 @@
 {
+  "body": "<h2 id=\"built-with-pattern-dump\">Built with Pattern Dump</h2><p>Real sites, with the style guides behind them.</p><div class=\"site-cards\"><ul class=\"site-cards-list\" role=\"list\"><li class=\"site-cards-item\"><div class=\"site-card\"><h3 class=\"site-card-name\">The demo</h3><img src=\"/assets/screenshots/demo-home.webp\" width=\"1280\" height=\"800\" alt=\"\" loading=\"lazy\" decoding=\"async\"><p class=\"site-card-line\">A Pattern Dump tour in eleven slides, on Sunset waves.</p><a class=\"site-card-link\" href=\"/in-practice/demo/\">See how the demo is built</a></div></li><li class=\"site-cards-item\"><div class=\"site-card\"><h3 class=\"site-card-name\">This site</h3><img src=\"/assets/screenshots/site-page.webp\" width=\"1280\" height=\"800\" alt=\"\" loading=\"lazy\" decoding=\"async\"><p class=\"site-card-line\">These docs, and the style guide they're built from.</p><a class=\"site-card-link\" href=\"/in-practice/this-site/\">See how this site is built</a></div></li></ul></div>",
   "nav": [
-    { "route": "/", "title": "Home" },
-    { "route": "/guide/", "title": "Guide", "description": "Read in order. About 20 minutes.", "children": [
-      { "route": "/guide/install/", "title": "Install", "description": "Add Pattern Dump to a project and start the workbench." },
-      { "route": "/guide/first-pattern/", "title": "Your first pattern", "description": "Template, sample data, schema and notes in one folder." },
-      { "route": "/guide/includes/", "title": "Compose with includes", "description": "Build organisms and pages from smaller patterns." },
-      { "route": "/guide/publish/", "title": "Publish the site", "description": "Build the storefront and deploy it with GitHub Pages." }
-    ] },
-    { "route": "/concepts/", "title": "Concepts", "description": "How the parts fit.", "children": [
-      { "route": "/concepts/patterns/", "title": "Patterns and categories" },
-      { "route": "/concepts/layouts/", "title": "Layouts, views and pages" }
-    ] },
-    { "route": "/about/", "title": "About" },
-    { "route": "/search/", "title": "Search" }
-  ]
+    {
+      "route": "/",
+      "title": "Home"
+    },
+    {
+      "route": "/guide/",
+      "title": "Guide",
+      "description": "Read in order. About 20 minutes.",
+      "children": [
+        {
+          "route": "/guide/install/",
+          "title": "Install",
+          "description": "Add Pattern Dump to a project and start the workbench."
+        },
+        {
+          "route": "/guide/first-pattern/",
+          "title": "Your first pattern",
+          "description": "Template, sample data, schema and notes in one folder."
+        },
+        {
+          "route": "/guide/includes/",
+          "title": "Compose with includes",
+          "description": "Build organisms and pages from smaller patterns."
+        },
+        {
+          "route": "/guide/publish/",
+          "title": "Publish the site",
+          "description": "Build the storefront and deploy it with GitHub Pages."
+        }
+      ]
+    },
+    {
+      "route": "/concepts/",
+      "title": "Concepts",
+      "description": "How the parts fit.",
+      "children": [
+        {
+          "route": "/concepts/patterns/",
+          "title": "Patterns and categories"
+        },
+        {
+          "route": "/concepts/layouts/",
+          "title": "Layouts, views and pages"
+        }
+      ]
+    },
+    {
+      "route": "/about/",
+      "title": "About"
+    },
+    {
+      "route": "/search/",
+      "title": "Search"
+    }
+  ],
+  "page": {
+    "headings": [
+      {
+        "level": 2,
+        "text": "Built with Pattern Dump",
+        "anchor": "built-with-pattern-dump"
+      }
+    ]
+  }
 }

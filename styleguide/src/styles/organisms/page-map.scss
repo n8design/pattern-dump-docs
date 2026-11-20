@@ -25,11 +25,21 @@
   .page-map-side { grid-column: span 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+// The page's own content (the home page's body), after the groups and across both of their columns. Its markdown
+// can't carry classes, so its heading and the paragraph right under it take the group title's and the note's rules
+// below. Site cards in it (components/site-cards) sit two side by side with the map's gap, so on a wide screen each
+// takes one column of the groups above.
+.page-map-body { grid-column: 1 / -1; }
+.page-map-body > * { margin-block: 0; }
+
 // A group with no pages left (every page in it has nav: false, as Pages can) isn't shown, heading and note included.
 .page-map-group:not(:has(li)) { display: none; }
 
-.page-map-title { margin: 0; }
-.page-map-note { margin: 0.375rem 0 1.5rem; font-size: 0.9375rem; color: var(--color-text-muted); }
+.page-map-title,
+.page-map-body > h2 { margin: 0; }
+.page-map-note,
+.page-map-body > h2 + p { margin: 0.375rem 0 1.5rem; font-size: 0.9375rem; color: var(--color-text-muted); }
+
 
 .page-map-list {
   display: flex;

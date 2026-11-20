@@ -27,5 +27,6 @@
         {{#each nav}}{{#unless children.length}}{{#unless (eq route "/")}}<li><a href="{{route}}">{{title}}</a></li>{{/unless}}{{/unless}}{{/each}}
       </ul>
     </div>
+    {{#if body}}{{#if page.headings.[0]}}<section class="page-map-body" aria-labelledby="{{page.headings.[0].anchor}}">{{{body}}}</section>{{else}}<div class="page-map-body">{{{body}}}</div>{{/if}}{{/if}}
   </div>
 </section>
