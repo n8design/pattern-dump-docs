@@ -52,7 +52,7 @@
   <text class="small" x="248" y="226">HTML, schema, accessibility</text>
   <rect class="frame" x="236.5" y="246.5" width="236" height="44"/>
   <text class="label" x="248" y="266">site</text>
-  <text class="small" x="248" y="282">pages, layouts, navigation</text>
+  <text class="small" x="248" y="282">pages, layouts: optional</text>
   <rect class="solid" x="236" y="134" width="236" height="44"/>
   <text class="on-solid" x="248" y="161">renderer</text>
   <rect class="frame" x="236.5" y="302.5" width="236" height="36"/>
@@ -72,13 +72,15 @@
   <text class="label" x="528" y="48"><tspan class="on">3</tspan>  live: pd dev</text>
   <rect class="line" x="528.5" y="74.5" width="180" height="32"/>
   <text class="label" x="540" y="95">workbench</text>
-  <rect class="line" x="528.5" y="114.5" width="180" height="32"/>
+  <rect class="frame" x="528.5" y="114.5" width="180" height="32"/>
   <text class="label" x="540" y="135">site</text>
+  <text class="small" x="698" y="135" text-anchor="end">optional</text>
   <text class="label" x="528" y="178"><tspan class="on">4</tspan>  static: pd build</text>
   <rect class="line" x="528.5" y="196.5" width="180" height="32"/>
-  <text class="label" x="540" y="217">workbench folder</text>
-  <rect class="line" x="528.5" y="236.5" width="180" height="32"/>
-  <text class="label" x="540" y="257">site folder</text>
+  <text class="label" x="540" y="217">workbench</text>
+  <rect class="frame" x="528.5" y="236.5" width="180" height="32"/>
+  <text class="label" x="540" y="257">site</text>
+  <text class="small" x="698" y="257" text-anchor="end">optional</text>
   <text class="small" x="528" y="286">checked, then written</text>
   <text class="label" x="528" y="308"><tspan class="on">5</tspan>  pd audit</text>
   <rect class="line" x="528.5" y="318.5" width="180" height="32"/>
