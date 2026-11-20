@@ -53,7 +53,7 @@ A site page differs from a preview in its document, not in how it renders. Patte
 
 ### `pd build`: the dev server, headless
 
-`pd build` starts the dev server without live reload or a file watcher, requests every route the workbench and the site use, and writes each response to a file: there is no second renderer. Pattern Dump changes two things in what the server returns. Its own root-relative addresses in HTML, CSS and JSON get the base path, and each workbench route gets a page of its own that carries the static runtime. Under a base path, each preview also gets a robots `noindex` tag, since crawlers don't read the workbench's `robots.txt` there.
+`pd build` starts the dev server without live reload or a file watcher, requests every route the workbench and the site use, and writes each response to a file: there is no second renderer. Pattern Dump changes three things in what the server returns. Its own root-relative addresses in HTML, CSS and JSON get the base path, and each workbench route gets a page of its own that carries the static runtime. Under a base path, each preview also gets a robots `noindex` tag, since crawlers don't read the workbench's `robots.txt` there.
 
 Where a published site needs it, a build differs from `pd dev`. It leaves out drafts and scheduled pages, an image problem fails the page instead of being a warning, and it checks the links and the page basics of the whole site at once instead of page by page.
 
