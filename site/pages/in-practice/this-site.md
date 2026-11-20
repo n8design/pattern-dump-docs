@@ -3,6 +3,8 @@ title: This site
 description: How this site is built with Pattern Dump: one repository with a site and its style guide package, the exact pin, two builds published together, and the checks every build passes.
 layout: doc
 order: -2
+repository: https://github.com/n8design/pattern-dump-docs
+styleGuide: /workbench/
 ---
 
 This site and its style guide live in one repository, as two npm workspaces. The site holds its pages and its config. Everything it looks like comes from the style guide, which is a pattern package of its own.
