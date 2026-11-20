@@ -3,8 +3,10 @@
 //
 //   npm run screenshots
 //
-// Writes styleguide/assets/screenshots/<name>.webp and <name>@2x.webp, and for the site page the same with -dark, in
-// lossless WebP, so the site serves them at /assets/screenshots/<file>. The same input gives the same bytes: a fixed
+// Writes styleguide/assets/screenshots/<name>.webp, and for the site page <name>-dark.webp too, in lossless WebP at
+// twice the window's size, so the site serves them at /assets/screenshots/<file>. A page embeds a shot as a markdown
+// image on a line of its own, `![Alt](/assets/screenshots/<name>.webp "Caption")`: Pattern Dump makes it a <figure>,
+// a <picture> with the -dark file as its dark source, and the WebP variants with width and height. The same input gives the same bytes: a fixed
 // window, the fonts loaded before each shot, no animations, the clock pinned. Re-running without changes changes no file.
 //
 // A shot names the pattern it photographs. If that pattern no longer exists in the style guide, the shot is not taken
@@ -37,11 +39,9 @@ const SCHEMES = [
 // light frame around a dark Stage. Until it has one (1.0), workbench shots are light only and only the site page gets a
 // -dark pair. See "The workbench frame has no dark mode" in pattern-dump-internal/docs/BACKLOG.md.
 const schemesFor = (shot) => (shot.site ? SCHEMES : SCHEMES.filter((s) => s.colorScheme === "light"));
-// 1x is the file as named; 2x is `<name>@2x`. The page uses <img src=1x srcset="1x 1x, @2x 2x">.
-const SCALES = [
-  { suffix: "", deviceScaleFactor: 1 },
-  { suffix: "@2x", deviceScaleFactor: 2 },
-];
+// One file per shot, at 2x: Pattern Dump writes the smaller variants from it, so a 1x file would be one more image
+// that no page links to.
+const DEVICE_SCALE_FACTOR = 2;
 
 const WINDOW = { width: 1440, height: 900 };
 
@@ -224,14 +224,14 @@ async function main() {
     }
   }
 
-  // 2. Each shot at 1x and 2x, in light, and for the site page in dark too (schemesFor).
+  // 2. Each shot at 2x, in light, and for the site page in dark too (schemesFor).
   for (const shot of todo) {
     const url = shot.site ? `${SITE}${shot.site.url}` : `${WORKBENCH}/${shot.pattern}`;
     for (const scheme of schemesFor(shot)) {
-      for (const scale of SCALES) {
+      {
         const context = await browser.newContext({
           viewport: shot.window ?? WINDOW,
-          deviceScaleFactor: scale.deviceScaleFactor,
+          deviceScaleFactor: DEVICE_SCALE_FACTOR,
           colorScheme: scheme.colorScheme,
           reducedMotion: "reduce",
           locale: "en-US",
@@ -288,7 +288,7 @@ async function main() {
           if (i === 19) missing.push(`${shot.name}: the picture did not settle`);
         }
         await context.close();
-        const file = join(outDir, `${shot.name}${scheme.suffix}${scale.suffix}.webp`);
+        const file = join(outDir, `${shot.name}${scheme.suffix}.webp`);
         write(file, await toWebp(png));
         console.log(`wrote ${file.replace(`${root}/`, "")}`);
       }
