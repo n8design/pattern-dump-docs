@@ -1,0 +1,13 @@
+{
+  "title": "Peak memory",
+  "note": "MB by page count, median peak of 5 cold builds, 0.8.0 from npm, 2026-11-21.",
+  "highlight": "2,000, every check",
+  "rows": [
+    { "label": "50, every check", "value": 2216 },
+    { "label": "500, every check", "value": 2669 },
+    { "label": "2,000, every check", "value": 2856 },
+    { "label": "50, skipped", "value": 415 },
+    { "label": "500, skipped", "value": 499 },
+    { "label": "2,000, skipped", "value": 625 }
+  ]
+}
