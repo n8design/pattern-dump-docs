@@ -9,3 +9,4 @@ order: 6
 - [Themes](/reference/themes/): theme files, the switch modes, swatches, themes on site pages.
 - [Search and SEO](/reference/search-and-seo/): site search, head tags, JSON-LD, sitemap.xml, robots.txt, llms.txt.
 - [Collections and queries](/reference/collections-and-queries/): collections, entries, sort, listing views, cards and query options.
+- [Command line](/reference/cli/): every `pd` command, with its options, messages and exit codes.
