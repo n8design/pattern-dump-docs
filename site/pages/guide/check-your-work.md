@@ -103,6 +103,8 @@ After the report come the audit's own lines:
 [pd audit] <n> defects across <a>/<n> components.
 ```
 
+With the starter's site, Pattern Dump also prints a line that starts `[dev-server] FLATTENED: 2 cluster(s) across 5 components`: some of the starter's layouts are copies of one template, and the line asks nothing of you.
+
 `pd audit` reuses a component's result while nothing it depends on has changed, so the first line says how many it checked again. [What the audit checks again](/concepts/relationships/#what-the-audit-checks-again) explains when.
 
 ## What fails the audit
