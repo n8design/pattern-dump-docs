@@ -5,12 +5,25 @@ layout: doc
 ---
 
 ```txt
-dist/                    the workbench, built for build.basePath
-  _pd/  api/  assets/  preview/  <one folder per component and folder>
-  index.html  .nojekyll  robots.txt
-site/                    the site, served from site.url's path
-  _pd/  assets/  <one folder per page>
-  index.html  404.html  .nojekyll  robots.txt  sitemap.xml  llms.txt
+dist/                    the workbench, for build.basePath
+├── index.html
+├── _pd/                 Pattern Dump's own styles and scripts
+├── api/                 each component's details, as JSON
+├── assets/              your asset folders
+├── preview/             one document per component and variant
+├── <component id>/      one page per component and folder in the tree
+├── .nojekyll
+└── robots.txt
+site/                    the site, for the path in site.url
+├── index.html
+├── 404.html
+├── _pd/
+├── assets/
+├── <page>/              one folder per page
+├── .nojekyll
+├── robots.txt
+├── sitemap.xml
+└── llms.txt
 ```
 
 `pd build` writes the workbench to its output folder and, in a project with a site, the site to `site.outDir`. It starts the same server `pd dev` runs, without live reload or a watcher and on any free port, asks it for every route, and writes each response to a file. There is no second renderer: a built page is what `pd dev` serves, with three changes. Pattern Dump's own root-relative addresses (`/_pd/`, `/api/`, `/preview/`, `/source/`, `/assets/`) in HTML, CSS and JSON get the base path; each route gets a page that runs the workbench without a server; and under a base path, each preview gets `<meta name="robots" content="noindex">` first in its head.
