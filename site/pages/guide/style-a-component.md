@@ -127,4 +127,4 @@ Open the badge's `warning` variant in the workbench and switch between `light` a
 
 ## Your styled component
 
-The badge has a stylesheet, the base layer has a focus outline, and both themes carry the badge's colours. The next step checks your work: the Diagnostics tab and `pd audit`.
+The badge has a stylesheet, the base layer has a focus outline, and both themes carry the badge's colours. The next step [checks your work](/guide/check-your-work/): the Diagnostics tab and `pd audit`.
