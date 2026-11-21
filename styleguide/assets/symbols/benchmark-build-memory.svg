@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 322">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .knock { stroke: var(--color-surface-subtle); stroke-width: 8; stroke-linejoin: round; paint-order: stroke }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="title" x="24" y="40">Peak memory</text>
+  <text class="small" x="24" y="62">MB by page count, median peak of 5 cold builds, 0.8.0 from npm, 2026-11-21.</text>
+  <path class="hair" d="M194.5 90V306"/>
+  <text class="label" x="24" y="113">50, every check</text>
+  <path class="bar" d="M195 108H451"/>
+  <text class="label" x="463" y="113">2,216</text>
+  <text class="label" x="24" y="149">500, every check</text>
+  <path class="bar" d="M195 144H503"/>
+  <text class="label" x="515" y="149">2,669</text>
+  <text class="label on" x="24" y="185">2,000, every check</text>
+  <path class="bar-on" d="M195 180H525"/>
+  <text class="label on" x="537" y="185">2,856</text>
+  <text class="label" x="24" y="221">50, skipped</text>
+  <path class="bar" d="M195 216H243"/>
+  <text class="label" x="255" y="221">415</text>
+  <text class="label" x="24" y="257">500, skipped</text>
+  <path class="bar" d="M195 252H253"/>
+  <text class="label" x="265" y="257">499</text>
+  <text class="label" x="24" y="293">2,000, skipped</text>
+  <path class="bar" d="M195 288H267"/>
+  <text class="label" x="279" y="293">625</text>
+</svg>
