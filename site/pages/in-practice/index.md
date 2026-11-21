@@ -17,3 +17,4 @@ This site is built with Pattern Dump, and so is the demo. The pages here show ho
 ## Inside this site
 
 - [This style guide](/in-practice/this-style-guide/): how its components, layouts, tokens and themes are organised in the workbench.
+- [On a page](/in-practice/on-a-page/): what a page can hold, from a live example to highlighted code, each with the markdown that made it.
