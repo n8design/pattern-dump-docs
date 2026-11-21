@@ -12,3 +12,4 @@ order: 6
 - [Command line](/reference/cli/): every `pd` command, with its options, messages and exit codes.
 - [Build output](/reference/build-output/): what `pd build` writes, what it checks and what it refuses.
 - [Markdown](/reference/markdown/): live examples, source blocks, `pattern:` links, placed components, code blocks.
+- [Frontmatter](/reference/frontmatter/): every key a page and a folder can set, `childLayout` and `childDefaults`.
