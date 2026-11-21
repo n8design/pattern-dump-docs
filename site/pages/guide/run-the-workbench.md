@@ -17,18 +17,20 @@ In the project folder, run:
 npm run dev
 ```
 
-The `dev` script that `pd init` wrote runs `pd dev`. When it is ready, it prints where to open the workbench:
+The `dev` script that `pd init` wrote runs `pd dev`. When it is ready, it prints where to open the site and the workbench:
 
 ```text
 [dev-server] SCSS compiled (dependency tracker ready)
 [dev-server] Listening at http://127.0.0.1:4000
-[dev-server] Workbench: http://localhost:4000/
-[dev-server] Ready in 360ms, 4 components
+[dev-server] Website:   http://live.localhost:4000/
+[dev-server] Workbench: http://pd.localhost:4000/
+[dev-server] Search: the index is built by pd build, so the site's search finds nothing in pd dev
+[dev-server] Ready in 230ms, 26 components
 ```
 
-npm's own lines, printed first, are left out here. The last line counts the components `pd dev` found, variants not included: the starter has four, the button, the search field, its input and the example page.
+npm's own lines, printed first, are left out here. The last line counts the components `pd dev` found, variants not included: the starter's four (the button, the search field, its input and the example page) and the site's 22 (seven components, nine layouts, two partials and four views).
 
-Open `http://localhost:4000/` in a browser. `pd dev` listens on `127.0.0.1` only, so only your own machine reaches it.
+Open the workbench at `http://pd.localhost:4000/` in a browser. `pd dev` listens on `127.0.0.1` only, so only your own machine reaches it.
 
 ### Ports
 
@@ -63,7 +65,7 @@ When the workbench's port is the taken one, the message says `so the workbench c
 
 `pd dev` answers only to its own host names, at its own port, in any case: `localhost`, `127.0.0.1` and `pd.localhost`. A request for any other name, or with none, gets `403` and `Forbidden: this server answers only to its own host names`. Live reload accepts a connection only from an `http:` page on one of those names at that port, or from a connection that names no origin.
 
-Once the project has a site, a later step of this guide, one `pd dev` runs both, told apart by host name:
+With a site, as in this project, one `pd dev` runs both, told apart by host name:
 
 `http://live.localhost:4000/`
 : The site. `site.host` in the config changes the name.
@@ -74,7 +76,7 @@ Once the project has a site, a later step of this guide, one `pd dev` runs both,
 `http://localhost:4000/`, `http://127.0.0.1:4000/`
 : The workbench too.
 
-At startup it then prints a `Website:` line with the site's address and `Workbench: http://pd.localhost:<port>/`, in place of the `localhost` line above. With site search on, it adds `[dev-server] Search: the index is built by pd build, so the site's search finds nothing in pd dev`. Without a site, `live.localhost` is not one of its names.
+The `Search:` line at startup comes with site search: the site's search finds pages once `pd build` has indexed them. A project without a site prints `[dev-server] Workbench: http://localhost:<port>/` in place of the `Website:` and `Workbench:` lines, and `live.localhost` is not one of its names.
 
 ## Find your way around
 
@@ -128,4 +130,4 @@ Global data and helpers, when the config names them, reload while `pd dev` runs.
 
 ## Your workbench
 
-The workbench runs at `http://localhost:4000/`, with the starter's components in the Nav Rail. Next, [add a component](/guide/add-a-component/) of your own and see it on the Stage.
+The workbench runs at `http://pd.localhost:4000/`, with the starter's components and the site's in the Nav Rail, and the site at `http://live.localhost:4000/`. Next, [add a component](/guide/add-a-component/) of your own and see it on the Stage.
