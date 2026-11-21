@@ -9,7 +9,7 @@ order: 10
 
 ## Move the pin
 
-Read the release's upgrade notes first: a release's entry in the [changelog](https://github.com/n8design/pattern-dump/blob/main/CHANGELOG.md) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last two.
+Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last two.
 
 Then install the new version, exactly, in the project folder:
 
@@ -104,7 +104,7 @@ A `<name>~<variant>.json` with no `<name>.hbs` to overlay is left out, as before
 
 ## Before 0.7
 
-The upgrade notes for 0.6 and earlier are in their releases' entries in the [changelog](https://github.com/n8design/pattern-dump/blob/main/CHANGELOG.md).
+The upgrade notes for 0.6 and earlier are in their releases' entries, from [0.6.0](/reference/releases/#060-2026-11-18) on down.
 
 ## Up to date
 
