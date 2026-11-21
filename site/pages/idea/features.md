@@ -35,7 +35,7 @@ Relationships
 : Which components a component includes, and which include it. [Relationships](/concepts/relationships/)
 
 Your helpers
-: Handlebars helpers of your own, also in the form Pattern Lab uses.
+: Handlebars helpers of your own, also in the form Pattern Lab uses. [Your own helpers](/reference/helpers/#your-own-helpers)
 
 ## Styles and themes
 
@@ -57,7 +57,7 @@ Per component
 : Render errors, data that doesn't match its schema, HTML validation and accessibility, shown in the workbench. [The checks](/concepts/architecture/#the-checks)
 
 `pd audit`
-: One report over every component and every variant, as markdown, text or JSON.
+: One report over every component and every variant, as markdown, text or JSON. [Run `pd audit`](/guide/check-your-work/#run-pd-audit)
 
 The build's checks
 : Links, classes, custom properties, images and accessibility on every page of a site, before anything is written. [The checks every build passes](/in-practice/this-site/#the-checks-every-build-passes)
@@ -68,25 +68,25 @@ Pages from markdown
 : A markdown file in the pages folder is a page, with its route from its path. [Site settings](/reference/configuration/#site)
 
 Live examples
-: A component placed in a page's markdown is a preview of the component itself, with its variants and a link into the workbench.
+: A component placed in a page's markdown is a preview of the component itself, with its variants and a link into the workbench. [Live examples](/reference/markdown/#live-examples)
 
 Layouts are components
 : A page renders with a layout from your style guide, previewed in the workbench like any component. [This style guide](/in-practice/this-style-guide/)
 
 Navigation
-: Worked out from the pages, with `nav: false` for a page that stays out of it.
+: Worked out from the pages, with `nav: false` for a page that stays out of it. [The navigation](/reference/navigation-and-routes/#the-navigation)
 
 Collections and queries
 : A folder's pages as a listing, and queries a layout declares for pages by folder, category or tag. [Collections and queries](/concepts/collections-and-queries/)
 
 Tag and category pages
-: A page for each tag and category in use, and an index of them, when the layouts are there.
+: A page for each tag and category in use, and an index of them, when the layouts are there. [Tag and category layouts](/reference/layouts/#tag-and-category-layouts)
 
 Images
-: A raster image from the assets written as WebP variants. On a site page, a caption from its title when the image stands on a line of its own, and a dark version from a `-dark` file beside it.
+: A raster image from the assets written as WebP variants. On a site page, a caption from its title when the image stands on a line of its own, and a dark version from a `-dark` file beside it. [Images](/reference/images/)
 
 Symbol images
-: SVG diagrams that take their colours from the page's custom properties.
+: SVG diagrams that take their colours from the page's custom properties. [Symbol images](/reference/images/#symbol-images)
 
 ## Search and SEO
 
@@ -105,7 +105,7 @@ Plain files
 : `pd build` writes the workbench and the site as plain files, for any static host, at its root or under a base path. [`pd build`: the dev server, headless](/concepts/architecture/#pd-build-the-dev-server-headless)
 
 All or nothing
-: Every check runs before anything is written, and an output folder is replaced only when they all pass.
+: Every check runs before anything is written, and an output folder is replaced only when they all pass. [Folders](/reference/build-output/#folders)
 
 ## Pattern packages
 
