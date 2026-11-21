@@ -112,6 +112,6 @@ A layout
 
 So a component without a schema has nothing to be held to, and the site gives it no values. It can't be placed with values (`<id> has no schema, so it cannot be placed with values`), named by `x-pd-component`, or be a card, and a layout without one declares nothing, so a page can set none of its keys.
 
-Where the contract is broken decides what fails. A problem on a site page fails `pd build`, and nothing is written. A component's own findings never fail the build, `UNFILLED_REQUIRED` included: `pd audit` fails on those, since it exits with 1 on any error. [Check your work](/guide/check-your-work/#what-fails-the-audit) shows the audit's side.
+Where the contract is broken decides what fails. A problem on a site page fails `pd build`, and nothing is written. A component's own findings never fail the build, `UNFILLED_REQUIRED` included: `pd audit` fails on those, since it exits with 1 on any error. [Checks](/concepts/checks/) explains why the build refuses instead of warning, and [Check your work](/guide/check-your-work/#what-fails-the-audit) shows the audit's side.
 
 The recommendation here: give every component a schema, even one no page uses yet. The audit then checks its sample data from the start, and the day a page places it, the contract is already there. [Schema extensions](/reference/schema-extensions/) lists the `x-pd-` keys a schema can carry beyond JSON Schema.
