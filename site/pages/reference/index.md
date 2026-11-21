@@ -14,3 +14,4 @@ order: 6
 - [Markdown](/reference/markdown/): live examples, source blocks, `pattern:` links, placed components, code blocks.
 - [Frontmatter](/reference/frontmatter/): every key a page and a folder can set, `childLayout` and `childDefaults`.
 - [Layouts](/reference/layouts/): what a layout gets, every `page` key, regions, the table of contents, tag pages, the page document.
+- [Navigation and routes](/reference/navigation-and-routes/): routes from files, the navigation, declared navigations, redirects, the 404 page.
