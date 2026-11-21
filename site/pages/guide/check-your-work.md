@@ -133,4 +133,4 @@ The workbench shows the same audit in the Inspector's Audit tab: the headline an
 
 ## Your checked style guide
 
-The badge is clean again, and you know where to look when it isn't. The next step builds a site from the same components.
+The badge is clean again, and you know where to look when it isn't. Next, [add a page to your site](/guide/add-a-site/), with the badge on it.
