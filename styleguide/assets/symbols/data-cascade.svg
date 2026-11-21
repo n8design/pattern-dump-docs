@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 732 400">
+  <style>
+    .frame { fill: none; stroke: var(--color-hairline); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .line { fill: none; stroke: var(--color-text); stroke-width: 1; vector-effect: non-scaling-stroke }
+    .hair { fill: none; stroke: var(--color-text-muted); stroke-width: 0.75; vector-effect: non-scaling-stroke }
+    .rule { fill: none; stroke: var(--color-text); stroke-width: 5 }
+    .solid { fill: var(--color-text) }
+    .link { fill: none; stroke: var(--color-accent); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+    .head { fill: var(--color-accent) }
+    .detail { fill: none; stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke }
+    .bar { fill: none; stroke: var(--color-text); stroke-width: 8 }
+    .bar-on { fill: none; stroke: var(--color-accent); stroke-width: 8 }
+    .bar-muted { fill: none; stroke: var(--color-text-muted); stroke-width: 8; stroke-dasharray: 2 2 }
+    .bar-2 { fill: none; stroke: var(--color-diagram-2); stroke-width: 8; stroke-dasharray: 12 3 }
+    .bar-3 { fill: none; stroke: var(--color-diagram-3); stroke-width: 8; stroke-dasharray: 3 3 }
+    .region { fill: var(--color-diagram-fill) }
+    .ink-2 { fill: var(--color-diagram-2) }
+    .ink-3 { fill: var(--color-diagram-3) }
+    .pass { fill: var(--color-diagram-pass) }
+    .fail { fill: var(--color-diagram-fail) }
+    .cut { fill: none; stroke: var(--color-surface); stroke-width: 3 }
+    .knock { stroke: var(--color-surface-subtle); stroke-width: 8; stroke-linejoin: round; paint-order: stroke }
+    .muted { fill: var(--color-text-muted) }
+    .label { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 14px }
+    .strong { fill: var(--color-text); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 16px; font-weight: 600 }
+    .small { fill: var(--color-text-muted); font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace; font-size: 12px }
+    .on { fill: var(--color-accent-ink); font-weight: 600 }
+    .on-solid { fill: var(--color-surface); font-family: "Archivo", system-ui, sans-serif; font-size: 16px; font-weight: 800 }
+    .title { fill: var(--color-heading); font-family: "Archivo", system-ui, sans-serif; font-size: 15px; font-weight: 800 }
+  </style>
+  <text class="label" x="24" y="48">atoms/button~secondary</text>
+  <text class="small" x="24" y="76">label</text>
+  <text class="small" x="128" y="76">variant</text>
+  <text class="small" x="248" y="76">type</text>
+  <path class="hair" d="M24 86H354"/>
+  <text class="small" x="24" y="108">global data: none in this style guide</text>
+  <path class="hair" d="M24 144H354"/>
+  <text class="small" x="24" y="166">atoms/button/button.json</text>
+  <text class="label" x="24" y="188">Save</text>
+  <text class="label" x="128" y="188">primary</text>
+  <text class="label" x="248" y="188">button</text>
+  <path class="hair" d="M24 202H354"/>
+  <text class="small" x="24" y="224">button~secondary.json</text>
+  <text class="label" x="24" y="246">Cancel</text>
+  <text class="label" x="128" y="246">secondary</text>
+  <path class="hair" d="M24 260H354"/>
+  <path class="line" d="M24 262H354"/>
+  <text class="small" x="24" y="284">renders with</text>
+  <text class="strong" x="24" y="308">Cancel</text>
+  <text class="strong" x="128" y="308">secondary</text>
+  <text class="strong" x="248" y="308">button</text>
+  <text class="label" x="370" y="48">atoms-button in molecules/search-field</text>
+  <text class="small" x="370" y="76">label</text>
+  <text class="small" x="474" y="76">variant</text>
+  <text class="small" x="594" y="76">type</text>
+  <path class="hair" d="M370 86H700"/>
+  <text class="small" x="370" y="166">atoms/button/button.json</text>
+  <text class="label" x="370" y="188">Save</text>
+  <text class="label" x="474" y="188">primary</text>
+  <text class="label" x="594" y="188">button</text>
+  <path class="hair" d="M370 202H700"/>
+  <text class="small" x="370" y="224">the include and its arguments</text>
+  <text class="label" x="370" y="246">Search</text>
+  <text class="label" x="474" y="246">primary</text>
+  <text class="label" x="594" y="246">submit</text>
+  <path class="hair" d="M370 260H700"/>
+  <path class="line" d="M370 262H700"/>
+  <text class="small" x="370" y="284">renders with</text>
+  <text class="strong" x="370" y="308">Search</text>
+  <text class="strong" x="474" y="308">primary</text>
+  <text class="strong" x="594" y="308">submit</text>
+  <rect class="line" x="24.5" y="344.5" width="340" height="36"/>
+  <path class="line" d="M200 344V380M264 344V380"/>
+  <text class="small" x="36" y="357">Title</text>
+  <text class="title" x="36" y="374">Data cascade</text>
+  <text class="small" x="212" y="357">Scale</text>
+  <text class="label" x="212" y="374">1 : 1</text>
+  <text class="small" x="276" y="357">Version</text>
+  <text class="label" x="276" y="374">PD 0.8.0</text>
+</svg>
