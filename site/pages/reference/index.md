@@ -17,3 +17,4 @@ order: 6
 - [Navigation and routes](/reference/navigation-and-routes/): routes from files, the navigation, declared navigations, redirects, the 404 page.
 - [Helpers](/reference/helpers/): every built-in Handlebars helper, `pd-image`, and helpers of your own.
 - [Component files](/reference/component-files/): ids and handles, data, docs and schema, variants, includes, folder `index.md` files.
+- [Images](/reference/images/): image slots, images in a page's markdown, symbol images, WebP variants, the image check.
