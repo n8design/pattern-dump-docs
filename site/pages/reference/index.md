@@ -22,3 +22,4 @@ order: 6
 - [Checks](/reference/checks/): every check on a site's pages: links, classes, custom properties, accessibility, the browser checks.
 - [Diagnostics](/reference/diagnostics/): every diagnostic kind, its severity and source, and where it shows.
 - [Pattern packages](/reference/pattern-packages/): the `patternDump` field, package order, overrides, a package of your own.
+- [Releases](/reference/releases/): every release and what changed, from the changelog of the pinned version.

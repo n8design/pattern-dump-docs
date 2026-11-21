@@ -162,3 +162,6 @@ vite.config.ts.timestamp-*
 
 # The assembled GitHub Pages artifact (npm run pages)
 _site
+
+# The releases page, written from the pinned pattern-dump's CHANGELOG.md (scripts/releases.mjs, predev and prebuild)
+site/pages/reference/releases.md

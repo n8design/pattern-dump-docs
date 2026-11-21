@@ -5,7 +5,9 @@
   "description": "The website: pages only. Its look comes from the style guide package (../styleguide).",
   "type": "module",
   "scripts": {
+    "predev": "node ../scripts/releases.mjs",
     "dev": "pd dev",
+    "prebuild": "node ../scripts/releases.mjs",
     "build": "pd build"
   },
   "devDependencies": {
