@@ -118,4 +118,4 @@ The style guide still has the pages `--with-site` wrote, in `styleguide/pages/`,
 
 ## Your two projects
 
-The repository holds a style guide that any site can install, a site with content only, and one folder to publish.
+The repository holds a style guide that any site can install, a site with content only, and one folder to publish. Next, [publish it](/guide/publish/).
