@@ -28,7 +28,7 @@ The `dev` script that `pd init` wrote runs `pd dev`. When it is ready, it prints
 [dev-server] Ready in 230ms, 26 components
 ```
 
-npm's own lines, printed first, are left out here. The last line counts the components `pd dev` found, variants not included: the starter's four (the button, the search field, its input and the example page) and the site's 22 (seven components, nine layouts, two partials and four views).
+npm's own lines, printed first, are left out here. The last line counts the components `pd dev` found, variants not included: the starter's four (the button, the search field, its input and the example page) and the site's 22 (seven components, nine layouts, two partials and four views). With the starter's site, Pattern Dump also prints a line that starts `[dev-server] FLATTENED: 2 cluster(s) across 5 components`: some of the starter's layouts are copies of one template, and the line asks nothing of you.
 
 Open the workbench at `http://pd.localhost:4000/` in a browser. `pd dev` listens on `127.0.0.1` only, so only your own machine reaches it.
 
