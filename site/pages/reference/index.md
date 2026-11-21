@@ -20,3 +20,4 @@ order: 6
 - [Images](/reference/images/): image slots, images in a page's markdown, symbol images, WebP variants, the image check.
 - [Schema extensions](/reference/schema-extensions/): every `x-pd-` key, where it goes, its values and its errors.
 - [Checks](/reference/checks/): every check on a site's pages: links, classes, custom properties, accessibility, the browser checks.
+- [Diagnostics](/reference/diagnostics/): every diagnostic kind, its severity and source, and where it shows.
