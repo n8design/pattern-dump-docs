@@ -103,7 +103,7 @@ A fenced block whose language is one of these is replaced when the docs render. 
 `src-html <id>`
 : The rendered HTML, escaped and highlighted. A render that fails shows `[src-html: <spec> · render error]`.
 
-On a site page, a `pattern` block shows the component in a frame of its own, and a missing component there fails the build. The step that adds a site covers it.
+On a site page, a `pattern` block shows the component in a frame of its own, and a missing component there fails the build. A later step, writing a page for the site, covers it.
 
 ![The Inspector's Docs tab for a button: its description, the live buttons it renders and its Handlebars markup, highlighted.](/assets/screenshots/workbench-component-docs.webp "The Docs tab renders a component's documentation, with live examples and source from its fenced blocks. Here, the button of this site's own style guide.")
 
