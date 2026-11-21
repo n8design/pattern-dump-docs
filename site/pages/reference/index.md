@@ -18,3 +18,4 @@ order: 6
 - [Helpers](/reference/helpers/): every built-in Handlebars helper, `pd-image`, and helpers of your own.
 - [Component files](/reference/component-files/): ids and handles, data, docs and schema, variants, includes, folder `index.md` files.
 - [Images](/reference/images/): image slots, images in a page's markdown, symbol images, WebP variants, the image check.
+- [Schema extensions](/reference/schema-extensions/): every `x-pd-` key, where it goes, its values and its errors.
