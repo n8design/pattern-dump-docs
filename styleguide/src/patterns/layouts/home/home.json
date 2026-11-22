@@ -1,16 +1,21 @@
 {
-  "title": "Home",
+  "title": "Design system documentation, derived from the code",
   "headline": [
     "Build your design system.",
     "Reuse it everywhere.",
     "Iterate in one place."
   ],
-  "body": "<h2 id=\"built-with-pattern-dump\">Built with Pattern Dump</h2><p>Real sites, with the style guides behind them.</p><div class=\"site-cards\"><ul class=\"site-cards-list\" role=\"list\"><li class=\"site-cards-item\"><div class=\"site-card\"><h3 class=\"site-card-name\">The demo</h3><img src=\"/assets/screenshots/demo-home.webp\" width=\"1280\" height=\"800\" alt=\"\" loading=\"lazy\" decoding=\"async\"><p class=\"site-card-line\">A Pattern Dump tour in eleven slides, on Sunset waves.</p><a class=\"site-card-link\" href=\"/in-practice/demo/\">See how the demo is built</a></div></li><li class=\"site-cards-item\"><div class=\"site-card\"><h3 class=\"site-card-name\">This site</h3><img src=\"/assets/screenshots/site-page.webp\" width=\"1280\" height=\"800\" alt=\"\" loading=\"lazy\" decoding=\"async\"><p class=\"site-card-line\">These docs, and the style guide they're built from.</p><a class=\"site-card-link\" href=\"/in-practice/this-site/\">See how this site is built</a></div></li></ul></div>",
-  "description": "Pattern Dump renders Handlebars components with JSON data, checks accessibility in every build and publishes sites like this one. This page is the whole map of the docs.",
+  "lede": "A design system workbench: components with a contract, documentation derived from the code, and a build that refuses what breaks either. The same components also build sites like this one.",
+  "body": "<p>pages/about.md</p><div class=\"shiki-container\"><pre class=\"shiki\" tabindex=\"0\"><code><span class=\"line\">&lt;pd-components-note heading=\"Note\" kind=\"danger\"&gt;</span></code></pre></div><p>npx pd build</p><div class=\"shiki-container\"><pre class=\"shiki\" tabindex=\"0\"><code><span class=\"line\">[pd] Error: pd build: the site has problems,</span>\n<span class=\"line\">so nothing was written:</span></code></pre></div>",
+  "description": "Pattern Dump is a design system workbench: components with a contract, design system documentation derived from the code, and a build that refuses what breaks either.",
   "site": {
     "title": "Pattern Dump",
     "footer": "Pattern Dump. Built with Pattern Dump.",
-    "patternDumpVersion": "0.6.0"
+    "patternDumpVersion": "0.8.1",
+    "patternDumpReleased": "22 November 2026",
+    "sponsor": {
+      "href": "https://github.com/sponsors/StfBauer"
+    }
   },
   "nav": [
     {
@@ -92,12 +97,10 @@
     }
   ],
   "page": {
-    "headings": [
-      {
-        "level": 2,
-        "text": "Built with Pattern Dump",
-        "anchor": "built-with-pattern-dump"
-      }
-    ]
+    "headings": [],
+    "regions": {
+      "start": "<figure class=\"labelled-code\"><div class=\"shiki-container\"><pre class=\"shiki\" tabindex=\"0\"><code><span class=\"line\">npx pattern-dump@latest init</span></code></pre></div></figure>",
+      "sites": "<div class=\"site-cards\"><ul class=\"site-cards-list\" role=\"list\"><li class=\"site-cards-item\"><div class=\"site-card\"><h3 class=\"site-card-name\">The demo</h3><img src=\"/assets/screenshots/demo-home.webp\" width=\"1280\" height=\"800\" alt=\"\" loading=\"lazy\" decoding=\"async\"><p class=\"site-card-line\">A Pattern Dump tour in eleven slides, on Sunset waves.</p><a class=\"site-card-link\" href=\"/in-practice/demo/\">See how the demo is built</a></div></li><li class=\"site-cards-item\"><div class=\"site-card\"><h3 class=\"site-card-name\">This site</h3><img src=\"/assets/screenshots/site-page.webp\" width=\"1280\" height=\"800\" alt=\"\" loading=\"lazy\" decoding=\"async\"><p class=\"site-card-line\">These docs, and the style guide they're built from.</p><a class=\"site-card-link\" href=\"/in-practice/this-site/\">See how this site is built</a></div></li></ul></div>"
+    }
   }
 }
