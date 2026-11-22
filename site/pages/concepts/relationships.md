@@ -5,7 +5,7 @@ layout: doc
 order: 4
 ---
 
-You change a button. Which components change with it? Pattern Dump can tell you, because it reads the answer from your templates. Every include, `{{> atoms-button }}`, is one edge from the component that writes it to the component it names. Together the edges make the include graph: which component includes which, in both directions. Other tools call this a dependency graph.
+When you change a button, Pattern Dump can tell you which components change with it, because it reads the answer from your templates. Every include, `{{> atoms-button }}`, is one edge from the component that writes it to the component it names. Together the edges make the include graph: which component includes which, in both directions. Other tools call this a dependency graph.
 
 Nothing declares it. There is no list of dependencies to write, and none to keep up to date: the templates are the list. Pattern Dump reads the graph from what your components actually include, so it can't disagree with them.
 
