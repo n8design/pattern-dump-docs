@@ -112,9 +112,9 @@ Pattern Dump fills exactly these sub-keys of `page`, and each query the layout d
 
 ## Sample data
 
-A layout's sample data, and that of every component it includes at any depth (except a card), may set only the keys the layout declares, plus `body`, `nav`, `site`, and `page` when declared. Else: `the sample data of <id> (<file>) sets "<key>", which <layout> does not declare, so it would show on every page using that layout`.
+Sample data is for the workbench. On a site page, a component gets only what it is given and its template's defaults (`defaultValue`), and the project's data: the layout with its partials at any depth, its views and cards, the components a page places and the head partial all render with the page's data, never with their sample `.json`. So sample data may set any key, and a header or footer in the frame can have sample data of its own to show in the workbench. The workbench, its previews and a page's live examples show each component with its sample data.
 
-Inside `page`, only declared sub-keys, and only fields of Pattern Dump's shape, at any depth: `… sets "page.prev.extra", which is not part of the page data Pattern Dump fills …`. Inside `site`, only keys `partials/base` declares, and only listed navigation and collection names. A card is checked against a listing's page fields instead: `… sets "<key>", which is not a field of a page in a listing, so it would show on every card of <layout>`. A variant's sample data is not checked.
+A partial of a layout whose sample `.json` doesn't parse doesn't fail the pages: the workbench reports `DATA_INVALID`, and `pd audit` reports it as an error on the partial and on each component that includes it, and exits with 1.
 
 ## Errors in a layout
 
@@ -181,7 +181,7 @@ A page file at a generated route
 
 The `<head>` holds, in order: the title, the description, the SEO tags, JSON-LD (with `site.url`, not on the 404 page), `/_pd/code.css` on a page that shows code, `partials/head`, `site.head`, the stylesheets (the base layer, `assets.css`, the layout's and its components'), and the module scripts (`globalScripts`, then the scripts the layout and the placed components ask for, each once). There are no theme stylesheets. Every page carries `<meta name="pd-base-path" content="<base>">`, `/` at a host's root.
 
-`partials/head` is rendered with `{ site, body: null, nav: null }`. It may hold only `meta`, `link`, `script`, `style` and `noscript`, and never `<title>`, `<base>`, a canonical link, a `description`, `robots` or `twitter:*` meta, `og:*` or JSON-LD: `partials/head: <x> is written by Pattern Dump on every page; a head partial must not write it`, or `<tag> does not belong in <head>: …`. Text is refused. Its problems and its sample data are problems of the whole site, and a render error fails every page.
+`partials/head` is rendered with `{ site, body: null, nav: null }`. It may hold only `meta`, `link`, `script`, `style` and `noscript`, and never `<title>`, `<base>`, a canonical link, a `description`, `robots` or `twitter:*` meta, `og:*` or JSON-LD: `partials/head: <x> is written by Pattern Dump on every page; a head partial must not write it`, or `<tag> does not belong in <head>: …`. Text is refused. Its problems are problems of the whole site, and a render error fails every page.
 
 ### Landmarks
 
