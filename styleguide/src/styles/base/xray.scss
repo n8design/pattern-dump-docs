@@ -139,6 +139,8 @@ html[data-xray-room] figure.doc-figure + figure.doc-figure { margin-block-start:
   inset-block-start: anchor(bottom);
   inset-block-end: auto;
 }
+// Inside the header, no lower than the bar's bottom edge: the page scrolls under the bar there.
+.xray-label.xray-in-header[data-side="below"] { inset-block-start: min(anchor(bottom), anchor(--xray-header bottom) - 1.125rem); }
 .xray-label[data-align="end"] {
   inset-inline-start: auto;
   inset-inline-end: anchor(right);

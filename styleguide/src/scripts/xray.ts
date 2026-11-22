@@ -25,11 +25,18 @@ let watcher: ResizeObserver | undefined;
 
 // Where each chip goes. A chip stands on its frame's top line, level with its left side; inside the header (and for a
 // chip that doesn't fit there) under the bottom line. It must cover no content and no other chip: where it would, it
-// moves along the line (right) until it doesn't, and if it runs past the frame's end, it tries the other line. The
-// bars' own chips sit inside the bar, in its padding (base/xray.scss), and only take part as obstacles.
+// moves along the line (right) until it doesn't, and if it runs past the frame's end, it tries the other line; where
+// neither has room within the frame's width, it goes on along the line to the window's edge. The bars' own chips sit
+// inside the bar, in its padding (base/xray.scss), and only take part as obstacles.
 const leaves = (): DOMRect[] => {
   const out: DOMRect[] = [];
   const site = document.querySelector(".site") ?? document.body;
+  // What scrolls under the sticky header and footer isn't seen, so it is in nobody's way.
+  const bars = [...document.querySelectorAll(".site > .site-header, .site > .site-footer")]
+    .filter(bar => getComputedStyle(bar).position === "sticky").map(bar => bar.getBoundingClientRect());
+  const under = (rect: DOMRect, node: Node): boolean =>
+    !(node instanceof Element ? node : node.parentElement)?.closest(".site-header, .site-footer")
+    && bars.some(bar => rect.top >= bar.top - 1 && rect.bottom <= bar.bottom + 1);
   const mine = (node: Node): boolean => !!(node instanceof Element ? node : node.parentElement)?.closest(".xray-frame, .xray-label, .xray-veil");
   const walker = document.createTreeWalker(site, NodeFilter.SHOW_TEXT);
   for (let node = walker.nextNode(); node; node = walker.nextNode()) {
@@ -37,12 +44,12 @@ const leaves = (): DOMRect[] => {
     if (!node.textContent?.trim() || !parent || mine(node) || !parent.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue;
     const range = document.createRange();
     range.selectNodeContents(node);
-    for (const rect of range.getClientRects()) if (rect.width > 2 && rect.height > 2) out.push(rect);
+    for (const rect of range.getClientRects()) if (rect.width > 2 && rect.height > 2 && !under(rect, node)) out.push(rect);
   }
   for (const element of site.querySelectorAll("img, svg:not(svg svg), iframe, video, input")) {
     if (mine(element) || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue;
     const rect = element.getBoundingClientRect();
-    if (rect.width > 2 && rect.height > 2) out.push(rect);
+    if (rect.width > 2 && rect.height > 2 && !under(rect, element)) out.push(rect);
   }
   return out;
 };
@@ -80,9 +87,10 @@ const place = (): void => {
     delete label.dataset.align;
     if (label.classList.contains("xray-bar-label")) { placed.push(label.getBoundingClientRect()); continue; }
     const sides = label.classList.contains("xray-in-header") ? ["below", "above"] : ["above", "below"];
-    const end = frame.getBoundingClientRect().right;
+    // First along the frame's own line; where it has no room, on along the same line to the window's edge.
+    const tries = [frame.getBoundingClientRect().right, innerWidth].flatMap(end => sides.map(side => ({ side, end })));
     let done = false;
-    for (const side of sides) {
+    for (const { side, end } of tries) {
       label.dataset.side = side;
       // From the frame's left end, moving right past whatever is in the way, as long as it stays on the line and in
       // the window.
@@ -206,7 +214,8 @@ export function on(animate: boolean): void {
     frame.setAttribute("aria-hidden", "true");
     frame.style.setProperty("position-anchor", name);
     // The label hangs from the frame, on its top edge.
-    frame.style.setProperty("anchor-name", `${name}-frame`);
+    // The header's frame is also --xray-header: the chips inside the header keep within its bottom edge.
+    frame.style.setProperty("anchor-name", element.matches(".site-header") ? `${name}-frame, --xray-header` : `${name}-frame`);
 
     const label = document.createElement("a");
     label.className = `xray-label${bar}${fullWidth}${inHeader}`;
