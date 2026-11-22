@@ -17,16 +17,15 @@ npx pattern-dump@latest init
 <pd-components-site-card title="This site" image="/assets/screenshots/site-page.webp" line="These docs, and the style guide they're built from." href="/in-practice/this-site/" link-label="See how this site is built" />
 </pd-components-site-cards>
 
-pages/about.md
-
+<pd-components-labelled-code label="pages/about.md">
 ```md
 <pd-components-note heading="Note" kind="danger">
 The style guide comes first.
 </pd-components-note>
 ```
+</pd-components-labelled-code>
 
-npx pd build
-
+<pd-components-labelled-code label="npx pd build">
 ```txt
 [site] /about/:
   - about.md:5:36: <pd-components-note>.kind
@@ -38,3 +37,4 @@ so nothing was written:
     <pd-components-note>.kind must be one of
     "note", "warning" (got "danger")
 ```
+</pd-components-labelled-code>

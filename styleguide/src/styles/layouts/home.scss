@@ -121,38 +121,22 @@
   max-inline-size: 36em;
 }
 
-// The promise's two code blocks, from the page's markdown: a line naming the file or the command, then its block.
-// From 40em the two pairs sit side by side, label over block, and the blocks fill one height; below, they stack in
-// source order. The labels are small mono, muted, like the start row's.
+// The promise's two code blocks, components/labelled-code from the page's markdown: its file or command above each
+// block. From 40em the two sit side by side and their blocks fill one height (the figure is a column whose block
+// grows); below, they stack in source order.
 .home-promise-code {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: tokens.$space-sm tokens.$space-lg;
+  gap: tokens.$space-lg;
 }
 
 @media (min-width: 40em) {
-  .home-promise-code {
-    grid-template-rows: auto 1fr;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-flow: column;
-  }
+  .home-promise-code { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-.home-promise-code > p {
-  margin: 0;
-  font-family: tokens.$font-mono;
-  font-size: var(--font-size--1);
-  color: var(--color-text-muted);
-}
-
-.home-promise-code > p:not(:first-child) { margin-block-start: 1.5rem; }
-
-@media (min-width: 40em) {
-  .home-promise-code > p:not(:first-child) { margin-block-start: 0; }
-}
-
-.home-promise-code > .shiki-container { display: flex; flex-direction: column; margin-block-start: 0; }
-.home-promise-code > .shiki-container > pre { flex: 1; padding-inline-end: 1.5rem; }
+// The labels at a paragraph's line height, as the promise is designed; a figcaption alone would have the document's.
+.home-promise-code .labelled-code-label { line-height: 1.7; }
+.home-promise-code pre { padding-inline-end: 1.5rem; }
 
 // Shown, not for copying: these blocks are a mistake and its answer, so they carry no copy button (pd's script adds
 // one to every code block).
