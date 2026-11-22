@@ -48,6 +48,10 @@ The block between the `---` lines is the frontmatter, the page's data. The page 
 
 The `pattern` block shows a component from your style guide on the page: the component's preview from the workbench, in a frame of its own, so the badge looks exactly as it does on the Stage. Under it, the example lists the component's variants, `default` first, and its caption links to the component in the workbench.
 
+The frame is an `<iframe>` of the badge's preview, in a `<figure class="doc-example">`, and it gets a `height` only when the component's schema declares one: `x-pd-example-height`, at the top of `badge.schema.json`, a whole number of CSS pixels that holds for every variant. In `pd dev`, a frame declared taller than its content is a warning that names the number to declare: `<id>: its live example is declared <n>px tall (x-pd-example-height), but its content is <m>px. … declare at most <m>.` [Live examples](/reference/markdown/#height) has the rules.
+
+The starter has no styles for the frame, its list of variants or its caption: they are the site's to style, with the classes [Live examples](/reference/markdown/#live-examples) lists.
+
 An id that names no component stops the page. In `pd dev`, the page then says that it cannot be built and lists why:
 
 ```txt
