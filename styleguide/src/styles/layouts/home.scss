@@ -20,11 +20,17 @@
 // must fit in two lines on a phone, and "Build your design system." needs a line of 8.71 times the font size for that
 // ("design system."), the widest word "everywhere." 7.48. So the font is at most 1/8.71 of the column (11.5cqi);
 // 10.5cqi leaves about 9% for the italic's overhang. Measure again when the headline changes.
+//
+// It never gets smaller than the lede below it (1.12 times the body size, at most 1.33rem): 1.375rem at least. Where a
+// word doesn't fit the column even then (a very narrow window, or large text), it is hyphenated (the page is
+// lang="en"), and broken anywhere as the last resort, rather than running out of the column.
 .home-title {
   margin: 0;
   max-inline-size: 18ch;
   font-family: tokens.$font-display;
-  font-size: min(var(--font-size-4), 10.5cqi);
+  font-size: clamp(1.375rem, 10.5cqi, var(--font-size-4));
+  hyphens: auto;
+  overflow-wrap: break-word;
   font-style: italic;
   font-stretch: 125%;
   font-weight: var(--font-weight-heading-strong);
