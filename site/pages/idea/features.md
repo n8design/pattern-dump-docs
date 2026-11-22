@@ -4,7 +4,7 @@ description: What Pattern Dump does, one line per feature: a design system docum
 layout: doc
 ---
 
-What does Pattern Dump do for a design system? Each line below names one thing, and links to the page that explains it where there is one.
+Each line names one thing Pattern Dump does for a design system, with a link to the page that explains it where there is one.
 
 ## The workbench
 
