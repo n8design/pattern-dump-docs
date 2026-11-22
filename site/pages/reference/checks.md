@@ -82,6 +82,8 @@ Every class on the site's pages, the 404 page included, must be defined by one o
 - a template's class word, or a `prefix{{…}}` family;
 - the page's own `<style>`.
 
+The check reads the classes in each written page's HTML, after the templates have run. A class word a template writes counts as defined, and so does a family it builds from a value with a fixed start: `class="icon icon-{{name}}"` defines `icon` and every class that starts with `icon-`. A class that arrives whole from a value, such as `class="{{look}}"`, is defined only by a stylesheet rule for it, the page's `<style>` or `site.checks.allowClasses`, and every page that uses it gets a line of its own.
+
 Always allowed
 : `is-*`, `has-*` and `js-*`, and the classes in `site.checks.allowClasses`, where a trailing `*` makes a prefix.
 : Pattern Dump's own: `shiki`, `shiki-*`, `__shiki_*`, `line`, `copy-btn`, `pd-*`, `pattern-link`, `pattern-link--unresolved`, `doc-example`, `doc-example-id`, `doc-example-variants`, `doc-error`, `doc-image` and `doc-figure`.
