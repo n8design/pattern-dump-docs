@@ -52,7 +52,7 @@ A flag takes a whole number from 0 to 65535. Port `0` takes any free port. Anyth
 
 ### When a port is taken
 
-Before it binds its ports, `pd dev` checks the live-reload port first, then the workbench's, on `127.0.0.1` and on `::1`. When a server answers on either, it stops with exit code 1, and no stack trace. Most often that server is another `pd dev` still running. With one already on the default ports, a second prints:
+Before it binds its ports, `pd dev` checks the live-reload port first, then the workbench's, on `127.0.0.1` and on `::1`. When a server answers on either, it stops with exit code 1, and no stack trace. Most often that server is another `pd dev` still running. If you read these docs on your own machine, their server already uses 4000 and 4001. With one already on the default ports, a second prints:
 
 ```text
 [pd] Port 4001 is already in use, so live reload cannot start. Another `pd dev` is probably still running: stop it, or start this one on other ports:
