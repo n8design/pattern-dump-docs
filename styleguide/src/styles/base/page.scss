@@ -17,6 +17,8 @@
 .page-tags li { display: inline; margin-inline-start: tokens.$space-sm; }
 
 // On the reading page (base/reading.scss).
+// Its figures are numbered from 1 in each article (atoms/figure).
+.reading-article { counter-reset: figure; }
 .reading-article .page-title { margin: 0; }
 .reading-article .page-description { margin: 1.25rem 0 0; font-size: 1.12em; line-height: 1.6; color: var(--color-text); }
 .reading-article .page-meta { margin: 1rem 0 0; }

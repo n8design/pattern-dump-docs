@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Figure",
+  "description": "An image with a caption, as Pattern Dump writes one from markdown: figure.doc-figure.",
+  "type": "object",
+  "required": [
+    "image",
+    "alt",
+    "caption"
+  ],
+  "properties": {
+    "image": {
+      "type": "string",
+      "description": "The image, a raster image in the assets",
+      "x-pd-image": {
+        "widths": [
+          480,
+          672,
+          1344
+        ],
+        "sizes": "(min-width: 44rem) 42rem, calc(100vw - 2rem)"
+      }
+    },
+    "alt": {
+      "type": "string",
+      "description": "What the image shows"
+    },
+    "caption": {
+      "type": "string",
+      "description": "The caption: what the image shows and why it is there"
+    }
+  }
+}

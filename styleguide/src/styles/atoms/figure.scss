@@ -1,0 +1,31 @@
+@use "../base/tokens";
+
+// Pattern Dump's caption figures (atoms/figure): an image from the markdown with a title, `![Alt](#stem "Caption")` or
+// `![Alt](/assets/… "Caption")`, which Pattern Dump writes as figure.doc-figure, and a live example (figure.doc-example,
+// base/doc-example.scss), whose caption names the component.
+//
+// Each is numbered: the counter starts with each article (base/page.scss), so the numbers follow the page's order and
+// never need writing by hand. An image without a caption isn't a figure and isn't numbered. The caption breaks the
+// site's type on purpose, in Georgia (tokens.$font-caption): the look of a figure in a paper or a textbook. Upright,
+// for legibility; the weights are the site's, light and dark.
+.doc-figure,
+.doc-example {
+  margin-inline: 0;
+  counter-increment: figure;
+}
+
+.doc-figure figcaption,
+.doc-example figcaption {
+  margin-block-start: 0.875rem;
+  color: var(--color-text-muted);
+  font-family: tokens.$font-caption;
+  font-size: 0.9375em;
+  font-weight: var(--font-weight-body);
+}
+
+.doc-figure figcaption::before,
+.doc-example figcaption::before {
+  content: "Fig. " counter(figure) ": ";
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}
