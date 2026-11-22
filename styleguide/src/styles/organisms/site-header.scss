@@ -1,8 +1,14 @@
 @use "../base/tokens";
+@use "site-nav-width" as nav;
 
-// One row on a wide screen: the name, the sections, the search. It wraps on a narrow one.
+// One row on a wide screen: the name, the sections, the search. It wraps on a narrow one, and becomes the phone menu's
+// one row (below) where the sections don't fit on one line. The header is the container that decides that, at 1rem,
+// so its em is the reader's text size and nothing else (the body text's size grows with the window).
 .site-header {
+  container: site-header / inline-size;
+  anchor-name: --site-header;
   display: flex;
+  font-size: 1rem;
   flex-wrap: wrap;
   gap: 1rem 2rem;
   align-items: center;
@@ -112,3 +118,126 @@
 }
 // Empty without JavaScript: nothing to show.
 .site-search-key:empty { display: none; }
+
+// The phone menu, without a breakpoint of its own. The sections are the same on every page of a build, so their width in
+// one line is measured once, with the real fonts (scripts/nav-width.mjs, run when the nav changes; the build fails when
+// the nav's labels or fonts no longer match what was measured), and written to _site-nav-width.scss. The header is one row with the menu
+// button wherever its content is narrower than that, plus 0.5em of air: @container, in em, so it follows the window
+// and the reader's text size, and it holds from the first paint and without JavaScript.
+//
+// The sections, GitHub and the search are one set of links in .site-menu, a popover in the markup. While they fit, it
+// adds no box of its own (display: contents), so they sit in the header's row as always. Collapsed, it is the menu:
+// full width, directly under the header, opened by the menu button (popovertarget, which needs no script).
+$collapsed: "site-header (width < #{nav.$site-nav-width + 0.5em})";
+
+// The header's one row with the button, from the rem values the bar is built from (pages/frame derives the same).
+$menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hairline;
+
+.site-menu-button { display: none; }
+.site-menu { display: contents; }
+
+@container #{$collapsed} {
+  // The button: the frame of the site's secondary actions (layouts/home, "Support it"), a control's edge at 3:1, no
+  // fill. Three strokes, an X while open, in the search icon's line style. Right of the logo; with text enlarged far
+  // enough that the two don't fit side by side, it goes to a row of its own rather than out of the window.
+  .site-menu-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: tokens.$touch-target;
+    block-size: tokens.$touch-target;
+    margin-inline-start: auto;
+    padding: 0;
+    border: 0.0625rem solid var(--color-border);
+    background: none;
+    color: var(--color-heading);
+    cursor: pointer;
+  }
+
+  // Closed, the menu is hidden like any popover (display: none); open, it is a column.
+  .site-menu { display: revert; }
+  .site-menu:popover-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // The panel: under the header, across the window, as tall as it needs and never taller than what is left. With
+  // anchor positioning, position-area makes the space under the header its containing block, so the panel meets the
+  // header's real bottom edge however tall enlarged text makes it; without it, the panel starts at the header's
+  // one-row height, from the same rem values.
+  .site-menu {
+    position: fixed;
+    position-anchor: --site-header;
+    inset: $menu-top 0 auto;
+    inline-size: auto;
+    max-block-size: calc(100dvh - #{$menu-top});
+    margin: 0;
+    padding: tokens.$space-sm var(--site-gutter, 1.5rem) tokens.$space-lg;
+    overflow: auto;
+    border: 0;
+    border-bottom: tokens.$hairline solid var(--color-hairline);
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    @supports (position-area: block-end) {
+      inset: 0;
+      position-area: block-end span-all;
+      inline-size: 100%;
+      max-block-size: 100%;
+    }
+  }
+
+  // After the sections' rows (molecules/site-nav), GitHub as one more row, then the search field.
+  .site-header-link {
+    display: flex;
+    min-block-size: 3.5rem;
+    border-top: tokens.$hairline solid var(--color-hairline);
+    font-size: var(--font-size-1);
+  }
+  .site-search { margin-block-start: 1.5rem; }
+  .site-search-form { inline-size: 100%; }
+
+  // Opening, the panel is revealed from the header's edge downwards; closing reverses it. Only for readers who don't
+  // ask for reduced motion: for the others it just opens.
+  @media (prefers-reduced-motion: no-preference) {
+    .site-menu {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 0.25s ease-out, display 0.25s, overlay 0.25s;
+      transition-behavior: allow-discrete;
+    }
+    .site-menu:popover-open {
+      clip-path: inset(0);
+
+      @starting-style { clip-path: inset(0 0 100% 0); }
+    }
+  }
+}
+
+.site-menu-button:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+
+.site-menu-icon {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.site-menu-icon-close,
+.site-menu-button[aria-expanded="true"] .site-menu-icon-open { display: none; }
+.site-menu-button[aria-expanded="true"] .site-menu-icon-close { display: inline; }
+
+// The page under the header, dimmed and blurred while the menu is open; the header stays sharp above it. The one blur
+// TASTE.md allows, on this backdrop only. Outside the container query: the menu can only be open where it is collapsed.
+.site-menu::backdrop {
+  position-anchor: --site-header;
+  inset-block-start: $menu-top;
+  inset-block-start: anchor(bottom);
+  background: var(--color-menu-veil);
+  // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
+  backdrop-filter: blur(0.375rem);
+}
+
+// While it is open the page under it doesn't scroll, so the header stays where the menu hangs from.
+html:has(.site-menu:popover-open) { overflow: hidden; }
