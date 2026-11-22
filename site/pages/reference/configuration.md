@@ -233,7 +233,7 @@ A raster image in an image slot is written as WebP variants. A raster image in a
 : `pd build --out` overrides it. Resolved against the root.
 : The folder is replaced as a whole, and only at the end of a build that passed every check. The build writes into a hidden folder beside it, `.<folder name>.pd-build-<process id>`, and renames that into the folder's place. The earlier folder is moved aside first and put back if the rename fails. A build that stops before that step leaves the folder as it was.
 : The workbench takes its place before the site. When the site then can't take its own, the build stops with the workbench folder already replaced: `pd build: the workbench in <dir> is this build's, but the site could not take its place in <dir>: the two are out of step. The site in it is the earlier one; run pd build again.`, with the underlying error on a line of its own. The first `<dir>` is the workbench's folder, the second the site's.
-: It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap the patterns, styles, theme or asset folders: `pd build: --out <dir> overlaps <src>, which Pattern Dump reads: choose another folder`.
+: It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap anything Pattern Dump reads: the patterns, styles, data, scripts, theme, asset and pages folders, the helpers file or folder, and the site's head file: `pd build: --out <dir> overlaps <kind> <src>, which Pattern Dump reads: choose another folder`, where `<kind>` says which, such as `the data folder`.
 
 `build.basePath`
 : A string. Default `/`.
@@ -266,7 +266,7 @@ A raster image in an image slot is written as WebP variants. A raster image in a
 
 `site.outDir`
 : A string.
-: `pd build` writes the site there. It may not contain the project: `pd build: site.outDir <dir> would contain the project itself: choose a folder inside or beside it`. It may not overlap the patterns, styles, pages, theme or asset folders: `pd build: site.outDir <dir> overlaps <src>, which Pattern Dump reads: choose another folder`. It may not overlap the workbench folder: `pd build: site.outDir <a> and --out <b> overlap: the site and the workbench each need a folder of their own`.
+: `pd build` writes the site there. It may not contain the project: `pd build: site.outDir <dir> would contain the project itself: choose a folder inside or beside it`. It may not overlap anything Pattern Dump reads, the same folders and files as `--out`: `pd build: site.outDir <dir> overlaps <kind> <src>, which Pattern Dump reads: choose another folder`. It may not overlap the workbench folder: `pd build: site.outDir <a> and --out <b> overlap: the site and the workbench each need a folder of their own`.
 
 `site.pagesDir`, `patternsDir` and `site.outDir` are three separate folders, none inside another. The check compares the config before the defaults are filled in: the values the config file writes, with the project's own `package.json` `patternDump` manifest merged in. A key left out of both is not checked: with no `patternsDir`, its default `<sourceDir>/patterns` is not compared, but a `patternsDir` the manifest names is. A pair is skipped when either value is not a string. The check runs only when validation found no other problem. In the messages, `<a>` and `<b>` are the keys, `<x>` and `<y>` their values as written.
 
