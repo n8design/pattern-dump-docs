@@ -15,7 +15,7 @@ Where does a design system start? With an empty folder and one command. This gui
 
 ## The commands
 
-Pattern Dump is one npm package, `pattern-dump`, with one command-line tool, `pd`. `npx pattern-dump` runs it before you have a project, and `npx pd` inside one. The guide uses four of its commands:
+Pattern Dump is one npm package, `pattern-dump`, with one command-line tool, `pd`. `npx pattern-dump@latest` runs it before you have a project, and `npx pd` inside one. The guide uses four of its commands:
 
 `pd init`
 : Sets up a project: a style guide, a site on an existing style guide, or both in one project.
