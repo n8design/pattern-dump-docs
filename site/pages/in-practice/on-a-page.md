@@ -5,7 +5,7 @@ layout: doc
 order: 1
 ---
 
-What can a page hold besides text? Each section below shows one thing Pattern Dump makes from a page's markdown, rendered from this site's own style guide and assets, and then the markdown that made it.
+Besides text, a page's markdown can hold anything from a live example to highlighted code. Each section shows one, rendered from this site's own style guide and assets, followed by the markdown that made it.
 
 ## A live example
 
