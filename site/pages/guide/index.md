@@ -5,7 +5,7 @@ layout: doc
 order: 4
 ---
 
-Where does a design system start? With an empty folder and one command:
+A design system starts with an empty folder and one command:
 
 ```sh
 npx pattern-dump@latest init my-design-system
@@ -39,7 +39,7 @@ Pattern Dump is one npm package, `pattern-dump`, with one command-line tool, `pd
 
 ## The steps
 
-How to build a design system with Pattern Dump, in nine steps:
+Nine steps, in order:
 
 1. [Create a style guide](/guide/create-a-style-guide/): set the project up with `pd init`, and see what each file it writes is for.
 2. [Run the workbench](/guide/run-the-workbench/): start `pd dev` and find your way around the workbench, where your components render.
