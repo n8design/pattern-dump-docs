@@ -17,8 +17,9 @@ Every page of the site, on the home page (`layouts/home`), built from `nav`: not
   body, which the home layout gets from Pattern Dump. When the body has a heading, it is a `<section>` of its own,
   named by its first heading (`aria-labelledby` with the anchor from `page.headings`), so a screen reader announces it
   as a region of its own, inside "All pages", rather than as one more group of pages. Without a heading it is a plain
-  block. Its heading and the paragraph right under it look like a group's title and note. Without `body`, nothing is
-  shown.
+  block. Its heading and the paragraph right under it look like a group's title and note. A layout can give the
+  heading and the note instead, as `bodyTitle` and `bodyNote`, when the body is a region of placed components: the
+  home page's sites. Without `body`, nothing is shown.
 
 **Layout.** The guide comes first; every other section follows in `.page-map-side`, then `body` across it. One
 column on a narrow screen, two from `48em` (the other sections stacked beside the guide), three equal columns from
