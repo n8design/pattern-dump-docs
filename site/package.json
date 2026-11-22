@@ -13,6 +13,6 @@
   "devDependencies": {
     "@pattern-dump-docs/styleguide": "file:../styleguide",
     "pagefind": "^1.6.0",
-    "pattern-dump": "0.8.1"
+    "pattern-dump": "0.8.2"
   }
 }
