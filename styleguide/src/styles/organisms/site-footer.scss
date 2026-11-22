@@ -35,4 +35,17 @@
 .site-footer-links a:hover,
 .site-footer-links a:focus-visible { text-decoration: underline; }
 // The separator is decoration: the empty text after the slash keeps it from being read.
+// The x-ray control (src/scripts/site-footer.ts adds it): set like the links beside it; while x-ray is on, underlined.
+.site-footer-xray-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary);
+  font: inherit;
+  cursor: pointer;
+}
+.site-footer-xray-button:hover,
+.site-footer-xray-button[aria-pressed="true"] { text-decoration: underline; }
+.site-footer-xray-button[aria-pressed="true"] { text-decoration-thickness: 0.125rem; }
+.site-footer-xray-button:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
 .site-footer-links li + li::before { content: "\00a0·\00a0" / ""; }

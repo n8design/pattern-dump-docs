@@ -53,6 +53,17 @@ $colors: (
   // The menu's veil: the page surface, translucent, over the page under the open phone menu (organisms/site-header),
   // with the one blur TASTE.md allows. It dims the page; the menu's own text sits on the opaque surface.
   "menu-veil":        (light: oklch(95% 0.006 240 / 0.7), dark: oklch(19.9% 0.026 247 / 0.7)),
+  // X-ray (base/xray.scss): the page is dark in both modes while it is on, so each has one value for both. The veil is
+  // the fallback without backdrop-filter; label sits on label-ground at 4.5:1 and more, hairline and glow at 3:1 and
+  // more on the darkened page.
+  "xray-veil":        (light: oklch(8% 0.01 240 / 0.82),  dark: oklch(8% 0.01 240 / 0.82)),
+  "xray-hairline":    (light: oklch(62% 0.01 240),        dark: oklch(62% 0.01 240)),
+  "xray-glow":        (light: oklch(86% 0.13 210),        dark: oklch(86% 0.13 210)),
+  "xray-glow-soft":   (light: oklch(78% 0.13 220 / 0.55), dark: oklch(78% 0.13 220 / 0.55)),
+  "xray-tint":        (light: oklch(72% 0.12 230 / 0.6),  dark: oklch(72% 0.12 230 / 0.6)),
+  "xray-label":       (light: oklch(91% 0.07 210),        dark: oklch(91% 0.07 210)),
+  "xray-label-active":(light: oklch(100% 0 0),            dark: oklch(100% 0 0)),
+  "xray-label-ground":(light: oklch(12% 0.02 240 / 0.9),  dark: oklch(12% 0.02 240 / 0.9)),
   // Diagrams and charts (symbol images, styleguide/diagrams/kit.svg). The accent stays the one value an image is
   // about; these are for the rest, at most three hues in one image, accent included, and never colour alone (each
   // also gets a dash pattern, a marker or a label). Every one is 3:1 or more on the image's plate (surface-subtle).

@@ -1,0 +1,137 @@
+@use "tokens";
+
+// X-ray (src/scripts/xray.ts, switched on by the footer's control): the page goes dark and monochrome under a veil,
+// and the components marked with data-xray (and the live examples) sit above it like bones on an x-ray, each with a
+// frame and a label that links to it in the workbench. The filters and the veil's backdrop-filter are an exception
+// TASTE.md, section 1, allows for x-ray only (Filters, x-ray mode).
+//
+// Layers: the veil 10, the marked components 15, their frames and labels 20 and 21, the header and the footer 30 (so
+// nothing glows over them while the page scrolls), and the frames and labels of what is in them 40 and 41.
+
+// The veil. Without backdrop-filter, a translucent black.
+.xray-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--color-xray-veil);
+  pointer-events: none;
+}
+
+@supports (backdrop-filter: grayscale(1)) {
+  .xray-veil {
+    background: transparent;
+    // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: filters, x-ray mode (the veil)
+    backdrop-filter: grayscale(1) brightness(0.3);
+  }
+
+  // A light page needs more darkening to reach the same dark.
+  @media (prefers-color-scheme: light) {
+    .xray-veil {
+      // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: filters, x-ray mode (the veil)
+      backdrop-filter: grayscale(1) brightness(0.12);
+    }
+  }
+}
+
+// The marked components above the veil. Positioned only where they aren't already (zero specificity), so the sticky
+// header and footer stay sticky.
+:where(html[data-xray-mode] :is([data-xray], figure.doc-example)) { position: relative; }
+html[data-xray-mode] :is([data-xray], figure.doc-example) { z-index: 15; }
+html[data-xray-mode] .site > :is(.site-header, .site-footer) { z-index: 30; }
+
+// The x-ray look, on the outermost marked component only (an inner one would take it twice): grey, blue-tinted,
+// brighter, with a soft blue glow.
+html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], figure.doc-example) *) {
+  filter: grayscale(1) sepia(0.4) hue-rotate(170deg) saturate(1.6) brightness(1.15) drop-shadow(0 0 0.75rem var(--color-xray-tint));
+}
+
+// In light mode the ink is dark and the ground light, the opposite of an x-ray: inverted first, so the ink glows like
+// bone on the dark page, as it does in dark mode.
+@media (prefers-color-scheme: light) {
+  html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], figure.doc-example) *) {
+    filter: invert(1) grayscale(1) sepia(0.4) hue-rotate(170deg) saturate(1.6) brightness(1.15) drop-shadow(0 0 0.75rem var(--color-xray-tint));
+  }
+}
+
+// A frame: a thin grey hairline 0.75rem outside the component. Active, the hairline gives way to the glow, which
+// grows outward from it: a white line, then cyan, then wide soft glows; it shrinks back on leave.
+.xray-frame {
+  position: fixed;
+  z-index: 20;
+  inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
+  margin: -0.75rem;
+  border: 0.0625rem solid var(--color-xray-hairline);
+  filter: drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent);
+  pointer-events: none;
+}
+
+.xray-frame[data-active] {
+  border-color: var(--color-xray-label-active);
+  filter: drop-shadow(0 0 0.125rem var(--color-xray-glow)) drop-shadow(0 0 0.5rem var(--color-xray-glow)) drop-shadow(0 0 1.5rem var(--color-xray-glow-soft));
+}
+
+// A label: the component's id, a link to it in the workbench, above the component (below it where there is no room
+// above), always glowing; white, and brighter, while its component is active.
+.xray-label {
+  position: fixed;
+  z-index: 21;
+  position-area: top;
+  position-try-fallbacks: flip-block;
+  margin-block: 0.875rem;
+  padding: 0.125rem 0.375rem;
+  background: var(--color-xray-label-ground);
+  color: var(--color-xray-label);
+  font-family: tokens.$font-mono;
+  font-size: var(--font-size--1);
+  white-space: nowrap;
+  text-decoration: none;
+  filter: drop-shadow(0 0 0.25rem var(--color-xray-glow-soft));
+}
+
+.xray-label[data-active] {
+  color: var(--color-xray-label-active);
+  filter: drop-shadow(0 0 0.375rem var(--color-xray-glow)) drop-shadow(0 0 1rem var(--color-xray-glow-soft));
+}
+
+.xray-label:focus-visible { outline: 0.125rem solid var(--color-xray-glow); outline-offset: 0.125rem; }
+
+.xray-frame.xray-in-bar { z-index: 40; }
+.xray-label.xray-in-bar { z-index: 41; }
+
+// Without anchor positioning there is nothing to hang the frames and labels from: the veil and the marked components
+// still show which part is which, and the page stays as usable as without x-ray.
+@supports not (anchor-name: --a) {
+  .xray-frame,
+  .xray-label { display: none; }
+}
+
+// Switching on: the page fades to black, then the marked components blink in like a fluorescent tube, frames and
+// labels with them, each on its own (never a wrapper, see above). The glow grows and shrinks. Only for readers who
+// don't ask for reduced motion: for the others it just switches.
+@media (prefers-reduced-motion: no-preference) {
+  .xray-frame,
+  .xray-label { transition: filter 0.3s ease-out, border-color 0.3s ease-out, color 0.3s ease-out; }
+
+  html[data-xray-intro] .xray-veil { animation: xray-fade 0.45s ease-out both; }
+
+  html[data-xray-intro] :is([data-xray], figure.doc-example):not(:is([data-xray], figure.doc-example) *),
+  html[data-xray-intro] :is(.xray-frame, .xray-label) {
+    animation: xray-flicker 0.8s step-end 0.45s both;
+  }
+}
+
+@keyframes xray-fade {
+  from { opacity: 0; }
+}
+
+@keyframes xray-flicker {
+  0% { opacity: 0; }
+  12% { opacity: 1; }
+  18% { opacity: 0; }
+  30% { opacity: 1; }
+  36% { opacity: 0.3; }
+  48% { opacity: 1; }
+  54% { opacity: 0; }
+  66%,
+  100% { opacity: 1; }
+}
