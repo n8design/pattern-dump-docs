@@ -9,7 +9,7 @@ block below it is Pattern Dump's own code block, highlighted and with its copy b
 ````md
 <pd-components-labelled-code label="package.json">
 ```json
-"pattern-dump": "0.8.1"
+"pattern-dump": "0.8.2"
 ```
 </pd-components-labelled-code>
 ````

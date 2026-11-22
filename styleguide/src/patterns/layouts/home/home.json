@@ -11,7 +11,7 @@
   "site": {
     "title": "Pattern Dump",
     "footer": "Pattern Dump. Built with Pattern Dump.",
-    "patternDumpVersion": "0.8.1",
+    "patternDumpVersion": "0.8.2",
     "patternDumpReleased": "22 November 2026",
     "sponsor": {
       "href": "https://github.com/sponsors/StfBauer"
