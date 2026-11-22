@@ -17,7 +17,8 @@
     "lint:css": "npm run lint:css -w @pattern-dump-docs/styleguide",
     "prepare": "husky",
     "screenshots": "node scripts/screenshots.mjs",
-    "nav-width": "node scripts/nav-width.mjs"
+    "nav-width": "node scripts/nav-width.mjs",
+    "xray-check": "node scripts/xray-check.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "21.0.2",
