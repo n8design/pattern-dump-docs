@@ -19,7 +19,8 @@ the font files and the stylesheets that set the row, and the build fails when th
 
 With large text on a narrow phone, the name breaks onto two lines, only between its words. Where even its longest word
 doesn't fit beside the button (a second width the script measures and writes), only the logo shows; the name stays in
-the link, visually hidden, so it is still the link's name.
+the link, visually hidden, so it is still the link's name. `npm run header-check` drags a window across both widths
+and back at 100 % and 200 % text and fails if the header is ever more than one row.
 
 The button is the frame of the site's secondary actions (the border token, a control's edge at 3:1, no fill, square)
 around three strokes drawn for this site, in the search icon's line style, an X while the menu is open. Its name is

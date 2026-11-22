@@ -18,6 +18,7 @@
     "prepare": "husky",
     "screenshots": "node scripts/screenshots.mjs",
     "header-width": "node scripts/header-width.mjs",
+    "header-check": "node scripts/header-check.mjs",
     "xray-check": "node scripts/xray-check.mjs"
   },
   "devDependencies": {
