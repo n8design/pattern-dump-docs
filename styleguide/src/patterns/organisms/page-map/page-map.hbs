@@ -1,6 +1,6 @@
 <section class="page-map" aria-label="All pages">
   {{#each nav}}{{#if (eq route "/guide/")}}{{#if children.length}}
-  <div class="page-map-group page-map-guide">
+  <div class="page-map-group page-map-guide" data-xray="organisms/page-map">
     <h2 class="page-map-title">{{title}}</h2>
     {{#if description}}<p class="page-map-note">{{description}}</p>{{/if}}
     <ol class="page-map-steps" role="list">
@@ -12,7 +12,7 @@
   {{/if}}{{/if}}{{/each}}
   <div class="page-map-side">
     {{#each nav}}{{#if children.length}}{{#unless (eq route "/guide/")}}
-    <div class="page-map-group">
+    <div class="page-map-group" data-xray="organisms/page-map">
       <h2 class="page-map-title">{{title}}</h2>
       {{#if description}}<p class="page-map-note">{{description}}</p>{{/if}}
       <ul class="page-map-list" role="list">
@@ -20,7 +20,7 @@
       </ul>
     </div>
     {{/unless}}{{/if}}{{/each}}
-    <div class="page-map-group">
+    <div class="page-map-group" data-xray="organisms/page-map">
       <h2 class="page-map-title">Pages</h2>
       <p class="page-map-note">Everything else.</p>
       <ul class="page-map-list" role="list">
