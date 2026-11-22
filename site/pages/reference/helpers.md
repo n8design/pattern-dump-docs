@@ -36,7 +36,7 @@ Pattern Dump registers these helpers in every template it renders: components, l
 : Less than, greater than, less or equal, greater or equal, with JavaScript's `<`, `>`, `<=` and `>=` on the values as given. Two strings compare as text, so `"10"` is less than `"9"`; a number and a numeric string compare as numbers.
 
 `and`, `or`
-: True when both are truthy, or either is. They use two arguments, and a third is ignored.
+: True when both are truthy, or either is. They take exactly two arguments, and a third fails the render: `and takes exactly 2 arguments, got 3`.
 
 `not`
 : True when its argument is `false`, `0`, `""`, `null`, `undefined` or `NaN`.
@@ -54,7 +54,7 @@ The comparisons take two arguments and ignore any more.
 
 ### Note
 
-A missing argument is not an error. Handlebars passes its own options object in the argument's place, so `{{eq a}}` is false, `{{not}}` is false, `{{isdefined}}` is true, and `{{defaultValue x}}` with `x` unset renders `[object Object]`. Give every argument.
+A helper called with too few arguments fails the render and names itself: `<helper> needs <n> arguments, got <m>` (`argument` when it needs one), where `<n>` is how many it takes and `<m>` how many it got. So `{{defaultValue x}}` without a fallback fails with `defaultValue needs 2 arguments, got 1`, and `{{eq a}}` with `eq needs 2 arguments, got 1`, where they rendered `[object Object]` and false until 0.8.1. Give every argument.
 
 ## `pd-image`
 
