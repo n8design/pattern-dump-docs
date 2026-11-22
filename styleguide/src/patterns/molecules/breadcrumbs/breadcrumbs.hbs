@@ -1,6 +1,6 @@
 <nav class="breadcrumbs" aria-label="Breadcrumbs">
   <ol class="breadcrumbs-list">
-    {{#each page.breadcrumbs}}<li class="breadcrumbs-item"><a href="{{route}}">{{title}}</a></li>{{/each}}
+    {{#each page.breadcrumbs}}<li class="breadcrumbs-item"><a href="{{route}}">{{#if (eq route "/")}}Home{{else}}{{title}}{{/if}}</a></li>{{/each}}
     <li class="breadcrumbs-item"><span aria-current="page">{{title}}</span></li>
   </ol>
 </nav>
