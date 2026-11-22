@@ -30,7 +30,7 @@ The root `package.json` names `styleguide` and `site` as its workspaces, so one 
   },
   "devDependencies": {
     "@pattern-dump-docs/styleguide": "file:../styleguide",
-    "pattern-dump": "0.8.1"
+    "pattern-dump": "0.8.2"
   }
 }
 ```
@@ -124,7 +124,7 @@ export default defineConfig({
     "build": "pd build"
   },
   "devDependencies": {
-    "pattern-dump": "0.8.1",
+    "pattern-dump": "0.8.2",
     "postcss-scss": "4.0.9",
     "stylelint": "17.16.0",
     "typescript": "^5.9.0"
@@ -140,7 +140,7 @@ Pattern Dump reads the field twice: for the site, to find the package's patterns
 
 ## The exact pin
 
-Both workspaces pin Pattern Dump to one version, `"pattern-dump": "0.8.1"`, with no `^`. An update is a change of its own: the version moves in both `package.json` files, and the pages that describe what changed move with it. The home page names the version the site is built with, read from the installed package.
+Both workspaces pin Pattern Dump to one version, `"pattern-dump": "0.8.2"`, with no `^`. An update is a change of its own: the version moves in both `package.json` files, and the pages that describe what changed move with it. The home page names the version the site is built with, read from the installed package.
 
 ## Two builds, published together
 
