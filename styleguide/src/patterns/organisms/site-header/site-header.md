@@ -35,8 +35,10 @@ GitHub as one more row, then the search field. Opening, it is revealed from the 
 blurred while it is open (the popover's `::backdrop`, the `menu-veil` token and the one blur `TASTE.md` allows), and
 doesn't scroll; the header stays sharp above it.
 
-Resizing a window across the width, the sections stay in the row for the 0.25 s of the panel's closing transition
-before the button appears.
+Resizing a window across the width, the script marks the header for one frame (`data-switching`), in which the menu
+has no transition, so the sections leave the row the moment the button appears. It asks the style guide's own query
+(`--site-menu-query` on the header) with `matchMedia`. Without the script, the sections stay in the row for the 0.25 s
+of the panel's closing transition.
 
 Progressive enhancement: with anchor positioning the panel and the backdrop meet the header's real edge, however tall
 enlarged text makes it; without it they start at the header's one-row height, from the same rem values. Without

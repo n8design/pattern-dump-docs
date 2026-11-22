@@ -139,7 +139,7 @@
 // header changes; the build fails when its content, fonts or styles no longer match what was measured), and written to
 // _site-header-width.scss, with the media query below it. Narrower than that, the header is the name and the menu
 // button: in em, so it follows the window and the reader's text size, and it holds from the first paint and without
-// JavaScript.
+// JavaScript. The header's script asks the same query, to keep the menu's transition out of the switch.
 //
 // The sections, GitHub and the search are one set of links in .site-menu, a popover in the markup. While they fit, it
 // adds no box of its own (display: contents), so they sit in the header's row as always. Collapsed, it is the menu:
@@ -229,6 +229,9 @@ $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hai
 
       @starting-style { clip-path: inset(0 0 100% 0); }
     }
+    // Not when the window crosses the width: the sections would stay in the row for the closing transition before
+    // the button appears. The script marks that one frame (data-switching).
+    .site-header[data-switching] .site-menu { transition: none; }
   }
 }
 
