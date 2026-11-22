@@ -110,7 +110,7 @@ Attribute values may be in double quotes, single quotes or none. An attribute's 
 
 An attribute's text is turned into the declared type only: a number (`-?\d+(\.\d+)?`), a whole number (`-?\d+`), or exactly `true` or `false`. `enum` is checked after that (`must be one of … (got …)`), and an object or `null` type can't be written as text.
 
-A component in a tag needs a schema; a variant's tag is checked against the variant's own schema, else its base's. Every declared key the tag leaves out is `null`, at every level, so the component's sample data never fills it on a page.
+A component in a tag needs a schema; a variant's tag is checked against the variant's own schema, else its base's. Every declared key the tag leaves out is `null`, at every level; on a page, a component never renders with its sample data ([Layouts](/reference/layouts/#sample-data)).
 
 ### Child tags and content
 
@@ -143,9 +143,6 @@ A schema Pattern Dump can't use
 
 Unescaped output
 : The placed component's templates, and those they include, may output unescaped (`{{{x}}}`, `{{& x}}`) only a name some schema of the placement declares `text/markdown`: `<id> outputs "<name>" unescaped ({{{<name>}}}) at <file>:<line>:<col>, which only a text/markdown property may be`.
-
-Sample data that sets an undeclared key
-: `the sample data of <t> (<file>) sets "<key>", which <owner> does not declare, so it would show wherever <owner> is placed`.
 
 A render error of a placed component
 : A problem of the page at the tag, never a server error.
