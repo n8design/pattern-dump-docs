@@ -1,10 +1,11 @@
 // X-ray: the docs site's way of showing which component is which. Loaded by src/scripts/site-footer.ts only when the
 // footer's control switches it on; a gimmick of this site, not of Pattern Dump.
 //
-// It marks every element with data-xray="<component id>" (set by hand in this style guide's templates) and every live
-// example (Pattern Dump's figure.doc-example, whose frame's title is the component's id). The page goes dark under a
-// veil; the marked components sit above it. Each gets a frame and a label, the label a link to the component in the
-// published workbench. Frames and labels live at the end of .site (the frame, pages/frame), outside the components
+// It marks every element with data-xray="<component id>" (set by hand in this style guide's templates), every live
+// example (Pattern Dump's figure.doc-example, whose frame's title is the component's id) and every figure with a
+// caption (Pattern Dump's figure.doc-figure, styled by atoms/figure). The page goes dark under a veil; the marked
+// components sit above it. Each gets a frame and a label, the label a link to the component in the published
+// workbench. Frames and labels live at the end of .site (the frame, pages/frame), outside the components
 // (whose filter would touch them) and, since .site makes no stacking context, in the root one above the veil, each anchored to its component with CSS anchor positioning.
 // Nothing wraps them: an opacity, filter, transform or animation on a wrapper would make a stacking context and drop
 // them under the veil's backdrop-filter. The styles are in base/xray.scss.
@@ -12,7 +13,7 @@
 const root = document.documentElement;
 const workbench = document.querySelector<HTMLElement>("template.site-footer-xray")?.dataset.workbenchUrl ?? "/workbench/";
 const reduced = (): boolean => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const MARKED = "[data-xray], figure.doc-example";
+const MARKED = "[data-xray], figure.doc-example, figure.doc-figure";
 // Inside .site, so they read its custom properties (the page gutter, for the bars' labels).
 const layer = (): HTMLElement => document.querySelector<HTMLElement>(".site") ?? document.body;
 
@@ -55,6 +56,25 @@ const place = (): void => {
   const placed: DOMRect[] = [];
   const obstacle = (rect: DOMRect): DOMRect | undefined =>
     [...placed.filter(p => touches(rect, p, gap)), ...content.filter(c => touches(rect, c))].sort((a, b) => a.right - b.right)[0];
+  // A frame holds what its component draws beyond its box: a symbol image reaches into the gutter (base/doc-image.scss).
+  for (const { element, frame } of marks) {
+    frame.style.removeProperty("margin-inline");
+    const box = element.getBoundingClientRect();
+    let left = box.left, right = box.right;
+    for (const drawn of element.querySelectorAll("img, svg:not(svg svg), iframe, video")) {
+      const rect = drawn.getBoundingClientRect();
+      if (rect.width === 0) continue;
+      left = Math.min(left, rect.left);
+      right = Math.max(right, rect.right);
+    }
+    if (left < box.left - 0.5 || right > box.right + 0.5) {
+      // The frame's own distance (its negative margin), outside what is drawn, but never past the window's edges (a
+      // phone held sideways draws a symbol image across the whole width).
+      const outset = -(parseFloat(getComputedStyle(frame).marginInlineStart) || 0);
+      const frameLeft = Math.max(0, left - outset), frameRight = Math.min(root.clientWidth, right + outset);
+      frame.style.setProperty("margin-inline", `${((frameLeft - box.left) / rem).toFixed(3)}rem ${((box.right - frameRight) / rem).toFixed(3)}rem`);
+    }
+  }
   for (const { label, frame } of marks) {
     label.style.removeProperty("margin-inline-start");
     delete label.dataset.align;
@@ -99,6 +119,26 @@ const onResize = (): void => {
 let added: HTMLElement[] = [];
 let active: Mark | undefined;
 let introTimer = 0;
+let outroTimer = 0;
+// The fade to black and back (base/xray.scss, xray-fade).
+const FADE = 450;
+
+// Room for the figures' frames and chips (base/xray.scss, data-xray-room), put in and taken out while the page is
+// dark, so the reader doesn't see it move: whatever is at the top of the window stays there.
+const room = (on: boolean): void => {
+  // The first thing down the middle of the window that holds no figure (not the column the room is made in).
+  let anchor: Element | undefined;
+  for (let y = innerHeight / 4; !anchor && y < innerHeight; y += innerHeight / 8) {
+    anchor = document.elementsFromPoint(innerWidth / 2, y).find(element =>
+      !element.closest(".xray-label, .xray-frame, .xray-veil, .site-header, .site-footer")
+      && !element.querySelector("figure.doc-figure"));
+  }
+  const before = anchor?.getBoundingClientRect().top;
+  root.style.setProperty("overflow-anchor", "none");
+  root.toggleAttribute("data-xray-room", on);
+  if (anchor && before !== undefined) window.scrollBy({ top: anchor.getBoundingClientRect().top - before, behavior: "instant" });
+  root.style.removeProperty("overflow-anchor");
+};
 
 const activate = (mark: Mark | undefined): void => {
   if (mark === active) return;
@@ -126,10 +166,16 @@ const onFocusOut = (event: FocusEvent): void => {
 
 export function on(animate: boolean): void {
   if (marks.length) return;
+  clear();
   root.dataset.xrayMode = "on";
-  if (animate && !reduced()) {
+  const fade = animate && !reduced();
+  if (fade) {
     root.dataset.xrayIntro = "";
     introTimer = window.setTimeout(() => delete root.dataset.xrayIntro, 1500);
+    // Once the page is dark, before the frames blink in.
+    window.setTimeout(() => { if (marks.length) { room(true); place(); } }, FADE);
+  } else {
+    room(true);
   }
 
   const veil = document.createElement("div");
@@ -141,7 +187,7 @@ export function on(animate: boolean): void {
   const elements = [...document.querySelectorAll<HTMLElement>(MARKED)]
     .filter(element => element.getClientRects().length > 0);
   elements.forEach((element, index) => {
-    const id = element.dataset.xray ?? element.querySelector("iframe")?.title ?? "";
+    const id = element.dataset.xray ?? (element.matches(".doc-figure") ? "atoms/figure" : element.querySelector("iframe")?.title ?? "");
     if (!id) return;
     const name = `--xray-${index}`;
     // Beside any anchor name it has already (the collapsed header is the phone menu's anchor).
@@ -190,7 +236,12 @@ export function on(animate: boolean): void {
   document.addEventListener("focusout", onFocusOut);
 }
 
-export function off(): void {
+// Switching off: the frames, the labels, the room and the x-ray look go while the page is still dark, then the page
+// fades back in. With reduced motion (or from Escape) it just switches.
+export function off(animate = false): void {
+  if (!marks.length) return;
+  const veil = added.find(element => element.classList.contains("xray-veil"));
+  const fade = animate && !reduced() && veil;
   window.clearTimeout(introTimer);
   cancelAnimationFrame(settle);
   watcher?.disconnect();
@@ -200,10 +251,23 @@ export function off(): void {
   document.removeEventListener("focusin", onFocus);
   document.removeEventListener("focusout", onFocusOut);
   for (const mark of marks) mark.element.style.removeProperty("anchor-name");
-  for (const element of added) element.remove();
+  for (const element of added) if (!fade || element !== veil) element.remove();
   marks = [];
-  added = [];
+  added = fade ? [veil] : [];
   active = undefined;
+  room(false);
   delete root.dataset.xrayMode;
   delete root.dataset.xrayIntro;
+  if (fade) {
+    root.dataset.xrayOutro = "";
+    outroTimer = window.setTimeout(clear, FADE);
+  }
+}
+
+// The end of the fade back (or its cut short, when x-ray is switched on again meanwhile).
+function clear(): void {
+  window.clearTimeout(outroTimer);
+  for (const element of added) element.remove();
+  added = [];
+  delete root.dataset.xrayOutro;
 }

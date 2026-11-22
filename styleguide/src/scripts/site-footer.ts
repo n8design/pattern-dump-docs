@@ -3,7 +3,7 @@
 // <template>, so it loads only now). It stays on for the session (sessionStorage), so the next page opens with it,
 // and a new tab starts without it. The control or Escape switches it off.
 
-interface Xray { on(animate: boolean): void; off(): void }
+interface Xray { on(animate: boolean): void; off(animate: boolean): void }
 
 const template = document.querySelector<HTMLTemplateElement>("template.site-footer-xray");
 const links = document.querySelector(".site-footer-links");
@@ -38,7 +38,7 @@ if (template && links && src) {
       xray ??= await import(src) as Xray;
       if (on) xray.on(animate);
     } else {
-      xray?.off();
+      xray?.off(animate);
     }
   };
 
