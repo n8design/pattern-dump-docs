@@ -81,7 +81,7 @@ The Diagnostics tab looks at one component. `pd audit` looks at all of them, eve
 npx pd audit
 ```
 
-It prints a report in markdown and writes it outside your project, to Pattern Dump's folder in your system's temporary folder. The report opens with a headline and the render outcomes (ok, blank or error), then three sections:
+It prints a report in markdown and writes it outside your project, to Pattern Dump's folder in your cache folder: `~/Library/Caches/pattern-dump/` on macOS, `%LOCALAPPDATA%\pattern-dump\` on Windows, and `~/.cache/pattern-dump/` on Linux, or `$XDG_CACHE_HOME` when it is set, on macOS too. Pattern Dump creates the folder for you alone; a folder there that is a link or open to other users stops the run, naming the folder. The report opens with a headline and the render outcomes (ok, blank or error), then three sections:
 
 Rules by blast radius
 : Each rule that found something, with the number of components its findings hit and how often it fired. A rule's [blast radius](/concepts/relationships/#blast-radius-is-a-rules-reach) is that number of components.
@@ -102,8 +102,6 @@ After the report come the audit's own lines:
 [pd audit] report: <path>
 [pd audit] <n> defects across <a>/<n> components.
 ```
-
-With the starter's site, Pattern Dump also prints a line that starts `[dev-server] FLATTENED: 2 cluster(s) across 5 components`: some of the starter's layouts are copies of one template, and the line asks nothing of you.
 
 `pd audit` reuses a component's result while nothing it depends on has changed, so the first line says how many it checked again. [What the audit checks again](/concepts/relationships/#what-the-audit-checks-again) explains when.
 
