@@ -141,7 +141,7 @@ With `html` skipped, the workbench, its Diagnostics tab and the audit carry no `
 ## The workbench's files
 
 `_pd/`
-: `main.js`, `main.css`, `shiki.css`, `code.css`, `base.css`, `axe-core.js`, `rule-tiers.json`, each theme's CSS, the files the previews load, and `symbols/<name>.svg`.
+: `main.js`, `main.css`, `shiki.css`, `code.css`, `base.css`, `axe-core.js`, `rule-tiers.json`, each theme's CSS, the files the previews load, every image variant in a `src` or `srcset` of a preview or of an example in a component's docs, as `images/<name>.<key>.<width>.webp`, and `symbols/<name>.svg`.
 
 `api/`
 : `config.json`, `version.json`, `tree.json`, `themes.json`; per component and variant `component/<id>/index.json` and `~<variant>.json`; per folder `overview/<folder>/index.json`; and `audit.json`, when the audit is included.
