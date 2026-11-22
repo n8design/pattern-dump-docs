@@ -139,7 +139,7 @@ const room = (on: boolean): void => {
   for (let y = innerHeight / 4; !anchor && y < innerHeight; y += innerHeight / 8) {
     anchor = document.elementsFromPoint(innerWidth / 2, y).find(element =>
       !element.closest(".xray-label, .xray-frame, .xray-veil, .site-header, .site-footer")
-      && !element.querySelector("figure.doc-figure"));
+      && !element.querySelector("figure.doc-figure, figure.doc-example"));
   }
   const before = anchor?.getBoundingClientRect().top;
   root.style.setProperty("overflow-anchor", "none");

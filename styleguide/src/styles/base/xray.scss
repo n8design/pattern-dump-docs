@@ -57,12 +57,12 @@ html[data-xray-mode] :is(#{$marked}):not(:is(#{$marked}) *) {
   }
 }
 
-// Room for a figure's frame and chip: a figure sits 1em from the text around it, too close for a frame 0.75rem outside
-// it and a 1.125rem chip on that. With x-ray on there is room for both, and 0.5rem to spare; between two figures in a
+// Room for a figure's frame and chip (a figure with a caption, or a live example): a figure sits 1em from the text
+// around it, too close for a frame 0.75rem outside it and a 1.125rem chip on that. With x-ray on there is room for both, and 0.5rem to spare; between two figures in a
 // row, room for the upper one's frame as well. src/scripts/xray.ts sets data-xray-room while the page is dark and
 // keeps the reader's place.
-html[data-xray-room] figure.doc-figure { margin-block: 2.375rem; }
-html[data-xray-room] figure.doc-figure + figure.doc-figure { margin-block-start: 3.125rem; }
+html[data-xray-room] :is(figure.doc-figure, figure.doc-example) { margin-block: 2.375rem; }
+html[data-xray-room] :is(figure.doc-figure, figure.doc-example) + :is(figure.doc-figure, figure.doc-example) { margin-block-start: 3.125rem; }
 
 // A frame: a thin grey hairline 0.75rem outside the component; for a component inside another marked one, exactly on
 // its own box's edge, never inside it (a component without padding would have its content cut). Active, the hairline gives way to the glow, which
