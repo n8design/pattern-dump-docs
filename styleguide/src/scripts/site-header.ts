@@ -14,6 +14,9 @@ const field = document.querySelector<HTMLInputElement>("#site-search-input");
 const hint = document.querySelector<HTMLElement>("[data-search-key]");
 
 if (menu && button) {
+  // Not in the markup: without this script the browser reports the popover button's state itself, and a fixed
+  // aria-expanded="false" would override it while the menu is open.
+  button.setAttribute("aria-expanded", String(menu.matches(":popover-open")));
   menu.addEventListener("toggle", event => {
     button.setAttribute("aria-expanded", String((event as ToggleEvent).newState === "open"));
   });

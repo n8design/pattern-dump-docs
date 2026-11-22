@@ -23,7 +23,8 @@ around three strokes drawn for this site, in the search icon's line style, an X 
 The menu is the same links, in the same order: the sections, GitHub, the search. They sit in `.site-menu`, a native
 popover in the markup (`popover="auto"`, opened by `popovertarget`), which adds no box while they fit
 (`display: contents`). Collapsed, Escape and a click outside close it and focus goes back to the button, with or
-without the script; the script only keeps `aria-expanded`, and the icon with it, in step. It hangs from the header's bottom edge across the window: the sections as large rows with hairlines between them,
+without the script; the script only keeps `aria-expanded`, and the icon with it, in step. `aria-expanded` isn't in
+the markup: without the script the browser reports the button's state from the popover itself. It hangs from the header's bottom edge across the window: the sections as large rows with hairlines between them,
 GitHub as one more row, then the search field. Opening, it is revealed from the header's edge downwards (`clip-path`,
 0.25 s, ease-out); closing reverses it; with reduced motion it just opens. The page under the header is dimmed and
 blurred while it is open (the popover's `::backdrop`, the `menu-veil` token and the one blur `TASTE.md` allows), and
