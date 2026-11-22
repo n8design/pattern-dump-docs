@@ -60,6 +60,22 @@ A file or folder that `documentBase` lists is in the base layer even when its pa
 
 Rules that no component owns and `documentBase` doesn't list go into the base layer too. When there are any, `pd dev` sums them up in one line at startup, which names a report: `BASE-LAYER.generated.md`, in Pattern Dump's scratch folder, rewritten at every start. It lists each file with its number of such rules, most first.
 
+### A font of your own
+
+A font has two parts: its files in an asset folder, and its `@font-face` in the base layer. Put the files in `assets/fonts/`. The starter's asset folder, `./assets`, is served at `/assets/`, so `assets/fonts/<file>.woff2` is `/assets/fonts/<file>.woff2`. Then declare the face in a stylesheet in `src/styles/base/`, such as `src/styles/base/fonts.scss`. This site does it like this:
+
+```scss
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+}
+```
+
+The base layer is linked first in every preview and on every site page, so every component can use the face. `pd build` follows each `/assets/` address in a stylesheet's `url()`, copies the file into the site, and adds `?v=` and a hash of its content to the address.
+
 ## Theme values
 
 The badge reads `--color-warning` and `--color-on-warning`, which no theme sets yet.
