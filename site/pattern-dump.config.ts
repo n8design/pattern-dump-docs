@@ -13,6 +13,10 @@ const released = changelog.match(new RegExp(`^## ${patternDumpPackage.version.re
 if (!released) throw new Error(`pattern-dump.config.ts: no "## ${patternDumpPackage.version} (<date>)" heading in pattern-dump's CHANGELOG.md`);
 const patternDumpReleased = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(released));
 
+// The style guide's own workbench, published beside the site under /workbench/ (the root's "pages" script). The
+// footer's "Style guide" link is built from it (site.globals.workbenchUrl).
+const workbenchUrl = "/workbench/";
+
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
 export default defineConfig({
@@ -23,8 +27,7 @@ export default defineConfig({
   site: {
     pagesDir: "./pages",
     outDir: "./dist/site",
-    // The style guide's own workbench, published beside the site under /workbench/ (the root's "pages" script).
-    workbenchUrl: "/workbench/",
+    workbenchUrl,
     // The site's address, once you know it: canonical URLs, link previews and the sitemap are built from it.
     // url: "https://www.example.com/",
     categories: {
@@ -32,7 +35,7 @@ export default defineConfig({
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "n8d", href: "https://n8d.at" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version, patternDumpReleased },
+    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "n8d", href: "https://n8d.at" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version, patternDumpReleased, workbenchUrl },
   },
   // The site only: its pages link into the style guide's own workbench at workbenchUrl.
   build: { workbench: false },

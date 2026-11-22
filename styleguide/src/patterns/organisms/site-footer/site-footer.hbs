@@ -4,7 +4,7 @@
     <p class="site-footer-text">{{site.footer}}{{#if site.author}} A project by <a href="{{site.author.href}}">{{site.author.name}}</a>.{{/if}}</p>
   </div>
   <ul class="site-footer-links">
-    <li><a href="/workbench/">Style guide</a></li>
+    {{#if site.workbenchUrl}}<li><a href="{{site.workbenchUrl}}layouts/home">Style guide</a></li>{{/if}}
     {{#if site.sponsor}}<li><a href="{{site.sponsor.href}}">Sponsor</a></li>{{/if}}
     <li><a href="/credits/">Credits</a></li>
     <li><a href="/search/">Search</a></li>
