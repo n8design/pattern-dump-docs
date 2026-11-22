@@ -118,9 +118,6 @@ A bad default
 `view:` on a page whose layout shows no listing
 : `view names how a listing is shown, but layout "<l>" shows none (it doesn't declare page.listing)`
 
-A view's sample data with a key other than `entries`
-: Each entry must be one, and any other key is refused; the message ends `sets "<key>", which a view doesn't get: a view gets only entries, the pages of its listing`.
-
 ## Cards
 
 `x-pd-card`
@@ -136,7 +133,7 @@ This site's `views/list` names its card:
 }
 ```
 
-Every page of a listing is checked against the view's card. A present value is checked against the card property's declared type, without coercion. A card declares only entry fields, and its sample data may set only entry fields.
+Every page of a listing is checked against the view's card. A present value is checked against the card property's declared type, without coercion. A card declares only entry fields.
 
 ### Card messages
 
@@ -172,7 +169,7 @@ A query is a sub-key of a layout's `page` that carries `x-pd-query`, with its de
 }
 ```
 
-`x-pd-query` must be an object whose keys are among the options below, and the query may declare only `entries` and `listing` sub-properties. Its `view` must name a component in `views/`. A layout's sample data for a query may use only `entries` and `listing`.
+`x-pd-query` must be an object whose keys are among the options below, and the query may declare only `entries` and `listing` sub-properties. Its `view` must name a component in `views/`.
 
 ### Query names
 
