@@ -78,7 +78,7 @@ Each finding's engine is `axe`, `html-validate`, `schema`, `discovery` or `rende
 
 A rule's blast radius is the number of components its findings hit, each variant counted as one: the report's "Rules by blast radius" table. It is a rule's reach, not what a change to a component reaches; [Relationships](/concepts/relationships/#blast-radius-is-a-rules-reach) explains the difference.
 
-`pd audit` writes the serialized diagnostics graph, `diagnostics-graph.json`, of components and the rules they break, beside the report in Pattern Dump's folder in your system's temporary folder. [Command line](/reference/cli/#pd-audit) has its options and exit codes.
+`pd audit` writes the serialized diagnostics graph, `diagnostics-graph.json`, of components and the rules they break, beside the report in Pattern Dump's folder in your cache folder: `~/Library/Caches/pattern-dump/` on macOS, `%LOCALAPPDATA%\pattern-dump\` on Windows, and `~/.cache/pattern-dump/` on Linux, or `$XDG_CACHE_HOME` when it is set, on macOS too. Pattern Dump creates the folder for you alone; a folder there that is a link or open to other users stops the run, naming the folder. [Command line](/reference/cli/#pd-audit) has its options and exit codes.
 
 ## On site pages
 
@@ -90,7 +90,7 @@ In `pd dev`, a page that can't be built shows "The page <route> cannot be built"
 
 ## Accessibility
 
-Every accessibility check runs axe-core 4.11.4: components, site pages, the browser checks and the workbench.
+Every accessibility check runs axe-core 4.11.4: components, site pages, the browser checks and the workbench. The package depends on axe-core 4.11.4 and jsdom 27.4.0 exactly, since the rule tiers below were proven on them, and with another axe-core installed `pd dev`, `pd build` and `pd audit` stop: `axe-core <installed> is installed, but the accessibility rule tiers were proven on 4.11.4: install axe-core 4.11.4`.
 
 A component's rendered markup is wrapped in `<!DOCTYPE html><html lang="en"><body><main>…</main></body></html>`, and axe runs on the `<main>` only. Its rules come in two tiers. Each of 12 candidate rules is tested on a failing example: a violation in jsdom puts it in the first tier, an undecided result in the second, and neither fails the run.
 
