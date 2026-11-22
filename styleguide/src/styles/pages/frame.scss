@@ -3,17 +3,23 @@
 // The frame: the header, the main content, the footer, one column. At least the viewport's height, so a short page
 // keeps its footer at the bottom (100vh first, for browsers without dvh).
 //
-// The bars and the bands inside main run the full width; their content lines up in a container with 1.5rem inside
-// it. --site-gutter is that inline padding: a percentage, so it resolves against whichever full-width element uses it.
+// The bars and the bands inside main run the full width; their content lines up in a container with a gutter inside
+// it: 5% of the page's width, at least 1rem and at most 2rem (--site-gutter-min), so a narrow window keeps more of the
+// column and text never touches the edge. --site-gutter is that inline padding. The page (.site) is a container and
+// the gutter is in its units (cqi), so it is the same wherever it is used, in a bar, in the column (a symbol image's
+// bleed) or in the open menu: not vw, which in some browsers counts the scrollbar's gutter and in others doesn't, and
+// not a percentage, which resolves against whatever element uses it.
 //
 // The container is as wide as a reading page needs: the reading column, the gap and the table of contents. The column
 // holds 70 to 75 characters of body text, so it is a multiple of the body size and grows with it (base/typography).
 .site {
+  container-type: inline-size;
   --reading-column: calc(36 * var(--font-size-0));
   --reading-gap: 4rem;
   --reading-toc: 15rem;
-  --site-container: calc(var(--reading-column) + var(--reading-gap) + var(--reading-toc) + 3rem);
-  --site-gutter: max(1.5rem, (100% - var(--site-container)) / 2 + 1.5rem);
+  --site-gutter-min: clamp(1rem, 5cqi, 2rem);
+  --site-container: calc(var(--reading-column) + var(--reading-gap) + var(--reading-toc) + 2 * var(--site-gutter-min));
+  --site-gutter: max(var(--site-gutter-min), (100cqi - var(--site-container)) / 2 + var(--site-gutter-min));
 
   display: grid;
   grid-template-rows: auto 1fr auto;

@@ -4,11 +4,11 @@
 // header's, the nav's and the frame's stylesheets and the tokens). Written by scripts/header-width.mjs:
 // `npm run header-width` measures again after the header changes, and the build fails when the fingerprint no longer
 // matches.
-$site-header-width: 63.13em;
+$site-header-width: 64.13em;
 // The menu's row at its narrowest: the logo, the site's name down to its longest word, the gap and the menu button,
 // with the gutters. Narrower than that (large text on a narrow phone), only the logo shows.
-$site-name-width: 14.63em;
-$site-header-width-fingerprint: "d403acb8bb1116aa";
+$site-name-width: 13.63em;
+$site-header-width-fingerprint: "d19220a0cc397521";
 
 // Below it, the phone menu: the header's width, 0.5em of air, and 1.25em for a classic scrollbar, which the window's
 // width counts and the header's doesn't (Windows' is 17px). A media query, so the header's script can ask the same
