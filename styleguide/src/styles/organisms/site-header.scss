@@ -265,6 +265,9 @@ $grain: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160
   inset-block-start: $menu-top;
   inset-block-start: anchor(bottom);
   background: url($grain) 0 0 / 10rem 10rem, var(--color-menu-veil);
+  // Safari before 18 knows it only with the prefix.
+  // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
+  -webkit-backdrop-filter: blur(1rem) saturate(1.4);
   // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
   backdrop-filter: blur(1rem) saturate(1.4);
 }
