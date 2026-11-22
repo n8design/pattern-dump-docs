@@ -1,6 +1,6 @@
 {{#if (or page.prev page.next)}}
 <nav class="pager" aria-label="Previous and next page">
-  {{#if page.prev}}<a class="pager-link pager-prev" rel="prev" href="{{page.prev.route}}"><span class="pager-label">Previous</span> <span class="pager-title">{{page.prev.title}}</span></a>{{/if}}
+  {{#if page.prev}}<a class="pager-link pager-prev" rel="prev" href="{{page.prev.route}}"><span class="pager-label">Previous</span> <span class="pager-title">{{#if (eq page.prev.route "/")}}Home{{else}}{{page.prev.title}}{{/if}}</span></a>{{/if}}
   {{#if page.next}}<a class="pager-link pager-next" rel="next" href="{{page.next.route}}"><span class="pager-label">Next</span> <span class="pager-title">{{page.next.title}}</span></a>{{/if}}
 </nav>
 {{/if}}
