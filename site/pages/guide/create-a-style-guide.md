@@ -66,6 +66,7 @@ The default is in brackets. For yes or no, the capital letter is the default, an
 
 `Follow the viewer's light or dark setting (a system theme as the default)`
 : Yes by default, asked only with a website. It adds a third theme, `system`, with `color-scheme: light dark` and its values in `light-dark()`, and makes it the default. This guide works with the two themes `light` and `dark`, so answer `n`: `light` stays the default.
+: With `light` as the default, the site's live examples stay light on a page that turns dark with the viewer's setting: an example keeps the default theme unless the page sets `data-theme`, and the default follows the viewer only when that theme does ([Themes](/reference/themes/#themes-on-site-pages)). To make `system` the default later, add the theme and set the default in both the config and `package.json` ([package.json](#packagejson)).
 
 `Initialise a git repository`
 : Yes by default. Asked only when the folder isn't inside a git repository already. Inside one, `pd init` doesn't ask and doesn't run `git init`. When `git init` fails, it prints `✗ git init failed: is git installed? (the project is set up regardless)` and carries on.
@@ -299,7 +300,7 @@ Pattern Dump checks the config each time it loads it, and lists every problem at
 
 `pattern-dump` is pinned to the exact version that ran `init`, with no `^`, and so is Pagefind. The `build` script comes with the site. `allowScripts` names `esbuild` and `@parcel/watcher`, whose install scripts Pattern Dump needs.
 
-`patternDump` names the same folders as the config, so the design system is a pattern package from the start. Its `default` theme is the config's. When the folder has a `package.json` already, `pd init` doesn't add the field.
+`patternDump` names the same folders as the config, so the design system is a pattern package from the start. Its `default` theme is the config's, and the two must agree: change the default in one, and change it in the other too. Otherwise `pd` stops with `<config file>: the config and the project's own package manifest disagree`, and a line for each field, such as `  - "themes.default" is "system" in pattern-dump.config.ts, but "patternDump.themes.default" is "light" in package.json: name it in one of them, or give both the same value`. When the folder has a `package.json` already, `pd init` doesn't add the field.
 
 ### In a folder that isn't empty
 
