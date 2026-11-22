@@ -16,5 +16,5 @@ block below it is Pattern Dump's own code block, highlighted and with its copy b
 
 Without `label`, the block stands alone: the command in the home page's start row.
 
-The code can't hold a `pd-` tag: Pattern Dump 0.8.1 reads one inside a tag's content as a tag of its own, even in a
-fence. Code that shows a placed component goes into the page's own markdown instead, as the home page's promise does.
+The code can hold a `pd-` tag: a fence inside a tag's content is text, so a placed component can be shown as code in
+it.

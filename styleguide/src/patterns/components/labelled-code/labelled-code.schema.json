@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Labelled code",
-  "description": "A code block with the file or command it belongs to as a small label above it, or alone. On a page: <pd-components-labelled-code label=\"…\"> holding a fenced code block (a pd- tag inside the fence is read as a tag, so the code can't hold one).",
+  "description": "A code block with the file or command it belongs to as a small label above it, or alone. On a page: <pd-components-labelled-code label=\"…\"> holding a fenced code block, which may show a pd- tag as code.",
   "type": "object",
   "required": [
     "code"
