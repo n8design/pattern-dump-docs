@@ -14,7 +14,7 @@ pd help
 pd --version
 ```
 
-The `pattern-dump` package has one command, `pd`. Before you have a project, `npx pattern-dump <command>` runs it; inside one, `npx pd <command>` or an npm script does. The package requires Node.js 22.22 or later, and its library entry exports only `defineConfig` and the config's types.
+The `pattern-dump` package has one command, `pd`. Before you have a project, `npx pattern-dump@latest <command>` runs it; inside one, `npx pd <command>` or an npm script does. The package requires Node.js 22.22 or later, and its library entry exports only `defineConfig` and the config's types.
 
 `pd` with no command, `pd help`, `--help` or `-h` prints the usage text and exits with 0. `pd --version` or `pd -v` prints the installed version and exits with 0; the usage text lists it too. `pd help <command>` and `pd <command> --help` print the same full text. An unknown command prints `[pd] Error: unknown command "<cmd>"`, a blank line and the usage text to stderr, and exits with 1.
 

@@ -12,7 +12,7 @@ A style guide needs a config, a place for components and their styles, and Patte
 In the folder that should hold the project, run:
 
 ```sh
-npx pattern-dump init my-design-system
+npx pattern-dump@latest init my-design-system
 ```
 
 `init` takes one folder and, without one, sets up the folder you are in. Two folders are an error: `init takes one folder (got a, b)`.
@@ -78,7 +78,7 @@ The default is in brackets. For yes or no, the capital letter is the default, an
 Each question has a flag, and a flag skips its question. `--yes` (or `-y`) takes every default without asking, and so does a run without a terminal, such as CI or input piped in. The defaults leave the website out, so this guide's run, without questions, names two flags:
 
 ```sh
-npx pattern-dump init my-design-system --yes --with-site --no-system-theme
+npx pattern-dump@latest init my-design-system --yes --with-site --no-system-theme
 ```
 
 The flags, each with the question it answers:

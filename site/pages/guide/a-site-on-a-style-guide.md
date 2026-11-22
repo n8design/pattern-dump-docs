@@ -18,7 +18,7 @@ Make a folder for the repository, and the style guide in it:
 ```sh
 mkdir acme-web
 cd acme-web
-npx pattern-dump init styleguide --with-site --no-git
+npx pattern-dump@latest init styleguide --with-site --no-git
 ```
 
 `--with-site` gives the style guide a skin, the layouts, partials and views a site is built with; the site in the next step takes them from here. `--no-git` leaves the repository to the parent folder: `acme-web` is the one to put under git.
@@ -30,7 +30,7 @@ npx pattern-dump init styleguide --with-site --no-git
 From the same folder, make the site on the style guide:
 
 ```sh
-npx pattern-dump init site --site ./styleguide --no-git
+npx pattern-dump@latest init site --site ./styleguide --no-git
 ```
 
 The path after `--site` is the style guide's folder, from where you run the command. `pd init` adds the style guide to the site's `package.json` as a `file:` dependency, `file:../styleguide`, relative to the site. Instead of a folder, `--site` also takes an npm name, such as `@acme/styleguide` or `@acme/styleguide@1.2.0`, for a style guide from a registry.
