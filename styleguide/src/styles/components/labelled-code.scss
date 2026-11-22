@@ -1,0 +1,26 @@
+@use "../base/tokens";
+
+// A code block with its file or command above it. The figure is a column, so in components/code-blocks the block
+// grows to the height its neighbour sets: the container and its <pre> both fill what is left under the label.
+.labelled-code {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$space-sm;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.labelled-code-label {
+  font-family: tokens.$font-mono;
+  font-size: var(--font-size--1);
+  color: var(--color-text-muted);
+}
+
+.labelled-code > .shiki-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-block-start: 0;
+}
+
+.labelled-code > .shiki-container > pre { flex: 1; }
