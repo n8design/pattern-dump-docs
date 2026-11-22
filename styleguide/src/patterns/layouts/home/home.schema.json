@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Home",
-  "description": "The home page: the hero (eyebrow, headline, lede, the action), then the map of every page, with the page's markdown body as a region of its own under the map's groups.",
+  "description": "The home page: the hero (eyebrow, headline, lede, the two actions and the line to the examples), the start row and the promise on one band, then the map of every page, with the sites built with Pattern Dump under its groups.",
   "type": "object",
   "required": [
     "title"
@@ -9,7 +9,7 @@
   "properties": {
     "title": {
       "type": "string",
-      "description": "The home page's title in the navigation and the browser tab; the hero's headline when headline is unset"
+      "description": "The home page's title in the browser tab and in search results; the hero's headline when headline is unset. Breadcrumbs and the pager call the page Home"
     },
     "headline": {
       "type": "array",
@@ -19,16 +19,27 @@
       },
       "minItems": 1
     },
+    "lede": {
+      "type": "string",
+      "description": "The sentence under the headline, on the page only: search results and link previews show the description instead"
+    },
     "description": {
       "type": "string",
-      "description": "The lede under the headline, and the site's description for search results"
+      "description": "The page's description for search results and link previews (not shown on the page)"
     },
     "page": {
       "type": "object",
       "description": "What Pattern Dump works out for the page",
       "properties": {
         "headings": {
-          "description": "The page's headings: the first one names the region its body makes in the map (aria-labelledby)"
+          "description": "The page's headings (the home page's body has none)"
+        },
+        "regions": {
+          "description": "The page's regions: start, the command to copy (a components/labelled-code without a label), and sites, the site cards under the map's groups. The page's markdown body is the promise's two code blocks, each after a line that names its file or command",
+          "x-pd-regions": [
+            "start",
+            "sites"
+          ]
         }
       }
     }

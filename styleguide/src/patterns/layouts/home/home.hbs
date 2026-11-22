@@ -1,13 +1,36 @@
 {{#> pages-frame }}
 <div class="home">
   <div class="home-hero">
-    <p class="home-eyebrow">Documentation{{#if site.patternDumpVersion}} for {{site.patternDumpVersion}}{{/if}}</p>
+    <p class="home-eyebrow">Design system documentation{{#if site.patternDumpVersion}} for {{site.patternDumpVersion}}{{/if}}</p>
     <h1 class="home-title">{{#if headline}}{{#each headline}}<span class="home-title-line">{{this}}</span> {{/each}}{{else}}{{title}}{{/if}}</h1>
-    {{#if description}}<p class="home-lede">{{description}}</p>{{/if}}
+    {{#if lede}}<p class="home-lede">{{lede}}</p>{{/if}}
     <div class="home-actions">
       <a class="home-action home-action-primary" href="/guide/">Start the guide</a>
+      {{#if site.sponsor.href}}<a class="home-action" href="{{site.sponsor.href}}">Support it</a>{{/if}}
     </div>
+    <p class="home-proof">See it at work: <a href="/in-practice/demo/">the demo</a> and <a href="/in-practice/this-site/">this site</a>.</p>
   </div>
-  {{> organisms-page-map }}
+  {{#if (or page.regions.start body)}}
+  <div class="home-lead">
+    {{#if page.regions.start}}
+    <section class="home-start" aria-labelledby="start-in-one-command">
+      <h2 class="home-label" id="start-in-one-command">Start in one command</h2>
+      <div class="home-start-row">
+        {{{page.regions.start}}}
+        {{#if site.patternDumpVersion}}<p class="home-start-note"><a href="/reference/releases/">Pattern Dump {{site.patternDumpVersion}}</a>{{#if site.patternDumpReleased}}, released {{site.patternDumpReleased}}{{/if}}. Node 22.22 or later. Free and open source, MIT.</p>{{/if}}
+      </div>
+    </section>
+    {{/if}}
+    {{#if body}}
+    <section class="home-promise" aria-labelledby="promised-in-the-schema">
+      <h2 class="home-promise-title" id="promised-in-the-schema">Promised in the schema, held by the build.</h2>
+      <p class="home-promise-text">A component's schema says what it accepts. Give it something else, and <code>pd build</code> refuses, with the file and the line, before it writes anything.</p>
+      <div class="home-promise-code">{{{body}}}</div>
+      <p class="home-promise-proof"><a href="/concepts/checks/">Checks</a> lists what the build checks before it writes anything, and the two that <code>--skip-checks</code> leaves out; <a href="/concepts/benchmarks/">the benchmark</a> shows what they cost at 2,000 pages, measured on 0.8.0: 41.96 s with every check, 7.06 s with those two skipped.</p>
+    </section>
+    {{/if}}
+  </div>
+  {{/if}}
+  {{> organisms-page-map body=page.regions.sites bodyTitle="Built with Pattern Dump" bodyNote="Real sites, with the style guides behind them." }}
 </div>
 {{/pages-frame}}

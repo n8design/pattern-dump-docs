@@ -48,8 +48,9 @@
 
 .home-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 
-// Links that act as the page's entry points. The primary one is filled with the accent; a secondary one (the reference,
-// once it exists) is outlined with the border token (a control's edge, 3:1).
+// Links that act as the page's entry points. The primary one ("Start the guide") is filled with the accent; the
+// secondary one ("Support it") is outlined with the border token (a control's edge, 3:1). They wrap below each other
+// on a narrow phone, in source order.
 .home-action {
   display: inline-flex;
   align-items: center;
@@ -66,4 +67,92 @@
   border-color: var(--color-accent);
   background: var(--color-accent);
   color: var(--color-on-accent);
+}
+
+// The line to the examples under the actions: body text, its links as every other link.
+.home-proof { margin: 1.5rem 0 0; }
+
+// The band under the hero: the start row and the promise on one ground that blends from the hero's (surface) into
+// the map's (surface-subtle), leading the eye down into the map. A hairline parts each section from the next.
+.home-lead {
+  // stylelint-disable-next-line declaration-property-value-disallowed-list -- TASTE.md section 1: the home page's one gradient, surface into surface-subtle
+  background: linear-gradient(var(--color-surface), var(--color-surface-subtle));
+}
+
+.home-start,
+.home-promise {
+  padding: 3rem var(--site-gutter, 1.5rem);
+  border-top: 0.0625rem solid var(--color-hairline);
+}
+
+// "Start in one command": a heading in the outline, set as a label, in small mono like the code blocks' labels.
+.home-label {
+  margin: 0 0 tokens.$space-sm;
+  font-family: tokens.$font-mono;
+  font-size: var(--font-size--1);
+  font-weight: var(--font-weight-body);
+  color: var(--color-text-muted);
+}
+
+// The command and the line about the release, side by side from 40em, their tops level; stacked below.
+.home-start-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem tokens.$space-lg;
+  align-items: start;
+}
+
+@media (min-width: 40em) {
+  .home-start-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.home-start-note { margin: 0; }
+
+.home-promise-title { margin: 0; }
+
+.home-promise-text {
+  margin: 0.75rem 0 2rem;
+  max-inline-size: 36em;
+}
+
+// The promise's two code blocks, from the page's markdown: a line naming the file or the command, then its block.
+// From 40em the two pairs sit side by side, label over block, and the blocks fill one height; below, they stack in
+// source order. The labels are small mono, muted, like the start row's.
+.home-promise-code {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: tokens.$space-sm tokens.$space-lg;
+}
+
+@media (min-width: 40em) {
+  .home-promise-code {
+    grid-template-rows: auto 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: column;
+  }
+}
+
+.home-promise-code > p {
+  margin: 0;
+  font-family: tokens.$font-mono;
+  font-size: var(--font-size--1);
+  color: var(--color-text-muted);
+}
+
+.home-promise-code > p:not(:first-child) { margin-block-start: 1.5rem; }
+
+@media (min-width: 40em) {
+  .home-promise-code > p:not(:first-child) { margin-block-start: 0; }
+}
+
+.home-promise-code > .shiki-container { display: flex; flex-direction: column; margin-block-start: 0; }
+.home-promise-code > .shiki-container > pre { flex: 1; padding-inline-end: 1.5rem; }
+
+// Shown, not for copying: these blocks are a mistake and its answer, so they carry no copy button (pd's script adds
+// one to every code block).
+.home-promise-code .copy-btn { display: none; }
+
+.home-promise-proof {
+  margin: 2rem 0 0;
+  max-inline-size: 40em;
 }
