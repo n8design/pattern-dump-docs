@@ -13,9 +13,15 @@ const released = changelog.match(new RegExp(`^## ${patternDumpPackage.version.re
 if (!released) throw new Error(`pattern-dump.config.ts: no "## ${patternDumpPackage.version} (<date>)" heading in pattern-dump's CHANGELOG.md`);
 const patternDumpReleased = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(released));
 
-// The style guide's own workbench, published beside the site under /workbench/ (the root's "pages" script). The
-// footer's "Style guide" link is built from it (site.globals.workbenchUrl).
-const workbenchUrl = "/workbench/";
+// The style guide's workbench. Published, it sits beside the site under /workbench/ (the root's "pages" script); in
+// `pd dev` it is the dev server's own, on the workbench's host and the same port (--port, else PD_PORT, else 4000).
+// The footer's "Style guide" link and x-ray's labels are built from it (site.globals.workbenchUrl).
+const devPort = (() => {
+  const i = process.argv.findIndex(arg => arg === "--port" || arg.startsWith("--port="));
+  if (i < 0) return process.env.PD_PORT ?? "4000";
+  return process.argv[i].includes("=") ? process.argv[i].split("=")[1] : process.argv[i + 1];
+})();
+const workbenchUrl = process.argv[2] === "dev" ? `http://pd.localhost:${devPort}/` : "/workbench/";
 
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
