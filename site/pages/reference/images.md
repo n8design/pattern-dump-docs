@@ -57,7 +57,7 @@ A dark version that can't be used
 
 ## Symbol images
 
-A symbol image is an SVG drawing in a `symbols/` folder of an asset folder, placed on a site page by its name, inlined in the page and coloured by the page's tokens. Every `.svg` directly in `symbols/` is a symbol, named by its file name without `.svg`; subfolders are not read. When two asset folders have a symbol of the same name, the first wins, the project's before the packages'.
+A symbol image is an SVG drawing in a `symbols/` folder of an asset folder, placed on a site page by its name, inlined in the page and coloured by the page's tokens. Every `.svg` directly in `symbols/` is a symbol, named by its file name without `.svg`; subfolders are not read. When two asset folders have a symbol of the same name, the first wins, the project's before the packages'. The icons a component draws come from a [symbol set](/reference/component-files/#a-symbol-set) instead.
 
 ```md
 ![Alt](#name)
