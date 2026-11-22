@@ -28,8 +28,10 @@ if (process.argv.includes("--noindex")) {
     const path = join(out, String(file));
     const html = readFileSync(path, "utf8");
     if (html.includes('name="robots"')) continue;
+    // The workbench also ships HTML fragments (its source panels) that are loaded into a page, not opened as one:
+    // they have no <head> and need no meta; robots.txt keeps crawlers off them anyway.
     const head = html.match(/<head[^>]*>/i);
-    if (!head) throw new Error(`${path} has no <head>: can't mark it noindex`);
+    if (!head) continue;
     writeFileSync(path, html.replace(head[0], `${head[0]}\n${meta}`));
     pages++;
   }
