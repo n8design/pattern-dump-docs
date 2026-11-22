@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Labelled code",
+  "description": "A code block with the file or command it belongs to as a small label above it, or alone. On a page: <pd-components-labelled-code label=\"…\"> holding a fenced code block (a pd- tag inside the fence is read as a tag, so the code can't hold one).",
+  "type": "object",
+  "required": [
+    "code"
+  ],
+  "x-pd-content": "code",
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "The file the code is from, or the command that printed it, as the figure's caption above the block. Left out, the block stands alone"
+    },
+    "code": {
+      "type": "string",
+      "contentMediaType": "text/markdown",
+      "description": "The tag's content: one fenced code block, as markdown"
+    }
+  }
+}
