@@ -113,6 +113,38 @@ A variant with no `.md`, or an empty one, takes the base's documentation, and ke
 
 The scripts and symbol sets of everything a component includes load with it. A script is looked up as `<scripts folder>/<id>.ts`, the project's first; one that doesn't exist is reported once at startup, `[dev-server] requireScript "<raw>" on <component>: no <id>.ts in <dirs>`, and its address answers 404. A full address (`://`) in `globalScripts` is loaded as it is.
 
+### A symbol set
+
+A symbol set is one SVG file of `<symbol>` elements, each with an `id`, which a template draws with `<use href="#<id>">`. Pattern Dump inlines the file as it is, hidden: in a preview with `style="display:none;position:absolute" aria-hidden="true"` on its root `<svg>`, and on a site page by its size (`width="0" height="0"`), never with `display:none`, after the page's symbol-image sprite and once per page.
+
+An icon set, `assets/icons.svg`:
+
+```svg
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-check" viewBox="0 0 16 16">
+    <path d="M2 8l4 4 8-8" fill="none" stroke="currentColor"/>
+  </symbol>
+</svg>
+```
+
+The icon component asks for it in `icon.md`:
+
+```md
+---
+requireAssets: icons
+---
+```
+
+and draws it in `icon.hbs`:
+
+```hbs
+<svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>
+```
+
+Every preview and every site page that includes the icon, at any depth, then carries the set. A site page fails when two of its sets declare the same id, `the symbol sets "<a>" and "<b>" both declare id="<id>": a <use> of it could draw either`, or when a set declares an id that a symbol image on the page has.
+
+Symbol sets and [symbol images](/reference/images/#symbol-images) come from different places: a symbol image is a file in `symbols/`, which a page's markdown places, and a set is `<id>.svg` or `images/<id>.svg`, which a component asks for.
+
 ## Folders
 
 A folder's `index.md` gives the folder its title, order and gallery, in its frontmatter; its body renders above the folder's gallery, with live examples and source blocks working. The first `index.md` found across the patterns roots, the project's first, is used whole.
