@@ -11,11 +11,12 @@ pd audit [options]
 pd build [options]
 pd export [options]
 pd help
+pd --version
 ```
 
 The `pattern-dump` package has one command, `pd`. Before you have a project, `npx pattern-dump <command>` runs it; inside one, `npx pd <command>` or an npm script does. The package requires Node.js 22.22 or later, and its library entry exports only `defineConfig` and the config's types.
 
-`pd` with no command, `pd help`, `--help` or `-h` prints the usage text and exits with 0. `pd help <command>` and `pd <command> --help` print the same full text. An unknown command prints `[pd] Error: unknown command "<cmd>"`, a blank line and the usage text to stderr, and exits with 1.
+`pd` with no command, `pd help`, `--help` or `-h` prints the usage text and exits with 0. `pd --version` or `pd -v` prints the installed version and exits with 0; the usage text lists it too. `pd help <command>` and `pd <command> --help` print the same full text. An unknown command prints `[pd] Error: unknown command "<cmd>"`, a blank line and the usage text to stderr, and exits with 1.
 
 ## Options and errors
 
@@ -172,7 +173,7 @@ A change to global data or a helper reloads them and what is open; one that fail
 
 ## `pd audit`
 
-Checks every component and every variant, prints the report and writes it outside the project, to `<temporary folder>/pattern-dump/<hash>/diagnostics-report.<md|json>`, with the serialized graph, `diagnostics-graph.json`, beside it. [Check your work](/guide/check-your-work/#run-pd-audit) explains the report.
+Checks every component and every variant, prints the report and writes it outside the project, to `<cache folder>/pattern-dump/<hash>/diagnostics-report.<md|json>`, with the serialized graph, `diagnostics-graph.json`, beside it. [Check your work](/guide/check-your-work/#run-pd-audit) explains the report.
 
 `--format <md|text|json>`
 : Default: `md`. Anything else: `--format must be one of md|text|json (got "<value>")`, exit code 1.
@@ -228,7 +229,7 @@ Writes the workbench, and the site when the project has one, as static files. [B
 Writes the corrected form of the project's flattened component families, the ones `pd dev` reports as `FLATTENED`, to another folder, and never changes the project.
 
 `--out <dir>`
-: Where to write, resolved against the current folder. Default: `<temporary folder>/pattern-dump/<hash>/export`. A folder inside the root is refused: `--out must be outside --root (the root is read-only; export writes the corrected form elsewhere).`, with both paths.
+: Where to write, resolved against the current folder. Default: `<cache folder>/pattern-dump/<hash>/export`. A folder inside the root is refused: `--out must be outside --root (the root is read-only; export writes the corrected form elsewhere).`, with both paths.
 
 `pd export` collapses a family only when its members are byte-identical but for the class tokens of the root element: into `<base>.hbs`, `<base>.json` and a `<base>~<token>.json` overlay per member. A family that other components include is "threaded": their includes are rewritten too. Any other family is reported as "deferred" or "skipped" (`cross-folder`, `not-lossless-shape-a`) and never written.
 
