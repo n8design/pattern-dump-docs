@@ -3,12 +3,22 @@
   "title": "Page map",
   "description": "Every page of the site, grouped by section: the home page's map.",
   "type": "object",
-  "required": ["nav"],
+  "required": [
+    "nav"
+  ],
   "properties": {
     "body": {
       "type": "string",
       "contentMediaType": "text/markdown",
       "description": "Optional: rendered markdown shown under the groups, across the width of the sections beside the guide: on the home page, the page's markdown body. A region of its own, named by its first heading (page.headings), when it has one"
+    },
+    "bodyTitle": {
+      "type": "string",
+      "description": "Optional: a heading for body, written above it, when the body's own markdown has none (the home page's sites, placed in a region). The section is then named by it"
+    },
+    "bodyNote": {
+      "type": "string",
+      "description": "Optional: the note under bodyTitle, like a group's note"
     },
     "page": {
       "type": "object",
@@ -19,9 +29,15 @@
           "items": {
             "type": "object",
             "properties": {
-              "level": { "type": "integer" },
-              "text": { "type": "string" },
-              "anchor": { "type": "string" }
+              "level": {
+                "type": "integer"
+              },
+              "text": {
+                "type": "string"
+              },
+              "anchor": {
+                "type": "string"
+              }
             }
           }
         }
@@ -32,23 +48,46 @@
       "description": "The site's navigation: the storefront fills it from the pages, one level deep",
       "items": {
         "type": "object",
-        "required": ["route", "title"],
+        "required": [
+          "route",
+          "title"
+        ],
         "properties": {
-          "route": { "type": "string" },
-          "title": { "type": "string" },
-          "description": { "type": "string", "description": "A section's muted line; a guide step's line under its title" },
-          "current": { "type": "boolean" },
+          "route": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "description": "A section's muted line; a guide step's line under its title"
+          },
+          "current": {
+            "type": "boolean"
+          },
           "children": {
             "type": "array",
             "description": "A section's pages",
             "items": {
               "type": "object",
-              "required": ["route", "title"],
+              "required": [
+                "route",
+                "title"
+              ],
               "properties": {
-                "route": { "type": "string" },
-                "title": { "type": "string" },
-                "description": { "type": "string" },
-                "current": { "type": "boolean" }
+                "route": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "current": {
+                  "type": "boolean"
+                }
               }
             }
           }
