@@ -46,7 +46,7 @@ A variant handle that is taken
 Files belong to a template by its exact name, in its folder: `<name>.json`, `<name>.md` and `<name>.schema.json`.
 
 `<name>.json`
-: The data the component renders with. A component renders with the global data, then its `.json`, then a variant's `.json`, then the data a render passes. Objects merge key by key; anything else, lists included, is replaced. A file that isn't valid JSON is a `DATA_INVALID` error, `<file> is not valid JSON (<reason>); its data was not used`, with the line and column; for an included component, the component that includes it reports it.
+: The data the component renders with in the workbench, its previews and a page's live examples; on a site page it is left out ([Layouts](/reference/layouts/#sample-data)). A component renders with the global data, then its `.json`, then a variant's `.json`, then the data a render passes. Objects merge key by key; anything else, lists included, is replaced. A file that isn't valid JSON is a `DATA_INVALID` error, `<file> is not valid JSON (<reason>); its data was not used`, with the line and column; for an included component, the component that includes it reports it.
 
 `<name>.md`
 : The component's documentation, shown in the Inspector's Docs tab, with its metadata in the frontmatter (see [The `.md` file](#the-md-file)).
