@@ -35,7 +35,8 @@ jobs:
       # npm workspaces: the site (site/) and the style guide package (styleguide/), installed and linked together.
       # `npm run pages` builds the site, then the style guide's workbench for /workbench/, and copies both into
       # _site/ (scripts/assemble-pages.mjs).
-      - run: npm run pages
+      # --noindex: this workflow publishes the draft site, which must never be indexed (scripts/assemble-pages.mjs).
+      - run: npm run pages -- --noindex
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
