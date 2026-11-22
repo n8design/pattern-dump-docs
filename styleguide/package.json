@@ -40,7 +40,7 @@
     "build": "pd build"
   },
   "devDependencies": {
-    "pattern-dump": "0.8.0",
+    "pattern-dump": "0.8.1",
     "postcss-scss": "4.0.9",
     "stylelint": "17.16.0",
     "typescript": "^5.9.0"
