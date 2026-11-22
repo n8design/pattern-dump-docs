@@ -17,6 +17,10 @@ a media query in em collapses it. So it follows the window and the reader's text
 works without JavaScript. Beside the width the script writes a fingerprint of the header as the home page writes it,
 the font files and the stylesheets that set the row, and the build fails when that no longer matches.
 
+With large text on a narrow phone, the name breaks onto two lines, only between its words. Where even its longest word
+doesn't fit beside the button (a second width the script measures and writes), only the logo shows; the name stays in
+the link, visually hidden, so it is still the link's name.
+
 The button is the frame of the site's secondary actions (the border token, a control's edge at 3:1, no fill, square)
 around three strokes drawn for this site, in the search icon's line style, an X while the menu is open. Its name is
 "Menu" (`aria-label`), and `aria-expanded` follows the menu.

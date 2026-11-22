@@ -5,9 +5,13 @@
 // `npm run header-width` measures again after the header changes, and the build fails when the fingerprint no longer
 // matches.
 $site-header-width: 63.13em;
-$site-header-width-fingerprint: "64ab3f9011a96578";
+// The menu's row at its narrowest: the logo, the site's name down to its longest word, the gap and the menu button,
+// with the gutters. Narrower than that (large text on a narrow phone), only the logo shows.
+$site-name-width: 14.63em;
+$site-header-width-fingerprint: "67dad38cf6cd747b";
 
 // Below it, the phone menu: the header's width, 0.5em of air, and 1.25em for a classic scrollbar, which the window's
 // width counts and the header's doesn't (Windows' is 17px). A media query, so the header's script can ask the same
 // question (matchMedia); in em, so it follows the reader's text size.
 $site-menu-query: "(width < #{$site-header-width + 1.75em})";
+$site-name-query: "(width < #{$site-name-width + 1.75em})";

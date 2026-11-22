@@ -33,6 +33,22 @@
   text-decoration: none;
 }
 
+// The name breaks onto two lines where the menu's row is narrow (large text on a phone), only between its words, never
+// inside one. Where even its longest word doesn't fit beside the menu button, only the logo shows: the name stays in
+// the link as its name for screen readers, hidden the way the search field's label is.
+.site-title-name { overflow-wrap: normal; }
+
+@media #{header.$site-name-query} {
+  .site-title-name {
+    position: absolute;
+    inline-size: 0.0625rem;
+    block-size: 0.0625rem;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 // The logo mark (the "pd" monogram, without its shield), in the logo token: the accent of the mode. Its viewBox is the
 // shield's, so the mark sits in it with the shield's margin; the size is the shield's, the mark about 1.1rem.
 .site-logo {

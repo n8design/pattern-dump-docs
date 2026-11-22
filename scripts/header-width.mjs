@@ -14,6 +14,9 @@
 // there, in em of its 1rem, rounded up to 0.01em, is the width written. It is the header's width, not the window's:
 // the style guide adds room for a classic scrollbar on top.
 //
+// The same for the menu's row at its narrowest, the second width: the logo with the site's name broken down to its
+// longest word, the gap and the menu button. Below it, only the logo shows.
+//
 // Beside the width it writes a fingerprint of what it measured: the header as the built home page writes it (the logo,
 // the site's name, the sections, GitHub, the search field), the font files in styleguide/assets/fonts, and the
 // stylesheets that set the row (the header's, the nav's, the frame's gutters and the tokens). `npm run build` and
@@ -77,7 +80,7 @@ const server = createServer((req, res) => {
 });
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 
-let width;
+let width, nameWidth;
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 2400, height: 1080 } });
@@ -119,6 +122,22 @@ try {
     return Math.ceil((at.header / at.em) * 100) / 100;
   };
   width = await narrowest(row);
+  // The menu's row: in a window narrow enough for the menu button, the name shown (whatever the last measure hides)
+  // at its narrowest, its longest word.
+  await page.setViewportSize({ width: 400, height: 1080 });
+  const menuRow = await page.evaluate(() => {
+    const style = document.createElement("style");
+    style.textContent = ".site-title-name { position: static !important; inline-size: auto !important; block-size: auto !important; clip-path: none !important; white-space: normal !important; } .site-title { inline-size: min-content !important; }";
+    document.head.append(style);
+    const header = document.querySelector(".site-header");
+    const title = header.querySelector(".site-title").getBoundingClientRect().width;
+    const button = header.querySelector(".site-menu-button");
+    if (!button.checkVisibility()) throw new Error("no menu button at 400px");
+    const need = title + parseFloat(getComputedStyle(header).columnGap) + button.getBoundingClientRect().width;
+    style.remove();
+    return need;
+  });
+  nameWidth = await narrowest(menuRow);
 } finally {
   await browser.close();
   server.close();
@@ -126,6 +145,7 @@ try {
 
 const text = committedText
   .replace(/\$site-header-width:\s*[\d.]+em;/, `$site-header-width: ${width}em;`)
+  .replace(/\$site-name-width:\s*[\d.]+em;/, `$site-name-width: ${nameWidth}em;`)
   .replace(/\$site-header-width-fingerprint:\s*"[0-9a-f]*";/, `$site-header-width-fingerprint: "${fingerprint()}";`);
 writeFileSync(partial, text);
-console.log(`header-width: ${width}em written to styleguide/src/styles/organisms/_site-header-width.scss, with its fingerprint`);
+console.log(`header-width: ${width}em, and ${nameWidth}em for the name, written to styleguide/src/styles/organisms/_site-header-width.scss, with its fingerprint`);
