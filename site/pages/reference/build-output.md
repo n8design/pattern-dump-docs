@@ -52,7 +52,7 @@ A folder that contains the project
 : `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`, and `pd build: site.outDir <dir> would contain the project itself…` for the site.
 
 A folder that overlaps one Pattern Dump reads
-: `pd build: --out <dir> overlaps <source>, which Pattern Dump reads: choose another folder`, for the patterns, styles, themes or assets, when the workbench is built. `pd build: site.outDir <dir> overlaps <source>, which Pattern Dump reads: choose another folder` for the site, which also may not overlap `site.pagesDir`.
+: `pd build: --out <dir> overlaps <kind> <source>, which Pattern Dump reads: choose another folder` when the workbench is built, and `pd build: site.outDir <dir> overlaps <kind> <source>, which Pattern Dump reads: choose another folder` for the site. Both folders are checked against everything Pattern Dump reads: the patterns, styles, data, scripts, theme, asset and pages folders, the helpers file or folder, and the site's head file. `<kind>` says which one, such as `the data folder`.
 
 The two outputs overlapping
 : `pd build: site.outDir <a> and --out <b> overlap: the site and the workbench each need a folder of their own`.
