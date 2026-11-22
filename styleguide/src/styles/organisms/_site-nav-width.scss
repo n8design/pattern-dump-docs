@@ -1,0 +1,6 @@
+// The sections' width in one line (molecules/site-nav in organisms/site-header), in em of the header's 1rem, with the
+// real fonts, and a fingerprint of what was measured (the sections' labels and the font files). Written by
+// scripts/nav-width.mjs: `npm run nav-width` measures again after the nav changes, and the build fails when the
+// fingerprint no longer matches.
+$site-nav-width: 24.89em;
+$site-nav-width-fingerprint: "4b430c1a3f5dca82";
