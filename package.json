@@ -10,14 +10,14 @@
   "scripts": {
     "dev": "npm run dev -w @pattern-dump-docs/site",
     "dev:styleguide": "npm run dev -w @pattern-dump-docs/styleguide",
-    "build": "npm run lint:css && npm run build -w @pattern-dump-docs/site && node scripts/nav-width.mjs --check",
+    "build": "npm run lint:css && npm run build -w @pattern-dump-docs/site && node scripts/header-width.mjs --check",
     "audit": "npm run audit -w @pattern-dump-docs/styleguide",
     "typecheck": "npm run typecheck -w @pattern-dump-docs/styleguide",
-    "pages": "npm run lint:css && npm run build -w @pattern-dump-docs/site && node scripts/nav-width.mjs --check && npm run build -w @pattern-dump-docs/styleguide -- --base /workbench/ && node scripts/assemble-pages.mjs",
+    "pages": "npm run lint:css && npm run build -w @pattern-dump-docs/site && node scripts/header-width.mjs --check && npm run build -w @pattern-dump-docs/styleguide -- --base /workbench/ && node scripts/assemble-pages.mjs",
     "lint:css": "npm run lint:css -w @pattern-dump-docs/styleguide",
     "prepare": "husky",
     "screenshots": "node scripts/screenshots.mjs",
-    "nav-width": "node scripts/nav-width.mjs",
+    "header-width": "node scripts/header-width.mjs",
     "xray-check": "node scripts/xray-check.mjs"
   },
   "devDependencies": {

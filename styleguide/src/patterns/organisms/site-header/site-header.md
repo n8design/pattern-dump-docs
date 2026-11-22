@@ -8,13 +8,14 @@ The bar at the top of every page: the logo mark and the site's name, linking hom
 search field. The field sends its words to the search page (`/search/?q=…`), which shows
 the results (`organisms/search`).
 
-**The menu button.** When the sections no longer fit on one line, the header becomes one row: the logo on the
-left, a menu button on the right. There is no breakpoint of its own: the sections' width in one line is measured once
-with the real fonts (`scripts/nav-width.mjs`, `npm run nav-width` after a change to the nav) and written to
-`_site-nav-width.scss`, and the header, a container, collapses wherever its content is narrower than that plus 0.5em
-(`@container`, in em, at the header's 1rem). So it follows the window and the reader's text size, holds from the first
-paint, and works without JavaScript. Beside the width the script writes a fingerprint of the sections' labels, the
-font files and the nav's and the header's stylesheets, and the build fails when that no longer matches.
+**The menu button.** The header is always one row and never wraps (`flex-wrap: nowrap`). When its parts no longer
+fit, it is the logo and the name on the left and a menu button on the right. There is no breakpoint of its own: the
+row's width (the logo and the name, the sections, GitHub, the search field, the gaps between them and the page gutters)
+is measured once with the real fonts (`scripts/header-width.mjs`, `npm run header-width` after a change to the header)
+and written to `_site-header-width.scss`, and below that width, plus 0.5em of air and 1.25em for a classic scrollbar,
+a media query in em collapses it. So it follows the window and the reader's text size, holds from the first paint, and
+works without JavaScript. Beside the width the script writes a fingerprint of the header as the home page writes it,
+the font files and the stylesheets that set the row, and the build fails when that no longer matches.
 
 The button is the frame of the site's secondary actions (the border token, a control's edge at 3:1, no fill, square)
 around three strokes drawn for this site, in the search icon's line style, an X while the menu is open. Its name is

@@ -1,15 +1,14 @@
 @use "../base/tokens";
-@use "site-nav-width" as nav;
+@use "site-header-width" as header;
 
-// One row on a wide screen: the name, the sections, the search. It wraps on a narrow one, and becomes the phone menu's
-// one row (below) where the sections don't fit on one line. The header is the container that decides that, at 1rem,
-// so its em is the reader's text size and nothing else (the body text's size grows with the window).
+// One row, always: the name, the sections, GitHub and the search where they fit in it, the name and the menu button
+// (below) where they don't. It never wraps. At 1rem, so its em is the reader's text size and nothing else (the body
+// text's size grows with the window).
 .site-header {
-  container: site-header / inline-size;
   anchor-name: --site-header;
   display: flex;
   font-size: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 1rem 2rem;
   align-items: center;
   padding-block: tokens.$header-padding-block;
@@ -119,16 +118,16 @@
 // Empty without JavaScript: nothing to show.
 .site-search-key:empty { display: none; }
 
-// The phone menu, without a breakpoint of its own. The sections are the same on every page of a build, so their width in
-// one line is measured once, with the real fonts (scripts/nav-width.mjs, run when the nav changes; the build fails when
-// the nav's labels, fonts or styles no longer match what was measured), and written to _site-nav-width.scss. The header is one row with the menu
-// button wherever its content is narrower than that, plus 0.5em of air: @container, in em, so it follows the window
-// and the reader's text size, and it holds from the first paint and without JavaScript.
+// The phone menu, without a breakpoint of its own. The header's row is the same on every page of a build, so its width
+// (the parts, the gaps and the gutters) is measured once, with the real fonts (scripts/header-width.mjs, run when the
+// header changes; the build fails when its content, fonts or styles no longer match what was measured), and written to
+// _site-header-width.scss, with the media query below it. Narrower than that, the header is the name and the menu
+// button: in em, so it follows the window and the reader's text size, and it holds from the first paint and without
+// JavaScript.
 //
 // The sections, GitHub and the search are one set of links in .site-menu, a popover in the markup. While they fit, it
 // adds no box of its own (display: contents), so they sit in the header's row as always. Collapsed, it is the menu:
 // full width, directly under the header, opened by the menu button (popovertarget, which needs no script).
-$collapsed: "site-header (width < #{nav.$site-nav-width + 0.5em})";
 
 // The header's one row with the button, from the rem values the bar is built from (pages/frame derives the same).
 $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hairline;
@@ -136,7 +135,10 @@ $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hai
 .site-menu-button { display: none; }
 .site-menu { display: contents; }
 
-@container #{$collapsed} {
+// The query, for the script (src/scripts/site-header.ts).
+.site-header { --site-menu-query: #{header.$site-menu-query}; }
+
+@media #{header.$site-menu-query} {
   // The button: the frame of the site's secondary actions (layouts/home, "Support it"), a control's edge at 3:1, no
   // fill. Three strokes, an X while open, in the search icon's line style. Right of the logo; with text enlarged far
   // enough that the two don't fit side by side, it goes to a row of its own rather than out of the window.
@@ -229,7 +231,7 @@ $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hai
 .site-menu-button[aria-expanded="true"] .site-menu-icon-close { display: inline; }
 
 // The page under the header, dimmed and blurred while the menu is open; the header stays sharp above it. The one blur
-// TASTE.md allows, on this backdrop only. Outside the container query: the menu can only be open where it is collapsed.
+// TASTE.md allows, on this backdrop only. Outside the media query: the menu can only be open where it is collapsed.
 .site-menu::backdrop {
   position-anchor: --site-header;
   inset-block-start: $menu-top;

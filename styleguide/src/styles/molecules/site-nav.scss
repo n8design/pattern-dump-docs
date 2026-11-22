@@ -1,5 +1,5 @@
 @use "../base/tokens";
-@use "../organisms/site-nav-width" as nav;
+@use "../organisms/site-header-width" as header;
 
 .site-nav { flex: 1 1 auto; }
 
@@ -39,8 +39,8 @@
   text-underline-offset: 0.4em;
 }
 
-// In the header's phone menu (organisms/site-header, the same container query): large rows with hairlines between them.
-@container site-header (width < #{nav.$site-nav-width + 0.5em}) {
+// In the header's phone menu (organisms/site-header, the same media query): large rows with hairlines between them.
+@media #{header.$site-menu-query} {
   .site-nav-list {
     flex-direction: column;
     flex-wrap: nowrap;
