@@ -1,15 +1,15 @@
 ---
 title: Upgrade
-description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.8 and 0.7.
+description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.8.1, 0.8 and 0.7.
 layout: doc
 order: 10
 ---
 
-`pd init` pins `pattern-dump` to the exact version that ran it, `0.8.0` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
+`pd init` pins `pattern-dump` to the exact version that ran it, `0.8.1` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
 
 ## Move the pin
 
-Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last two.
+Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last three.
 
 Then install the new version, exactly, in the project folder:
 
@@ -17,7 +17,7 @@ Then install the new version, exactly, in the project folder:
 npm install --save-dev --save-exact pattern-dump@<version>
 ```
 
-`<version>` is the release, such as `0.8.0`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
+`<version>` is the release, such as `0.8.1`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
 
 Restart `pd dev`, and run the audit and the build:
 
@@ -27,6 +27,32 @@ npm run build
 ```
 
 A release can check more than the one before. An audit or a build that passed can fail after an upgrade, in CI too, and the messages say what to change.
+
+## Upgrading to 0.8.1
+
+### Sample data stays in the workbench
+
+A component's sample `.json` no longer reaches a site page. On a page, a component gets only what it is given, its template's defaults (`defaultValue`) and the global data; the workbench, its previews and a page's live examples show it with its sample data as before. The checks that kept sample keys off the pages went with it, so sample data may set any key, and a header or footer in the frame can have sample data of its own. [Layouts](/reference/layouts/#sample-data) has the details.
+
+### Helpers need their arguments
+
+A helper called with too few arguments now fails the render and names itself, such as `defaultValue needs 2 arguments, got 1`, and `and` and `or` refuse a third. A template that showed `[object Object]`, or relied on a comparison quietly being false, fails until you give the helper its arguments.
+
+### axe-core 4.11.4, exactly
+
+The package depends on axe-core 4.11.4 and jsdom 27.4.0 exactly. With another axe-core installed, `pd dev`, `pd build` and `pd audit` stop and name the version to install.
+
+### Reports in your cache folder
+
+The audit report, the diagnostics graph and the other reports moved from the system's temporary folder to your own cache folder. [Run `pd audit`](/guide/check-your-work/#run-pd-audit) has the paths.
+
+### The build refuses more output folders
+
+`--out` and `site.outDir` are checked against everything Pattern Dump reads, the data and scripts folders, the helpers and the site's head file among them. A build whose output overlaps one of them stops, naming it.
+
+### `pd --version`
+
+`pd --version` and `pd -v` print the version installed in the project.
 
 ## Upgrading to 0.8
 
