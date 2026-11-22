@@ -4,9 +4,9 @@
     <p class="home-eyebrow">Design system documentation{{#if site.patternDumpVersion}} for {{site.patternDumpVersion}}{{/if}}</p>
     <h1 class="home-title">{{#if headline}}{{#each headline}}<span class="home-title-line">{{this}}</span> {{/each}}{{else}}{{title}}{{/if}}</h1>
     {{#if lede}}<p class="home-lede">{{lede}}</p>{{/if}}
-    <div class="home-actions">
-      <a class="home-action home-action-primary" href="/guide/" data-xray="layouts/home">Start the guide</a>
-      {{#if site.sponsor.href}}<a class="home-action" href="{{site.sponsor.href}}" data-xray="layouts/home">Support it</a>{{/if}}
+    <div class="home-actions" data-xray="layouts/home">
+      <a class="home-action home-action-primary" href="/guide/">Start the guide</a>
+      {{#if site.sponsor.href}}<a class="home-action" href="{{site.sponsor.href}}">Support it</a>{{/if}}
     </div>
     <p class="home-proof">See it at work: <a href="/in-practice/demo/">the demo</a> and <a href="/in-practice/this-site/">this site</a>.</p>
   </div>

@@ -53,7 +53,8 @@ html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], f
   }
 }
 
-// A frame: a thin grey hairline 0.75rem outside the component. Active, the hairline gives way to the glow, which
+// A frame: a thin grey hairline 0.75rem outside the component; for a component inside another marked one, exactly on
+// its own box's edge, never inside it (a component without padding would have its content cut). Active, the hairline gives way to the glow, which
 // grows outward from it: a white line, then cyan, then wide soft glows; it shrinks back on leave.
 .xray-frame {
   position: fixed;
@@ -64,6 +65,8 @@ html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], f
   filter: drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent);
   pointer-events: none;
 }
+
+.xray-frame.xray-nested { margin: 0; }
 
 .xray-frame[data-active] {
   border-color: var(--color-xray-label-active);
@@ -97,6 +100,11 @@ html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], f
 
 .xray-frame.xray-in-bar { z-index: 40; }
 .xray-label.xray-in-bar { z-index: 41; }
+
+// The bars run the window's width and stay over the page as it scrolls under them: their frames sit on their own edge,
+// and their labels start where their content does, at the page gutter (pages/frame).
+.xray-frame.xray-bar-frame { margin: 0; }
+.xray-label.xray-bar-label { margin-inline-start: var(--site-gutter, 1.5rem); }
 
 // Without anchor positioning there is nothing to hang the frames and labels from: the veil and the marked components
 // still show which part is which, and the page stays as usable as without x-ray.

@@ -19,7 +19,7 @@ on top. It stays on for the session (sessionStorage); the button or Escape switc
 just switches, without the fade and the flicker.
 
 Marked: the header, its nav, its search field and the menu button (`organisms/site-header`, `molecules/site-nav`),
-the search page's field and button (`organisms/search`), the home page's two actions (`layouts/home`), each group
+the search page's field and button (`organisms/search`), the home page's row of actions (`layouts/home`, one component, so the two buttons' frames don't cross), each group
 of the page map, the site cards and each card, the video, the live examples and the footer. The styles are in
 `base/xray.scss`; the veil's `backdrop-filter` and the components' filters are the exception `TASTE.md` allows for
 x-ray.
