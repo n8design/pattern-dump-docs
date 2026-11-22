@@ -5,7 +5,7 @@ layout: doc
 order: 2
 ---
 
-What happens to your files when you run `pd dev`, and why does `pd build` publish what the workbench showed you? Because Pattern Dump renders everything one way. The preview of a component, its docs and checks in the workbench, and a site page that uses it all come from one renderer, with the same templates, data and helpers.
+Pattern Dump renders everything one way, so `pd build` publishes what the workbench showed you. The preview of a component, its docs and checks in the workbench, and a site page that uses it all come from one renderer, with the same templates, data and helpers.
 
 `pd build` is not a second engine. It starts the same dev server without live reload, asks it for every page and writes the answers to disk, and it replaces your output folders only at the end, once every check has passed. `pd audit` renders with the same setup as `pd dev`, without starting a server.
 
