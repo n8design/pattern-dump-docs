@@ -13,5 +13,8 @@ and text never touches the edge. The page is a container (`container-type: inlin
 units (`cqi`), so it is the same wherever it is read: in the bars, in the column (a symbol image's bleed), in x-ray's
 labels and in the open menu.
 
+With classic scrollbars, the page keeps the scrollbar's gutter whether it scrolls or not (`scrollbar-gutter: stable`),
+so its width doesn't change from page to page.
+
 The frame is at least as tall as the viewport, so a short page keeps its footer at the bottom. A layout fills it with
 `{{#> pages-frame }} … {{/pages-frame}}`.

@@ -16,6 +16,14 @@ const button = document.querySelector<HTMLButtonElement>(".site-menu-button");
 const field = document.querySelector<HTMLInputElement>("#site-search-input");
 const hint = document.querySelector<HTMLElement>("[data-search-key]");
 
+// The classic scrollbar's width (0 with overlay scrollbars), measured once, for the page to keep its place while the open
+// menu turns the scrollbar's gutter off (organisms/site-header.scss): the window's width less the page's, which the
+// gutter narrows (clientWidth can miss it). In rem, like every size in the styles.
+const scrollbar = innerWidth - document.documentElement.getBoundingClientRect().width;
+if (scrollbar > 0) {
+  document.documentElement.style.setProperty("--scrollbar-width", `${scrollbar / parseFloat(getComputedStyle(document.documentElement).fontSize)}rem`);
+}
+
 if (menu && button) {
   // Not in the markup: without this script the browser reports the popover button's state itself, and a fixed
   // aria-expanded="false" would override it while the menu is open.

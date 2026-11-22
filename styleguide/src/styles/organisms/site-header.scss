@@ -269,5 +269,20 @@ $grain: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160
   backdrop-filter: blur(1rem) saturate(1.4);
 }
 
-// While it is open the page under it doesn't scroll, so the header stays where the menu hangs from.
-html:has(.site-menu:popover-open) { overflow: hidden; }
+// While it is open the page under it doesn't scroll, so the header stays where the menu hangs from. The scrollbar's
+// gutter (pages/frame, there against the page's width changing between pages) goes too, so the backdrop and the panel
+// reach the window's right edge: the browser paints nothing but the page's background into a gutter. In its place the
+// page gets padding of the same width, measured once by the header's script (--scrollbar-width), so nothing in it
+// moves; the header reaches across it, so its line and its button stay where they were. Without the script (or with
+// overlay scrollbars) the width is 0.
+html:has(.site-menu:popover-open) {
+  overflow: hidden;
+  scrollbar-gutter: auto;
+  padding-inline-end: var(--scrollbar-width, 0rem);
+}
+html:has(.site-menu:popover-open) .site > .site-header {
+  margin-inline-end: calc(-1 * var(--scrollbar-width, 0rem));
+  padding-inline-end: calc(var(--site-gutter, 1.5rem) + var(--scrollbar-width, 0rem));
+}
+// The panel spans the window, scrollbar's place included; its rows end where the header's button does.
+html:has(.site-menu:popover-open) .site-menu { padding-inline-end: calc(var(--site-gutter) + var(--scrollbar-width, 0rem)); }
