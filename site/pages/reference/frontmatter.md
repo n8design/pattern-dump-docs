@@ -37,6 +37,9 @@ A block that is never closed
 A key written twice
 : `duplicate key "<k>"`
 
+A key every object already has
+: `"<key>" cannot be a frontmatter key: choose another name`, for `__proto__`, `constructor`, `toString` and the like.
+
 A line that is no key, value or list item
 : `cannot read this line: <line>`
 
