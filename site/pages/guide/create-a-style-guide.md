@@ -29,8 +29,8 @@ Include site search (Pagefind) (Y/n):
 Follow the viewer's light or dark setting (a system theme as the default) (Y/n): n
 Initialise a git repository (Y/n):
 Run npm install (Y/n):
-✓ 149 files written to my-design-system
-✓ package.json created: my-design-system, with pattern-dump 0.8.0
+✓ 153 files written to my-design-system
+✓ package.json created: my-design-system, with pattern-dump 0.8.1
 ✓ git repository initialised
 … npm install
 
@@ -165,7 +165,9 @@ my-design-system/
 │   │   │   └── example/
 │   │   ├── partials/
 │   │   │   ├── base/
-│   │   │   └── head/
+│   │   │   ├── head/
+│   │   │   ├── term-index/
+│   │   │   └── term-listing/
 │   │   └── views/
 │   │       ├── compact/
 │   │       ├── featured/
@@ -207,7 +209,7 @@ Without the starter components, `atoms/`, `molecules/` and `pages/` under `src/p
 
 ### The site
 
-`pages/` holds the site's pages, one markdown file each: a home page, an about page, a guide page, a search page, and a folder of articles. The site is built from components like the rest: `layouts/` holds the nine layouts a page can take, `partials/` the frame and the head, `views/` the four ways to list a folder of pages, and `components/` what the pages and layouts place, such as cards, a note, the search and the table of contents. Together, the layouts, partials and views are the site's skin. `.github/workflows/pages.yml` publishes the site to GitHub Pages. A later step of this guide shows what a page is made of.
+`pages/` holds the site's pages, one markdown file each: a home page, an about page, a guide page, a search page, and a folder of articles. The site is built from components like the rest: `layouts/` holds the nine layouts a page can take, `partials/` the frame, the head and the two parts the tag and category layouts share (`term-index` and `term-listing`), `views/` the four ways to list a folder of pages, and `components/` what the pages and layouts place, such as cards, a note, the search and the table of contents. Together, the layouts, partials and views are the site's skin. `.github/workflows/pages.yml` publishes the site to GitHub Pages. A later step of this guide shows what a page is made of.
 
 ### The config
 
@@ -266,7 +268,7 @@ Pattern Dump checks the config each time it loads it, and lists every problem at
     "build": "pd build"
   },
   "devDependencies": {
-    "pattern-dump": "0.8.0",
+    "pattern-dump": "0.8.1",
     "typescript": "^5.9.0",
     "pagefind": "1.6.0"
   },
