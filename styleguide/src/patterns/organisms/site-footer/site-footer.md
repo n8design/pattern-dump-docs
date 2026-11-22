@@ -13,11 +13,12 @@ the links, so without JavaScript there is no control and nothing changes. Switch
 `src/scripts/xray.ts` (named in the footer's inert `<template>`, so it loads only then): the page fades to black and
 goes monochrome under a veil, and the components marked with `data-xray="<id>"` in this style guide's templates, and
 the live examples, blink in above it like bones on an x-ray. Each has a thin hairline frame (inside its parent's, for
-a component inside another) and a label with its id, a small chip on the frame's top edge, a link to it in the
-workbench (`site.workbenchUrl` + the id). Pointing at a component, or at its label, or focusing the label, makes the
-frame glow; only the innermost component under the pointer does. The header and the footer stay on top. It stays on
-for the session (sessionStorage); the button or Escape switches it off. With reduced motion it just switches, without
-the fade and the flicker.
+a component inside another) and a label with its id and a "»", a small chip on the frame's top edge, a link to it in
+the workbench (`site.workbenchUrl` + the id). The link's name says where it goes ("components/video in the style
+guide"); the "»" is hidden from assistive tech. It is underlined on hover and focus. Pointing at a component, or at
+its label, or focusing the label, makes the frame glow; only the innermost component under the pointer does. The
+header and the footer stay on top. It stays on for the session (sessionStorage); the button or Escape switches it off.
+With reduced motion it just switches, without the fade and the flicker.
 
 Marked: the header, its nav, its search field and the menu button (`organisms/site-header`, `molecules/site-nav`), the
 search page's field and button (`organisms/search`), the home page's row of actions (`layouts/home`, one component, so

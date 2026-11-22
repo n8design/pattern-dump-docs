@@ -165,7 +165,12 @@ export function on(animate: boolean): void {
     const label = document.createElement("a");
     label.className = `xray-label${bar}${fullWidth}${inHeader}`;
     label.href = `${workbench}${id}`;
-    label.textContent = id;
+    // Its name says where it goes; the mark after the id is decoration, hidden from assistive tech.
+    label.setAttribute("aria-label", `${id} in the style guide`);
+    const mark = document.createElement("span");
+    mark.setAttribute("aria-hidden", "true");
+    mark.textContent = " \u00bb";
+    label.append(id, mark);
     label.style.setProperty("position-anchor", `${name}-frame`);
 
     layer().append(frame, label);
