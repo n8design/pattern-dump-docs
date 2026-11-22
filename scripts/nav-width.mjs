@@ -12,9 +12,9 @@
 // in em of the header's font size (1rem), rounded up to 0.01em.
 //
 // Beside the width it writes a fingerprint of what it measured: the sections' labels, as the built home page writes
-// them, and the font files in styleguide/assets/fonts. `npm run build` and `npm run pages` run the check, which
-// computes the fingerprint again without a browser and fails when it differs. A change to the nav's own styles (its
-// size or the gap between sections) isn't in the fingerprint: run `npm run nav-width` after one.
+// them, the font files in styleguide/assets/fonts, and the nav's and the header's stylesheets (the sections' size and
+// the gap between them). `npm run build` and `npm run pages` run the check, which computes the fingerprint again
+// without a browser and fails when it differs.
 import { createServer } from "node:http";
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -26,8 +26,10 @@ const siteDir = join(root, "site/dist/site");
 const partial = join(root, "styleguide/src/styles/organisms/_site-nav-width.scss");
 const check = process.argv.includes("--check");
 const fontsDir = join(root, "styleguide/assets/fonts");
+const styles = ["styleguide/src/styles/molecules/site-nav.scss", "styleguide/src/styles/organisms/site-header.scss"];
 
-// The sections' labels as the built home page writes them, and every font file, hashed together.
+// The sections' labels as the built home page writes them, every font file, and the nav's and the header's
+// stylesheets, hashed together.
 const fingerprint = () => {
   const home = readFileSync(join(siteDir, "index.html"), "utf8");
   const labels = [...home.matchAll(/<a class="site-nav-link"[^>]*>([^<]*)<\/a>/g)].map(m => m[1]);
@@ -36,6 +38,7 @@ const fingerprint = () => {
   for (const file of readdirSync(fontsDir).filter(f => f.endsWith(".woff2")).sort()) {
     hash.update(file).update(readFileSync(join(fontsDir, file)));
   }
+  for (const file of styles) hash.update(file).update(readFileSync(join(root, file)));
   return hash.digest("hex").slice(0, 16);
 };
 
@@ -44,7 +47,7 @@ if (check) {
   const committed = committedText.match(/\$site-nav-width-fingerprint:\s*"([0-9a-f]+)";/)?.[1];
   const now = fingerprint();
   if (committed !== now) {
-    console.error(`nav-width: the nav's labels or fonts changed since its width was measured (fingerprint ${now}, _site-nav-width.scss has ${committed ?? "none"}): run \`npm run nav-width\`, then build again`);
+    console.error(`nav-width: the nav's labels, fonts or styles changed since its width was measured (fingerprint ${now}, _site-nav-width.scss has ${committed ?? "none"}): run \`npm run nav-width\`, then build again`);
     process.exit(1);
   }
   console.log("nav-width: the nav is the one that was measured");

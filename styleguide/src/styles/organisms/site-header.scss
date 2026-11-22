@@ -121,7 +121,7 @@
 
 // The phone menu, without a breakpoint of its own. The sections are the same on every page of a build, so their width in
 // one line is measured once, with the real fonts (scripts/nav-width.mjs, run when the nav changes; the build fails when
-// the nav's labels or fonts no longer match what was measured), and written to _site-nav-width.scss. The header is one row with the menu
+// the nav's labels, fonts or styles no longer match what was measured), and written to _site-nav-width.scss. The header is one row with the menu
 // button wherever its content is narrower than that, plus 0.5em of air: @container, in em, so it follows the window
 // and the reader's text size, and it holds from the first paint and without JavaScript.
 //

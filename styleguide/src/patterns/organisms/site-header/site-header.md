@@ -13,8 +13,8 @@ left, a menu button on the right. There is no breakpoint of its own: the section
 with the real fonts (`scripts/nav-width.mjs`, `npm run nav-width` after a change to the nav) and written to
 `_site-nav-width.scss`, and the header, a container, collapses wherever its content is narrower than that plus 0.5em
 (`@container`, in em, at the header's 1rem). So it follows the window and the reader's text size, holds from the first
-paint, and works without JavaScript. Beside the width the script writes a fingerprint of the sections' labels and
-the font files, and the build fails when that no longer matches.
+paint, and works without JavaScript. Beside the width the script writes a fingerprint of the sections' labels, the
+font files and the nav's and the header's stylesheets, and the build fails when that no longer matches.
 
 The button is the frame of the site's secondary actions (the border token, a control's edge at 3:1, no fill, square)
 around three strokes drawn for this site, in the search icon's line style, an X while the menu is open. Its name is
