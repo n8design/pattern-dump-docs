@@ -1,15 +1,15 @@
 ---
 title: Upgrade
-description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.8.1, 0.8 and 0.7.
+description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.8.2, 0.8.1, 0.8 and 0.7.
 layout: doc
 order: 10
 ---
 
-`pd init` pins `pattern-dump` to the exact version that ran it, `0.8.1` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
+`pd init` pins `pattern-dump` to the exact version that ran it, `0.8.2` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
 
 ## Move the pin
 
-Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last three.
+Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last four.
 
 Then install the new version, exactly, in the project folder:
 
@@ -17,7 +17,7 @@ Then install the new version, exactly, in the project folder:
 npm install --save-dev --save-exact pattern-dump@<version>
 ```
 
-`<version>` is the release, such as `0.8.1`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
+`<version>` is the release, such as `0.8.2`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
 
 Restart `pd dev`, and run the audit and the build:
 
@@ -27,6 +27,10 @@ npm run build
 ```
 
 A release can check more than the one before. An audit or a build that passed can fail after an upgrade, in CI too, and the messages say what to change.
+
+## Upgrading to 0.8.2
+
+0.8.2 fixes three things and needs no change to your project. A `pd-` tag can go over several lines, and a fence or inline code in a tag's content can show a `pd-` tag as code ([Placed components](/reference/markdown/#placed-components)). A style guide's `pd build` writes the images that `{{pd-image}}` places in its previews and docs.
 
 ## Upgrading to 0.8.1
 
