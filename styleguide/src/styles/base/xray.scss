@@ -73,38 +73,62 @@ html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], f
   filter: drop-shadow(0 0 0.125rem var(--color-xray-glow)) drop-shadow(0 0 0.5rem var(--color-xray-glow)) drop-shadow(0 0 1.5rem var(--color-xray-glow-soft));
 }
 
-// A label: the component's id, a link to it in the workbench, above the component (below it where there is no room
-// above), always glowing; white, and brighter, while its component is active.
+// A label: the component's id, a link to it in the workbench, as a small mono chip standing on the frame's top line,
+// level with its left side, like a tab, and never over the component's content (under the bottom line where there is
+// no room above). Pale cyan with dark text and a soft cyan glow; white, with a stronger glow, while its component is
+// active. It hangs from its frame (the frame's anchor name). Where a chip would touch another one (a parent's and a
+// child's at the same corner), src/scripts/xray.ts moves the later one along the edge.
 .xray-label {
   position: fixed;
   z-index: 21;
-  position-area: top;
-  position-try-fallbacks: flip-block;
-  margin-block: 0.875rem;
-  padding: 0.125rem 0.375rem;
-  background: var(--color-xray-label-ground);
-  color: var(--color-xray-label);
+  // Anchored insets, not position-area: they hold wherever the component is, on screen or not, so the script can test
+  // a place before the reader scrolls to it.
+  inset: auto;
+  inset-inline-start: anchor(left);
+  inset-block-end: anchor(top);
+  block-size: 1.125rem;
+  padding: 0 0.375rem;
+  background: var(--color-xray-label);
+  color: var(--color-xray-label-ink);
   font-family: tokens.$font-mono;
-  font-size: var(--font-size--1);
+  font-size: 0.6875rem;
+  line-height: 1.125rem;
   white-space: nowrap;
   text-decoration: none;
   filter: drop-shadow(0 0 0.25rem var(--color-xray-glow-soft));
 }
 
 .xray-label[data-active] {
-  color: var(--color-xray-label-active);
+  background: var(--color-xray-label-active);
   filter: drop-shadow(0 0 0.375rem var(--color-xray-glow)) drop-shadow(0 0 1rem var(--color-xray-glow-soft));
 }
 
 .xray-label:focus-visible { outline: 0.125rem solid var(--color-xray-glow); outline-offset: 0.125rem; }
 
 .xray-frame.xray-in-bar { z-index: 40; }
-.xray-label.xray-in-bar { z-index: 41; }
-
-// The bars run the window's width and stay over the page as it scrolls under them: their frames sit on their own edge,
-// and their labels start where their content does, at the page gutter (pages/frame).
+// The bars run the window's width and stay over the page as it scrolls under them, so a line outside them would cross
+// it: their frames sit on their own edge, and their chips inside the bar, in its padding (the header's on its bottom
+// line, the footer's under its top line), starting where their content does, at the page gutter (pages/frame).
 .xray-frame.xray-bar-frame { margin: 0; }
 .xray-label.xray-bar-label { margin-inline-start: var(--site-gutter, 1.5rem); }
+.xray-label.xray-bar-top { inset-block-end: anchor(bottom); }
+.xray-label.xray-bar-bottom {
+  inset-block-start: anchor(top);
+  inset-block-end: auto;
+}
+.xray-label.xray-in-bar { z-index: 41; }
+
+// Under the frame's bottom line: inside the header, as in the mockup, so none covers a control of the bar (the menu
+// button), and wherever the top line has no room; level with the frame's right end where its left has none, or the
+// chip would leave the window (src/scripts/xray.ts decides).
+.xray-label[data-side="below"] {
+  inset-block-start: anchor(bottom);
+  inset-block-end: auto;
+}
+.xray-label[data-align="end"] {
+  inset-inline-start: auto;
+  inset-inline-end: anchor(right);
+}
 
 // Without anchor positioning there is nothing to hang the frames and labels from: the veil and the marked components
 // still show which part is which, and the page stays as usable as without x-ray.
@@ -117,8 +141,8 @@ html[data-xray-mode] :is([data-xray], figure.doc-example):not(:is([data-xray], f
 // labels with them, each on its own (never a wrapper, see above). The glow grows and shrinks. Only for readers who
 // don't ask for reduced motion: for the others it just switches.
 @media (prefers-reduced-motion: no-preference) {
-  .xray-frame,
-  .xray-label { transition: filter 0.3s ease-out, border-color 0.3s ease-out, color 0.3s ease-out; }
+  .xray-frame { transition: filter 0.3s ease-out, border-color 0.3s ease-out; }
+  .xray-label { transition: filter 0.3s ease-out, background-color 0.3s ease-out; }
 
   html[data-xray-intro] .xray-veil { animation: xray-fade 0.45s ease-out both; }
 

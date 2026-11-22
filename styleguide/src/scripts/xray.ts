@@ -19,6 +19,83 @@ const layer = (): HTMLElement => document.querySelector<HTMLElement>(".site") ??
 interface Mark { element: HTMLElement; frame: HTMLElement; label: HTMLAnchorElement }
 
 let marks: Mark[] = [];
+let settle = 0;
+let watcher: ResizeObserver | undefined;
+
+// Where each chip goes. A chip stands on its frame's top line, level with its left side; inside the header (and for a
+// chip that doesn't fit there) under the bottom line. It must cover no content and no other chip: where it would, it
+// moves along the line (right) until it doesn't, and if it runs past the frame's end, it tries the other line. The
+// bars' own chips sit inside the bar, in its padding (base/xray.scss), and only take part as obstacles.
+const leaves = (): DOMRect[] => {
+  const out: DOMRect[] = [];
+  const site = document.querySelector(".site") ?? document.body;
+  const mine = (node: Node): boolean => !!(node instanceof Element ? node : node.parentElement)?.closest(".xray-frame, .xray-label, .xray-veil");
+  const walker = document.createTreeWalker(site, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    const parent = node.parentElement;
+    if (!node.textContent?.trim() || !parent || mine(node) || !parent.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue;
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    for (const rect of range.getClientRects()) if (rect.width > 2 && rect.height > 2) out.push(rect);
+  }
+  for (const element of site.querySelectorAll("img, svg:not(svg svg), iframe, video, input")) {
+    if (mine(element) || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue;
+    const rect = element.getBoundingClientRect();
+    if (rect.width > 2 && rect.height > 2) out.push(rect);
+  }
+  return out;
+};
+
+const place = (): void => {
+  const rem = parseFloat(getComputedStyle(root).fontSize);
+  const gap = 0.25 * rem;
+  const content = leaves();
+  const touches = (a: DOMRect, b: DOMRect, room = 0): boolean =>
+    a.left < b.right + room && b.left < a.right + room && a.top < b.bottom + room && b.top < a.bottom + room;
+  const placed: DOMRect[] = [];
+  const obstacle = (rect: DOMRect): DOMRect | undefined =>
+    [...placed.filter(p => touches(rect, p, gap)), ...content.filter(c => touches(rect, c))].sort((a, b) => a.right - b.right)[0];
+  for (const { label, frame } of marks) {
+    label.style.removeProperty("margin-inline-start");
+    delete label.dataset.align;
+    if (label.classList.contains("xray-bar-label")) { placed.push(label.getBoundingClientRect()); continue; }
+    const sides = label.classList.contains("xray-in-header") ? ["below", "above"] : ["above", "below"];
+    const end = frame.getBoundingClientRect().right;
+    let done = false;
+    for (const side of sides) {
+      label.dataset.side = side;
+      // From the frame's left end, moving right past whatever is in the way, as long as it stays on the line and in
+      // the window.
+      delete label.dataset.align;
+      label.style.removeProperty("margin-inline-start");
+      for (let guard = 0; guard < 200 && !done; guard++) {
+        const rect = label.getBoundingClientRect();
+        if (rect.right > Math.min(end, innerWidth) + 0.5) break;
+        const hit = obstacle(rect);
+        if (!hit) { done = true; break; }
+        const current = parseFloat(getComputedStyle(label).marginInlineStart) || 0;
+        label.style.setProperty("margin-inline-start", `${((current + Math.max(hit.right + gap - rect.left, 1)) / rem).toFixed(3)}rem`);
+      }
+      if (done) break;
+      // Level with the frame's right end.
+      label.style.removeProperty("margin-inline-start");
+      label.dataset.align = "end";
+      const rect = label.getBoundingClientRect();
+      if (rect.left >= 0 && !obstacle(rect)) { done = true; break; }
+    }
+    if (!done) {
+      label.dataset.side = sides[0];
+      delete label.dataset.align;
+      label.style.removeProperty("margin-inline-start");
+    }
+    placed.push(label.getBoundingClientRect());
+  }
+};
+
+const onResize = (): void => {
+  cancelAnimationFrame(settle);
+  settle = requestAnimationFrame(place);
+};
 let added: HTMLElement[] = [];
 let active: Mark | undefined;
 let introTimer = 0;
@@ -72,27 +149,37 @@ export function on(animate: boolean): void {
     element.style.setProperty("anchor-name", own && own !== "none" ? `${own}, ${name}` : name);
     // In the header and the footer, which stay above everything else, their frames and labels do too.
     const bar = element.closest(".site-header, .site-footer") ? " xray-in-bar" : "";
-    // A component inside another marked one gets its frame on its own box's edge, never inside it, so frames never cross.
+    // A component inside another marked one gets its frame inside its own box, so frames never cross.
     const nested = element.parentElement?.closest(MARKED) ? " xray-nested" : "";
-    // The bars run the window's width: their frames sit on their own edge, their labels start at the page gutter.
-    const fullWidth = element.matches(".site-header, .site-footer") ? " xray-bar-label" : "";
+    // The bars run the window's width: their own labels start at the page gutter, where their content does.
+    const fullWidth = element.matches(".site-header") ? " xray-bar-label xray-bar-top" : element.matches(".site-footer") ? " xray-bar-label xray-bar-bottom" : "";
+    const inHeader = !fullWidth && element.closest(".site-header") ? " xray-in-header" : "";
 
     const frame = document.createElement("div");
     frame.className = `xray-frame${bar}${nested}${fullWidth ? " xray-bar-frame" : ""}`;
     frame.setAttribute("aria-hidden", "true");
     frame.style.setProperty("position-anchor", name);
+    // The label hangs from the frame, on its top edge.
+    frame.style.setProperty("anchor-name", `${name}-frame`);
 
     const label = document.createElement("a");
-    label.className = `xray-label${bar}${fullWidth}`;
+    label.className = `xray-label${bar}${fullWidth}${inHeader}`;
     label.href = `${workbench}${id}`;
     label.textContent = id;
-    label.style.setProperty("position-anchor", name);
+    label.style.setProperty("position-anchor", `${name}-frame`);
 
     layer().append(frame, label);
     added.push(frame, label);
     marks.push({ element, frame, label });
   });
 
+  place();
+  // Again once the fonts are in (the chips' mono face sets their width) and whenever the page's layout changes size
+  // (an image that loads late, the window): one pass per frame.
+  void document.fonts?.ready.then(onResize);
+  watcher = new ResizeObserver(onResize);
+  watcher.observe(document.querySelector(".site") ?? document.body);
+  window.addEventListener("resize", onResize);
   document.addEventListener("pointerover", onPointer);
   document.addEventListener("focusin", onFocus);
   document.addEventListener("focusout", onFocusOut);
@@ -100,6 +187,10 @@ export function on(animate: boolean): void {
 
 export function off(): void {
   window.clearTimeout(introTimer);
+  cancelAnimationFrame(settle);
+  watcher?.disconnect();
+  watcher = undefined;
+  window.removeEventListener("resize", onResize);
   document.removeEventListener("pointerover", onPointer);
   document.removeEventListener("focusin", onFocus);
   document.removeEventListener("focusout", onFocusOut);
