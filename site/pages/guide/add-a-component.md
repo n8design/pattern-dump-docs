@@ -46,6 +46,8 @@ Files belong to a component when they share its name exactly: `badge.json` for d
 
 A component renders with global data first, when the config names a data folder, then its own `.json`, then a variant's `.json`, and last any data passed to the render. Objects merge key by key, and anything else, arrays included, is replaced.
 
+That sample data is for the workbench, its previews and the live examples on a page. On a site page, the badge gets only what it is given, its template's defaults (`defaultValue`) and the global data, never `badge.json`: [Layouts](/reference/layouts/#sample-data) has the details.
+
 A data file that isn't valid JSON is an error, `<file> is not valid JSON (<reason>); its data was not used`, with the line and column. `<file>` is the file's name, `<reason>` what the parser found.
 
 ## Its documentation
