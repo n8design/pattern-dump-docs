@@ -106,7 +106,7 @@ On a site page, a `pd-` tag places a component with values of your own. In a com
 
 A tag's name is `pd-` and the component's handle: lowercase letters, digits and hyphens, optionally with `~<variant>`. A block starts at the beginning of a line, at most three spaces in, also inside a list item or a quote, and runs to its root tag's closing tag, blank lines included. In the middle of a paragraph it is text; indented four spaces, it is a code block. `<pd-x />` closes itself.
 
-Attribute values may be in double quotes, single quotes or none. An attribute's name maps from kebab-case to camelCase (`per-view` is `perView`). An attribute without a value is `true` for a boolean, and otherwise `<where> needs a value: only a boolean can be written without one`.
+An opening tag can go over several lines: line breaks between its attributes work as in HTML, and give the same component and values as one line. Attribute values may be in double quotes, single quotes or none. An attribute's name maps from kebab-case to camelCase (`per-view` is `perView`). An attribute without a value is `true` for a boolean, and otherwise `<where> needs a value: only a boolean can be written without one`.
 
 An attribute's text is turned into the declared type only: a number (`-?\d+(\.\d+)?`), a whole number (`-?\d+`), or exactly `true` or `false`. `enum` is checked after that (`must be one of … (got …)`), and an object or `null` type can't be written as text.
 
@@ -118,6 +118,8 @@ A child `pd-` tag goes into the property whose `items` (a list) or value (one) h
 
 Text between the tags fills the property that `x-pd-content` names, dedented to its least indented line. A `text/markdown` property is rendered as block markdown with HTML escaped; any other is plain text. Without `x-pd-content`: `<pd-x> takes no content text, found "<first 40 characters>"`.
 
+A fence or inline code in the content is text, as everywhere else on a page, so it can show a `pd-` tag as code. A fence left open runs to the end of the content, and the tag around it is then never closed.
+
 ### Regions
 
 `region="<name>"` on the root tag puts the component in a region of the layout. It is Pattern Dump's, never a value of the component: an empty one is an error, and a component that declares a `region` property can't take it. It wins over the schema's `x-pd-region`.
@@ -127,7 +129,7 @@ Text between the tags fills the property that `x-pd-content` names, dedented to 
 Every problem is reported with the file, line and column, and fails the page:
 
 A tag that can't be read
-: `<pd-x> is never closed`, `</pd-y> closes <pd-x> (opened at <l>:<c>)`, `</pd-y> closes nothing`, or `<pd-x> has something it cannot read before its closing >`.
+: `<pd-x> is never closed`, `</pd-y> closes <pd-x> (opened at <l>:<c>)`, `</pd-y> closes nothing`, or `<pd-x> has something it cannot read before its closing >`. The last one points at the first character it cannot read, on that character's own line.
 
 A component that doesn't exist
 : `there is no component "<handle>": did you mean <pd-…>?`
