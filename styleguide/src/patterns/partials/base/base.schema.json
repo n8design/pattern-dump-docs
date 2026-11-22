@@ -31,13 +31,14 @@
         },
         "sponsor": {
           "type": "object",
-          "description": "Where to sponsor the project: \"Sponsor\" among the footer's links",
+          "description": "Where to sponsor the project: \"Sponsor\" among the footer's links, and \"Support it\" on the home page",
           "required": ["href"],
           "properties": {
             "href": { "type": "string", "description": "The sponsor page's address" }
           }
         },
-        "patternDumpVersion": { "type": "string", "description": "The installed Pattern Dump's version, which the docs describe: the home page's eyebrow" }
+        "patternDumpVersion": { "type": "string", "description": "The installed Pattern Dump's version, which the docs describe: the home page's eyebrow and start row" },
+        "patternDumpReleased": { "type": "string", "description": "That version's release date, as \"22 November 2026\", from the package's CHANGELOG.md: the home page's start row" }
       }
     }
   }
