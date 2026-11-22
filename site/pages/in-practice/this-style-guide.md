@@ -7,6 +7,8 @@ order: -1
 
 How this site looks is decided in `styleguide/`, a pattern package in the same repository. It holds the components, the layouts the pages render with, the tokens and the themes. The style guide runs in a workbench of its own. [Its published workbench](/workbench/) sits beside this site and shows the components this page describes.
 
+To see which component is which on any page, switch on X-ray at the foot of the page: each component gets a label with its id, a link to it in the workbench.
+
 ![The workbench with the Nav Rail on the left, the note component on the Stage, its documentation in the Inspector on the right, and the Console below the Stage.](/assets/screenshots/workbench-overview.webp "The style guide in its own workbench: the folders in the Nav Rail, a component on the Stage, its docs in the Inspector.")
 
 ## Its own workbench
