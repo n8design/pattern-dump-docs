@@ -29,7 +29,7 @@ Pattern Dump is one npm package, `pattern-dump`, with one command-line tool, `pd
 `pd build`
 : Writes the workbench as static files, and the site, when there is one.
 
-`pd help` prints every command with its options.
+`pd help` prints every command with its options, and `pd --version` the version you have.
 
 ## Where you end up
 
