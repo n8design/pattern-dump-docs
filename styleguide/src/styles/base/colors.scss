@@ -51,8 +51,9 @@ $colors: (
   // marks the one thing). Text in it reaches 4.5:1 on the page in both modes (5.4:1 light, 9.5:1 dark).
   "warning":          (light: oklch(50% 0.11 55),         dark: oklch(80% 0.13 65)),
   // The menu's veil: the page surface, translucent, over the page under the open phone menu (organisms/site-header),
-  // with the one blur TASTE.md allows. It dims the page; the menu's own text sits on the opaque surface.
-  "menu-veil":        (light: oklch(95% 0.006 240 / 0.7), dark: oklch(19.9% 0.026 247 / 0.7)),
+  // with the blur TASTE.md allows there: acrylic glass. It dims the page; the menu's own text sits on the opaque
+  // surface.
+  "menu-veil":        (light: oklch(95% 0.006 240 / 0.4), dark: oklch(19.9% 0.026 247 / 0.4)),
   // X-ray (base/xray.scss): the page is dark in both modes while it is on, so each has one value for both. The veil is
   // the fallback without backdrop-filter. A label is a chip: label-ink on label (or on label-active, white), 4.5:1 and
   // more either way; hairline and glow are 3:1 and more on the darkened page.

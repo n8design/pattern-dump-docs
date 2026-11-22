@@ -32,9 +32,12 @@ popover in the markup (`popover="auto"`, opened by `popovertarget`), which adds 
 without the script; the script only keeps `aria-expanded`, and the icon with it, in step. `aria-expanded` isn't in
 the markup: without the script the browser reports the button's state from the popover itself. It hangs from the header's bottom edge across the window: the sections as large rows with hairlines between them,
 GitHub as one more row, then the search field. Opening, it is revealed from the header's edge downwards (`clip-path`,
-0.25 s, ease-out); closing reverses it; with reduced motion it just opens. The page under the header is dimmed and
-blurred while it is open (the popover's `::backdrop`, the `menu-veil` token and the one blur `TASTE.md` allows), and
-doesn't scroll; the header stays sharp above it.
+0.25 s, ease-out); closing reverses it; with reduced motion it just opens. While it is open, the page under the header
+is acrylic glass, the one blur `TASTE.md` allows (the popover's `::backdrop`): blurred (1rem) with its colours a little
+richer (saturate 1.4), dimmed by the `menu-veil` token at 40 %, with a faint grain on top, fractal noise from an inline
+SVG at about 4 %, drawn as a background over the veil (a filter in `backdrop-filter` isn't supported everywhere). It
+doesn't scroll, and the header stays sharp above it. The panel's bottom edge is the hairline and one drop shadow in
+the `shadow` token, the one shadow `TASTE.md` allows; open, the panel's clip reaches below it so the shadow shows.
 
 Resizing a window across the width, the script marks the header for one frame (`data-switching`), in which the menu
 has no transition, so the sections leave the row the moment the button appears. It asks the style guide's own query
