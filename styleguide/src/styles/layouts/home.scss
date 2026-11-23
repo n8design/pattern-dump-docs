@@ -110,6 +110,10 @@
 
 @media (min-width: 40em) {
   .home-start-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  // Side by side, the line about the release starts level with the command's block, not with the Copy button's row
+  // above it: lowered by that row, the button and the space under it (base/code-block.scss). Only where the button is
+  // there: Pattern Dump adds it only where the browser can write to the clipboard.
+  .home-start-row:has(.copy-btn) .home-start-note { margin-block-start: tokens.$copy-button-size + tokens.$space-sm; }
 }
 
 .home-start-note { margin: 0; }
