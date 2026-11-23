@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pattern-dump": {
+      "command": "npx",
+      "args": ["pd", "mcp", "--root", "site"]
+    }
+  }
+}
