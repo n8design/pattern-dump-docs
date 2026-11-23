@@ -31,3 +31,21 @@
 :where(a:hover) {
   color: var(--color-primary-hover);
 }
+
+// A link that leaves the site gets a small arrow after its text, Phosphor's ArrowUpRight (TASTE.md section 1), so the
+// reader knows before following it. Which links count is decided here and nowhere else: an absolute http(s) address.
+// The site's own pages and the published workbench are linked by path, so they never count. Left out: an address on
+// the site's own domain, the workbench of pd dev (pd.localhost, the only absolute workbench address), and the header's
+// GitHub link, which is its logo alone. The arrow is drawn by the link's text colour through a mask, in em so it
+// follows the link's own type; it is generated content with no text, so assistive tech doesn't read it.
+$external-arrow: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='currentColor'%3E%3Cpath d='M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z'/%3E%3C/svg%3E";
+
+:where(a[href^="http://"], a[href^="https://"]):where(:not([href^="https://pattern-dump.design"], [href*="//pd.localhost"], .site-header-link))::after {
+  content: "";
+  display: inline-block;
+  inline-size: 0.75em;
+  block-size: 0.75em;
+  margin-inline-start: 0.125em;
+  background-color: currentColor;
+  mask: url($external-arrow) center / contain no-repeat;
+}
