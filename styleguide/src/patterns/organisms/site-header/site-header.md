@@ -4,8 +4,11 @@ requireScript: [site-header]
 ---
 
 The bar at the top of every page: the logo mark and the site's name, linking home; the sections
-(`molecules/site-nav`); a link to the project's code on GitHub, when `site.globals.repository` is set; and a
-search field. The field sends its words to the search page (`/search/?q=…`), which shows
+(`molecules/site-nav`); a link to the project's code on GitHub, when `site.globals.repository` is set, shown as
+GitHub's own mark (Octicons `mark-github`, unchanged, in the link's text colour, 1rem, about the size of the
+sections' text) with the word "GitHub" as its name, for screen readers only in the header's row and shown beside the mark in the
+phone menu; on hover, a line under the mark where the sections' underline sits, as thick and in the same colour;
+and a search field. The field sends its words to the search page (`/search/?q=…`), which shows
 the results (`organisms/search`). Its magnifier is Phosphor's MagnifyingGlass, 1rem, in the muted text colour.
 
 **The menu button.** The header is always one row and never wraps (`flex-wrap: nowrap`). When its parts no longer

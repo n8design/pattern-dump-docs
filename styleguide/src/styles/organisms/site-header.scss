@@ -63,6 +63,8 @@
 // The repository link, set like a section in the nav: between the sections and the search.
 .site-header-link {
   display: inline-flex;
+  position: relative;
+  gap: 0.5rem;
   align-items: center;
   min-block-size: tokens.$touch-target;
   font-size: 0.9375rem;
@@ -70,12 +72,41 @@
   color: var(--color-text);
   text-decoration: none;
 }
+// GitHub's own mark (Octicons mark-github, unchanged, one colour: the link's; TASTE.md section 1), about the size of
+// the sections' text beside it. The word stays as the link's name, for screen readers only, hidden the way the search
+// field's label is.
+.site-header-link-icon {
+  flex: none;
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+.site-header-link-name {
+  position: absolute;
+  inline-size: 0.0625rem;
+  block-size: 0.0625rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .site-header-link:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
 .site-header-link:hover {
   text-decoration: underline;
   text-decoration-color: var(--color-accent-ink);
   text-decoration-thickness: 0.0625rem;
   text-underline-offset: 0.4em;
+}
+// The mark has no text to underline, so on hover a line of the same thickness and colour is drawn under it, where the
+// sections' underline sits: their baseline is a third of an em below the link's middle (Atkinson Hyperlegible Next:
+// ascent 1em, descent a third, centred), and the underline 0.4em under that. In em of the link's own size, so it
+// follows the link wherever its size changes.
+.site-header-link:hover::after {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(50% + 0.3333em + 0.4em);
+  inset-inline-start: 0;
+  inline-size: 1rem;
+  block-size: 0.0625rem;
+  background: var(--color-accent-ink);
 }
 
 // The field is a control: its edge is the border token (3:1), not a hairline.
@@ -207,12 +238,21 @@ $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hai
     }
   }
 
-  // After the sections' rows (molecules/site-nav), GitHub as one more row, then the search field.
+  // After the sections' rows (molecules/site-nav), GitHub as one more row, then the search field. In the menu the row
+  // shows the word beside the mark, as the sections' rows show theirs.
   .site-header-link {
     display: flex;
     min-block-size: 3.5rem;
     border-top: tokens.$hairline solid var(--color-hairline);
     font-size: var(--font-size-1);
+  }
+  .site-header-link-name {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
   }
   .site-search { margin-block-start: 1.5rem; }
   .site-search-form { inline-size: 100%; }
