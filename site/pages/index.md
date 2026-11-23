@@ -3,7 +3,7 @@ title: Design system documentation, derived from the code
 layout: home
 headline: [Build your design system., Reuse it everywhere., Iterate in one place.]
 lede: A design system workbench: components with a contract, documentation derived from the code, and a build that refuses what breaks either. The same components also build sites like this one.
-description: Pattern Dump is a design system workbench: components with a contract, design system documentation derived from the code, and a build that refuses what breaks either.
+description: Pattern Dump is a design system workbench: components with a contract, documentation derived from the code, and a build that refuses what breaks either.
 ---
 
 <pd-components-labelled-code region="start">
