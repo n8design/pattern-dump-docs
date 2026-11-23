@@ -30,7 +30,7 @@ Follow the viewer's light or dark setting (a system theme as the default) (Y/n):
 Initialise a git repository (Y/n):
 Run npm install (Y/n):
 ✓ 153 files written to my-design-system
-✓ package.json created: my-design-system, with pattern-dump 0.8.2
+✓ package.json created: my-design-system, with pattern-dump 0.9.0
 ✓ git repository initialised
 … npm install
 
@@ -269,7 +269,7 @@ Pattern Dump checks the config each time it loads it, and lists every problem at
     "build": "pd build"
   },
   "devDependencies": {
-    "pattern-dump": "0.8.2",
+    "pattern-dump": "0.9.0",
     "typescript": "^5.9.0",
     "pagefind": "1.6.0"
   },
