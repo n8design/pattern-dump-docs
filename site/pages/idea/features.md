@@ -1,6 +1,6 @@
 ---
 title: What it does
-description: What Pattern Dump does, one line per feature: a design system documentation tool with a live workbench, checks on every component, a site built from your components, and a static build.
+description: What Pattern Dump does, a line per feature: a design system documentation tool with a live workbench, checks on each component, a site and a static build.
 layout: doc
 ---
 
