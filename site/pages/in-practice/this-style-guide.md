@@ -1,6 +1,6 @@
 ---
 title: This style guide
-description: How this site's style guide is organised in the Pattern Dump workbench: its folders, the layouts, partials and views of the site, its tokens and base layer, and its three themes.
+description: How this site's style guide is organised in the Pattern Dump workbench: its folders, the site's layouts, partials and views, its tokens and three themes.
 layout: doc
 order: -1
 ---
