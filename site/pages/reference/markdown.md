@@ -1,6 +1,6 @@
 ---
 title: Markdown
-description: The markdown Pattern Dump reads in component docs and site pages: live examples, source blocks, pattern: links, placed components, code highlighting and definition lists.
+description: The markdown Pattern Dump reads in component docs and site pages: live examples, source blocks, pattern: links, placed components and highlighted code.
 layout: doc
 ---
 
