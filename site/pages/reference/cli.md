@@ -1,6 +1,6 @@
 ---
 title: Command line
-description: Every pd command of Pattern Dump, with its options, defaults, messages and exit codes: pd init, pd dev, pd audit, pd build, pd export, and pd graph, pd describe, pd affected and pd mcp for the project graph.
+description: Every pd command of Pattern Dump, with its options, messages and exit codes: from pd init, dev, audit and build to the graph commands and pd mcp.
 layout: doc
 ---
 
