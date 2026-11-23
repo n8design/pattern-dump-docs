@@ -24,6 +24,7 @@ The `dev` script that `pd init` wrote runs `pd dev`. When it is ready, it prints
 [dev-server] Listening at http://127.0.0.1:4000
 [dev-server] Website:   http://live.localhost:4000/
 [dev-server] Workbench: http://pd.localhost:4000/
+[dev-server] MCP:       http://mcp.localhost:4000/ (or http://localhost:4000/mcp)
 [dev-server] Search: the index is built by pd build, so the site's search finds nothing in pd dev
 [dev-server] Ready in 250ms, 28 components
 ```
@@ -63,7 +64,7 @@ When the workbench's port is the taken one, the message says `so the workbench c
 
 ### Host names
 
-`pd dev` answers only to its own host names, at its own port, in any case: `localhost`, `127.0.0.1` and `pd.localhost`. A request for any other name, or with none, gets `403` and `Forbidden: this server answers only to its own host names`. Live reload accepts a connection only from an `http:` page on one of those names at that port, or from a connection that names no origin.
+`pd dev` answers only to its own host names, at its own port, in any case: `localhost`, `127.0.0.1`, `pd.localhost` and `mcp.localhost`. A request for any other name, or with none, gets `403` and `Forbidden: this server answers only to its own host names`. Live reload accepts a connection only from an `http:` page on one of those names at that port, or from a connection that names no origin.
 
 With a site, as in this project, one `pd dev` runs both, told apart by host name:
 
@@ -76,6 +77,9 @@ With a site, as in this project, one `pd dev` runs both, told apart by host name
 `http://localhost:4000/`, `http://127.0.0.1:4000/`
 : The workbench too.
 
+`http://mcp.localhost:4000/`
+: The MCP server, where an agent such as Claude Code asks about your project: what a component accepts, where it is used, what a change reaches. `http://localhost:4000/mcp` is the same server, for a client that doesn't resolve `*.localhost` names. [MCP server](/reference/mcp/) shows how a client connects.
+
 The `Search:` line at startup comes with site search: the site's search finds pages once `pd build` has indexed them. A project without a site prints `[dev-server] Workbench: http://localhost:<port>/` in place of the `Website:` and `Workbench:` lines, and `live.localhost` is not one of its names.
 
 ## Find your way around
@@ -86,16 +90,19 @@ The workbench has four regions:
 
 Nav Rail
 : Your style guide's title, from `shell.brand.title` in the config, and the tree of your components, folder by folder. With `shell.brand.logo` set, the logo shows in place of the title.
+: With a site, as in this project, the site's layouts, partials and views sit after your own folders, in a folder called Site that starts closed.
 : It also holds the theme picker, Accessibility, and a status for the connection to `pd dev`: "Connected" while it runs, "disconnected" when the connection drops.
 
 Stage
-: The preview of the component you select, or the gallery of a folder: its public components, each in a preview of its own.
+: The preview of the component you select, or the gallery of a folder: its public components, each in a preview of its own. A component sits 1rem in from the Stage's edge, on its theme's background; a full layout or a partial fills it. `shell.inset` sets the space.
 
 Inspector
-: Three tabs. Docs shows the component's documentation, with live examples. Relationships shows what the component includes and what includes it. Audit holds the audit of every component and every variant, the same report `pd audit` writes.
+: Three tabs. Docs shows the component's documentation, with live examples. Relationships shows what the component includes, what includes it, and which stylesheets style it. Audit holds the audit of every component and every variant, the same report `pd audit` writes.
 
 Console
 : The Diagnostics tab lists what Pattern Dump finds in the component on the Stage, the accessibility checks that need a browser included; those run only while the tab is open. Messages from `pd dev` show in the Console too: a warning starts with `Warning: `, such as a data variant left out because it has no template to overlay, and an error is shown in red.
+
+The workbench opens with nothing on the Stage until you pick a component. To open it on one, name the component in the config as `shell.start`, such as `layouts/home`. The [configuration reference](/reference/configuration/#workbench) has the key.
 
 ## Switch themes
 
