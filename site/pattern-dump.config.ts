@@ -29,6 +29,8 @@ export default defineConfig({
     workbenchUrl: "/workbench/",
     // The site's address, once you know it: canonical URLs, link previews and the sitemap are built from it.
     // url: "https://www.example.com/",
+    // The link-preview image of every page that names none; used once site.url is set.
+    image: "/assets/social-preview.png",
     categories: {
       notes: { label: "Notes", description: "Short articles about this site" },
     },
