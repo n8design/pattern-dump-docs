@@ -2,8 +2,6 @@
 title: Related articles
 description: How an article lists the articles like it, and how to change the list.
 date: 2026-11-15
-tags: [notes]
-categories: [notes]
 nav: false
 ---
 

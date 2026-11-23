@@ -2,8 +2,6 @@
 title: Examples
 description: A live example from the workbench, and a component placed with your values.
 date: 2026-11-19
-categories: [notes]
-tags: [components]
 draft: true
 nav: false
 ---
