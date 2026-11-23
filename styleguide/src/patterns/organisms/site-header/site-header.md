@@ -6,7 +6,7 @@ requireScript: [site-header]
 The bar at the top of every page: the logo mark and the site's name, linking home; the sections
 (`molecules/site-nav`); a link to the project's code on GitHub, when `site.globals.repository` is set; and a
 search field. The field sends its words to the search page (`/search/?q=…`), which shows
-the results (`organisms/search`).
+the results (`organisms/search`). Its magnifier is Phosphor's MagnifyingGlass, 1rem, in the muted text colour.
 
 **The menu button.** The header is always one row and never wraps (`flex-wrap: nowrap`). When its parts no longer
 fit, it is the logo and the name on the left and a menu button on the right. There is no breakpoint of its own: the

@@ -102,14 +102,12 @@
   white-space: nowrap;
 }
 
+// Phosphor's MagnifyingGlass (TASTE.md section 1), in the muted text colour.
 .site-search-icon {
   flex: none;
   inline-size: 1rem;
   block-size: 1rem;
-  fill: none;
-  stroke: var(--color-text-muted);
-  stroke-width: 2;
-  stroke-linecap: round;
+  color: var(--color-text-muted);
 }
 
 .site-search-input {
