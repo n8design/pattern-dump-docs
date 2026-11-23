@@ -13,6 +13,11 @@ const released = changelog.match(new RegExp(`^## ${patternDumpPackage.version.re
 if (!released) throw new Error(`pattern-dump.config.ts: no "## ${patternDumpPackage.version} (<date>)" heading in pattern-dump's CHANGELOG.md`);
 const patternDumpReleased = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(released));
 
+// The production build sets it (Cloudflare Pages, scripts/pages-cloudflare.mjs); the draft, local builds and CI leave
+// it unset. PD_SITE_URL is the site's address: canonical URLs, link previews and the sitemap are built from it, and
+// without it there are none.
+const siteUrl = process.env.PD_SITE_URL || undefined;
+
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
 export default defineConfig({
@@ -27,8 +32,8 @@ export default defineConfig({
     // Dump gives templates site.workbenchUrl: this address in pd build, its own workbench in pd dev. The footer's
     // "Style guide" link and x-ray's labels are built from it.
     workbenchUrl: "/workbench/",
-    // The site's address, once you know it: canonical URLs, link previews and the sitemap are built from it.
-    // url: "https://www.example.com/",
+    // The site's address, from PD_SITE_URL (above); left out when it is unset.
+    ...(siteUrl ? { url: siteUrl } : {}),
     // The link-preview image of every page that names none; used once site.url is set.
     image: "/assets/social-preview.png",
     categories: {
