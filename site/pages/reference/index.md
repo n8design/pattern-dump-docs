@@ -1,6 +1,6 @@
 ---
 title: Reference
-description: Every key, command and file of Pattern Dump, to look up by name.
+description: Every key, command and file of Pattern Dump, to look up by name: the configuration, the pd commands, frontmatter, layouts, the checks and the MCP server.
 layout: doc
 order: 6
 ---
