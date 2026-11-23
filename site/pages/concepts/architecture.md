@@ -1,6 +1,6 @@
 ---
 title: Architecture
-description: How Pattern Dump is put together, for the people who use it: one renderer behind previews, the workbench and site pages, a build that is the dev server run headless, and your files only ever read.
+description: How Pattern Dump is put together: one renderer behind previews, the workbench and site pages, a build that is the dev server run headless, files only read.
 layout: doc
 order: 2
 ---
