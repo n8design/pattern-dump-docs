@@ -1,0 +1,17 @@
+// The list of site cards (components/site-card, which has its own stylesheet). Stacked by default; from 32em of its
+// own width (in a container query, em is the list's own text size) two equal columns with the page map's gap, so in
+// the home page's map each card takes one column of the groups above. Grid items stretch, so the cards in a row are
+// equally tall.
+.site-cards { container-type: inline-size; margin-block-start: 1rem; }
+.site-cards-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3rem 4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@container (min-width: 32em) {
+  .site-cards-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
