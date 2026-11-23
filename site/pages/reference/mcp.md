@@ -134,4 +134,4 @@ The server has seven tools, each marked read-only. Every answer is JSON with `"v
 }
 ```
 
-[Relationships](/concepts/relationships/) explains the graph the tools read.
+[Relationships](/concepts/relationships/) explains the graph the tools read, and [Claude Code on this site](/in-practice/claude-code/) shows a client asking this site's project three questions.

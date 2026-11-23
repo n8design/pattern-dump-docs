@@ -18,3 +18,4 @@ This site is built with Pattern Dump, and so is the demo. The pages here show ho
 
 - [This style guide](/in-practice/this-style-guide/): how its components, layouts, tokens and themes are organised in the workbench.
 - [On a page](/in-practice/on-a-page/): what a page can hold, from a live example to highlighted code, each with the markdown that made it.
+- [Claude Code on this site](/in-practice/claude-code/): the `.mcp.json` that connects Claude Code to Pattern Dump's MCP server, and three questions about this style guide with their answers.
