@@ -15,7 +15,8 @@ A client reaches it in one of two ways: over HTTP from a `pd dev` that is alread
 `pd dev` starts the server with the workbench and prints where it answers:
 
 ```text
-[dev-server] MCP:       http://mcp.localhost:4000/ (or http://localhost:4000/mcp)
+[dev-server] MCP: http://mcp.localhost:4000/
+(or http://localhost:4000/mcp)
 ```
 
 `http://mcp.localhost:<port>/`
