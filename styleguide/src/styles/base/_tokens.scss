@@ -40,6 +40,12 @@ $font-weights: (
 // the sticky offsets and scroll-padding, so the numbers live in one place.
 $hairline: 0.0625rem;
 $touch-target: 2.75rem;
+// The code blocks' Copy button (base/code-block.scss): a square, and its icon. The home page's start row derives the
+// Copy row's height from these (layouts/home).
+$copy-button-size: 1.5rem;
+// About the label's line box above a code block (components/labelled-code: font-size--1 at line height 1.5, 1.19 to
+// 1.25rem), so the icon sits where a line of the label would.
+$copy-icon-size: 1.25rem;
 $header-padding-block: 1rem;
 $footer-padding-block: 1.75rem;
 $footer-font-size: 0.875rem;

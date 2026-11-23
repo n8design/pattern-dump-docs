@@ -8,7 +8,7 @@ $site-header-width: 64.13em;
 // The menu's row at its narrowest: the logo, the site's name down to its longest word, the gap and the menu button,
 // with the gutters. Narrower than that (large text on a narrow phone), only the logo shows.
 $site-name-width: 13.63em;
-$site-header-width-fingerprint: "7dc4b6bd097b5cf1";
+$site-header-width-fingerprint: "0e9fa22c049f39f0";
 
 // Below it, the phone menu: the header's width, 0.5em of air, and 1.25em for a classic scrollbar, which the window's
 // width counts and the header's doesn't (Windows' is 17px). A media query, so the header's script can ask the same

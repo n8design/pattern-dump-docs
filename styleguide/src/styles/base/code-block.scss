@@ -2,9 +2,10 @@
 
 // A code block as Pattern Dump writes it: .shiki-container around the <pre>, and, where the browser can write to the
 // clipboard, a .copy-btn that pd's script puts in front of the <pre>. The button is a row of its own above the code,
-// at the inline end, so no line of code can run under it at any width. The row is built like components/labelled-code's
-// label: the label's type (mono, font-size--1, line height 1.5), so the same height, and the same space-sm to the
-// block; like the label, it draws no line of its own. The button keeps its edge, the control's.
+// at the inline end, so no line of code can run under it at any width, and space-sm from the block, as
+// components/labelled-code's label is; like the label, the row draws no line of its own. The button keeps its edge,
+// the control's. src/scripts/copy-button.ts draws its text as an icon (TASTE.md section 1: Phosphor's Copy and Check,
+// one of the places it names); until it has, and for Pattern Dump's "Not copied", the button shows the text.
 .shiki-container {
   display: flex;
   flex-direction: column;
@@ -16,11 +17,13 @@
 
 .copy-btn {
   display: inline-flex;
+  position: relative;
   align-self: flex-end;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  // The label's line box: its font size at line height 1.5, the border inside it.
-  block-size: calc(var(--font-size--1) * 1.5);
+  min-inline-size: tokens.$copy-button-size;
+  block-size: tokens.$copy-button-size;
   padding: 0 0.5rem;
   border: 0.0625rem solid var(--color-code-text);
   background: var(--color-code-surface);
@@ -30,6 +33,34 @@
   font-weight: var(--font-weight-body);
   line-height: 1;
   cursor: pointer;
+}
+
+// With its icon, a square.
+.copy-btn[data-icon] {
+  inline-size: tokens.$copy-button-size;
+  padding: 0;
+}
+
+.copy-btn-icon {
+  flex: none;
+  inline-size: tokens.$copy-icon-size;
+  block-size: tokens.$copy-icon-size;
+}
+
+// On a touch screen, the button takes a tap from a touch target's square (touch-target) around it: from the row's gap
+// above (space-sm, the space a label keeps), down through the gap below into the code block's padding (above its
+// first line), and out towards the inline start, along the empty row. Never past the block's inline end, so it covers
+// no code text, no label and no other control.
+@media (any-pointer: coarse) {
+  .copy-btn::before {
+    content: "";
+    position: absolute;
+    // Offsets from the padding box, so each takes the button's hairline border in.
+    inset-block:
+      calc(-1 * (#{tokens.$space-sm} + #{tokens.$hairline}))
+      calc(#{tokens.$copy-button-size} + #{tokens.$space-sm} - #{tokens.$touch-target} - #{tokens.$hairline});
+    inset-inline: calc(#{tokens.$copy-button-size} - #{tokens.$touch-target} - #{tokens.$hairline}) calc(-1 * #{tokens.$hairline});
+  }
 }
 
 .copy-btn:hover {

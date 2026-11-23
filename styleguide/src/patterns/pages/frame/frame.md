@@ -1,5 +1,6 @@
 ---
 title: Frame
+requireScript: [copy-button]
 ---
 
 The frame every layout fills: the header (`organisms/site-header`: the name, the sections and the search), the main
@@ -18,3 +19,6 @@ so its width doesn't change from page to page.
 
 The frame is at least as tall as the viewport, so a short page keeps its footer at the bottom. A layout fills it with
 `{{#> pages-frame }} … {{/pages-frame}}`.
+
+It loads `src/scripts/copy-button.ts` (`requireScript`) for every page, since any page's markdown can hold a code
+block: the script draws each code block's Copy button as an icon (`base/code-block.scss`).
