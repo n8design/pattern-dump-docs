@@ -1,6 +1,6 @@
 ---
 title: This site
-description: How this site is built with Pattern Dump: one repository with a site and its style guide package, the exact pin, two builds published together, and the checks every build passes.
+description: How this site is built with Pattern Dump: one repository with a site and its style guide package, the exact pin, and two builds published together.
 layout: doc
 order: -2
 repository: https://github.com/n8design/pattern-dump-docs
