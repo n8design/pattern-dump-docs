@@ -1,5 +1,5 @@
 ---
-title: Checks
+title: How checks work
 description: Why Pattern Dump's build refuses instead of warning: what each check guards, where its findings show, and what automated checks can't catch.
 layout: doc
 order: 5
