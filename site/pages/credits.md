@@ -49,7 +49,7 @@ Self-hosted from `@fontsource-variable` 5.3.0, Latin only.
 
 ### Pattern Dump
 
-- Version 0.8.2, [MIT licence](https://github.com/n8design/pattern-dump/blob/main/LICENSE)
+- Version 0.9.0, [MIT licence](https://github.com/n8design/pattern-dump/blob/main/LICENSE)
 - Source: [Pattern Dump on GitHub](https://github.com/n8design/pattern-dump)
 - Here: builds this site and the style guide's workbench.
 
