@@ -30,7 +30,7 @@ description: Every release of Pattern Dump, what it added, changed and fixed, an
 layout: doc
 ---
 
-The changelog of \`pattern-dump\` ${version}, the version this site is built with.
+The changelog of \`pattern-dump\` ${version}, the version this site is built with. 0.9 is the first public release, and names and options can still change before 1.0.
 
 ${body.trim()}
 `;
