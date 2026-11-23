@@ -1,15 +1,15 @@
 ---
 title: Upgrade
-description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.8.2, 0.8.1, 0.8 and 0.7.
+description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.9, 0.8.2, 0.8.1, 0.8 and 0.7.
 layout: doc
 order: 10
 ---
 
-`pd init` pins `pattern-dump` to the exact version that ran it, `0.8.2` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
+`pd init` pins `pattern-dump` to the exact version that ran it, `0.9.0` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
 
 ## Move the pin
 
-Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last four.
+Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last five.
 
 Then install the new version, exactly, in the project folder:
 
@@ -17,7 +17,7 @@ Then install the new version, exactly, in the project folder:
 npm install --save-dev --save-exact pattern-dump@<version>
 ```
 
-`<version>` is the release, such as `0.8.2`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
+`<version>` is the release, such as `0.9.0`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
 
 Restart `pd dev`, and run the audit and the build:
 
@@ -27,6 +27,18 @@ npm run build
 ```
 
 A release can check more than the one before. An audit or a build that passed can fail after an upgrade, in CI too, and the messages say what to change.
+
+## Upgrading to 0.9
+
+0.9.0 asks one change of a site: a global named `workbenchUrl` is now a config problem.
+
+```txt
+"site.globals.workbenchUrl": templates get site.workbenchUrl from Pattern Dump (site.workbenchUrl, or pd dev's own workbench): remove this global and use site.workbenchUrl
+```
+
+Pattern Dump now gives templates `site.workbenchUrl` itself: the configured address in `pd build`, and its own workbench in `pd dev`. Remove the global and keep `site.workbenchUrl` in the config. A template that read the global reads the same name, so it needs no change.
+
+Two things look different in the workbench. The Relationships tab's "Style uses" is now "Borrows classes from", and the Nav Rail is at least 19.75rem wide, to hold the full-height button in the viewport row. A class that an `assets.css` file or a template's `<style>` defines is no longer listed as one no stylesheet defines.
 
 ## Upgrading to 0.8.2
 
