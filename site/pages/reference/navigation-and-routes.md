@@ -1,6 +1,6 @@
 ---
 title: Navigation and routes
-description: File based routing in Pattern Dump: how a page's file names its address, the navigation built from the pages folder, declared navigations, redirects and the 404 page.
+description: File based routing in Pattern Dump: how a page's file names its address, the navigation, from the pages folder or declared, redirects and the 404 page.
 layout: doc
 ---
 
