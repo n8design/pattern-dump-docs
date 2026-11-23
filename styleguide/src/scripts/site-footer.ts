@@ -2,10 +2,15 @@
 // changes. Switched on, it imports the script that draws x-ray (src/scripts/xray.ts, named in the footer's inert
 // <template>, so it loads only now). It stays on for the session (sessionStorage), so the next page opens with it,
 // and a new tab starts without it. The control or Escape switches it off.
+//
+// Only on a site page in the top window: never in a frame (the workbench's Stage, a live example), and never in a
+// workbench preview opened on its own (Pattern Dump marks a preview's body with data-component-id). There the footer
+// has no control, and a remembered "on" is left for the next site page.
 
 interface Xray { on(animate: boolean): void; off(animate: boolean): void }
 
-const template = document.querySelector<HTMLTemplateElement>("template.site-footer-xray");
+const sitePage = window.top === window && !document.body.hasAttribute("data-component-id");
+const template = sitePage ? document.querySelector<HTMLTemplateElement>("template.site-footer-xray") : null;
 const links = document.querySelector(".site-footer-links");
 const src = template?.content.querySelector("script")?.getAttribute("src");
 

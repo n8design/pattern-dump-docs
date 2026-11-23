@@ -23,6 +23,10 @@ while the page is dark, x-ray gives it more room above and below, and takes it b
 reader's place in the page stays where it was. With reduced motion it just switches, without the fades and the
 flicker.
 
+X-ray runs only on a site page in the top window. In a frame (the workbench's Stage, a live example) and in a
+workbench preview opened on its own, the footer has no button, and a session with x-ray on leaves it on for the next
+site page.
+
 Marked: the header, its nav, its search field and the menu button (`organisms/site-header`, `molecules/site-nav`), the
 search page's field and button (`organisms/search`), the home page's row of actions (`layouts/home`, one component, so
 the two buttons' frames don't cross), each group of the page map, the site cards and each card, the video, the live
