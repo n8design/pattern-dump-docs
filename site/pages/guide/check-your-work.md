@@ -84,7 +84,7 @@ npx pd audit
 It prints a report in markdown and writes it outside your project, to Pattern Dump's folder in your cache folder: `~/Library/Caches/pattern-dump/` on macOS, `%LOCALAPPDATA%\pattern-dump\` on Windows, and `~/.cache/pattern-dump/` on Linux, or `$XDG_CACHE_HOME` when it is set, on macOS too. Pattern Dump creates the folder for you alone; a folder there that is a link or open to other users stops the run, naming the folder. The report opens with a headline and the render outcomes (ok, blank or error), then three sections:
 
 Rules by blast radius
-: Each rule that found something, with the number of components its findings hit and how often it fired. A rule's [blast radius](/concepts/relationships/#blast-radius-is-a-rules-reach) is that number of components.
+: Each rule that found something, with the number of components its findings hit and how often it fired. A rule's [blast radius](/concepts/relationships/#a-rules-blast-radius) is that number of components.
 
 Per component
 : Each component with findings or a render that wasn't ok, and its findings.

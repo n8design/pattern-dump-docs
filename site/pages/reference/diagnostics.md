@@ -76,7 +76,7 @@ The Console also has a warning level, for a data variant left out for want of a 
 
 Each finding's engine is `axe`, `html-validate`, `schema`, `discovery` or `render`, and its rule id is the rule's own when it has one, else its kind. A render outcome is `ok`, `blank` (an empty render, not a defect) or `error`.
 
-A rule's blast radius is the number of components its findings hit, each variant counted as one: the report's "Rules by blast radius" table. It is a rule's reach, not what a change to a component reaches; [Relationships](/concepts/relationships/#blast-radius-is-a-rules-reach) explains the difference.
+A rule's blast radius is the number of components its findings hit, each variant counted as one: the report's "Rules by blast radius" table. It is a rule's reach, not what a change to a component reaches; [Relationships](/concepts/relationships/#a-rules-blast-radius) explains the difference.
 
 `pd audit` writes the serialized diagnostics graph, `diagnostics-graph.json`, of components and the rules they break, beside the report in Pattern Dump's folder in your cache folder: `~/Library/Caches/pattern-dump/` on macOS, `%LOCALAPPDATA%\pattern-dump\` on Windows, and `~/.cache/pattern-dump/` on Linux, or `$XDG_CACHE_HOME` when it is set, on macOS too. Pattern Dump creates the folder for you alone; a folder there that is a link or open to other users stops the run, naming the folder. [Command line](/reference/cli/#pd-audit) has its options and exit codes.
 
