@@ -254,26 +254,45 @@ $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hai
 .site-menu-button[aria-expanded="true"] .site-menu-icon-close { display: inline; }
 
 // The page under the header while the menu is open, like acrylic glass; the header stays sharp above it. The blur
-// TASTE.md allows, on this backdrop only: the page blurred and its colours a little richer, dimmed by the veil (40 %),
+// TASTE.md allows, on this glass only: the page blurred and its colours a little richer, dimmed by the veil (40 %),
 // with a faint grain on top. The grain is an inline SVG (fractal noise, made grey, its strength in the alpha: about
 // 4 % on average), a background over the veil: a filter in backdrop-filter (url()) isn't supported everywhere.
 // Outside the media query: the menu can only be open where it is collapsed.
 $grain: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0.08 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E";
 
-.site-menu::backdrop {
+// An element of the header's own, not the menu's ::backdrop: Safari doesn't resolve anchor() on ::backdrop and puts
+// it below the window. Placed like the panel, under the header's real bottom edge (position-area), else from the
+// header's one-row height; above the page, under the panel (which is in the top layer). A browser that doesn't know
+// saturate() in a backdrop-filter keeps the plain blur; one without backdrop-filter keeps the veil and the grain.
+.site-menu-glass { display: none; }
+.site-header:has(.site-menu:popover-open) .site-menu-glass {
+  display: block;
+  position: fixed;
+  z-index: 1;
   position-anchor: --site-header;
-  inset-block-start: $menu-top;
-  inset-block-start: anchor(bottom);
+  inset: $menu-top 0 0;
   background: url($grain) 0 0 / 10rem 10rem, var(--color-menu-veil);
   // Safari before 18 knows it only with the prefix.
   // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
+  -webkit-backdrop-filter: blur(1rem);
+  // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
   -webkit-backdrop-filter: blur(1rem) saturate(1.4);
   // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
+  backdrop-filter: blur(1rem);
+  // stylelint-disable-next-line property-disallowed-list -- TASTE.md section 1: blur, the menu's backdrop
   backdrop-filter: blur(1rem) saturate(1.4);
+
+  // Empty, it takes the whole area only with its size set, as the panel does.
+  @supports (position-area: block-end) {
+    inset: 0;
+    position-area: block-end span-all;
+    inline-size: 100%;
+    block-size: 100%;
+  }
 }
 
 // While it is open the page under it doesn't scroll, so the header stays where the menu hangs from. The scrollbar's
-// gutter (pages/frame, there against the page's width changing between pages) goes too, so the backdrop and the panel
+// gutter (pages/frame, there against the page's width changing between pages) goes too, so the glass and the panel
 // reach the window's right edge: the browser paints nothing but the page's background into a gutter. In its place the
 // page gets padding of the same width, measured once by the header's script (--scrollbar-width), so nothing in it
 // moves; the header reaches across it, so its line and its button stay where they were. Without the script (or with

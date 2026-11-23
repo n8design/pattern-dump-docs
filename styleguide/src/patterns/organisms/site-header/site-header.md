@@ -33,11 +33,12 @@ without the script; the script only keeps `aria-expanded`, and the icon with it,
 the markup: without the script the browser reports the button's state from the popover itself. It hangs from the header's bottom edge across the window: the sections as large rows with hairlines between them,
 GitHub as one more row, then the search field. Opening, it is revealed from the header's edge downwards (`clip-path`,
 0.25 s, ease-out); closing reverses it; with reduced motion it just opens. While it is open, the page under the header
-is acrylic glass, the one blur `TASTE.md` allows (the popover's `::backdrop`): blurred (1rem) with its colours a little
+is acrylic glass, the one blur `TASTE.md` allows (`.site-menu-glass`, an empty element of the header's own, placed
+like the panel under the header's bottom edge; not the popover's `::backdrop`, which Safari puts below the window): blurred (1rem) with its colours a little
 richer (saturate 1.4), dimmed by the `menu-veil` token at 40 %, with a faint grain on top, fractal noise from an inline
 SVG at about 4 %, drawn as a background over the veil (a filter in `backdrop-filter` isn't supported everywhere). It
 doesn't scroll, and the header stays sharp above it. With classic scrollbars, the scrollbar's gutter goes while the
-menu is open, so the backdrop and the panel reach the window's right edge (a browser paints only the page's background
+menu is open, so the glass and the panel reach the window's right edge (a browser paints only the page's background
 into a gutter). The script measures the scrollbar once, as `--scrollbar-width`, and the page takes padding of that
 width in the gutter's place, so nothing in it moves; the header and the panel's rows reach across it, so the button
 and the rows stay lined up. Without the script the page shifts by the scrollbar's width while the menu is open. The panel's bottom edge is the hairline and one drop shadow in
