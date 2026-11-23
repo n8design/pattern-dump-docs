@@ -35,6 +35,8 @@ Pattern Dump is one npm package, `pattern-dump`, with one command-line tool, `pd
 `pd build`
 : Writes the workbench as static files, and the site, when there is one.
 
+Four more answer questions about your project, for you or for an agent: `pd graph`, `pd describe`, `pd affected` and `pd mcp`. The [command-line reference](/reference/cli/#pd-graph) has them.
+
 `pd help` prints every command with its options, and `pd --version` the version you have.
 
 ## The steps
