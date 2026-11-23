@@ -1,6 +1,6 @@
 ---
 title: The demo
-description: The first website built with Pattern Dump, read in the order a visitor would: its landing page, its articles, an article, and the style guide behind them, with a recorded tour.
+description: The first website built with Pattern Dump, read as a visitor would: its landing page, its articles and the style guide behind them, with a recorded tour.
 layout: doc
 order: -3
 liveSite: https://lab.n8d.studio/pattern-dump-demo/
