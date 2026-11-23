@@ -241,13 +241,10 @@ $menu-top: tokens.$header-padding-block * 2 + tokens.$touch-target + tokens.$hai
 
 .site-menu-button:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
 
+// Phosphor's List, and its X while the menu is open (TASTE.md section 1).
 .site-menu-icon {
   inline-size: 1.25rem;
   block-size: 1.25rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
 }
 .site-menu-icon-close,
 .site-menu-button[aria-expanded="true"] .site-menu-icon-open { display: none; }

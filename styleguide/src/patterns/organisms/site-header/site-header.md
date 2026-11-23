@@ -23,7 +23,7 @@ the link, visually hidden, so it is still the link's name. `npm run header-check
 and back at 100 % and 200 % text and fails if the header is ever more than one row.
 
 The button is the frame of the site's secondary actions (the border token, a control's edge at 3:1, no fill, square)
-around three strokes drawn for this site, in the search icon's line style, an X while the menu is open. Its name is
+around Phosphor's List icon, its X while the menu is open (1.25rem, `TASTE.md` section 1). Its name is
 "Menu" (`aria-label`), and `aria-expanded` follows the menu.
 
 The menu is the same links, in the same order: the sections, GitHub, the search. They sit in `.site-menu`, a native
