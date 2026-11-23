@@ -1,6 +1,6 @@
 ---
 title: Diagnostics
-description: Every diagnostic Pattern Dump reports on a component, its severity, where it comes from, and where it shows: the Diagnostics tab, pd audit, the Console and site pages.
+description: Every diagnostic Pattern Dump reports on a component, its severity and source, and where it shows, from the Diagnostics tab and pd audit to site pages.
 layout: doc
 ---
 
