@@ -32,7 +32,7 @@ Documentation from the component
 : Live examples and source in a component's docs, rendered from the component itself. [Live examples and source](/guide/add-a-component/#live-examples-and-source)
 
 Relationships
-: Which components a component includes, and which include it. [Relationships](/concepts/relationships/)
+: Which components a component includes and which include it, which stylesheets style it, which pages show it, and what a change to it reaches. [Relationships](/concepts/relationships/)
 
 Your helpers
 : Handlebars helpers of your own, also in the form Pattern Lab uses. [Your own helpers](/reference/helpers/#your-own-helpers)
@@ -118,4 +118,9 @@ A pattern package from the start
 ## The command line
 
 One command, `pd`
-: `pd init`, `pd dev`, `pd audit`, `pd build`, `pd export` and `pd help`. [The commands](/guide/#the-commands)
+: Commands that set up a project, run it, check it and build it, and four that answer questions about it. [The commands](/guide/#the-commands)
+
+## Agents
+
+An MCP server
+: In `pd dev`, and as `pd mcp` for a client that starts a process: what a component accepts, where it is used, which stylesheets style it and what a change reaches, read-only. [MCP server](/reference/mcp/)
