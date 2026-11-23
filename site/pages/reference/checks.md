@@ -1,6 +1,6 @@
 ---
 title: Checks
-description: Every check Pattern Dump runs on a site's pages: links and anchors, classes no style defines, custom properties, accessibility with axe, and the checks in a browser.
+description: Every check Pattern Dump runs on a site's pages: links and anchors, classes no style defines, custom properties, accessibility with axe and browser checks.
 layout: doc
 ---
 
