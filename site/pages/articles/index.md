@@ -6,6 +6,9 @@ childLayout: article
 sort: date
 order: 2
 nav: false
+index: false
+childDefaults:
+  index: false
 ---
 
 This page is `site/pages/articles/index.md`. Every page in this folder is listed below, newest first, in the list view
