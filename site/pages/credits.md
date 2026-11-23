@@ -77,6 +77,19 @@ Self-hosted from `@fontsource-variable` 5.3.0, Latin only.
 - Source: [fonttools on GitHub](https://github.com/fonttools/fonttools)
 - Here: cut the Archivo files down to the widths and weights in use.
 
+### Phosphor Icons
+
+- Version 2.1.1 of `@phosphor-icons/core`, bold weight, [MIT licence](https://github.com/phosphor-icons/core/blob/main/LICENSE)
+- Source: [Phosphor Icons on GitHub](https://github.com/phosphor-icons/core)
+- Here: the Copy and Check icons on code blocks, the menu button's List and X, the search field's magnifier and the
+  arrow after links that leave the site, inlined as SVG.
+
+### Octicons
+
+- Version 19.42.0 of `@primer/octicons`, by GitHub, [MIT licence](https://github.com/primer/octicons/blob/main/LICENSE)
+- Source: [Octicons on GitHub](https://github.com/primer/octicons)
+- Here: GitHub's mark, `mark-github`, on the header's link to the repository, inlined as SVG.
+
 ## Guidance
 
 - [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance), Apache 2.0 licence: the
