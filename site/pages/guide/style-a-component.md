@@ -1,6 +1,6 @@
 ---
 title: Style a component
-description: Style a component in Pattern Dump with a stylesheet of its own, a rule in the base layer and CSS design tokens in your themes, then switch themes in the workbench.
+description: Style a component in Pattern Dump: its own stylesheet, a rule in the base layer and CSS design tokens in your themes, then switch themes in the workbench.
 layout: doc
 order: 5
 ---
