@@ -1,6 +1,6 @@
 ---
 title: MCP server
-description: The design system MCP server in pd dev and pd mcp: where it answers, how a client connects, the seven read-only tools and what each returns, and what it refuses.
+description: The design system MCP server in pd dev and pd mcp: where it answers, how a client connects, its seven read-only tools and what it refuses.
 layout: doc
 ---
 
