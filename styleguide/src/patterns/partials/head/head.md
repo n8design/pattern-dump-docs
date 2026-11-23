@@ -15,3 +15,9 @@ The preloads start the fonts with the page, not when the stylesheet asks for the
 cache before the first paint, so the crossfade between pages (`pages/frame`) shows the real fonts, not the fallback
 swapping to them. `crossorigin` is needed even on the same origin: fonts are fetched in CORS mode, and a preload without
 it would be fetched twice. The mono face is left out: only code uses it.
+
+**Analytics, on the production site only.** When the site's globals carry `analyticsKey`, the head loads Ahrefs Web
+Analytics (`https://analytics.ahrefs.com/analytics.js`, `async`, the key in its `data-key`). It is cookieless, and it is
+the only third-party script on the site. The key comes from the environment variable `PD_ANALYTICS_KEY`, which only the
+production build on Cloudflare Pages sets (`site/pattern-dump.config.ts`). The draft, local builds, `pd dev` and CI
+leave it unset, so their pages carry no analytics.

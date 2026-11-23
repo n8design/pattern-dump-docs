@@ -13,10 +13,12 @@ const released = changelog.match(new RegExp(`^## ${patternDumpPackage.version.re
 if (!released) throw new Error(`pattern-dump.config.ts: no "## ${patternDumpPackage.version} (<date>)" heading in pattern-dump's CHANGELOG.md`);
 const patternDumpReleased = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(released));
 
-// The production build sets it (Cloudflare Pages, scripts/pages-cloudflare.mjs); the draft, local builds and CI leave
-// it unset. PD_SITE_URL is the site's address: canonical URLs, link previews and the sitemap are built from it, and
-// without it there are none.
+// The production build sets these (Cloudflare Pages, scripts/pages-cloudflare.mjs); the draft, local builds and CI
+// leave them unset. PD_SITE_URL is the site's address: canonical URLs, link previews and the sitemap are built from it,
+// and without it there are none. PD_ANALYTICS_KEY is the Ahrefs Web Analytics key: the head partial (partials/head)
+// loads the script only when it is set.
 const siteUrl = process.env.PD_SITE_URL || undefined;
+const analyticsKey = process.env.PD_ANALYTICS_KEY || undefined;
 
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
@@ -41,7 +43,7 @@ export default defineConfig({
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "Stefan Bauer", href: "https://n8d.at/" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version, patternDumpReleased },
+    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "Stefan Bauer", href: "https://n8d.at/" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version, patternDumpReleased, ...(analyticsKey ? { analyticsKey } : {}) },
   },
   // The site only: its pages link into the style guide's own workbench at site.workbenchUrl.
   build: { workbench: false },

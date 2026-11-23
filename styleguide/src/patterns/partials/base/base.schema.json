@@ -39,7 +39,8 @@
         },
         "patternDumpVersion": { "type": "string", "description": "The installed Pattern Dump's version, which the docs describe: the home page's eyebrow and start row" },
         "workbenchUrl": { "type": "string", "description": "Where the style guide's workbench is published, with a trailing slash (site.workbenchUrl): the footer's \"Style guide\" link, to the home layout until the workbench opens on a start item of its own" },
-        "patternDumpReleased": { "type": "string", "description": "That version's release date, as \"22 November 2026\", from the package's CHANGELOG.md: the home page's start row" }
+        "patternDumpReleased": { "type": "string", "description": "That version's release date, as \"22 November 2026\", from the package's CHANGELOG.md: the home page's start row" },
+        "analyticsKey": { "type": "string", "description": "The Ahrefs Web Analytics key, set only by the production build (PD_ANALYTICS_KEY): partials/head loads the analytics script with it" }
       }
     }
   }
