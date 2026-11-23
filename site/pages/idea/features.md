@@ -77,7 +77,7 @@ Navigation
 : Worked out from the pages, with `nav: false` for a page that stays out of it. [The navigation](/reference/navigation-and-routes/#the-navigation)
 
 Collections and queries
-: A folder's pages as a listing, and queries a layout declares for pages by folder, category or tag. [Collections and queries](/concepts/collections-and-queries/)
+: A folder's pages as a listing, and queries a layout declares for pages by folder, category or tag. [Content rollups and aggregation](/concepts/collections-and-queries/)
 
 Tag and category pages
 : A page for each tag and category in use, and an index of them, when the layouts are there. [Tag and category layouts](/reference/layouts/#tag-and-category-layouts)

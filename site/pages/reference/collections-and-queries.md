@@ -6,7 +6,7 @@ layout: doc
 
 A pages folder with an `index.md` is a collection: Pattern Dump lists its pages on that `index.md`, in the order `sort` gives, as data (`page.children`) or rendered through a view (`page.listing`). A query is a sub-key of a layout's `page` that lists pages by folder, tag or category on any page with that layout. A card is the component every listed page is checked against.
 
-Why it works this way is on [Collections and queries](/concepts/collections-and-queries/) in Concepts. The examples here are this site's: the Articles folder and the article layout's `related` query.
+Why it works this way is on [Content rollups and aggregation](/concepts/collections-and-queries/) in Concepts. The examples here are this site's: the Articles folder and the article layout's `related` query.
 
 ## Collections
 

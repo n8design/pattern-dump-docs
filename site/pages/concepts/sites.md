@@ -56,7 +56,7 @@ Some of what a layout shows isn't in the page at all: the headings for a table o
 : The page's tags and categories as objects, each with its label and the route of its tag or category page; on a tag or category page, the term, or every term on the index.
 
 `children`, `listing`, and the layout's queries
-: The pages of a folder, and lists of pages from anywhere: [Collections and queries](/concepts/collections-and-queries/).
+: The pages of a folder, and lists of pages from anywhere: [Content rollups and aggregation](/concepts/collections-and-queries/).
 
 `regions`
 : What the page places in the layout's regions.

@@ -1,11 +1,11 @@
 ---
-title: Collections and queries
-description: How Pattern Dump lists pages on a static site: a folder as a collection, a listing through a view, and queries for related pages.
+title: Content rollups and aggregation
+description: How Pattern Dump gathers a site's own pages into listings: content collections from a folder, a listing through a view, and queries for related pages.
 layout: doc
 order: 9
 ---
 
-A site needs lists of its own pages: every article on one page, and a few related ones under each. Written by hand, each list needs an edit whenever a page is added. Pattern Dump works them out from the pages folder instead, in two ways. A collection lists a folder's pages on the folder's own `index.md`. A query lists pages picked by folder, tag or category, on any page whose layout asks for one.
+A site needs lists of its own pages: every article on one page, and a few related ones under each. Written by hand, each list needs an edit whenever a page is added. Pattern Dump gathers a site's own pages into these listings from the pages folder instead, in two ways. A collection lists a folder's pages on the folder's own `index.md`. A query lists pages picked by folder, tag or category, on any page whose layout asks for one.
 
 You add a page, and the lists it belongs on include it, with no link to write.
 
