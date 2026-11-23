@@ -22,8 +22,8 @@ section from the next, as before the map.
 - **Start in one command:** the page's `start` region, a [labelled code](pattern:components/labelled-code) block
   without a label holding the command, beside the version, its release date (`site.patternDumpReleased`, from the
   package's `CHANGELOG.md`), the Node version and the licence. The two start level; below `40em` they stack.
-- **The promise:** the heading and its sentence, the page's `promise` region, [code blocks](pattern:components/code-blocks)
-  with a page and what `pd build` printed for it, and a line to Checks and the benchmark.
+- **The promise:** the heading and its sentence, the page's `promise` region, two [labelled code](pattern:components/labelled-code)
+  blocks side by side, a page and what `pd build` printed for it, and a line to Checks and the benchmark.
 
 A section whose region is empty is left out, and the band with both.
 

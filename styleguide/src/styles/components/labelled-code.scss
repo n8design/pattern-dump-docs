@@ -1,7 +1,8 @@
 @use "../base/tokens";
 
-// A code block with its file or command above it. The figure is a column, so in components/code-blocks the block
-// grows to the height its neighbour sets: the container and its <pre> both fill what is left under the label.
+// A code block with its file or command above it. The figure is a column, so beside another one (the home page's
+// promise, layouts/home) the block grows to the height its neighbour sets: the container and its <pre> both fill
+// what is left under the label.
 .labelled-code {
   display: flex;
   flex-direction: column;
