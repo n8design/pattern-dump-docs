@@ -1,6 +1,6 @@
 ---
 title: Relationships
-description: The dependency graph Pattern Dump reads from your project, never declared: which component includes which, which stylesheet styles what, which page shows what, and what a change reaches.
+description: The dependency graph Pattern Dump reads from your files, never declared: what includes what, which stylesheet styles what, and what a change reaches.
 layout: doc
 order: 4
 ---
