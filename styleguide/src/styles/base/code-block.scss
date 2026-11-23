@@ -1,31 +1,34 @@
 @use "tokens";
 
 // A code block as Pattern Dump writes it: .shiki-container around the <pre>, and, where the browser can write to the
-// clipboard, a .copy-btn that pd's script puts in front of the <pre>. The container carries the block's space, so
-// the button can sit in the block's top right corner; the <pre> leaves room for it on the right.
+// clipboard, a .copy-btn that pd's script puts in front of the <pre>. The button is a row of its own above the code,
+// at the inline end, so no line of code can run under it at any width. The row is built like components/labelled-code's
+// label: the label's type (mono, font-size--1, line height 1.5), so the same height, and the same space-sm to the
+// block; like the label, it draws no line of its own. The button keeps its edge, the control's.
 .shiki-container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$space-sm;
   margin-block-start: 1.25rem;
 }
 
-.shiki-container > pre {
-  margin-block-start: 0;
-  padding-inline-end: 5.5rem;
-}
+.shiki-container > pre { margin-block-start: 0; }
 
 .copy-btn {
-  position: absolute;
-  inset-block-start: 0.75rem;
-  inset-inline-end: 0.75rem;
-  padding: 0.25rem 0.625rem;
+  display: inline-flex;
+  align-self: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  // The label's line box: its font size at line height 1.5, the border inside it.
+  block-size: calc(var(--font-size--1) * 1.5);
+  padding: 0 0.5rem;
   border: 0.0625rem solid var(--color-code-text);
-  // The block's own ground, so a long line scrolled under the button doesn't show through it
   background: var(--color-code-surface);
   color: var(--color-code-text);
   font-family: tokens.$font-mono;
-  font-size: 0.75rem;
+  font-size: var(--font-size--1);
   font-weight: var(--font-weight-body);
-  line-height: 1.5;
+  line-height: 1;
   cursor: pointer;
 }
 
