@@ -1,6 +1,6 @@
 ---
 title: Command line
-description: Every pd command of Pattern Dump, with its options, defaults, messages and exit codes: pd init, pd dev, pd audit, pd build and pd export.
+description: Every pd command of Pattern Dump, with its options, defaults, messages and exit codes: pd init, pd dev, pd audit, pd build, pd export, and pd graph, pd describe, pd affected and pd mcp for the project graph.
 layout: doc
 ---
 
@@ -10,6 +10,10 @@ pd dev [options]
 pd audit [options]
 pd build [options]
 pd export [options]
+pd graph [options]
+pd describe <id> [options]
+pd affected <id|file>... [options]
+pd mcp [options]
 pd help
 pd --version
 ```
@@ -23,10 +27,10 @@ The `pattern-dump` package has one command, `pd`. Before you have a project, `np
 Options are read strictly. An unknown option, an option without its value, or an argument that isn't an option is an error with exit code 1 and the usage text, never ignored. `pd init` is the exception: it takes one folder as an argument, and a second one is an error, `init takes one folder (got <a>, <b>)`. `--option value` and `--option=value` both work, and an option given twice takes the last value.
 
 `--root <path>`
-: On `dev`, `audit`, `build` and `export`. The project's folder. Default: the current folder.
+: On every command but `init`. The project's folder. Default: the current folder.
 
 `--config <path>`
-: On `dev`, `audit`, `build` and `export`. The config file to load, which may be outside the root. Without it, `pd` looks for `pattern-dump.config.ts`, then `pattern-dump.config.json`, in the root.
+: On every command but `init`. The config file to load, which may be outside the root. Without it, `pd` looks for `pattern-dump.config.ts`, then `pattern-dump.config.json`, in the root.
 : A file that doesn't exist: `--config file not found: <path>`. No config at all: `No pattern-dump.config.ts or pattern-dump.config.json found in <root> (and no --config given)`.
 
 Both paths resolve against the current folder, each on its own. The paths inside the config resolve against the root, never against the config file's folder. A root `package.json` with a `patternDump` field gives the folders the config doesn't name.
@@ -161,9 +165,20 @@ Both bind to `127.0.0.1` only. Before binding, `pd dev` checks the live-reload p
 
 ### Host names
 
-`pd dev` answers only to its own host names at its own port, in any case: `localhost`, `127.0.0.1`, `pd.localhost`, and with a site `site.host` (default `live.localhost`). Any other host, or none, gets `403` and `Forbidden: this server answers only to its own host names`. Live reload accepts a connection only from an `http:` page on one of those names at the HTTP port, or one that names no origin.
+`pd dev` answers only to its own host names at its own port, in any case:
 
-With a site, the site is on its host and the workbench on `pd.localhost`, and `localhost` and `127.0.0.1` get the workbench too. It prints `[dev-server] Website:   http://<site host>:<port><base path>` and `[dev-server] Workbench: http://pd.localhost:<port>/`, and with site search, that the index is built by `pd build`, so the search finds nothing in `pd dev`. Without a site it prints `[dev-server] Workbench: http://localhost:<port>/`.
+- `localhost` and `127.0.0.1`;
+- `pd.localhost`, the workbench's;
+- the MCP server's, `mcp.host` (default `mcp.localhost`);
+- with a site, the site's, `site.host` (default `live.localhost`).
+
+Any other host, or none, gets `403` and `Forbidden: this server answers only to its own host names`. Live reload accepts a connection only from an `http:` page on one of those names at the HTTP port, or one that names no origin.
+
+With a site, the site is on its host and the workbench on `pd.localhost`, and `localhost` and `127.0.0.1` get the workbench too. It prints `[dev-server] Website:   http://<site host>:<port><base path>` and `[dev-server] Workbench: http://pd.localhost:<port>/`, and with site search, that the index is built by `pd build`, so the search finds nothing in `pd dev`. Without a site it prints `[dev-server] Workbench: http://localhost:<port>/`. After the workbench's line, with or without a site, it prints the MCP server's addresses ([MCP server](/reference/mcp/)). `<mcp host>` is `mcp.host`:
+
+```text
+[dev-server] MCP:       http://<mcp host>:<port>/ (or http://localhost:<port>/mcp)
+```
 
 ### Changes while it runs
 
@@ -234,3 +249,69 @@ Writes the corrected form of the project's flattened component families, the one
 `pd export` collapses a family only when its members are byte-identical but for the class tokens of the root element: into `<base>.hbs`, `<base>.json` and a `<base>~<token>.json` overlay per member. A family that other components include is "threaded": their includes are rewritten too. Any other family is reported as "deferred" or "skipped" (`cross-folder`, `not-lossless-shape-a`) and never written.
 
 It prints `[pd export] patterns:` and `sink:`, the counts of collapsed, threaded, deferred and skipped families, the files written, the `COLLAPSE` and `THREADED` blocks, a `REWRITE MAP`, and the `DEFERRED` and `SKIPPED` lines. It exits with 0, or with 1 and `[pd] Error: …` on a failure.
+
+## `pd graph`
+
+Prints the project graph: components, variants, stylesheets, style modules, classes, pages and assets, and how they connect. [Relationships](/concepts/relationships/) explains what the graph holds. Without an option it prints a summary, the nodes and edges counted by kind:
+
+```text
+Project graph (version 1)
+  <n> nodes: <n> asset, <n> class, <n> component, …
+  <n> edges: <n> borrows, <n> defines, <n> imports, …
+
+pd graph --json prints it whole; pd describe <id> answers for one component.
+```
+
+`--json`
+: The whole graph as JSON, `{ "version": 1, "nodes": […], "edges": […] }`, sorted. It is the same JSON as the workbench's `/api/graph` and as `api/graph.json` in the build, and it is printed whether or not `build.graph` is on.
+
+## `pd describe`
+
+```sh
+pd describe <id> [--json]
+```
+
+Answers four questions about one component or variant, by its id (`atoms/button`, `atoms/button~icon`): what it accepts (its contract), where it is used (usage), which stylesheets style it (ownership), and what breaks if it changes (its blast radius). Without an option, it prints a summary:
+
+```text
+atoms/button (component, from @pattern-dump-docs/styleguide)
+  Contract: a schema; variants: atoms/button~icon, atoms/button~secondary
+  Used by: molecules/search-field; on pages: none
+  Stylesheets: @pattern-dump-docs/styleguide/src/styles/atoms/button.scss
+  Styles classes of: none; its classes are styled by: none
+  Blast radius: 3 components, 0 stylesheets, 0 pages
+
+pd describe <id> --json gives each part in full, with the path to everything in the blast radius.
+```
+
+`--json`
+: `{ "version": 1, "id": …, "contract": …, "usage": …, "ownership": …, "blastRadius": … }`. Each part is the answer of the MCP tool of that name ([MCP server](/reference/mcp/#the-tools)).
+
+It takes exactly one id. None, or more than one: `pd describe takes one component id, such as atoms/button`, with the usage text, exit code 1. An id the project doesn't have exits with 1: `[pd] Error: there is no component "<id>" in this project`. When ids are close by spelling, the message goes on with `: did you mean` and them.
+
+## `pd affected`
+
+```sh
+pd affected <id|file>... [--json]
+```
+
+Lists everything a change reaches: the components and pages to check before you hand the change over. It takes component ids, changed files, or both. A file's path is relative to the folder you run `pd` from. Pattern Dump maps each file to what it is (a template, a schema, a component's docs, a stylesheet, a shared Sass module or a page) and lists what all of them reach together.
+
+```text
+Changed: components/site-card
+  2 components: components/site-card, components/site-cards
+  2 pages: /, /in-practice/
+```
+
+An id or a file the graph doesn't know is no error: it is listed as `not in the graph`, and the command exits with 0. Without an id or a file: `pd affected takes one or more component ids or changed files`, with the usage text, exit code 1.
+
+`--json`
+: `{ "version": 1, "changed": […], "unknown": […], "components": […], "pages": […] }`, the MCP tool `affected`'s answer.
+
+## `pd mcp`
+
+Serves Pattern Dump's MCP tools over stdio, for a client that starts a process: a `.mcp.json` with a command, or the Claude desktop app. It runs the project's `pd dev` in the same process, on free ports on `127.0.0.1`, so its answers follow every save. Standard output carries the protocol only; everything else goes to standard error. It ends when its input closes. It takes `--root` and `--config` and no other option. [MCP server](/reference/mcp/) has the tools and the protocol.
+
+## For all four
+
+`pd graph`, `pd describe`, `pd affected` and `pd mcp` read the site as `pd dev` shows it, with drafts and scheduled pages. The JSON they print carries `"version": 1`, the graph's version. Files in it are named from the project's root, and a pattern package's as `<name>/<path>`, never with an absolute path.

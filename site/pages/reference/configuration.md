@@ -209,6 +209,16 @@ A raster image in an image slot is written as WebP variants. A raster image in a
 : A string.
 : Wraps the brand in `<a class="rail-brand-link">`.
 
+`shell.start`
+: A component id, such as `"layouts/home"`. No default.
+: The component the workbench opens at its root, in `pd dev` and in the static build. The root's address is replaced by the component's, so Back leaves the workbench. Without the key, the root opens on nothing.
+: An id the project doesn't have stops `pd dev` and `pd build`: `"shell.start": there is no component "<id>"`, followed by `: did you mean "<id>"?` when one is close.
+
+`shell.inset`
+: A number of rem from 0 to 8. Default `1`.
+: The space around a component on the Stage, `0` for none. A full layout and a partial get none. The frame takes the page's background, so the space shows the theme's ground.
+: Any other value: `"shell.inset" must be a number of rem from 0 to 8, such as 1 (0 for none)`.
+
 ## Pattern packages
 
 `packages`
@@ -226,7 +236,7 @@ A raster image in an image slot is written as WebP variants. A raster image in a
 
 `build`
 : An object.
-: Accepts only `outDir`, `basePath`, `audit`, `skipChecks` and `workbench`.
+: Accepts only the six keys below.
 
 `build.outDir`
 : A string. Default `outDir`.
@@ -253,6 +263,33 @@ A raster image in an image slot is written as WebP variants. A raster image in a
 : `false` makes `pd build` write the site only.
 : `false` without a site stops: `pd build: build.workbench is false and the project has no site, so there is nothing to build`.
 : With `false`, the workbench folder is neither replaced nor written, and a file already there stays. With `false`, the workbench folder's overlap checks and the same-host base path check are skipped. With `false`, `pd build` prints `[pd build] workbench: not built (build.workbench: false); the pages link to it at <workbenchUrl>`. It has no command-line flag.
+
+`build.graph`
+: True or false. Default `true`.
+: `pd build` writes the project graph into the workbench as `api/graph.json`, the same JSON as `pd graph --json`. `false` leaves it out, for a project whose structure shouldn't be published. A build with `build.workbench: false` writes none either way. `pd graph --json` prints the graph whatever the key says.
+: Any other value: `"build.graph" must be true or false`.
+
+## MCP server
+
+```ts
+export default defineConfig({
+  mcp: {
+    host: "mcp.localhost",
+  },
+});
+```
+
+`pd dev` runs an MCP server for agents on a host name of its own, at its own port ([MCP server](/reference/mcp/)).
+
+`mcp`
+: An object. Accepts only `host`. Any other value: `"mcp" must be an object`.
+
+`mcp.host`
+: A host name. Default `"mcp.localhost"`.
+: The name the MCP server answers to in `pd dev`. It joins `pd dev`'s own host names.
+: A name with a scheme, a port or a path: `"mcp.host" must be a host name with no scheme, port or path, such as "live.localhost"`.
+: A name of the workbench's, `localhost`, `127.0.0.1` or `pd.localhost`: `"mcp.host": "<host>" is the workbench's: give the MCP server a name of its own, such as "mcp.localhost"`.
+: The site's host: `"mcp.host": "<host>" is the site's host as well: give the MCP server a name of its own, such as "mcp.localhost"`.
 
 ## Site
 
@@ -291,6 +328,7 @@ One folder inside another
 : Any other value: `"site.workbenchUrl" must be an absolute http(s) URL for a workbench on its own host, such as "https://workbench.example.com/", or a path for one on the site's host, such as "/workbench/"`.
 : `pd build` of a project with a site requires it: `pd build: site.workbenchUrl is required to build the site: its pages link into the workbench at that address`.
 : When the build writes the workbench, a workbench on the site's host (a path, or an absolute URL on the origin of `site.url`) must be built for that path. Otherwise: `pd build: site.workbenchUrl is <url>, so the workbench must be built for <path> (build.basePath or --base); it is being built for <base>`.
+: Templates read it as `{{site.workbenchUrl}}`: this address in `pd build`, and the address of `pd dev`'s own workbench in `pd dev`.
 
 `site.url`
 : An absolute http(s) URL.
@@ -334,6 +372,7 @@ One folder inside another
 : A plain object, with any keys.
 : The values every page shares. Layouts read them as `{{site.…}}`.
 : Checked against the `site` property of the schema of `partials/base`, at every depth, with no coercion. `navigations`, `collections` and `categories` have checks of their own. A top-level key that schema declares and the config doesn't set is passed as `null`.
+: A global named `workbenchUrl` is a config problem, since Pattern Dump gives templates `site.workbenchUrl` itself: `"site.globals.workbenchUrl": templates get site.workbenchUrl from Pattern Dump (site.workbenchUrl, or pd dev's own workbench): remove this global and use site.workbenchUrl`.
 
 ### Categories and tags
 

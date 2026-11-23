@@ -145,6 +145,7 @@ With `html` skipped, the workbench, its Diagnostics tab and the audit carry no `
 
 `api/`
 : `config.json`, `version.json`, `tree.json`, `themes.json`; per component and variant `component/<id>/index.json` and `~<variant>.json`; per folder `overview/<folder>/index.json`; and `audit.json`, when the audit is included.
+: `graph.json`, the project graph, the same JSON as `pd graph --json` ([Relationships](/concepts/relationships/)). `build.graph: false` leaves it out.
 
 `preview/`
 : Each component's and variant's preview, `preview/<id>/index.html` and `~<variant>.html`.

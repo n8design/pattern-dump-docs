@@ -10,6 +10,7 @@ order: 6
 - [Search and SEO](/reference/search-and-seo/): site search, head tags, JSON-LD, sitemap.xml, robots.txt, llms.txt.
 - [Collections and queries](/reference/collections-and-queries/): collections, entries, sort, listing views, cards and query options.
 - [Command line](/reference/cli/): every `pd` command, with its options, messages and exit codes.
+- [MCP server](/reference/mcp/): where the server answers in `pd dev`, `pd mcp`, the seven tools and what they refuse.
 - [Build output](/reference/build-output/): what `pd build` writes, what it checks and what it refuses.
 - [Markdown](/reference/markdown/): live examples, source blocks, `pattern:` links, placed components, code blocks.
 - [Frontmatter](/reference/frontmatter/): every key a page and a folder can set, `childLayout` and `childDefaults`.
