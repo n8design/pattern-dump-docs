@@ -13,16 +13,6 @@ const released = changelog.match(new RegExp(`^## ${patternDumpPackage.version.re
 if (!released) throw new Error(`pattern-dump.config.ts: no "## ${patternDumpPackage.version} (<date>)" heading in pattern-dump's CHANGELOG.md`);
 const patternDumpReleased = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(released));
 
-// The style guide's workbench. Published, it sits beside the site under /workbench/ (the root's "pages" script); in
-// `pd dev` it is the dev server's own, on the workbench's host and the same port (--port, else PD_PORT, else 4000).
-// The footer's "Style guide" link and x-ray's labels are built from it (site.globals.workbenchUrl).
-const devPort = (() => {
-  const i = process.argv.findIndex(arg => arg === "--port" || arg.startsWith("--port="));
-  if (i < 0) return process.env.PD_PORT ?? "4000";
-  return process.argv[i].includes("=") ? process.argv[i].split("=")[1] : process.argv[i + 1];
-})();
-const workbenchUrl = process.argv[2] === "dev" ? `http://pd.localhost:${devPort}/` : "/workbench/";
-
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
 export default defineConfig({
@@ -33,7 +23,10 @@ export default defineConfig({
   site: {
     pagesDir: "./pages",
     outDir: "./dist/site",
-    workbenchUrl,
+    // The style guide's workbench, published beside the site under /workbench/ (the root's "pages" script). Pattern
+    // Dump gives templates site.workbenchUrl: this address in pd build, its own workbench in pd dev. The footer's
+    // "Style guide" link and x-ray's labels are built from it.
+    workbenchUrl: "/workbench/",
     // The site's address, once you know it: canonical URLs, link previews and the sitemap are built from it.
     // url: "https://www.example.com/",
     categories: {
@@ -41,8 +34,8 @@ export default defineConfig({
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "n8d", href: "https://n8d.at" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version, patternDumpReleased, workbenchUrl },
+    globals: { title: "Pattern Dump", footer: "Built with Pattern Dump.", author: { name: "n8d", href: "https://n8d.at" }, repository: { href: "https://github.com/n8design/pattern-dump" }, sponsor: { href: "https://github.com/sponsors/StfBauer" }, patternDumpVersion: patternDumpPackage.version, patternDumpReleased },
   },
-  // The site only: its pages link into the style guide's own workbench at workbenchUrl.
+  // The site only: its pages link into the style guide's own workbench at site.workbenchUrl.
   build: { workbench: false },
 });
