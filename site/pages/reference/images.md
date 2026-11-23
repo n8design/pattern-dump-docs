@@ -1,6 +1,6 @@
 ---
 title: Images
-description: How Pattern Dump serves images: WebP image optimization with responsive srcset variants, images in a page's markdown with captions and dark versions, and symbol images.
+description: WebP image optimization in Pattern Dump: responsive srcset variants, images in a page's markdown with captions and dark versions, and symbol images.
 layout: doc
 ---
 
