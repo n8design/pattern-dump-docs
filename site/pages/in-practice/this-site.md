@@ -45,6 +45,10 @@ import { defineConfig } from "pattern-dump";
 // home page's eyebrow follows the pin.
 import patternDumpPackage from "pattern-dump/package.json" with { type: "json" };
 
+// The production build sets these; the draft, local builds and CI leave them unset.
+const siteUrl = process.env.PD_SITE_URL || undefined;
+const analyticsKey = process.env.PD_ANALYTICS_KEY || undefined;
+
 // Content only: no patterns, skin, styles or themes of its own. All of them come from the style guide package
 // (../styleguide, linked as a file: dependency); its package.json ("patternDump") says where they are.
 export default defineConfig({
@@ -57,14 +61,14 @@ export default defineConfig({
     outDir: "./dist/site",
     // The style guide's own workbench, published beside the site under /workbench/ (the root's "pages" script).
     workbenchUrl: "/workbench/",
-    // The site's address, once you know it: canonical URLs, link previews and the sitemap are built from it.
-    // url: "https://www.example.com/",
+    // The site's address, from PD_SITE_URL; left out when it is unset.
+    ...(siteUrl ? { url: siteUrl } : {}),
     categories: {
       notes: { label: "Notes", description: "Short articles about this site" },
     },
     // Search: pd build indexes every page with Pagefind once this workspace has it (npm install --save-dev pagefind
     // -w @pattern-dump-docs/site); organisms/search, from the style guide, is the search field.
-    globals: { title: "Pattern Dump", footer: "Pattern Dump. Built with Pattern Dump.", patternDumpVersion: patternDumpPackage.version },
+    globals: { title: "Pattern Dump", footer: "Pattern Dump. Built with Pattern Dump.", patternDumpVersion: patternDumpPackage.version, ...(analyticsKey ? { analyticsKey } : {}) },
   },
   // The site only: its pages link into the style guide's own workbench at workbenchUrl.
   build: { workbench: false },
@@ -75,7 +79,7 @@ export default defineConfig({
 
 `workbenchUrl` is the address the site's pages link to for a component: the style guide's own workbench, published under `/workbench/` on the same host. `pd build` of a project with a site requires it.
 
-`url` is still a comment, so pages have no canonical URL and no link-preview tags, and there is no sitemap. Each build says so in a note: `site.url is not set, so pages have no canonical URL, og:url, og:image or JSON-LD, and there is no sitemap: set site.url to the site's address, such as "https://example.com/"`.
+`url` comes from the environment variable `PD_SITE_URL`, read at the top of the config as `siteUrl`. Only the production build sets it. Everywhere else, on the draft, locally and in CI, it is unset, so pages have no canonical URL and no link-preview tags, and there is no sitemap. Each of those builds says so in a note: `site.url is not set, so pages have no canonical URL, og:url, og:image or JSON-LD, and there is no sitemap: set site.url to the site's address, such as "https://example.com/"`.
 
 `globals` holds the values every page shares. `patternDumpVersion` is read from the installed Pattern Dump's own `package.json`, for the home page.
 
@@ -154,7 +158,23 @@ It checks the style guide's stylesheets with Stylelint, builds the site into `si
 
 ![The workbench showing the doc layout at full height on the Stage, with a guide page's header, progress, text, pager and table of contents, and the layout's documentation in the Inspector.](/assets/screenshots/workbench-layout-doc.webp "The layout every guide and reference page uses, previewed in the style guide's workbench, the one published under /workbench/.")
 
-`.github/workflows/pages.yml` runs `npm ci` and `npm run pages` on every push to `main`, and on demand, and publishes `_site/` to GitHub Pages. It checks the repository out with its full history, `fetch-depth: 0`, so that git's dates are there. A page without a `date` of its own is dated by its first commit, and JSON-LD takes its `datePublished` from git once `site.url` is set.
+`.github/workflows/pages.yml` runs `npm ci` and `npm run pages -- --noindex` on every push to `main`, and on demand, and publishes `_site/` to GitHub Pages as the draft, draft.pattern-dump.design. `--noindex` keeps the draft out of search engines: `robots.txt` disallows everything, and every page carries a robots `noindex`. It checks the repository out with its full history, `fetch-depth: 0`, so that git's dates are there. A page without a `date` of its own is dated by its first commit, and JSON-LD takes its `datePublished` from git once `site.url` is set.
+
+The production site, pattern-dump.design, is built by Cloudflare Pages from the same repository:
+
+Build command
+: `npm ci && node scripts/pages-cloudflare.mjs`
+
+Output folder
+: `_site`
+
+Node.js
+: 24, from `.nvmrc`, the version the draft's workflow uses.
+
+Variables
+: `PD_SITE_URL` and `PD_ANALYTICS_KEY`, set for the production environment only. The first is the site's address, the second the key of its Ahrefs Web Analytics, which the head partial loads only when the key is set.
+
+Cloudflare also builds every other branch and pull request, as previews on `*.pages.dev`. `scripts/pages-cloudflare.mjs` decides which build may be indexed: only the `main` branch with `PD_SITE_URL` set. It runs `npm run pages` for that one, and `npm run pages -- --noindex` for every other build, as the draft does. Production's `robots.txt` also keeps crawlers out of `/workbench/`: the workbench is a tool, not content. Before building, it fetches the full history if the clone is shallow, since the page dates come from git.
 
 ## The checks every build passes
 
