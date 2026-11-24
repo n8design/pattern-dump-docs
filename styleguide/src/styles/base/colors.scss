@@ -13,7 +13,8 @@
 // (themes/*.theme.scss set it for the workbench's theme switch).
 
 $colors: (
-  // "Deep gunmetal, Lime & Berry". One accent per mode: berry in light, lime in dark; neither appears in the other mode.
+  // "Deep gunmetal, Lime & Berry". One accent per mode: berry in light, lime in dark; neither appears in the other mode,
+  // with one exception, decided for that place only (TASTE.md): the search results' highlight, below.
   //
   // Page and text
   "surface":          (light: oklch(95% 0.006 240),       dark: oklch(19.9% 0.026 247)),
@@ -33,6 +34,12 @@ $colors: (
   "accent":           (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
   "on-accent":        (light: oklch(95% 0.006 240),       dark: oklch(19.9% 0.026 247)),
   "accent-ink":       (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
+  // The words found in a search result (organisms/search, Pagefind's <mark>): the other mode's accent with its
+  // on-accent, lime in light mode and berry in dark. The page's own accent already marks links and the current item,
+  // so a mark in it would read as one more of those; the other mode's pair stands apart and keeps its tested contrast
+  // (13.8:1 light, 6.0:1 dark). The one place an accent appears in the other mode (TASTE.md, exceptions).
+  "highlight":        (light: oklch(89.7% 0.2 122),       dark: oklch(49.2% 0.188 7)),
+  "on-highlight":     (light: oklch(19.9% 0.026 247),     dark: oklch(95% 0.006 240)),
   // The logo mark follows the accent and switches with the mode
   "logo":             (light: oklch(49.2% 0.188 7),       dark: oklch(89.7% 0.2 122)),
   // A soft shadow that lifts something off a picture (the video's play sticker): the same in both modes, since it sits
