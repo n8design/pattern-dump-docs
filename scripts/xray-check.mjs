@@ -85,9 +85,24 @@ const inspect = () => {
     return bottom - top > 2 ? new DOMRect(rect.left, top, rect.width, bottom - top) : null;
   };
 
+  // What a scroll container (a row of tabs that scrolls sideways, say) cuts off isn't seen: a rect is clipped to each
+  // ancestor that clips its overflow.
+  const clipped = (rect, element) => {
+    let { left, top, right, bottom } = rect;
+    for (let e = element.parentElement; e && e !== document.body; e = e.parentElement) {
+      const style = getComputedStyle(e);
+      if (style.overflowX === "visible" && style.overflowY === "visible") continue;
+      const c = R(e);
+      if (style.overflowX !== "visible") { left = Math.max(left, c.left); right = Math.min(right, c.right); }
+      if (style.overflowY !== "visible") { top = Math.max(top, c.top); bottom = Math.min(bottom, c.bottom); }
+    }
+    return new DOMRect(left, top, Math.max(0, right - left), Math.max(0, bottom - top));
+  };
+
   // The content: each line of text, and each image, drawing, frame, video and field.
   const content = [];
-  const add = (raw, element, what) => {
+  const add = (whole, element, what) => {
+    const raw = clipped(whole, element);
     if (raw.width <= 2 || raw.height <= 2) return;
     const rect = unhidden(raw, element);
     if (!rect) return;
