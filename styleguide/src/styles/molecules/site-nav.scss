@@ -31,13 +31,7 @@
 }
 
 // The current page, or the section it is in: heading ink and an underline in the accent, never color alone.
-.site-nav-link[aria-current] {
-  color: var(--color-heading);
-  text-decoration: underline;
-  text-decoration-color: var(--color-accent-ink);
-  text-decoration-thickness: 0.125rem;
-  text-underline-offset: 0.4em;
-}
+.site-nav-link[aria-current] { @include tokens.current-underline; }
 
 // In the header's phone menu (organisms/site-header, the same media query): large rows with hairlines between them.
 @media #{header.$site-menu-query} {

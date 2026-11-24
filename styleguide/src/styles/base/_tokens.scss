@@ -50,3 +50,32 @@ $header-padding-block: 1rem;
 $footer-padding-block: 1.75rem;
 $footer-font-size: 0.875rem;
 $footer-line-height: 1.5;
+
+// Shared looks, so a place that reuses one stays the same as where it came from.
+//
+// The eyebrow: a small uppercase line above a heading (the home page's hero, a search result's section). Margins stay
+// with each place.
+@mixin eyebrow {
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+// A text field's box (organisms/site-header's search, organisms/search's field): the border token as its edge (a control,
+// 3:1, not a hairline) on the subtle surface.
+@mixin field-box {
+  border: 0.0625rem solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
+
+// The current item in a row of choices (molecules/site-nav's current section, organisms/search's checked section):
+// heading ink and an underline in the accent, never colour alone.
+@mixin current-underline {
+  color: var(--color-heading);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-ink);
+  text-decoration-thickness: 0.125rem;
+  text-underline-offset: 0.4em;
+}

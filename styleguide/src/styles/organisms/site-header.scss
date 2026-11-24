@@ -119,8 +119,7 @@
   min-inline-size: min(15rem, 100%);
   min-block-size: tokens.$touch-target;
   padding-inline: 0.75rem;
-  border: 0.0625rem solid var(--color-border);
-  background: var(--color-surface-subtle);
+  @include tokens.field-box;
 }
 
 // Named for screen readers; the field, its placeholder and the icon say what it is on screen.
