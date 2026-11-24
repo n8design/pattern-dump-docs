@@ -3,6 +3,8 @@
 // Only a production build may be indexed: the main branch, with PD_SITE_URL set (Cloudflare sets CF_PAGES_BRANCH).
 // Every other build runs `npm run pages -- --noindex`, as the draft's workflow does (.github/workflows/pages.yml), so
 // robots.txt disallows everything and every page carries a robots noindex meta (scripts/assemble-pages.mjs).
+// Production variables read further down the build: PD_SITE_URL, PD_ANALYTICS_KEY (site/pattern-dump.config.ts) and
+// PD_INDEXNOW_KEY (scripts/assemble-pages.mjs writes <key>.txt at the root with it).
 import { spawnSync } from "node:child_process";
 
 // pd build needs the full history (page dates from git) and refuses a shallow clone; the draft's workflow checks out

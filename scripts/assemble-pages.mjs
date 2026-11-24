@@ -33,6 +33,17 @@ if (!process.argv.includes("--noindex") && existsSync(robots)) {
   }
 }
 
+// IndexNow (Ahrefs pings search engines with it): PD_INDEXNOW_KEY, a variable of Cloudflare's production environment,
+// becomes <key>.txt at the root, holding the key. Not in the repository; a build without the variable writes no file,
+// and a preview (--noindex) never does, since nothing there should be submitted.
+const indexNowKey = process.env.PD_INDEXNOW_KEY?.trim();
+if (indexNowKey && !process.argv.includes("--noindex")) {
+  // IndexNow's own format, and safe as a file name: 8 to 128 letters, digits and hyphens.
+  if (!/^[A-Za-z0-9-]{8,128}$/.test(indexNowKey)) throw new Error("PD_INDEXNOW_KEY must be 8 to 128 letters, digits and hyphens");
+  writeFileSync(join(out, `${indexNowKey}.txt`), indexNowKey);
+  console.log(`${out}: the IndexNow key file, from PD_INDEXNOW_KEY`);
+}
+
 if (process.argv.includes("--noindex")) {
   writeFileSync(robots, "User-agent: *\nDisallow: /\n");
   const meta = '<meta name="robots" content="noindex">';
