@@ -14,7 +14,8 @@
           "required": ["name", "href"],
           "properties": {
             "name": { "type": "string", "description": "The link's text" },
-            "href": { "type": "string", "description": "Where it links" }
+            "href": { "type": "string", "description": "Where it links" },
+            "location": { "type": "string", "description": "Where the author is, after the link: \"Vienna, Austria\"" }
           }
         },
         "sponsor": {
