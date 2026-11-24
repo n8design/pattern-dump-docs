@@ -4,12 +4,64 @@
 .search-form { display: grid; gap: tokens.$space-xs; max-inline-size: 40rem; }
 .search-label { font-weight: var(--font-weight-semibold); }
 .search-row { display: flex; gap: tokens.$space-sm; }
-.search-input { flex: 1; min-inline-size: 0; padding: tokens.$space-sm; border: 0.0625rem solid var(--color-border); font: inherit; }
-.search-button,
-.search-section { padding: tokens.$space-sm tokens.$space-md; border: 0.0625rem solid var(--color-border); font: inherit; }
+// The field looks like the header's search; the button is atoms/button, primary.
+.search-input { flex: 1; min-inline-size: 0; padding: tokens.$space-sm; @include tokens.field-box; color: var(--color-text); font: inherit; }
+.search-input:focus-visible { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+
+// The section filter: a radio group, one radio per section, drawn as a row of tabs (not ARIA tabs: there is one
+// result list, filtered, and no panels). The checked one has the site nav's current-item underline. The row stays one
+// line and scrolls sideways where it doesn't fit; the tab cut at the edge shows that it goes on.
+.search-sections { min-inline-size: 0; margin: tokens.$space-sm 0 0; padding: 0; border: 0; }
+.search-sections-legend {
+  position: absolute;
+  inline-size: 0.0625rem;
+  block-size: 0.0625rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.search-sections-row {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  // Room for the focus ring, which a scroll container would clip. The row stays inside the component, so the first tab
+  // sits 0.25rem in from the field's edge (Stefan, 2026-11-24).
+  padding: 0.25rem;
+  font-weight: var(--font-weight-medium);
+}
+.search-section {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding-block: tokens.$space-xs;
+  color: var(--color-text);
+  white-space: nowrap;
+  cursor: pointer;
+}
+// The radio itself: hidden, still focusable and announced; the label is what shows.
+.search-section input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.search-section:has(:checked) { @include tokens.current-underline; }
+// The nav's focus ring.
+.search-section:has(:focus-visible) { outline: 0.125rem solid var(--color-primary); outline-offset: 0.125rem; }
+@media (any-pointer: coarse) {
+  .search-section { min-block-size: tokens.$touch-target; }
+}
+
 .search-status { margin-block: tokens.$space-md; }
 .search-results { margin: 0; padding: 0; list-style: none; }
 .search-result { margin-block: tokens.$space-md; }
-.search-result-title { margin: 0; font-size: var(--font-size-1); }
-.search-result-section { margin: 0; color: var(--color-text-muted); font-size: var(--font-size--1); }
+.search-result-heading { margin: 0; }
+.search-result-section { margin: 0; @include tokens.eyebrow; }
+.search-result-title { margin: 0; font-size: var(--font-size-0); }
 .search-result-teaser { margin: tokens.$space-xs 0 0; }
+// The words found, in the other mode's accent pair (colors.scss, highlight; TASTE.md lists this exception).
+.search-result-teaser mark { background: var(--color-highlight); color: var(--color-on-highlight); }

@@ -3,7 +3,7 @@
     <label class="search-label" for="search-input">{{#if label}}{{label}}{{else}}Search this site{{/if}}</label>
     <div class="search-row">
       <input class="search-input" id="search-input" type="search" name="q" autocomplete="off" spellcheck="false">
-      <button class="search-button" type="submit" data-xray="organisms/search">Search</button>
+      {{> atoms-button label="Search" variant="primary" type="submit" }}
     </div>
   </form>
   <p class="search-status" role="status" data-search-status></p>
