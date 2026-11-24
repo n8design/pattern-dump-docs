@@ -1,6 +1,6 @@
 ---
 title: Credits
-description: Who sponsors Pattern Dump, and the fonts, tools and references this site is built with.
+description: Who sponsors Pattern Dump, the fonts, tools and references this site is built with, who publishes it and how it handles your data.
 layout: doc
 toc: true
 order: 9
@@ -95,3 +95,39 @@ Self-hosted from `@fontsource-variable` 5.3.0, Latin only.
 - [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance), Apache 2.0 licence: the
   practices the HTML, CSS and scripts were checked against.
 - [MDN Web Docs](https://developer.mozilla.org): reference for HTML, CSS and browser support.
+
+## Legal & publisher
+
+### Publisher
+
+Pattern Dump is a project by Stefan Bauer, [N8D e.U.](https://n8d.at), Vienna, Austria. Full contact details are on
+n8d.at.
+
+### Data protection
+
+Controller
+: Stefan Bauer, N8D e.U., Ziedlergasse 10/32, 1230 Vienna, Austria. [Contact](https://n8d.at/about/).
+
+Hosting
+: Cloudflare Pages, by Cloudflare, Inc., delivers the site. To serve pages and protect the site from abuse, Cloudflare
+  processes technical request data such as your IP address.
+
+Analytics
+: Ahrefs Web Analytics, by Ahrefs Pte. Ltd., Singapore. It sets no cookies, keeps no persistent identifiers and doesn't
+  track you across sites. Your IP address is used briefly to derive country and city, then discarded. Unique visitors
+  are counted with a hash that changes daily.
+
+Legal basis
+: Legitimate interest (Art. 6(1)(f) GDPR) in running a secure site and understanding how it is used overall.
+
+Transfers outside the EEA
+: Cloudflare (USA) and Ahrefs (Singapore) may process data outside the EEA, under their data processing terms and the
+  standard contractual clauses.
+
+Cookies
+: This site sets no cookies.
+
+Your rights
+: Access, rectification, erasure, restriction, objection and data portability (Art. 15 to 21 GDPR). Write to the
+  controller above. You can also lodge a complaint with the Austrian Data Protection Authority,
+  [Datenschutzbehörde](https://dsb.gv.at).
