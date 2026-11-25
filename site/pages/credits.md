@@ -100,8 +100,7 @@ Self-hosted from `@fontsource-variable` 5.3.0, Latin only.
 
 ### Publisher
 
-Pattern Dump is a project by Stefan Bauer, [N8D e.U.](https://n8d.at), Vienna, Austria. Full contact details are on
-n8d.at.
+Pattern Dump is a project by Stefan Bauer, [N8D e.U.](https://n8d.at), Vienna, Austria. [Contact](https://n8d.at/about/).
 
 ### Data protection
 
