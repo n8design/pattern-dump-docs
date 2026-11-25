@@ -53,10 +53,10 @@ For a link to a component that doesn't exist, Pattern Dump fails the page, as it
 
 An image from `/assets/` with a title on a line of its own becomes a figure, and the title becomes its caption. A file of the same name with `-dark` added, next to it, is the version for dark mode. Pattern Dump writes both into a `<picture>`, and the browser picks the one for your setting:
 
-![The Configuration page of this site at 1280 wide: the header with Guide and Reference, the page title, a highlighted code block with its Copy button, and On this page on the right.](/assets/screenshots/site-page.webp "A page of this site. Switch your system to dark mode to see the dark version.")
+![The Configuration page of this site at 1280 wide: the header with its five sections, the page title, a highlighted code block with its Copy button, and On this page on the right.](/assets/screenshots/site-page.webp "A page of this site. Switch your system to dark mode to see the dark version.")
 
 ```md
-![The Configuration page of this site at 1280 wide: the header with Guide and Reference, the page title, a highlighted code block with its Copy button, and On this page on the right.](/assets/screenshots/site-page.webp "A page of this site. Switch your system to dark mode to see the dark version.")
+![The Configuration page of this site at 1280 wide: the header with its five sections, the page title, a highlighted code block with its Copy button, and On this page on the right.](/assets/screenshots/site-page.webp "A page of this site. Switch your system to dark mode to see the dark version.")
 ```
 
 The markdown names only `site-page.webp`. Pattern Dump finds `site-page-dark.webp` beside it, and makes WebP versions of both in several widths.
