@@ -1,11 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Site card",
-  "description": "A site built with Pattern Dump, as a card: its name, a picture across the card, one short line and one link to the page about it. On a page, inside <pd-components-site-cards>: <pd-components-site-card title=\"…\" image=\"/assets/…\" line=\"…\" href=\"…\" link-label=\"…\" />.",
+  "description": "A site built with Pattern Dump, as a card: its name, a picture across the card, one short line and one link to the page about it. On a page, inside <pd-components-site-cards>: <pd-components-site-card title=\"…\" image=\"/assets/…\" alt=\"…\" line=\"…\" href=\"…\" link-label=\"…\" />.",
   "type": "object",
   "required": [
     "title",
     "image",
+    "alt",
     "line",
     "href",
     "linkLabel"
@@ -17,7 +18,7 @@
     },
     "image": {
       "type": "string",
-      "description": "A picture of the site, a raster image in the assets: across the card's width under the name, as decoration (the name says what it is). On a phone the slot asks for half the card's width: a smaller file, at a little less sharpness, so the home page's load stays as light as without the cards",
+      "description": "A picture of the site, a raster image in the assets: across the card's width under the name. On a phone the slot asks for half the card's width: a smaller file, at a little less sharpness, so the home page's load stays as light as without the cards",
       "x-pd-image": {
         "widths": [
           320,
@@ -28,6 +29,11 @@
         ],
         "sizes": "(min-width: 64em) 20rem, (min-width: 48em) calc(50vw - 3.5rem), calc(50vw - 1.5rem)"
       }
+    },
+    "alt": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The picture's alt text, one sentence: what the site looks like, which the name and the line don't say. Never \"Screenshot of\", and not the name again"
     },
     "line": {
       "type": "string",
