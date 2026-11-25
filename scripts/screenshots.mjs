@@ -44,7 +44,10 @@ const outDir = join(root, "styleguide/assets/screenshots");
 const videoDir = join(root, "styleguide/assets/videos");
 
 const WORKBENCH = "http://localhost:4300";
-const SITE = "http://live.localhost:4000";
+// SITE_PORT moves this site's `pd dev` off 4000, when another project's holds it: `SITE_PORT=4010 npm run screenshots`.
+// The script starts it there (as PD_PORT) if it isn't running.
+const SITE_PORT = process.env.SITE_PORT || "4000";
+const SITE = `http://live.localhost:${SITE_PORT}`;
 const SITE_PAGE = { url: "/reference/configuration/", file: "site/pages/reference/configuration.md" };
 // The demo's `pd dev`: its site, and its site's workbench (the style guide's components, from the package), on one port.
 const DEMO_PORT = 4100;
@@ -219,10 +222,10 @@ async function reachable(url) {
   }
 }
 
-async function ensureServer(label, url, command) {
+async function ensureServer(label, url, command, env = {}) {
   if (await reachable(url)) return;
   console.log(`${label}: not running, starting it (${command.join(" ")})`);
-  const child = spawn(command[0], command.slice(1), { cwd: root, detached: true, stdio: "ignore" });
+  const child = spawn(command[0], command.slice(1), { cwd: root, detached: true, stdio: "ignore", env: { ...process.env, ...env } });
   children.push(child);
   for (let i = 0; i < 120; i++) {
     if (await reachable(url)) return;
@@ -374,7 +377,7 @@ async function main() {
 
   await ensureServer("workbench", WORKBENCH, ["npm", "run", "dev:styleguide"]);
   const needsSite = SHOTS.some((s) => s.site);
-  if (needsSite) await ensureServer("site", SITE, ["npm", "run", "dev"]);
+  if (needsSite) await ensureServer("site", SITE, ["npm", "run", "dev"], { PD_PORT: SITE_PORT });
 
   const browser = await chromium.launch();
   const missing = [];
