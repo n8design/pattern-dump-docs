@@ -10,7 +10,9 @@ A video that costs nothing until someone plays it. The page shows the poster wit
 Without scripting it still works, with one more click: the first opens the video with its controls, the second plays
 it. With scripting (`video`), opening it plays the video and moves the focus to it. It is muted and has no sound.
 
-`label` is the poster's accessible name, and the only text a screen reader gets for it: say what plays. `src` names
+`label` is the poster's accessible name, and the only text a screen reader gets for it: say what plays. The poster
+image itself has `alt=""` on purpose: it sits inside the `<summary>`, so an alt would be read as part of the label and
+repeat it. `src` names
 both files without the extension: `<src>.av1.mp4` (AV1) first, for the browsers that play it, and `<src>.mp4` (H.264)
 as the fallback for the rest:
 
