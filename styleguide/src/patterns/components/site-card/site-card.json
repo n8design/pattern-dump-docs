@@ -1,6 +1,7 @@
 {
   "title": "The demo",
   "image": "/assets/screenshots/demo-home.webp",
+  "alt": "The demo's cover: the title Pattern Dump on a dark plum panel, over waves running from purple to orange.",
   "line": "A Pattern Dump tour in eleven slides, on Sunset waves.",
   "href": "/in-practice/demo/",
   "linkLabel": "See how the demo is built",
