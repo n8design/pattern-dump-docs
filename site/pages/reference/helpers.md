@@ -82,7 +82,9 @@ Writes an `<img>` for a field that holds the path of an image in the assets. The
 
 `x-pd-image` goes on a property whose `type` is `"string"`, or a list that includes `"string"`, such as `["string", "null"]` for an optional image. Its `widths` are whole numbers above 0, in rising order, and its `sizes` is text without `"`; it takes no other keys. Else: `x-pd-image must be { "widths": [...], "sizes": "..." }: widths whole numbers above 0 in ascending order, sizes the <img> sizes value (with no double quote)`. On a property with no `type`, or whose types don't include `"string"`: `x-pd-image is only for a string property: the path of an image in the assets`.
 
-The `<img>` gets a `srcset` of the slot's widths up to the image's own width (only its own width when every slot width is wider), the slot's `sizes`, `width` and `height`, `loading="lazy"` and `decoding="async"`. `loading="eager"` on the call changes `lazy`. An SVG is one file at its own size.
+The `<img>` gets a `srcset` of the slot's widths up to the image's own width. When a slot width is wider, the image's own width is added, so it is the only one when every slot width is wider. The `<img>` also gets the slot's `sizes`, `width` and `height`, `loading="lazy"` and `decoding="async"`. `loading="eager"` on the call changes `lazy`. An SVG is one file at its own size. [Images](/reference/images/#image-slots) has the widths.
+
+`class="…"` on the call is written on the `<img>`, after `alt`, escaped like every attribute: `{{pd-image image alt="" class="card-image"}}`. An empty class is left out.
 
 In the template
 : A `SCHEMA_INVALID` error for a first argument that isn't a path, for `pd-slot` written by hand, for a field without `x-pd-image`, and for a call without `alt=`. So is a field the schema doesn't declare; Pattern Dump follows the field through `#each` items, `#with`, `../` and `@root`.
