@@ -9,6 +9,7 @@ pd init [folder] [options]
 pd dev [options]
 pd audit [options]
 pd build [options]
+pd social [options]
 pd export [options]
 pd graph [options]
 pd describe <id> [options]
@@ -180,6 +181,36 @@ With a site, the site is on its host and the workbench on `pd.localhost`, and `l
 [dev-server] MCP:       http://<mcp host>:<port>/ (or http://localhost:<port>/mcp)
 ```
 
+### Mounts
+
+`pd dev` serves the folders in `site.mounts` on the site's host, at their routes, reading each file from disk on every request, byte for byte. Nothing watches them: when the other tool builds its folder again, the next reload shows it. A folder's address without its last `/` answers 302 to the address with it. [Navigation and routes](/reference/navigation-and-routes/#mounts) has the routes.
+
+A mount whose folder doesn't exist is one warning at the start, and its addresses are the 404 page until the folder is there. `<from>` is the folder as the config writes it, `<to>` its route:
+
+```text
+[dev-server] site.mounts: <from>, published at <to>, doesn't exist: its addresses are the 404 page until it does; build it, and the next request serves it (pd build stops without it)
+```
+
+A mount that is a file, or that holds a link out of its folder, is a warning at the start too, `[dev-server] ` and the message `pd build` stops on ([Build output](/reference/build-output/#mounts)).
+
+A mounted file where `pd build` would stop is a warning, once per file, and `pd dev` goes on:
+
+A mounted file in the place of one the site writes
+: `[dev-server] site.mounts: <from>/<file> would be published at <path>, which is <claim>: pd dev serves the site's, and pd build stops on it; remove the file from the mount, or publish the mount at another route`. `<claim>` names the site's file, such as `the page /about/`.
+
+Two mounts with the same file
+: `[dev-server] site.mounts: <from>/<file> would be published at <path>, which clashes with <from>/<file>: pd dev serves the first mount's, and pd build stops on it; remove the file from one of the mounts`. The later mount's file comes first, the first mount's after `clashes with`.
+
+### Social images
+
+With `site.socialImages` set, `pd dev` renders a page's social image in Chromium the first time its address is asked for, with the project's own Playwright, and keeps it in the cache `pd build` reads. A card already in the cache or in `social/` is served as it is. A card with problems answers 500, and `pd dev` prints them under `[site] <route>:`. Without Playwright, the page's head names no card, and `pd dev` prints once per page:
+
+```text
+[site] warning: <page>: no social image: its card is missing or stale and Playwright isn't installed: run pd social, or install Playwright
+```
+
+[Search and SEO](/reference/search-and-seo/) has the social image component.
+
 ### Changes while it runs
 
 `pd dev` watches the config file, not the modules it imports. A change to `site.globals` alone is taken live, and every page reloads. Any other change is not taken: `<file> changed: restart pd dev to load it (only site.globals is taken without a restart)`, in the terminal and as a notice in the workbench.
@@ -238,6 +269,42 @@ Writes the workbench, and the site when the project has one, as static files. [B
 : The checks to skip, comma-separated, over `build.skipChecks`: `a11y`, `html`. `--skip-checks=` runs every check.
 
 `build.workbench` has no option. `pd build` exits with 0 once it has written everything, and with 1 and `[pd] Error: <message>`, without a stack trace, on any error.
+
+## `pd social`
+
+Renders the site's social images into the project, to commit, so a build on a host without Chromium uses them. It takes `--root` and `--config` and no other option, and uses the project's own Playwright.
+
+`pd social` renders the same cards `pd build` would, for every page and for the scheduled pages, never for drafts. It writes them to `social/`, beside the pages folder, as `social/<route>/card.<hash>.png`, with the home page's card at the folder's top. A card already there at its hash is kept, one in the cache is copied, and the rest are rendered. Then it removes every other card file in the folder (an old hash, a route that has no card any more) and the folders left empty. Without `site.url`, no page has a card. The hash covers the card's document, the render settings and the Pattern Dump version, so a change to what a card shows, or an upgrade, makes it stale. `pd build` never writes into `social/`.
+
+It prints one line, with `<folder>` relative to the project's root:
+
+```text
+[pd social] <n> social images in <folder>/: <r> rendered, <c> from the cache, <k> already there
+```
+
+When it removed cards, the line goes on with `; 1 old one removed` or `; <n> old ones removed`.
+
+`pd social` exits with 0 once it has written the folder. It exits with 1 and `[pd] Error: <message>` on any error, and one problem writes and removes nothing:
+
+A card with problems
+: `pd social: the site's social images have problems, so nothing was written:`, then one line per problem, as `pd build` reports them.
+
+A page with problems
+: `pd social: the site has problems, so nothing was written:`, then one line per problem.
+
+A project without a site
+: `pd social: the project has no site, so there are no social images to render`.
+
+No social image component
+: `pd social: site.socialImages is not set, so there are no social images to render: set site.socialImages.component`.
+
+No Playwright
+: `pd social needs Playwright in this project: npm install --save-dev playwright, then npx playwright install chromium`.
+
+A Chromium that doesn't start
+: `pd social couldn't start Chromium (<reason>): npm install --save-dev playwright, then npx playwright install chromium`.
+
+[Publish](/guide/publish/#on-a-host-without-chromium) shows it on a host such as Cloudflare Pages. [Build output](/reference/build-output/#social-images) has what `pd build` does with the cards.
 
 ## `pd export`
 

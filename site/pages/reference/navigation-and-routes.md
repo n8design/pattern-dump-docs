@@ -48,7 +48,7 @@ A problem of the pages folder fails every page, each with the folder's problems 
 
 ### Serving
 
-`pd dev` serves `/about` as `/about/`. An address that ends in a file extension, such as `.html`, is not a page and gets the 404 page, except `/404.html` itself. Every address without a page, a generated page or a redirect gets the 404 page with status 404, and so does a page deleted between reading the folder and the request (`there is no page at <route>`). `pd build` writes each page as `<route>/index.html`, and the 404 page as `/404.html`.
+`pd dev` serves `/about` as `/about/`. An address that ends in a file extension, such as `.html`, is not a page and gets the 404 page, except `/404.html` itself and a mounted file ([Mounts](#mounts)). Every address without a page, a generated page or a redirect gets the 404 page with status 404, and so does a page deleted between reading the folder and the request (`there is no page at <route>`). `pd build` writes each page as `<route>/index.html`, and the 404 page as `/404.html`.
 
 ### The base path
 
@@ -177,6 +177,31 @@ An old route Pattern Dump serves
 
 `redirectFrom` on the 404 page
 : `<path>:<line>: the 404 page can't have redirectFrom: it is served for every address that has no page`.
+
+## Mounts
+
+```ts
+export default defineConfig({
+  site: {
+    mounts: [
+      {
+        from: "<folder>",
+        to: "<route>",
+        sitemap: false,
+      },
+    ],
+  },
+});
+```
+
+A mount publishes another tool's folder of finished files at a route of the site, such as an API reference or a demo that tool builds. `from` is the folder, relative to the project's root, and `to` the route, which starts and ends with `/` (`/` for the site's root). Each file of the folder is published at its path under that route, inside the site's base path, and an `index.html` answers for its folder's address. Each mount needs a route of its own, outside the workbench's path. [Configuration](/reference/configuration/) has the keys and their messages.
+
+`pd dev` serves a mount on the site's host, reading each file from disk on every request, as it is, with no base path put in. A rebuild of the other tool shows on the next reload. A folder's address without its last `/` answers 302 to the address with it, so the folder's relative links resolve. While a mount's folder doesn't exist, its addresses get the 404 page, and `pd dev` warns once at the start. A mounted file in the place of one of the site's own is a warning, and `pd dev` serves the site's file. [Command line](/reference/cli/#mounts) has the warnings.
+
+`pd build` copies each mount into the site's output byte for byte, and stops on a mount whose folder is missing or whose file would take the place of one the site writes. [Build output](/reference/build-output/#mounts) has what it refuses.
+
+`site.mounts[i].sitemap`
+: `true` or `false`, default `false`. With `true`, and when the site has a sitemap, every `.html` file of the mount is in `sitemap.xml`, an `index.html` by its folder's address, after the site's own pages and without a date. With `false`, no mounted file is in the sitemap.
 
 ## The 404 page
 
