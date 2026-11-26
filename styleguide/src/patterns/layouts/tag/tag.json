@@ -15,6 +15,7 @@
           "title": "Hello, articles",
           "description": "The example article.",
           "date": "2026-11-14",
+          "dateText": "14 November 2026",
           "updated": null,
           "image": null,
           "tags": [],
