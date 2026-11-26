@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Social image",
+  "description": "A page's link-preview image, 1200 x 630: its section, its title, and the site's wordmark. Pattern Dump renders it for every page without an image of its own (site.socialImages).",
+  "type": "object",
+  "required": [
+    "title"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The page's title, three lines at most"
+    },
+    "section": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The title of the page's top-level folder, such as \"Guide\"; none for a top-level page"
+    },
+    "site": {
+      "type": "object",
+      "description": "site.globals: its title is the wordmark",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The site's title"
+        }
+      }
+    }
+  }
+}

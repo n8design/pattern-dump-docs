@@ -1,0 +1,79 @@
+@use "../base/tokens";
+
+// A page's link-preview card (components/social-image): 1200 x 630, the size Pattern Dump requires, in rem (75rem x
+// 39.375rem at the 16px root it is rendered with). Light, and dark only where data-theme says so: the workbench's dark
+// theme sets it on the preview's body, and pd social renders with no theme, so the published cards are always light,
+// whatever the system setting of the machine that renders them. No prefers-color-scheme here: the scheme and the
+// weights are fixed on the card, so light-dark() and the weight tokens never follow the system.
+.social-image {
+  @include tokens.font-weights(light);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  box-sizing: border-box;
+  inline-size: 75rem;
+  block-size: 39.375rem;
+  padding: 4.5rem;
+  color-scheme: light;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: tokens.$font-body;
+  font-weight: var(--font-weight-body);
+}
+
+[data-theme="dark"] .social-image {
+  @include tokens.font-weights(dark);
+  color-scheme: dark;
+}
+
+.social-image-section {
+  grid-row: 1;
+  margin: 0;
+  font-family: tokens.$font-mono;
+  font-size: 1.75rem;
+  color: var(--color-text-muted);
+}
+
+// The title, set like the hero (layouts/home): Archivo italic, fully expanded. Three lines at most at this size: the
+// longest title of the site (50 characters, the home page's) takes three.
+.social-image-title {
+  grid-row: 2;
+  align-self: end;
+  max-inline-size: 18ch;
+  margin: 0;
+  font-family: tokens.$font-display;
+  font-size: 4.75rem;
+  font-style: italic;
+  font-stretch: 125%;
+  font-weight: var(--font-weight-heading-strong);
+  line-height: 0.98;
+  // At this line height the glyphs reach 2px below the last line box; the padding takes them, so the box holds its
+  // text and Pattern Dump's check (a field's text overflowing its box) passes.
+  padding-block-end: 0.05em;
+  letter-spacing: -0.01em;
+  word-spacing: 0.02em;
+  color: var(--color-heading);
+}
+
+// The wordmark, as in the site header (organisms/site-header), at the card's scale.
+.social-image-site {
+  grid-row: 3;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin: 3rem 0 0;
+  font-family: tokens.$font-display;
+  font-size: 2rem;
+  font-style: italic;
+  font-stretch: 125%;
+  font-weight: var(--font-weight-heading-strong);
+  letter-spacing: -0.01em;
+  color: var(--color-heading);
+}
+
+.social-image-logo {
+  flex: none;
+  inline-size: 3rem;
+  block-size: 3rem;
+  fill: currentColor;
+  color: var(--color-logo);
+}
