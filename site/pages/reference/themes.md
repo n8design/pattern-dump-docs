@@ -19,14 +19,17 @@ A theme fails to compile after an edit in `pd dev`
 : `SCSS error: <error>` in the workbench, as a build error, and no `Theme compile error` warning. The theme keeps its last compiled CSS.
 
 A theme is recompiled after an edit
-: `[dev-server] Theme CSS updated: <name>`.
+: `[dev-server] Theme updated: <name>`.
+
+A theme file is added while `pd dev` runs
+: `[dev-server] Theme added: <name>`. The new theme is compiled, its swatches are read, and it takes its place in the picker's order.
 
 ## Configuration
 
 The [configuration reference](/reference/configuration/#themes) lists these keys with the rest of the config.
 
 `themes`
-: An object, with `themes.default` required and `themes.dir`, `themes.switch` and `themes.swatch` optional.
+: An object, with `themes.default` required and `themes.dir`, `themes.switch`, `themes.order` and `themes.swatch` optional.
 : Without `themes.default`: `missing required "themes.default"`. When another key in `themes` looks like a typo of it, the message adds `(found "themes.<key>": did you mean "themes.default"?)`.
 
 `themes.dir`
@@ -41,8 +44,15 @@ The [configuration reference](/reference/configuration/#themes) lists these keys
 
 `themes.switch`
 : `"attribute"` or `"stylesheet"`.
-: The switch is `"stylesheet"` when this key or any package with themes says so, else `"attribute"`. It applies to every theme, the packages' included.
+: The project's own `themes.switch` wins over a pattern package's. Without it, the switch is `"stylesheet"` when any package with themes says so, else `"attribute"`. It applies to every theme, the packages' included.
+: When a package asks for another switch than the project's, `pd dev` writes a note at start, one per package: `[dev-server] themes.switch is "<switch>", and the pattern package <package> asks for "<value>": the project's setting is used`. `<switch>` is the project's value, `<value>` the package's. Until 0.10.0 a package's `"stylesheet"` won over the project's setting.
 : Any other value: `"themes.switch" must be "attribute" or "stylesheet"`.
+
+`themes.order`
+: A list of theme names. No default.
+: The themes it names come first in the theme picker, in its order. The rest follow sorted by name, with numbers by their value, so `teal2` comes before `teal10`. Without it, every theme is sorted by name.
+: A name no theme has is left out of the order, and the rest of the order still holds. `pd dev` warns at start: `[dev-server] themes.order names "<name>", and no theme has that name: it is left out of the order`.
+: Any other value: `"themes.order" must be a list of strings`.
 
 `themes.swatch.slots`
 : A list of strings, default `["--bodyBackground", "--themePrimary", "--accent"]`, required in a `themes.swatch` object.
@@ -54,9 +64,13 @@ The [configuration reference](/reference/configuration/#themes) lists these keys
 : Every theme stylesheet is linked into each preview. The theme picker sets `data-theme="<name>"` on the preview's `<body>`, or removes it.
 
 `"stylesheet"`
-: Only the active theme is linked, as `<link data-pd-theme="<name>">`, when there is one. The theme picker changes that link's `href`. With no active theme, no theme is linked and the picker has no link to change.
+: Only the active theme is linked, as `<link data-pd-theme="<name>">`, when there is one. With no active theme, no theme is linked and the picker has no link to change.
+: The theme picker loads the new theme's stylesheet beside the current one, and removes the current one once the new one has loaded. The preview is never without a theme, and a switch never reloads it, so its scroll, an open dialog and typed input stay. A newer pick overtakes a switch still loading.
+: A stylesheet that fails to load keeps the current theme. For the preview on the Stage, the Console shows an error: `The theme "<name>" could not be loaded: its stylesheet answered with an error, so the preview keeps its theme`.
 
 In both modes every preview's `<body>` carries `data-theme="<theme>"` when there is a default theme or a known `?theme=`. That theme is the default, or the theme a preview URL's `?theme=<name>` names when it is a known theme. `?theme=` with an unknown name gives the default. With neither, the `<body>` has no `data-theme`.
+
+After a pick, `data-theme` on the preview's `<body>` names the theme in effect, in both modes: at once with `"attribute"`, and with `"stylesheet"` once the new stylesheet has loaded. Until 0.10.0 it stayed on the default with `"stylesheet"`.
 
 In a preview, themes are linked after the base layer and `assets.css`, before the component CSS.
 
@@ -72,7 +86,11 @@ After an edit of a theme's `.scss` in `pd dev`, its swatches are read again with
 
 The picker applies a theme to the preview on the Stage and to every preview in a folder's gallery. With no theme at all it reads "(no theme)".
 
+The picker lists the themes in the same order on every machine: those `themes.order` names first, then the rest sorted by name, whatever order the file system lists them in. Until 0.10.0 they followed the file system's listing, which is sorted on macOS and not on Linux. A theme added or removed while `pd dev` runs takes its place in that order.
+
 The choice is stored in the browser's `localStorage`. Until one is picked, the project's default applies, and a later change of the default carries through.
+
+A component opened on the Stage while another theme than the default is picked is fetched with that theme, so its preview shows it from its first paint.
 
 `?theme=<name>` on a workbench address selects that theme once, when it names a known theme. That theme is then stored, and the parameter is removed from the address. A `?theme=` with an unknown name stays in the address and changes nothing.
 
