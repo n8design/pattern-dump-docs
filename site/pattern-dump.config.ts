@@ -11,7 +11,11 @@ import { dirname, join } from "node:path";
 const changelog = readFileSync(join(dirname(createRequire(join(process.cwd(), "package.json")).resolve("pattern-dump/package.json")), "CHANGELOG.md"), "utf8");
 const released = changelog.match(new RegExp(`^## ${patternDumpPackage.version.replaceAll(".", "\\.")} \\((\\d{4}-\\d{2}-\\d{2})\\)`, "m"))?.[1];
 if (!released) throw new Error(`pattern-dump.config.ts: no "## ${patternDumpPackage.version} (<date>)" heading in pattern-dump's CHANGELOG.md`);
-const patternDumpReleased = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(released));
+// The site's language and date style, set once: site.lang and site.dates below write every page's and entry's dates
+// (page.dateText, an entry's dateText); the release date is no page's date, so it is written here, with the same two.
+const lang = "en-GB";
+const dates = { day: "numeric", month: "long", year: "numeric" } as const;
+const patternDumpReleased = new Intl.DateTimeFormat(lang, { ...dates, timeZone: "UTC" }).format(new Date(released));
 
 // The production build sets these (Cloudflare Pages, scripts/pages-cloudflare.mjs); the draft, local builds and CI
 // leave them unset. PD_SITE_URL is the site's address: canonical URLs, link previews and the sitemap are built from it,
@@ -30,10 +34,10 @@ export default defineConfig({
   site: {
     pagesDir: "./pages",
     outDir: "./dist/site",
-    // British English, which also decides how dates are written for readers: page.dateText and an entry's dateText,
-    // in the style site.dates sets ("26 November 2026").
-    lang: "en-GB",
-    dates: { day: "numeric", month: "long", year: "numeric" },
+    // British English, which also decides how dates are written for readers, in the style site.dates sets
+    // ("26 November 2026"); both from the constants above.
+    lang,
+    dates,
     // The style guide's workbench, published beside the site under /workbench/ (the root's "pages" script). Pattern
     // Dump gives templates site.workbenchUrl: this address in pd build, its own workbench in pd dev. The footer's
     // "Style guide" link and x-ray's labels are built from it.
