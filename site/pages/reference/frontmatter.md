@@ -60,7 +60,26 @@ A line ending in a carriage return alone
 
 ## Keys for the build
 
-Fourteen keys belong to the build and are never passed to the layout: `layout`, `childLayout`, `order`, `redirectFrom`, `index`, `image`, `date`, `updated`, `tags`, `categories`, `draft`, `sort`, `view` and `toc`. A layout schema that declares one fails every page that uses it: `layout "<name>" declares "<key>", which a page sets for the build, not for its layout: rename it in the layout's schema`. `nav` is checked with them. The build keys are checked even when the layout doesn't exist.
+Sixteen keys belong to the build and are never passed to the layout:
+
+- `layout`
+- `childLayout`
+- `order`
+- `redirectFrom`
+- `index`
+- `image`
+- `socialImage`
+- `date`
+- `updated`
+- `tags`
+- `categories`
+- `draft`
+- `sort`
+- `view`
+- `feed`
+- `toc`
+
+A layout schema that declares one fails every page that uses it: `layout "<name>" declares "<key>", which a page sets for the build, not for its layout: rename it in the layout's schema`. `nav` is checked with them. The build keys are checked even when the layout doesn't exist.
 
 `layout`
 : One layout name. Default: the `childLayout` or `childDefaults.layout` of the nearest folder above that sets one, else `page`.
@@ -79,13 +98,19 @@ Fourteen keys belong to the build and are never passed to the layout: `layout`, 
 : `true` or `false`. `false` gives the page `<meta name="robots" content="noindex">`, leaves it out of the sitemap and keeps it out of the search index. Any other value: `index must be true or false`.
 
 `image`
-: The page's image for link previews: a path to a file in the assets, such as `/assets/images/share.png`, else `image must be a path to a file in the assets, such as "/assets/images/share.png"`. The file must exist (`image "<p>" does not exist in the assets`) and be a PNG, JPEG, GIF or WebP by its bytes: `image "<p>" is an SVG; link previews need a raster image (PNG, JPEG, GIF or WebP)`, `image "<p>" is not a PNG, JPEG, GIF or WebP image (read from its bytes, whatever its name)`.
+: The page's image for link previews: a path to a file in the assets, such as `/assets/images/share.png`, or a path relative to the page to an image beside it, such as `./share.png`. In `childDefaults`, a relative path is relative to the folder's `index.md`. Else: `image must be a path to a file in the assets, such as "/assets/images/share.png", or an image beside the page, such as "./share.png"`.
+: A relative path must stay in the pages folder (`image "<p>" is outside the pages folder: a relative image stays inside site.pagesDir`) and name a file there (`image "<p>" is not beside the page: there is no <rel> in the pages folder`). A file in the assets must exist (`image "<p>" does not exist in the assets`). Either must be a PNG, JPEG, GIF or WebP by its bytes: `image "<p>" is an SVG; link previews need a raster image (PNG, JPEG, GIF or WebP)`, `image "<p>" is not a PNG, JPEG, GIF or WebP image (read from its bytes, whatever its name)`. [Search and SEO](/reference/search-and-seo/#link-preview-image) has every message.
+
+`socialImage`
+: A variant of the site's social image component, by its name after `~`, or `false`. A folder's `childDefaults` can set it, and the nearest wins.
+: Left out, the page's link-preview card is the component itself; a variant gives it that design, and `false` gives it none. A page with an `image` gets no card. Set without `site.socialImages`: `socialImage is set, but site.socialImages is not, so there is no social image component: set site.socialImages.component, or remove socialImage`. A name that is no variant: `socialImage "<v>" is not a variant of <c>: its variants are "<a>", "<b>"`, or `: it has no variants`. [Social images](/reference/search-and-seo/#social-images) has the rest.
 
 `date`
-: A real date, `YYYY-MM-DD`. Else: `date "<v>" is not a date: write it YYYY-MM-DD, such as "2026-11-14"`. A date after today holds the page back from `pd build` (see [Drafts and scheduled pages](#drafts-and-scheduled-pages)).
+: A real date, `YYYY-MM-DD`. A date after today holds the page back from `pd build` (see [Drafts and scheduled pages](#drafts-and-scheduled-pages)).
+: A date with a time, a date written email style (as feeds and Hugo write them) and a value with a `#` after it each name the day to write, as the value writes it, in its own offset. See [Date messages](#date-messages).
 
 `updated`
-: A date, not before `date`: `updated <u> is before the page's date, <d>: a page is updated after it is published`.
+: A date, read as `date` is and with the same messages, not before `date`: `updated <u> is before the page's date, <d>: a page is updated after it is published`.
 
 `tags`
 : One value or a list. Without `site.tags` in the config, each is lowercase letters, digits and hyphens (`tags: "<t>" is not a tag: a tag is lowercase letters, digits and hyphens, such as "design-systems"`) and none twice (`tags: "<t>" is listed twice`). With `site.tags`, each is a declared key or an old key.
@@ -103,11 +128,33 @@ Fourteen keys belong to the build and are never passed to the layout: `layout`, 
 `sort`, `view`, `childLayout`
 : Only on a folder's `index.md`, the root's included, else `sort orders a folder's pages, so it belongs on the folder's index.md, not on a page`, `view names how a folder's pages are listed, so it belongs on the folder's index.md, not on a page` and `childLayout sets the layout of a folder's pages, so it belongs on the folder's index.md, not on a page`. `sort` is `order` (the default) or `date`, newest first; `view` and `childLayout` take one name. [Collections and queries](/reference/collections-and-queries/#order) has `sort` and `view`.
 
+`feed`
+: Only on a folder's `index.md`, else `feed sets a folder's feed, so it belongs on the folder's index.md, not on a page`. `true`, `false`, or `limit`, `path`, `atom`, `rss` and `content` indented under it.
+: `false` turns off the feed of a folder with `sort: date`; the indented keys set its length and its file name. [Feeds](/reference/feeds/#which-folders-get-a-feed) has its keys and messages.
+
 There is no `slug`, `permalink` or `url` key: a page's route comes from its file path only. Such a key is an ordinary layout key.
+
+### Date messages
+
+`<key>` is `date` or `updated`, `<v>` the value as written, and `<day>` the day it names, `YYYY-MM-DD`.
+
+A date with a time
+: `<key> "<v>" has a time: a page's <key> is a day, so write the day only, as written: <key>: <day>`
+
+An email-style date
+: `<key> "<v>" is an email-style date: write the day only, YYYY-MM-DD: <key>: <day>`
+
+A value with a `#` after it
+: `<key> "<v>": a "#" starts no comment in frontmatter, so "<#…>" is part of the value: remove it`, with `, and write the day only: <key>: <day>` when what is before the `#` names a day. `<#…>` is the value from the `#` on.
+
+Any other value
+: `<key> "<v>" is not a date: write it YYYY-MM-DD, such as "2026-11-14"`
 
 ## Keys Pattern Dump fills
 
 `body`, `site` and `page` are filled by Pattern Dump, and a page that sets one gets `"<key>" is filled by Pattern Dump, not by a page`. A `required` in the layout's schema that names one is satisfied. The body slot that a layout's `x-pd-content` names is filled too: `"<slot>" is filled by Pattern Dump with the page's markdown (x-pd-content of layout "<n>"), not by a page`.
+
+Pattern Dump writes each date in `page` for readers too: `page.dateText`, `page.createdText` and `page.updatedText`, each `null` where its date is. They are written in `site.lang`, in the style of `site.dates`, and `page.createdText` is the author's day from git. [Layouts](/reference/layouts/#page-data) has every sub-key of `page`.
 
 The keys that name the layout's queries are the build's as well, and go to the query. [Collections and queries](/reference/collections-and-queries/#on-a-page) has their options.
 
@@ -117,6 +164,9 @@ Every other key must be declared in the `properties` of the layout's schema. `ti
 
 An undeclared key
 : `"<key>" is not declared by layout "<name>"`, with `: did you mean "<x>"?` when a declared, reserved or query key is close. A layout with no schema declares nothing: `"<key>" is not declared by layout "<name>", which has no schema`. Nothing is read from the layout's sample data.
+
+Hugo's date keys, undeclared
+: `lastmod`, `publishDate` and `expiryDate`, when the layout doesn't declare them, end the message with what each is here, in place of the suggestion. `lastmod`: `: Hugo's lastmod is "updated" here (updated: YYYY-MM-DD, set for a real change)`. `publishDate`: `: Hugo's publishDate is "date" here (date: YYYY-MM-DD; a date after today keeps the page out of pd build until then)`. `expiryDate`: `: Hugo's expiryDate has no equivalent: a page stays until it is removed, or set draft: true`.
 
 A required key missing
 : `"<key>" is required by layout "<name>"`.
@@ -142,9 +192,9 @@ A folder's `index.md` is the folder's own page, and a page of the folder above i
 
 Defaults apply key by key: the page's own value wins, else the nearest folder that sets the key. A query's options apply option by option, and options from different folders merge. A list is replaced, never joined: a folder's `tags: [guide]` and a page's `tags: [setup]` give `[setup]`. A page that writes a plain value where the folder gives a query's options keeps its plain value.
 
-Some keys can't be defaulted, since they are one page's own or belong to a folder's own `index.md`: `title`, `order`, `redirectFrom`, `date`, `updated`, `sort`, `view`, `childLayout`, `childDefaults`, `body`, `site` and `page`. Each is a problem on the `index.md` at its line, `childDefaults.<k>: "<k>" can't be set for a folder's pages (…): set it on each page`, and never reaches a page. `nav` can be defaulted; on the `index.md` itself it applies to the folder's pages, and a page's own `nav: true` wins.
+Some keys can't be defaulted, since they are one page's own or belong to a folder's own `index.md`: `title`, `order`, `redirectFrom`, `date`, `updated`, `sort`, `view`, `feed`, `childLayout`, `childDefaults`, `body`, `site` and `page`. Each is a problem on the `index.md` at its line, `childDefaults.<k>: "<k>" can't be set for a folder's pages (…): set it on each page`, and never reaches a page. `nav` can be defaulted; on the `index.md` itself it applies to the folder's pages, and a page's own `nav: true` wins.
 
-The `index.md` checks the build keys it gives (`tags`, `categories`, `draft`, `index`, `toc`, `image`) and `layout` once, so a folder without pages is checked too, with messages that start `childDefaults.`, such as `childDefaults.toc must be true or false`. On each page, a default is checked against that page's layout, and a problem names where it came from: `<page> (from the childDefaults of <index.md>, line <n>): <message>`.
+The `index.md` checks the build keys it gives (`tags`, `categories`, `draft`, `index`, `toc`, `image`, `socialImage`) and `layout` once, so a folder without pages is checked too, with messages that start `childDefaults.`, such as `childDefaults.toc must be true or false`. On each page, a default is checked against that page's layout, and a problem names where it came from: `<page> (from the childDefaults of <index.md>, line <n>): <message>`.
 
 The 404 page and the generated tag and category pages take no folder defaults and no `childLayout`.
 
