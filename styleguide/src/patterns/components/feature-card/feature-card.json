@@ -3,5 +3,6 @@
   "title": "Hello, articles",
   "image": "/assets/icon.svg",
   "date": "2026-11-14",
+  "dateText": "14 November 2026",
   "description": "The example article. Copy it to start a new one."
 }

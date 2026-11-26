@@ -33,6 +33,9 @@
         "date": {
           "description": "The page's date, from its frontmatter, for an article"
         },
+        "dateText": {
+          "description": "The page's date as the site writes it for readers, for an article"
+        },
         "tags": {
           "description": "The page's tags, from its frontmatter"
         },
