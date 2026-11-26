@@ -7,8 +7,10 @@ sort: date
 order: 2
 nav: false
 index: false
+socialImage: false
 childDefaults:
   index: false
+  socialImage: false
 ---
 
 This page is `site/pages/articles/index.md`. Every page in this folder is listed below, newest first, in the list view

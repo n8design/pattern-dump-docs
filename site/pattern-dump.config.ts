@@ -44,8 +44,12 @@ export default defineConfig({
     workbenchUrl: "/workbench/",
     // The site's address, from PD_SITE_URL (above); left out when it is unset.
     ...(siteUrl ? { url: siteUrl } : {}),
-    // The link-preview image of every page that names none; used once site.url is set.
+    // The link-preview image of a page that names none and gets no social image; used once site.url is set.
     image: "/assets/social-preview.png",
+    // Every page without an image of its own gets a link-preview card rendered from this component (the style guide's
+    // components/social-image), once site.url is set. Cloudflare's build has no Chromium, so the cards are rendered
+    // with `npx pd social` (from site/, with PD_SITE_URL set) and committed in site/social/.
+    socialImages: { component: "components/social-image" },
     categories: {
       notes: { label: "Notes", description: "Short articles about this site" },
     },
