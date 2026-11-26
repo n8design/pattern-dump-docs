@@ -24,7 +24,7 @@ This site's layouts are in its style guide: `layouts/doc`, which this page uses,
 A page's frontmatter is the data its layout gets, and the layout's schema says what that may be. Every key a page writes falls into one of three groups:
 
 Keys for the build
-: Fourteen keys belong to Pattern Dump, not to the layout: `layout`, `childLayout`, `order`, `redirectFrom`, `index`, `image`, `date`, `updated`, `tags`, `categories`, `draft`, `sort`, `view` and `toc`. They are never passed to the layout, and a layout schema that declares one fails every page using it.
+: Sixteen keys belong to Pattern Dump, not to the layout: `layout`, `childLayout`, `order`, `redirectFrom`, `index`, `image`, `date`, `updated`, `tags`, `categories`, `draft`, `sort`, `view`, `toc`, `socialImage` and `feed`. They are never passed to the layout, and a layout schema that declares one fails every page using it.
 
 Keys Pattern Dump fills
 : `body`, `site` and `page`. A page that sets one gets `"<key>" is filled by Pattern Dump, not by a page`. The fourth, `nav`, is filled for the layout; on a page, `nav: false` keeps the page out of the navigation.
@@ -51,6 +51,7 @@ Some of what a layout shows isn't in the page at all: the headings for a table o
 
 `date`, `created`, `updated`
 : `date` is the page's own, else the day of its first commit in git; `created` is the first commit's date from git; `updated` comes only from the page, never from git.
+: Each date also comes as text for readers, `dateText`, `createdText` and `updatedText`: the same day in the site's language and date style, such as "14 November 2026" on this site, where `en`, the default, writes "November 14, 2026". [Page data](/reference/layouts/#page-data) has the details.
 
 `tags`, `categories`, `term`, `terms`
 : The page's tags and categories as objects, each with its label and the route of its tag or category page; on a tag or category page, the term, or every term on the index.
