@@ -17,7 +17,22 @@ A pages folder with an `index.md` is a collection. Its entries are the folder's 
 
 ## Entries
 
-Every listed page is an entry, with the same fields wherever it is listed: `route`, `title`, `description`, `date`, `updated`, `image`, `tags`, `categories`, `draft` and `scheduled`. These have rules of their own:
+Every listed page is an entry, with the same fields wherever it is listed:
+
+- `route`
+- `title`
+- `description`
+- `date`
+- `dateText`
+- `updated`
+- `updatedText`
+- `image`
+- `tags`
+- `categories`
+- `draft`
+- `scheduled`
+
+These have rules of their own:
 
 `description`
 : The page's `description`, else its teaser: the first paragraph of its body that has text.
@@ -27,6 +42,10 @@ Every listed page is an entry, with the same fields wherever it is listed: `rout
 `date`
 : The page's own `date`, else the day of its first commit in git (`YYYY-MM-DD`), else `null`.
 : In `pd build`, a date that would come from git in a shallow clone is `null`, and the listing gets the shallow-clone problem (see [Dates from git](#dates-from-git)).
+
+`dateText`, `updatedText`
+: `date` and `updated` written for readers, each `null` where its date is `null`. `site.lang` decides the language and `site.dates` the style, by default `{ dateStyle: "long" }`: "November 14, 2026" with `en`, the default, and "14 November 2026" with `en-GB`. [Configuration](/reference/configuration/) has both keys.
+: A card declares them like any other entry field. A page without the date fails a listing whose card requires the text, with the hint `date: YYYY-MM-DD, which it is written from` (for `updatedText`, `updated: YYYY-MM-DD, which it is written from`).
 
 `tags`
 : Objects, each with `key`, `label`, `description` and `route`. A tag in frontmatter is lowercase letters, digits and hyphens.
@@ -51,6 +70,7 @@ sort: date
 `sort`
 : `"order"` (the default) or `"date"`.
 : `order` keeps the folder's order. `date` puts the newest page first, with ties ordered by route.
+: A folder with `sort: date` can have a feed of its newest pages: see [Feeds](/reference/feeds/).
 : On any page but a folder's `index.md`: `sort orders a folder's pages, so it belongs on the folder's index.md, not on a page`. Any other value: `sort must be "date" (newest first) or "order" (the folder's order, the default)`.
 
 A page with no date under `sort: date`
