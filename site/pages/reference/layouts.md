@@ -96,6 +96,10 @@ Pattern Dump fills exactly these sub-keys of `page`, and each query the layout d
 `page.updated`
 : The page's `updated`, else `null`. Never from git.
 
+`page.dateText`, `page.createdText`, `page.updatedText`
+: `page.date`, `page.created` and `page.updated` written for readers, each `null` where its date is `null`. Pattern Dump writes the day in `site.lang`, in the style `site.dates` gives, by default `{ dateStyle: "long" }`: "November 14, 2026" with `en`, the default, and "14 November 2026" with `en-GB`. It formats the day in UTC, so the build machine's time zone never moves it, and `page.createdText` is the author's day of the git date. [Configuration](/reference/configuration/) has both keys.
+: Write the text in a `time` element, with the date in its `datetime`: `<time datetime="{{page.date}}">{{page.dateText}}</time>`.
+
 `page.tags`, `page.categories`
 : `{ key, label, description, route }` each, in the page's order; `[]` without. An undeclared tag's label is its key, and `route` is its tag or category page, or `null`.
 
@@ -181,7 +185,9 @@ A page file at a generated route
 
 The `<head>` holds, in order: the title, the description, the SEO tags, JSON-LD (with `site.url`, not on the 404 page), `/_pd/code.css` on a page that shows code, `partials/head`, `site.head`, the stylesheets (the base layer, `assets.css`, the layout's and its components'), and the module scripts (`globalScripts`, then the scripts the layout and the placed components ask for, each once). There are no theme stylesheets. Every page carries `<meta name="pd-base-path" content="<base>">`, `/` at a host's root.
 
-`partials/head` is rendered with `{ site, body: null, nav: null }`. It may hold only `meta`, `link`, `script`, `style` and `noscript`, and never `<title>`, `<base>`, a canonical link, a `description`, `robots` or `twitter:*` meta, `og:*` or JSON-LD: `partials/head: <x> is written by Pattern Dump on every page; a head partial must not write it`, or `<tag> does not belong in <head>: …`. Text is refused. Its problems are problems of the whole site, and a render error fails every page.
+`partials/head` is rendered with `{ site, body: null, nav: null }`. It may hold only `meta`, `link`, `script`, `style` and `noscript`, and never `<title>`, `<base>`, a canonical link, a `description`, `robots` or `twitter:*` meta, `og:*`, JSON-LD or, since 0.10.0, a feed link: `partials/head: <x> is written by Pattern Dump on every page; a head partial must not write it`, or `<tag> does not belong in <head>: …`. Text is refused.
+
+A feed link is a `<link>` whose `rel` includes `alternate`, with the type `application/atom+xml` or `application/rss+xml`; Pattern Dump links each page's [feeds](/reference/feeds/) itself. Any other alternate, such as a page in another language with `hreflang`, is the skin's. A 0.9.0 skin whose head partial writes a feed link fails every page, with `partials/head: <link rel="alternate" type="application/atom+xml"> is written by Pattern Dump on every page; a head partial must not write it` (or `application/rss+xml`). Remove the link, and set `site.feeds` for the feeds. Its problems are problems of the whole site, and a render error fails every page.
 
 ### Landmarks
 
