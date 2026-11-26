@@ -30,6 +30,10 @@ export default defineConfig({
   site: {
     pagesDir: "./pages",
     outDir: "./dist/site",
+    // British English, which also decides how dates are written for readers: page.dateText and an entry's dateText,
+    // in the style site.dates sets ("26 November 2026").
+    lang: "en-GB",
+    dates: { day: "numeric", month: "long", year: "numeric" },
     // The style guide's workbench, published beside the site under /workbench/ (the root's "pages" script). Pattern
     // Dump gives templates site.workbenchUrl: this address in pd build, its own workbench in pd dev. The footer's
     // "Style guide" link and x-ray's labels are built from it.
