@@ -101,7 +101,7 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 ## Themes
 
 `themes`
-: An object. `themes.default` is required in a `themes` object. `themes.dir`, `themes.switch` and `themes.swatch` are optional.
+: An object. `themes.default` is required in a `themes` object. `themes.dir`, `themes.switch`, `themes.order` and `themes.swatch` are optional.
 
 `themes.dir`
 : A string.
@@ -114,9 +114,15 @@ An object. Default `{ strategy: "parallel", dir: "<sourceDir>/styles" }`.
 
 `themes.switch`
 : `"attribute"` or `"stylesheet"`.
-: The switch is `"stylesheet"` when this key or any package with themes says so, else `"attribute"`.
+: The project's `themes.switch` wins over a pattern package's. Without it, the switch is `"stylesheet"` when any package with themes says so, else `"attribute"`. When a package asks for another switch than the project's, `pd dev` writes a note at start, one per package: `[dev-server] themes.switch is "<switch>", and the pattern package <package> asks for "<value>": the project's setting is used`.
 : `"attribute"` links every theme stylesheet. With `"attribute"`, the theme picker sets `data-theme` on the preview's `<body>`. `"stylesheet"` links only the active theme, as `<link data-pd-theme="<name>">`. With `"stylesheet"`, the theme picker changes that link's `href`.
 : Any other value: `"themes.switch" must be "attribute" or "stylesheet"`.
+
+`themes.order`
+: A list of strings. No default.
+: The order of the theme picker: the themes it names come first, in its order, and the rest follow sorted by name, with numbers by their value (`teal2` before `teal10`). Without it, every theme is sorted by name. [Themes](/reference/themes/#the-theme-picker) has the picker.
+: A name no theme has is left out, and the rest of the order still holds: `[dev-server] themes.order names "<name>", and no theme has that name: it is left out of the order`, a warning at start.
+: Any other value: `"themes.order" must be a list of strings`.
 
 `themes.swatch.slots`
 : A list of strings. Default `["--bodyBackground", "--themePrimary", "--accent"]`. `slots` is required in a `themes.swatch` object.
@@ -243,7 +249,7 @@ A raster image in an image slot is written as WebP variants. A raster image in a
 : `pd build --out` overrides it. Resolved against the root.
 : The folder is replaced as a whole, and only at the end of a build that passed every check. The build writes into a hidden folder beside it, `.<folder name>.pd-build-<process id>`, and renames that into the folder's place. The earlier folder is moved aside first and put back if the rename fails. A build that stops before that step leaves the folder as it was.
 : The workbench takes its place before the site. When the site then can't take its own, the build stops with the workbench folder already replaced: `pd build: the workbench in <dir> is this build's, but the site could not take its place in <dir>: the two are out of step. The site in it is the earlier one; run pd build again.`, with the underlying error on a line of its own. The first `<dir>` is the workbench's folder, the second the site's.
-: It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap anything Pattern Dump reads: the patterns, styles, data, scripts, theme, asset and pages folders, the helpers file or folder, and the site's head file: `pd build: --out <dir> overlaps <kind> <src>, which Pattern Dump reads: choose another folder`, where `<kind>` says which, such as `the data folder`.
+: It may not contain the project: `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`. It may not overlap anything Pattern Dump reads: the patterns, styles, data, scripts, theme, asset and pages folders, the helpers file or folder, the site's head file, the social images folder (with `site.socialImages`) and each mounted folder (`site.mounts`): `pd build: --out <dir> overlaps <kind> <src>, which Pattern Dump reads: choose another folder`, where `<kind>` says which, such as `the data folder`.
 
 `build.basePath`
 : A string. Default `/`.
@@ -295,7 +301,32 @@ export default defineConfig({
 
 `site`
 : An object.
-: `site.pagesDir` and `site.outDir` are required, both strings. Accepts only `pagesDir`, `outDir`, `host`, `workbenchUrl`, `globals`, `url`, `lang`, `index`, `image`, `images`, `head`, `categories`, `tags`, `tagPages`, `categoryPages`, `search`, `llms` and `checks`. Any other key, such as `layouts`, is an unknown key.
+: `site.pagesDir` and `site.outDir` are required, both strings. Any key other than those below, such as `layouts`, is an unknown key.
+
+The keys `site` accepts:
+
+- `pagesDir`
+- `outDir`
+- `host`
+- `workbenchUrl`
+- `globals`
+- `url`
+- `lang`
+- `dates`
+- `index`
+- `image`
+- `images`
+- `head`
+- `categories`
+- `tags`
+- `tagPages`
+- `categoryPages`
+- `search`
+- `llms`
+- `socialImages`
+- `checks`
+- `feeds`
+- `mounts`
 
 `site.pagesDir`
 : A string.
@@ -337,8 +368,58 @@ One folder inside another
 
 `site.lang`
 : A language tag. Default `en`.
-: The `lang` of every page's `<html>`.
+: The `lang` of every page's `<html>`, and the language a page's dates are written in for its readers, in the style of `site.dates`. The starter's config writes `lang: "en"`.
 : Any other value: `"site.lang" must be a language tag, such as "en", "de-AT" or "zh-Hant-TW"`.
+
+### Dates
+
+`site.dates`
+: An object of `Intl.DateTimeFormat` options for a day. Default `{ dateStyle: "long" }`, which writes "November 1, 2026" in `en`.
+: How a page's dates are written for its readers, in the language of `site.lang`: `page.dateText`, `page.createdText` and `page.updatedText`, an entry's `dateText` and `updatedText`, and a social image's `dateText`. Pattern Dump formats each date as the day it is written, in UTC, so the time zone of the machine that builds the site never moves the day.
+
+`site.dates` takes these options:
+
+- `dateStyle`
+- `weekday`
+- `era`
+- `year`
+- `month`
+- `day`
+- `calendar`
+- `numberingSystem`
+
+A date is a day, so `site.dates` refuses the options that write a time or pick a time zone:
+
+- `timeZone`
+- `timeStyle`
+- `hour`
+- `minute`
+- `second`
+- `dayPeriod`
+- `fractionalSecondDigits`
+- `hour12`
+- `hourCycle`
+- `timeZoneName`
+
+In the messages, `<option>` is the option as the config writes it.
+
+Not an object
+: `"site.dates" must be an object of Intl.DateTimeFormat options for a day, such as { dateStyle: "long" }`.
+
+An option for a time
+: `"site.dates.<option>": a page's date is a day, so site.dates takes no time: leave it out`.
+
+`timeZone`
+: `"site.dates.timeZone": a page's date is a day, so site.dates takes no time zone (the day is written as it is, wherever the site is built): leave it out`.
+
+Any other unknown option
+: `unknown key "site.dates.<option>": site.dates takes dateStyle, weekday, era, year, month, day, calendar, numberingSystem`, with `: did you mean "site.dates.<name>"?` at the end when one is close.
+
+`dateStyle` with parts
+: `"site.dates": dateStyle is a whole style, so it can't be set with <parts>: use dateStyle alone, or the parts alone, such as { day: "numeric", month: "long", year: "numeric" }`. `<parts>` names the parts set beside it: `weekday`, `era`, `year`, `month` or `day`.
+
+A value `Intl.DateTimeFormat` refuses
+: `"site.dates": <error>`, where `<error>` is the message of `Intl.DateTimeFormat`. This check runs only when the ones above found no problem in `site.dates`.
 
 ### Search engines and link previews
 
@@ -351,6 +432,15 @@ One folder inside another
 : The link-preview image of every page that names none. Must match `/assets/<file>`, with at least two characters after `/assets/`, no query or fragment, and not ending in `/`.
 : Any other value: `"site.image" must be a path to a file in the assets, such as "/assets/images/share.png"`.
 : The file must exist and be PNG, JPEG, GIF or WebP, read from its bytes.
+
+`site.socialImages`
+: An object, `{ component }`. Off when it is left out.
+: Any other value: `"site.socialImages" must be an object`.
+: Each page without an `image` of its own gets a link-preview image rendered from this component of the style guide. [Social images](/reference/search-and-seo/#social-images) has the rest.
+
+`site.socialImages.component`
+: A component's id, such as `"components/social-image"`. Required in a `site.socialImages` object.
+: Any other value: `"site.socialImages.component" must be a component's id, such as "components/social-image"`. Without it: `missing required "site.socialImages.component"`. Whether the component exists is checked with the site's pages.
 
 `site.images`
 : An object with `quality` and `effort`.
@@ -415,6 +505,81 @@ An alias claimed twice
 : Left out: on when the project has Pagefind, off otherwise. `pd build` writes the index to `_pd/search/` in the site's output.
 : `true` without Pagefind stops `pd build` before anything is built: `pd build: site.search is on, and this project has no Pagefind to build the index with: npm install --save-dev pagefind (or set site.search to false)`.
 : `false` never loads Pagefind.
+
+### Feeds
+
+`site.feeds`
+: `true`, `false` or an object of the feeds' settings. Off when it is left out.
+: Each folder whose `index.md` has `sort: date` gets a feed of its newest pages, and the site a feed across them. A feed needs `site.url`, and a site with `site.index: false` has none. `true` turns them on with the defaults, an object with its settings. [Feeds](/reference/feeds/) has what each feed holds, its file and its address.
+: Any other value: `"site.feeds" must be true, false, or an object of the feeds' settings, such as { author: { name: "The team" } }`.
+
+The object takes these keys:
+
+`site.feeds.format`
+: `"atom"`, `"rss"` or `"both"`. Default `"atom"`.
+: Any other value: `"site.feeds.format" must be "atom" or "rss" or "both"`.
+
+`site.feeds.content`
+: `"summary"`, the only value accepted.
+: What a feed's entry carries: the page's summary. `"full"` is refused: `"site.feeds.content": "full" is not supported yet: use "summary", or leave it out`.
+
+`site.feeds.limit`
+: A whole number of 1 or more. Default `20`.
+: The newest pages each feed lists. Any other value: `"site.feeds.limit" must be a whole number of 1 or more, such as 20`.
+
+`site.feeds.collections`
+: A list of strings. Default: every folder with `sort: date`.
+: Only these folders' feeds, by their paths.
+
+`site.feeds.site`
+: True or false. Default `true`.
+: The site's feed, across the folders' feeds.
+
+`site.feeds.path`
+: A file name ending in `.xml`, or `{ atom, rss }` with `format: "both"`. Default `feed.xml`, and `rss.xml` for the RSS feed in both formats.
+: The site feed's file name, at the site's root. Any other value: `"site.feeds.path" must be a file name ending in .xml, such as "index.xml", or { atom, rss } for a feed in both formats, such as { atom: "feed.xml", rss: "index.xml" }`. `"sitemap.xml"` is refused: `"site.feeds.path": "sitemap.xml" is the site's sitemap: give the feed another name`. [Feeds](/reference/feeds/) has the checks of a name against the format.
+
+`site.feeds.author`
+: `{ name, uri }`, with `name` required in it.
+: Who writes the site. An Atom feed needs a name: `"site.feeds.author.name": an Atom feed needs an author: set site.feeds.author to { name: "<who writes the site>" }, or format: "rss"`. `<who writes the site>` is part of the message, not a placeholder.
+: `site.feeds.author.uri`, when set, must be an absolute http(s) URL: `"site.feeds.author.uri" must be an absolute http(s) URL, such as "https://example.com/about/"`.
+
+### Mounts
+
+`site.mounts`
+: A list of `{ from, to, sitemap }`, with `from` and `to` required in each. No default.
+: Folders of another tool's finished files, each published at a route of the site, unchanged. `pd build` copies them byte for byte into the site's output, after its own files, and checks none of them. `pd dev` serves them from disk. A mounted file in the place of a file the site writes, or of another mount's, stops the build, and so does a missing folder: the other tool's build runs first.
+
+`site.mounts[].from`
+: A string: a folder relative to the project's root, such as `"../docs/tool"`.
+: An empty value, or one that starts with `/`, `~` or a drive letter, is refused.
+
+`site.mounts[].to`
+: A string: the route the folder is published at, before the site's path. It starts and ends with `/`, such as `"/tool/"`, and `"/"` publishes the folder's files at the site's root. No segment is `.` or `..`.
+
+`site.mounts[].sitemap`
+: True or false. Default `false`.
+: `true` puts every `.html` file of the folder in the sitemap, an `index.html` by its folder's URL.
+
+In the messages, `<i>` is the mount's place in the list, from 0, and `<j>` the place of the mount that has the route first.
+
+Not a list
+: `"site.mounts" must be a list of { from, to }, such as [{ from: "../docs/tool", to: "/tool/" }]`.
+
+A mount that is not an object
+: `"site.mounts[<i>]" must be { from, to }, such as { from: "../docs/tool", to: "/tool/" }`.
+
+A `from` that is not relative
+: `"site.mounts[<i>].from" must be a folder relative to the project's root, such as "../docs/tool"`.
+
+A `to` that is not a route
+: `"site.mounts[<i>].to" must be a route that starts and ends with "/", such as "/tool/", or "/" for the site's root`.
+
+Two mounts at one route
+: `"site.mounts[<i>].to": "<to>" is site.mounts[<j>]'s route too: publish each folder at a route of its own`.
+
+A mount at the workbench's path, or inside it
+: `"site.mounts[<i>].to": "<to>" is the workbench's path, site.workbenchUrl "<url>": publish the mount at another route, or give the workbench another address`, with `is inside the workbench's path` for a route under it. It applies when the workbench is on the site's host.
 
 ### Checks
 
