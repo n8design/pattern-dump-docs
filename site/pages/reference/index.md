@@ -7,7 +7,8 @@ order: 6
 
 - [Configuration](/reference/configuration/): every key of `pattern-dump.config.ts`.
 - [Themes](/reference/themes/): theme files, the switch modes, swatches, themes on site pages.
-- [Search and SEO](/reference/search-and-seo/): site search, head tags, JSON-LD, sitemap.xml, robots.txt, llms.txt.
+- [Search and SEO](/reference/search-and-seo/): site search, head tags, link-preview and social images, JSON-LD, sitemap.xml, robots.txt, llms.txt.
+- [Feeds](/reference/feeds/): Atom and RSS feeds for dated folders and the site, their addresses, entries and head links.
 - [Collections and queries](/reference/collections-and-queries/): collections, entries, sort, listing views, cards and query options.
 - [Command line](/reference/cli/): every `pd` command, with its options, messages and exit codes.
 - [MCP server](/reference/mcp/): where the server answers in `pd dev`, `pd mcp`, the seven tools and what they refuse.
