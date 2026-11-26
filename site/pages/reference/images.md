@@ -9,7 +9,7 @@ layout: doc
 ![How a page reaches its layout](#a-page-and-its-layout "A page and its layout")
 ```
 
-Pattern Dump places an image in one of three ways. A template places a raster image from a field with `{{pd-image}}`, in the sizes its schema's slot names. A page's markdown places one from the assets with `![Alt](/assets/…)`, in the sizes its layout names. And a drawing in a `symbols/` folder is placed with `![Alt](#name)`, inlined, in the page's colour tokens. Raster images are served as WebP variants in several widths.
+Pattern Dump places an image in one of three ways. A template places a raster image from a field with `{{pd-image}}`, in the sizes its schema's slot names. A page's markdown places one from the assets with `![Alt](/assets/…)`, or one beside the page with `![Alt](./shot.png)`, in the sizes its layout names. And a drawing in a `symbols/` folder is placed with `![Alt](#name)`, inlined, in the page's colour tokens. Raster images are served as WebP variants in several widths.
 
 ## Image slots
 
@@ -19,27 +19,49 @@ A template places an image from a field with `{{pd-image <field> alt=…}}`, and
 : On a property whose `type` is `"string"`, or a list that includes `"string"`, such as `["string", "null"]` for an optional image: `{ "widths": [...], "sizes": "..." }`. `widths` is a list of whole numbers above 0, in rising order; `sizes` is text without `"`. No other keys.
 : Anything else: `x-pd-image must be { "widths": [...], "sizes": "..." }: widths whole numbers above 0 in ascending order, sizes the <img> sizes value (with no double quote)`. On a property with no `type`, or whose types don't include `"string"`: `x-pd-image is only for a string property: the path of an image in the assets`.
 
-The `<img>` gets the largest variant as `src`, a `srcset` of the slot's widths up to the image's own width (its own width alone when every slot width is wider), the slot's `sizes`, the largest variant's `width` and `height`, `loading="lazy"` (or `eager`, with `loading="eager"`) and `decoding="async"`.
+The `<img>` gets the largest variant as `src`, a `srcset` of the slot's widths up to the image's own width, the slot's `sizes`, the largest variant's `width` and `height`, `loading="lazy"` (or `eager`, with `loading="eager"`) and `decoding="async"`.
+
+When a slot width is wider than the image, the image's own width is added, so its largest variant is the image at its own width, never a wider one. A 602 px image in a slot of 480 and 960 gets `480w, 602w` and `width="602"`; until 0.10.0 it showed at 480. When every slot width is wider, its own width is the only one.
 
 An SVG in the assets is one file at its own size. An SVG with no `width` and `height` and no `viewBox` can't be placed: `… is an SVG with no width and height and no viewBox, so its size can't be known: …`.
 
 ## Images in a page's markdown
 
-On a site page, `![Alt](/assets/<path>)` places an image from the assets. A raster image is written like an image slot's, in the widths the page's layout names with `x-pd-prose-images` at the top of its schema:
+On a site page, `![Alt](/assets/<path>)` places an image from the assets, and `![Alt](./<file>)` one [beside the page](#images-beside-a-page). A raster image is written like an image slot's, in the widths the page's layout names with `x-pd-prose-images` at the top of its schema:
 
 `x-pd-prose-images`
 : `{ "widths": [...], "sizes": "...", "eager": <n> }`, with `eager` a whole number from 0, default 0.
-: The first `eager` images from the assets load at once with `sizes`; the others load lazily, with `sizes="auto, <sizes>"`. An image served as a single file gets no `sizes` or `srcset` but still counts toward `eager`; an image skipped earlier, without alt text, outside `/assets/`, not found or unavailable, does not.
+: The first `eager` images from the assets or beside the page load at once with `sizes`; the others load lazily, with `sizes="auto, <sizes>"`. An image served as a single file gets no `sizes` or `srcset` but still counts toward `eager`; an image skipped earlier, without alt text, neither from the assets nor beside the page, not found or unavailable, does not.
 
-Images outside `/assets/` are left as the markdown writes them.
+An image at any other address, such as `https://…` or a root-relative path outside `/assets/`, is left as the markdown writes it.
+
+### Images beside a page
+
+An image can sit in the pages folder, next to the markdown that shows it: a PNG, JPEG, GIF, WebP or SVG file. A page names it by a path relative to its own folder, `./settings.png` and `settings.png` alike, or `../shared/diagram.svg` from another folder. The path must stay inside the pages folder.
+
+```md
+![The settings screen](./settings.png)
+```
+
+From there it is an image like one from the assets: the same variants in the layout's slot, `eager`, captions, a dark version and the alt-text rule, and an SVG at its own size. Pattern Dump writes it at its absolute URL, so `pages/guide/settings.png` is `/guide/settings.png` and its variants are under `/_pd/images/guide/settings.…`, whether or not the page's address ends in a slash. `pd build` writes only the images a page references.
+
+A page's `image`, its [link-preview image](/reference/search-and-seo/#social-images), may be beside the page too, such as `./share.png`.
+
+An image's file name is part of its URL, so it is lowercase letters, digits and hyphens, then a lowercase extension. Pattern Dump checks every image in the pages folder, and each problem is a problem of the whole site. `<rel>` is the image's path in the pages folder:
+
+A name that can't be part of a URL
+: `<rel>: an image's file name is part of its URL, so it is lowercase letters, digits and hyphens only, then its extension: rename it to <suggestion>`. `Guest_Access.PNG` gives `rename it to guest-access.png`; when nothing of the name is left, the message ends at `its extension`.
+
+An image under a path Pattern Dump serves itself
+: `<rel>: the image /<rel> is under <prefix>, which Pattern Dump serves itself: move it to another folder`, for `/assets/`, `/preview/`, `/api/` and `/source/`.
 
 ### Captions
 
-An image from the assets with a title, on a line of its own, `![Alt](/assets/photo.jpg "Caption")`, is a `<figure class="doc-figure">` in place of its paragraph, with the title as its `<figcaption>`, escaped, and no `title` attribute on the image. In a line of text, the title stays the image's `title`.
+An image with a title on a line of its own, `![Alt](/assets/photo.jpg "Caption")`, is a `<figure class="doc-figure">` in place of its paragraph. That holds for an image from the assets and for one beside the page. The title is its `<figcaption>`, escaped, and the image has no `title` attribute. In a line of text, the title stays the image's `title`.
 
 ### Dark versions
 
-A file named `<name>-dark.<ext>` beside an image from the assets makes the image a `<picture>`: a `<source media="(prefers-color-scheme: dark)">` with the dark file, in the same widths as WebP variants for a raster image, with its own `width` and `height`, and the light image as the `<img>`. With a caption, the `<figure>` wraps the `<picture>`. `pd build` writes the variants of both. A `-dark` file named in the markdown itself shows alone.
+A file named `<name>-dark.<ext>` next to an image, from the assets or beside the page, makes the image a `<picture>`. Its `<source media="(prefers-color-scheme: dark)">` holds the dark file, in the same widths as WebP variants for a raster image, with its own `width` and `height`. The light image is the `<img>`. With a caption, the `<figure>` wraps the `<picture>`. `pd build` writes the variants of both. A `-dark` file named in the markdown itself shows alone.
 
 ### Problems
 
@@ -51,6 +73,12 @@ A raster image on a layout without a slot
 
 An image under `/assets/` that isn't there
 : `the image <src> is not an image in the assets`.
+
+A relative path that leaves the pages folder
+: `the image <src> is outside the pages folder: a relative image stays inside site.pagesDir (an image from elsewhere goes in the assets, as /assets/…)`.
+
+An image beside the page that isn't there
+: `the image <src> is not beside the page: there is no <rel> in the pages folder`.
 
 A dark version that can't be used
 : `the image <src>: its dark version <dark src> can't be used: <reason>`.
@@ -122,7 +150,7 @@ The token values come from the compiled base layer, `/_pd/base.css`, never from 
 
 ## Variants and encoding
 
-Raster images are served as WebP variants, oriented by their EXIF data, never enlarged, without metadata. A variant's address is `/_pd/images/<name>.<key>.<width>.webp`, served with `Cache-Control: public, max-age=31536000, immutable`; its key is a hash of the source, the format, the width, the quality, the effort and sharp's version. An unknown hash, a width beyond the source's or a malformed address answers 404.
+Raster images are served as WebP variants, oriented by their EXIF data, never enlarged, without metadata. A variant's address is `/_pd/images/<name>.<key>.<width>.webp`, served with `Cache-Control: public, max-age=31536000, immutable`. `<name>` is the image's path in the assets or in the pages folder, without its extension, so `assets/guide/shot.png` and `pages/guide/shot.png` share one name and their keys tell them apart. The key is a hash of the source, the format, the width, the quality, the effort and sharp's version. An unknown hash, a width beyond the source's or a malformed address answers 404.
 
 `images.quality`
 : WebP quality, a whole number from 1 to 100. Default: 75. Else: `"images.quality" must be a whole number from 1 to 100 (WebP quality)`.
