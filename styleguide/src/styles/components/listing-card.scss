@@ -1,7 +1,7 @@
 @use "../base/tokens";
 
 .listing-card-title { margin: 0; font-size: var(--font-size-1); }
-.listing-card-date { margin: tokens.$space-xs 0 0; color: var(--color-text-muted); }
+.listing-card-date { margin: tokens.$space-xs 0 0; color: var(--color-text-muted); container: listing-card-date / inline-size; }
 .listing-card-teaser {
   margin: tokens.$space-xs 0 0;
   // The teaser is never shortened in the data: three lines at most here.
@@ -12,3 +12,9 @@
   overflow: hidden;
 }
 .listing-card-tags { display: flex; flex-wrap: wrap; gap: tokens.$space-sm; margin: tokens.$space-xs 0 0; padding: 0; list-style: none; color: var(--color-text-muted); }
+
+// A date is kept on one line where its block has room for the longest one ("28 September 2026", about 9.3em at its
+// own size); narrower (a phone with large text), it may wrap like any text, so it never runs out of the column.
+@container listing-card-date (min-width: 10em) {
+  .listing-card-date time { white-space: nowrap; }
+}

@@ -2,5 +2,11 @@
 
 .feature-card img { display: block; inline-size: 100%; block-size: auto; }
 .feature-card-title { margin: tokens.$space-sm 0 0; font-size: var(--font-size-2); }
-.feature-card-date { margin: tokens.$space-xs 0 0; color: var(--color-text-muted); }
+.feature-card-date { margin: tokens.$space-xs 0 0; color: var(--color-text-muted); container: feature-card-date / inline-size; }
 .feature-card-teaser { margin: tokens.$space-xs 0 0; }
+
+// A date is kept on one line where its block has room for the longest one ("28 September 2026", about 9.3em at its
+// own size); narrower (a phone with large text), it may wrap like any text, so it never runs out of the column.
+@container feature-card-date (min-width: 10em) {
+  .feature-card-date time { white-space: nowrap; }
+}
