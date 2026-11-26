@@ -1,15 +1,15 @@
 ---
 title: Upgrade
-description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.9, 0.8.2, 0.8.1, 0.8 and 0.7.
+description: Move Pattern Dump to a new version: the exact npm version your project pins, what to read first, and what changed in 0.10, 0.9, 0.8.2, 0.8.1, 0.8 and 0.7.
 layout: doc
 order: 10
 ---
 
-`pd init` pins `pattern-dump` to the exact version that ran it, `0.9.0` with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
+`pd init` pins `pattern-dump` to the exact version that ran it, such as `0.10.0`, with no `^`. A new release never arrives on its own: your project changes version when you move the pin, and only then.
 
 ## Move the pin
 
-Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last five.
+Read the release's upgrade notes first: a release's entry in [Releases](/reference/releases/) starts with what to change when you come from the release before, under "Upgrading from". The sections below sum up the last six.
 
 Then install the new version, exactly, in the project folder:
 
@@ -17,7 +17,7 @@ Then install the new version, exactly, in the project folder:
 npm install --save-dev --save-exact pattern-dump@<version>
 ```
 
-`<version>` is the release, such as `0.9.0`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
+`<version>` is the release, such as `0.10.0`, and `--save-exact` keeps the pin exact in `package.json`. In a repository with a style guide and a site as two projects, as in [a site on a style guide](/guide/a-site-on-a-style-guide/), move the pin in both.
 
 Restart `pd dev`, and run the audit and the build:
 
@@ -27,6 +27,20 @@ npm run build
 ```
 
 A release can check more than the one before. An audit or a build that passed can fail after an upgrade, in CI too, and the messages say what to change.
+
+## Upgrading to 0.10
+
+0.10.0 asks one change of a site whose skin's `partials/head` writes a feed link. Pattern Dump now links each page's feeds itself, so a head partial may no longer write one, and a page with such a link fails, in `pd dev` and in the build:
+
+```txt
+partials/head: <link rel="alternate" type="application/atom+xml"> is written by Pattern Dump on every page; a head partial must not write it
+```
+
+An RSS link gets the same message with `application/rss+xml`, and a link in the `site.head` file gets `site.head (<file>): <link rel="alternate" type="application/atom+xml"> is written by Pattern Dump on every page; the site's head must not write it`, where `<file>` is that file. Remove the link, and set `site.feeds` for the feeds ([Feeds](/reference/feeds/)). Any other alternate link, such as one to a page in another language, stays the skin's.
+
+A date with a time, or written email style, now gets a message that names the day to write, such as `date "<value>" has a time: a page's date is a day, so write the day only, as written: date: <YYYY-MM-DD>`, where `<value>` is the value as written. Such a date was a problem before too, with a message that named no day, so a page that built in 0.9 builds in 0.10.
+
+Two things change in the workbench. The project's `themes.switch` now wins over a pattern package's, and `pd dev` writes a note at start when the two differ: a project that sets `"attribute"` beside a package that asks for `"stylesheet"` now gets `"attribute"` ([Themes](/reference/themes/#configuration)). The theme picker lists the themes by name, the same on every machine; `themes.order` puts some first.
 
 ## Upgrading to 0.9
 
