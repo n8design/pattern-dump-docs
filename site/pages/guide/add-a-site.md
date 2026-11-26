@@ -76,6 +76,42 @@ A link to a component's page in the workbench is a markdown link with `pattern:`
 The badge's documentation is in [the workbench](pattern:atoms/badge).
 ```
 
+## An image beside the page
+
+An image can sit next to the page that shows it. Save one as `pages/badge-states.png` and name it by its path from the page:
+
+```md
+![The badge in its default and warning variants](./badge-states.png)
+```
+
+It gets the same WebP variants, caption and dark version as an image from the assets, and its address is `/badge-states.png`. The file name is part of that address, so it is lowercase letters, digits and hyphens. A file named `Badge States.PNG` stops the site, with the name to use:
+
+```txt
+Badge States.PNG: an image's file name is part of its URL, so it is lowercase letters, digits and hyphens only, then its extension: rename it to badge-states.png
+```
+
+[Images beside a page](/reference/images/#images-beside-a-page) has the rules.
+
+## A date for readers
+
+Give the page a date in its frontmatter, `date: 2026-11-14`. Without one, its date is the day git first saw the page. A layout gets the date twice: `page.date` as written, for machines, and `page.dateText`, the same day for readers. The starter's `layouts/page` writes both in a `time` element:
+
+```hbs
+{{#if page.date}}<time datetime="{{page.date}}">{{page.dateText}}</time>{{/if}}
+```
+
+With `en`, the default language, the page shows "November 14, 2026". `site.lang` sets another, and `site.dates` the style:
+
+```ts
+export default defineConfig({
+  site: {
+    lang: "en-GB",
+  },
+});
+```
+
+`en-GB` writes "14 November 2026". [Page data](/reference/layouts/#page-data) has all the dates as text.
+
 ## Your site
 
 The site has a page of your own, with the badge on it, live from the style guide. The pages `pd init` wrote show more of what a page can hold, such as the articles in `pages/articles/` and a table of contents in `pages/guide.md`.
