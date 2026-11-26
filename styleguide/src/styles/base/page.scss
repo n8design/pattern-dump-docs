@@ -10,6 +10,10 @@
 .page-meta,
 .page-body { max-inline-size: var(--reading-column); }
 .page-title { margin-block: 0 tokens.$space-sm; }
+// A title of one long word ("Configuration") is wider than a phone's column at large text sizes. As in the home
+// page's hero (layouts/home): hyphenated where the language allows (the page is lang="en-GB"), and broken anywhere only
+// as the last resort, rather than running out of the column.
+.page-title { hyphens: auto; overflow-wrap: break-word; }
 .page-description { margin-block: 0 tokens.$space-lg; color: var(--color-text-muted); }
 :where(.page-body) iframe { width: 100%; border: 0; }
 .page-meta { margin-block: 0 tokens.$space-lg; color: var(--color-text-muted); }
