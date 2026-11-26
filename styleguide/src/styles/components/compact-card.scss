@@ -1,4 +1,10 @@
 @use "../base/tokens";
 
-.compact-card { margin: 0; }
+.compact-card { margin: 0; container: compact-card / inline-size; }
 .compact-card-date { margin-inline-start: tokens.$space-sm; color: var(--color-text-muted); }
+
+// A date is kept on one line where its block has room for the longest one ("28 September 2026", about 9.3em at its
+// own size); narrower (a phone with large text), it may wrap like any text, so it never runs out of the column.
+@container compact-card (min-width: 10em) {
+  .compact-card-date { white-space: nowrap; }
+}
