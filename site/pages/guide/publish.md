@@ -107,6 +107,43 @@ Any host that serves static files can serve the site: publish `site/` at the roo
 
 The site gets a `robots.txt` when it is at the root of its host. Under a path, it gets none, since crawlers read `robots.txt` only at a host's root, and the build prints the lines to add to the host's own.
 
+## On a host without Chromium
+
+A site with social images (`site.socialImages`) has `pd build` render each page's card in Chromium. A host such as Cloudflare Pages has no Chromium, so render the cards on your machine and commit them:
+
+1. Install Playwright in the project, once: `npm install --save-dev playwright`, then `npx playwright install chromium`.
+2. Run `npx pd social` with `site.url` set, as the host builds it: without `site.url`, no page has a card.
+3. Commit the `social/` folder that `pd social` writes beside the pages folder.
+
+The host's build then takes each card from `social/` and needs no Chromium. A card is made for its page and for the Pattern Dump version, so run `pd social` again after changing a page or upgrading, and commit what changed. It removes the cards no page uses any more.
+
+This site sets `site.url` from `PD_SITE_URL`, runs `npx pd social` in `site/` and commits its cards in `site/social/`. Its Cloudflare Pages build reports:
+
+```txt
+[pd build] social images: 50 pages (50 committed)
+```
+
+A card that is missing or stale doesn't stop the build: the page takes `site.image`, when the site has one, and the summary ends with a `[pd build] NO SOCIAL IMAGE:` line that counts those pages. [Command line](/reference/cli/#pd-social) has what `pd social` prints, and [Build output](/reference/build-output/#social-images) the build's side.
+
+## Another tool's files
+
+Some files of a site come from another tool, such as an API reference it builds. Rather than a workflow step that copies them into the site's output, name their folder in `site.mounts`, with the route to publish it at:
+
+```ts
+export default defineConfig({
+  site: {
+    mounts: [
+      {
+        from: "<folder>",
+        to: "<route>",
+      },
+    ],
+  },
+});
+```
+
+`pd build` copies the folder into the site as it is, and `pd dev` serves it from disk, so a rebuild of the other tool shows on the next reload. The other tool's build runs first: `pd build` stops when the folder is missing, and when one of its files would take the place of one the site writes. [Navigation and routes](/reference/navigation-and-routes/#mounts) has the routes, and [Build output](/reference/build-output/#mounts) what stops the build.
+
 ## Two projects in one repository
 
 A style guide and its site as two projects, as in [the previous step](/guide/a-site-on-a-style-guide/), publish the same way, with the workflow at the repository's root. In place of `npm run build` and the copy, it runs the root's script that builds both and puts them into `_site/`, then deploys `_site/`. This site's workflow does exactly that, with `npm run pages`.

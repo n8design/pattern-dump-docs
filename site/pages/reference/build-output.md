@@ -20,6 +20,7 @@ site/                    the site, for the path in site.url
 ├── _pd/
 ├── assets/
 ├── <page>/              one folder per page
+├── <mount route>/       each folder of site.mounts, as it is
 ├── .nojekyll
 ├── robots.txt
 ├── sitemap.xml
@@ -52,7 +53,7 @@ A folder that contains the project
 : `pd build: --out <dir> would contain the project itself: choose a folder inside or beside it, like ./dist`, and `pd build: site.outDir <dir> would contain the project itself…` for the site.
 
 A folder that overlaps one Pattern Dump reads
-: `pd build: --out <dir> overlaps <kind> <source>, which Pattern Dump reads: choose another folder` when the workbench is built, and `pd build: site.outDir <dir> overlaps <kind> <source>, which Pattern Dump reads: choose another folder` for the site. Both folders are checked against everything Pattern Dump reads: the patterns, styles, data, scripts, theme, asset and pages folders, the helpers file or folder, and the site's head file. `<kind>` says which one, such as `the data folder`.
+: `pd build: --out <dir> overlaps <kind> <source>, which Pattern Dump reads: choose another folder` when the workbench is built, and `pd build: site.outDir <dir> overlaps <kind> <source>, which Pattern Dump reads: choose another folder` for the site. Both folders are checked against everything Pattern Dump reads: the patterns, styles, data, scripts, theme, asset and pages folders, the helpers file or folder, and the site's head file. With `site.socialImages`, the social images folder is one of them, and so is each folder of `site.mounts`. `<kind>` says which one, such as `the data folder` or `the mounted folder <from> (site.mounts)`.
 
 The two outputs overlapping
 : `pd build: site.outDir <a> and --out <b> overlap: the site and the workbench each need a folder of their own`.
@@ -72,14 +73,15 @@ Every check runs before anything is written, in this order:
 
 1. component schemas that aren't valid JSON
 2. symbol images: every source usable, every standalone file answering
-3. the site's pages
-4. the search index, built in memory
-5. links
-6. custom properties
-7. classes
-8. accessibility, with jsdom, and the page basics
-9. the checks in Chromium, with `--browser`
-10. the project's files, for changes since the build started
+3. the social images, each missing one rendered in Chromium
+4. the site's pages, and the mounts
+5. the search index, built in memory
+6. links
+7. custom properties
+8. classes
+9. accessibility, with jsdom, and the page basics
+10. the checks in Chromium, with `--browser`
+11. the project's files, for changes since the build started
 
 Each failing check stops the build with a message that ends `so nothing was written:` and one line per problem.
 
@@ -89,8 +91,11 @@ A component schema that isn't valid JSON
 A symbol image that can't be used
 : `pd build: a symbol image can't be used, so nothing was written:`, for a source no page shows too. Each symbol is then written as `_pd/symbols/<name>.svg` into both outputs.
 
+A social image with problems
+: `pd build: the site's social images have problems, so nothing was written:`, one line per problem. See [Social images](#social-images).
+
 A site page with problems
-: `pd build: the site has problems, so nothing was written:`, one line per problem, a problem of the whole site once.
+: `pd build: the site has problems, so nothing was written:`, one line per problem, a problem of the whole site once. A mount's problems are listed here too ([Mounts](#mounts)).
 
 A broken link
 : `pd build: the site has broken links, so nothing was written:`. Every `href`, `src` and `srcset` address on the site's own host or into the workbench must resolve, on every page and the 404 page, to a built address, the same with a trailing slash, or `…/index.html`; a fragment must match an `id` or an `<a name>` there. Links to other hosts are notes, `an external link, not checked: <url> (on <pages>)`, and `mailto:`, `tel:`, `data:` and `javascript:` are skipped.
@@ -124,7 +129,7 @@ Pagefind
 : Loaded before anything is built. With `site.search: true` and no Pagefind: `pd build: site.search is on, and this project has no Pagefind to build the index with: … (or set site.search to false)`. Unset, the site is indexed when Pagefind is installed; `false` turns search off.
 
 Playwright, for `--browser`
-: The project's own `playwright`, else `@playwright/test`. Missing: `pd build --browser needs Playwright in this project: npm install --save-dev playwright, then npx playwright install chromium`. Chromium not starting: `pd build --browser couldn't start Chromium (…): …`. In a project without a site, `--browser` checks nothing, with the note `--browser checks a site's pages in Chromium, and this project has no site: nothing was checked`.
+: The project's own `playwright`, else `@playwright/test`. The social images use it too, with or without `--browser`; without `--browser`, a missing Playwright doesn't stop the build ([Social images](#social-images)). Missing: `pd build --browser needs Playwright in this project: npm install --save-dev playwright, then npx playwright install chromium`. Chromium not starting: `pd build --browser couldn't start Chromium (…): …`. In a project without a site, `--browser` checks nothing, with the note `--browser checks a site's pages in Chromium, and this project has no site: nothing was checked`.
 
 ### Skipping checks
 
@@ -182,9 +187,72 @@ The site holds every address the check of the site reached, written for its base
 `_pd/search/`
 : The search index.
 
+`_pd/social/<route>/card.<hash>.png`
+: Each page's social image, with `site.socialImages` and `site.url` set; the home page's is `_pd/social/card.<hash>.png`. See [Social images](#social-images).
+
+The feeds
+: Each feed is a file of the site, at its address. [Feeds](/reference/feeds/) has their files and settings.
+
 `redirectFrom` pages are written as pages that forward, and not counted as pages. An address that doesn't answer 200 (404 for the 404 page) is not written and doesn't fail the build. Without `site.url`, the build notes: `site.url is not set, so pages have no canonical URL, og:url, og:image or JSON-LD, and there is no sitemap: set site.url …`.
 
 Every reference to a file Pattern Dump serves (`/_pd/…`, `/assets/…`) in `href`, `src`, `srcset`, `og:image`, `twitter:image` and a JSON-LD `"image"` gets `?v=<content hash>`, and so does a CSS `url()` to anything but another stylesheet. Image variants, a reference with another query or a fragment, and a missing file are left as they are. The workbench links in live examples point at `site.workbenchUrl`.
+
+## Social images
+
+With `site.socialImages` set, `pd build` gives each page that gets a social image its card, before it checks the pages. A card's address is `/_pd/social/<route>/card.<hash>.png`, where `<hash>` is 10 hex digits over the card's document, the render settings and the Pattern Dump version. The build takes the card's bytes from the cache, `node_modules/.cache/pattern-dump/social/`, else from `social/` beside the pages folder, where [`pd social`](/reference/cli/#pd-social) writes them, and renders the rest in Chromium with the project's own Playwright. A card with problems stops the build. [Search and SEO](/reference/search-and-seo/) has the component and which pages get a card.
+
+Without Playwright, the build goes on. Each page without its card takes `site.image`, or has no link-preview image without one, and the summary says so for each page:
+
+```txt
+[pd build]   warning: <page>: no social image: its card is missing or stale and Playwright isn't installed: run pd social, or install Playwright
+```
+
+When Chromium doesn't start, the warning ends `and Chromium didn't start (<reason>): run pd social, or npx playwright install chromium` instead. With `--browser`, a Chromium that doesn't start stops the build.
+
+The summary's next-to-last line counts those pages:
+
+With `site.image`
+: `[pd build] NO SOCIAL IMAGE: <n> pages use the site image instead (run pd social, or install Playwright)`, and for one page `1 page uses the site image instead`.
+
+Without `site.image`
+: `[pd build] NO SOCIAL IMAGE: <n> pages have no link-preview image (run pd social, or install Playwright)`, and for one page `1 page has no link-preview image`.
+
+## Mounts
+
+`site.mounts` publishes the finished files of another tool, such as an API reference, at a route of the site ([Navigation and routes](/reference/navigation-and-routes/#mounts), [Configuration](/reference/configuration/)). `pd build` copies each mount's folder into the site's output byte for byte, last, after every file of its own, and never over one. The link check counts the mounted files as written, so a page can link to one. The summary names them:
+
+```txt
+[pd build] mounts: <n> files (<size>), copied as they are: <to> <n> files (<size>), …
+```
+
+A mounted file may not take the place of a file the site writes. That is a page, an old route from `redirectFrom`, a feed, an image beside the pages, or one of these:
+
+- `sitemap.xml`
+- `robots.txt`
+- `llms.txt`
+- `404.html`
+- `.nojekyll`
+- anything under `/_pd/`, `/assets/`, `/preview/` or `/_pagefind/`
+
+Each of these problems stops the build with `pd build: the site has problems, so nothing was written:`, before anything is written. `<from>` is the mount's folder as the config writes it, `<to>` its route:
+
+A mounted file in the place of one the site writes
+: `site.mounts: <from>/<file> would be published at <path>, which is <claim>: remove the file from the mount, or publish the mount at another route`. `<claim>` names the site's file, such as `the page /about/`, `the site's sitemap.xml`, `the image <path>` or `in _pd/, which Pattern Dump writes`.
+
+Two mounts with the same file
+: `site.mounts: <from>/<file> would be published at <path>, which clashes with <from>/<file>, published at <path>: remove the file from the mount, or publish the mount at another route`, naming the later mount's file first.
+
+A mount whose folder is missing
+: `site.mounts: <from>, published at <to>, doesn't exist: build it before the site (the other tool's build runs first), or remove the mount`.
+
+A mount that is a file
+: `site.mounts: <from> is a file, not a folder: a mount publishes a folder's files at <to>`.
+
+A link in a mount
+: A link to a file inside the mount is published as that file. A link to nothing, to a file outside the mount, or back to a folder above it stops the build: `site.mounts: <from>/<file> is a link <where>: a mount publishes files, and a link is published as the file it points to, inside the mount; copy the file in, or remove the link`, where `<where>` is `to nothing`, `to <target>, outside <from>` or `back to a folder above it`.
+
+A site output inside a mounted folder
+: `pd build: site.outDir <dir> overlaps the mounted folder <from> (site.mounts), which Pattern Dump reads: choose another folder`.
 
 ## The summary
 
@@ -198,15 +266,21 @@ site: <n> pages → <f> files in <dir>  (served from <base>)
 links: <n> references on <p> pages, none broken
 accessibility: <n> pages, no errors
 images: …
+social images: <n> pages (<r> rendered, <c> from the cache, <k> committed, <m> without one:)
 classes: …
 llms.txt: <n> pages
+feeds: <n> files
+mounts: <n> files (<size>), copied as they are: <to> <n> files (<size>), …
 search: <n> pages indexed → <f> files in _pd/search/ (<k> KB)
 drafts: …
 scheduled: …
   not built: …
   note: …
+NO SOCIAL IMAGE: …
 NOT CHECKED: …
 ```
+
+The `social images:` line names only the counts that aren't 0, and leaves the brackets out when none is left. With pages without a card, a `warning:` line per page follows it, and the `NO SOCIAL IMAGE:` line comes next to last ([Social images](#social-images)).
 
 `pd build` exits with 0 after the summary, and with 1 and `[pd] Error: <message>` on any error.
 
